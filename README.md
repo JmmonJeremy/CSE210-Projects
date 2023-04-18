@@ -1,6 +1,6 @@
 # C# Code Demonstrations
 These C# code demonstrations are done by Jeremy Troy Suchanski.
-### <ins> Development Environment </ins>
+## <ins> Development Environment </ins>
 
 This repository contains code for many different C# code projects. They are arranged as follows:
 
