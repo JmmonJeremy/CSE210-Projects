@@ -5,7 +5,6 @@ This repository contains code for many different C# code projects. They are arra
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like.
 * `csharp-prep` - Starter projects for each of the C# Prep assignments.
-
 ###Prep1 Overview
 * `prepare` - Starter projects for each of the preparation Learning Activities.
 * `prove` - Starter projects for each of the prove Developer projects.
