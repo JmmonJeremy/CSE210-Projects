@@ -5,7 +5,7 @@ class Program
     static void Main(string[] args)
     {
         // Greet the student user
-        Console.WriteLine("Hello Prep1 Student Participant!");
+        Console.WriteLine("Welcome to the Prep1 demonstration C# learner!");
         Console.WriteLine("");
 
         // Ask the user for their first and last name
