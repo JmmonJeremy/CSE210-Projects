@@ -7,7 +7,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 * C# for Visual Studio Code (v1.25.4) - powered by OmniSharp
 * Git / GitHub
 
-### <ins> Useful Websites </ins>
+### <ins> Useful Website Links </ins>
 #### &emsp;&#9733; For Visual Studio Code:
 &emsp;:large_blue_diamond: [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
 #### &emsp;&#9733; For C# Language:
@@ -24,7 +24,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 <ul><b>1) Prep1</b>
 <p><ins><b>Overview</b></ins><br>
 This is a basic question & response program using C#. I created this to demonstrate the use of the C# functions: Console.WriteLine() to print statements to the terminal and of Console.ReadLine() to capture responses from users. I also created this to demonstrate the creation and use of C# variables. <br> 
-<ins><b>Useful Websites</b></ins></p></ul>
+<ins><b>Useful Website Links</b></ins></p></ul>
 
 &emsp;&emsp;:large_blue_diamond: [C# Output & Input](https://www.programiz.com/csharp-programming/basic-input-output)<br>
 &emsp;&emsp;:large_blue_diamond: [C# Variables](https://www.tutorialspoint.com/csharp/csharp_variables.htm)
