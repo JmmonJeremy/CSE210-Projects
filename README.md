@@ -1,3 +1,13 @@
+<style>
+
+#main-content h2 {
+
+margin: 0px 0px 0px 0px; 
+
+padding: 0px 0px 0px 0px;}
+  
+</style>
+
 # C# Code Demonstrations
 These C# code demonstrations are done by Jeremy Troy Suchanski.
 ### <ins> Development Environment </ins>
