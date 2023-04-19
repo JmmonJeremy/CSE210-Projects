@@ -23,8 +23,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 #### &emsp; &emsp; 1) Prep1
 &emsp; &emsp; <ins> **Overview** </ins> <br>
 <ul>This is a basic question & response program using C#. I created this to demonstrate the use of the C# functions: Console.WriteLine() to print statements to the terminal and of Console.ReadLine() to capture responses from users. I also created this to demonstrate the creation and use of C# variables. </ul>
-
-<ul><ins> **Useful Websites** </ins></ul> <br>
+<ul><ins><b>Useful Websites</b></ins></ul> <br>
 
     * [C# Output & Input](https://www.programiz.com/csharp-programming/basic-input-output)
     * [C# Variables](https://www.tutorialspoint.com/csharp/csharp_variables.htm)
