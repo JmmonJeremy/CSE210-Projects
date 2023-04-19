@@ -32,6 +32,7 @@ This is a basic question & response program using C#. I created this to demonstr
 
 &emsp;&emsp;:large_blue_diamond: [C# Output & Input](https://www.programiz.com/csharp-programming/basic-input-output)<br>
 &emsp;&emsp;:large_blue_diamond: [C# Variables](https://www.tutorialspoint.com/csharp/csharp_variables.htm)
+---
  
 * **`prepare`** - Starter projects for each of the preparation Learning Activities.
 * **`prove`** - Starter projects for each of the prove Developer projects.
