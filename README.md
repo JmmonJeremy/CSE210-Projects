@@ -21,7 +21,8 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
   </ul>
 </div>
 
-<p>**This repository contains C# code for many different software projects. They are arranged as follows:**</p>
+<p><b>This repository contains C# code for many different software projects. They are arranged as follows:</b></p>
+
 ---
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like. <br>
