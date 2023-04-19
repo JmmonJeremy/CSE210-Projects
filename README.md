@@ -20,6 +20,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
     <summary><h2 style="display: inline-block;">C# Software Projects Organization</h1></summary>
   </ul>
 </div>
+
 **This repository contains C# code for many different software projects. They are arranged as follows:**
 ---
 
