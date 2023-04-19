@@ -7,12 +7,6 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 * C# for Visual Studio Code (v1.25.4) - powered by OmniSharp
 * Git / GitHub
 
-<div id="user-content-toc">
-  <ul>
-    <summary><h1 style="display: inline-block;"><ins>Useful Websites</ins></h1></summary>
-  </ul>
-</div>
-
 ### <ins> Useful Websites </ins>
 #### Visual Studio Code :
 * [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
@@ -20,6 +14,12 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 * [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 #### Dotnet : 
 * [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
+
+<div id="user-content-toc">
+  <ul>
+    <summary><h1 style="display: inline-block;"><ins>C# Software Projects Organization</ins></h1></summary>
+  </ul>
+</div>
 
 ### <ins> C# Software Projects Organization </ins>
 <ins> **This repository contains C# code for many different software projects. They are arranged as follows:** </ins>
