@@ -11,7 +11,7 @@ These C# code demonstrations are done by Jeremy Troy Suchanski.
 * Git / GitHub
 
 ### <ins> Projects </ins>
-This repository contains code for many different C# code projects. They are arranged as follows:
+**This repository contains code for many different C# code projects. They are arranged as follows:**
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like.
 * `csharp-prep` - Starter projects for each of the C# Prep assignments. <br>
