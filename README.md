@@ -18,7 +18,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 # C# Software Projects Organization
 ### This repository contains C# code for several different software projects. They are arranged as follows:
 
-* `**sandbox**` - An empty project that you can use to play around with any concepts you like. <br>
+* **`sandbox`** - An empty project that you can use to play around with any concepts you like. <br>
 * `**csharp-prep**` - Starter projects for each of the C# Prep assignments. <br>
 <ul><b>1) Prep1</b>
    <p><ins><b>Overview</b></ins><br>
