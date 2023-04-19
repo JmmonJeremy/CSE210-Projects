@@ -9,7 +9,7 @@ class Program
         Console.WriteLine("");
         
         // Get the users grade % for input & store it
-        Console.Write("What is your grade percentage?");
+        Console.Write("What is your grade percentage? ");
         string answer = Console.ReadLine();
          // Convert the string into a float
         float gradePercentage = float.Parse(answer);
