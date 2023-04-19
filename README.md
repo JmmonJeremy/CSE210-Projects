@@ -8,11 +8,11 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 * Git / GitHub
 
 ### <ins> Prep1 Useful Websites </ins>
-**Visual Studio Code :**
+##### Visual Studio Code :
 * [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
-<br>**C# Language :**
+##### C# Language :
 * [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
-<br>**Dotnet :** 
+##### Dotnet : 
 * [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
 
 ### <ins> C# Software Projects Organization </ins>
