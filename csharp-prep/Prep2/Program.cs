@@ -14,34 +14,37 @@ class Program
          // Convert the string into a float
         float gradePercentage = float.Parse(answer);
         // Create a variable for the Letter Grade
-        string grade;
+        string letter;
 
         // Determine grade from the percentage
         if (gradePercentage >= 90)
         {
-            grade = "A";
-            Console.WriteLine($"Your letter grade is an {grade}");
+            letter = "A";
+            // Console.WriteLine($"Your letter grade is an {letter}");
         }
         else if (gradePercentage >= 80)
         {
-            grade = "B";
-            Console.WriteLine($"Your letter grade is a {grade}");
+            letter = "B";
+            // Console.WriteLine($"Your letter grade is a {letter}");
         }
         else if (gradePercentage >= 70)
         {
-            grade = "C";
-            Console.WriteLine($"Your letter grade is a {grade}");
+            letter = "C";
+            // Console.WriteLine($"Your letter grade is a {letter}");
         }
         else if (gradePercentage >= 60)
         {
-            grade = "D";
-            Console.WriteLine($"Your letter grade is a {grade}");
+            letter = "D";
+            // Console.WriteLine($"Your letter grade is a {letter}");
         }
         else
         {
-            grade = "F";
-            Console.WriteLine($"Your letter grade is an {grade}");
+            letter = "F";
+            // Console.WriteLine($"Your letter grade is an {letter}");
         }
+
+        // Do one print statement outside if else statements
+        Console.WriteLine($"{letter} is the letter grade you have earned.")
         
         // Determine if the user passed
         if (gradePercentage >= 70)
