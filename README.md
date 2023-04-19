@@ -10,8 +10,8 @@ These C# code demonstrations are done by Jeremy Troy Suchanski.
 * C# for Visual Studio Code (v1.25.4) - powered by OmniSharp
 * Git / GitHub
 
-### <ins> C# Software Organization of Projects </ins>
-This repository contains C# code for many different software projects. They are arranged as follows:
+### <ins> C# Software Projects Organization </ins>
+**This repository contains C# code for many different software projects. They are arranged as follows:**
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like.
 * `csharp-prep` - Starter projects for each of the C# Prep assignments. <br>
