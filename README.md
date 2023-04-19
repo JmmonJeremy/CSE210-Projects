@@ -1,13 +1,6 @@
-<style>
-
-#main-content h3 {
-
-margin: 0px 0px 0px 0px; 
-
-padding: 0px 0px 0px 0px;}
-  
-</style>
-
+h3 {
+    margin: 0;
+}
 # C# Code Demonstrations
 These C# code demonstrations are done by Jeremy Troy Suchanski.
 ### <ins> Development Environment </ins>
