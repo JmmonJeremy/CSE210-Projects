@@ -9,11 +9,11 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 
 ### <ins> Useful Websites </ins>
 #### Visual Studio Code :
-&emsp;&emsp;:large_blue_diamond: [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
+&emsp;:large_blue_diamond: [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
 #### C# Language :
-&emsp;&emsp;:large_blue_diamond: [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+&emsp;:large_blue_diamond: [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 #### Dotnet : 
-&emsp;&emsp;:large_blue_diamond: [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
+&emsp;:large_blue_diamond: [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
 
 # C# Software Projects Organization
 ### This repository contains C# code for several different software projects. They are arranged as follows:
