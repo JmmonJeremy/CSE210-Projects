@@ -20,7 +20,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like. <br>
 * `csharp-prep` - Starter projects for each of the C# Prep assignments. <br> <br>
-<ins> **Prep1 Overview** </ins> <br>
+    1. <ins> **Prep1 Overview** </ins> <br>
 This is a basic question & response program using C#. I created this to demonstrate the use of the C# functions: Console.WriteLine() to print statements to the terminal and of Console.ReadLine() to capture responses from users. I also created this to demonstrate the creation and use of C# variables. <br>
 <ins> **Prep1 Useful Websites** </ins> <br>
     * [C# Output & Input](https://www.programiz.com/csharp-programming/basic-input-output)
