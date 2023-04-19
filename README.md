@@ -2,6 +2,11 @@
 These C# code demonstrations are done by Jeremy Troy Suchanski.
 ### <ins> Development Environment </ins>
 
+* Visual Studio Code
+*.NET 7.0 SDK (v7.0.203) - Windows x64
+* C# for Visual Studio Code (v1.25.4) - powered by OmniSharp
+* Git / GitHub
+
 This repository contains code for many different C# code projects. They are arranged as follows:
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like.
