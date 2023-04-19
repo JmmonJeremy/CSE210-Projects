@@ -25,17 +25,17 @@ class Program
         else if (gradePercentage >= 80)
         {
             grade = "B";
-            Console.WriteLine($"Your letter grade is an {grade}");
+            Console.WriteLine($"Your letter grade is a {grade}");
         }
         else if (gradePercentage >= 70)
         {
             grade = "C";
-            Console.WriteLine($"Your letter grade is an {grade}");
+            Console.WriteLine($"Your letter grade is a {grade}");
         }
         else if (gradePercentage >= 60)
         {
             grade = "D";
-            Console.WriteLine($"Your letter grade is an {grade}");
+            Console.WriteLine($"Your letter grade is a {grade}");
         }
         else
         {
