@@ -15,15 +15,8 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 #### Dotnet : 
 * [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
 
-<div id="user-content-toc">
-  <ul>
-    <summary><h1 style="display: inline-block;">C# Software Projects Organization</h1></summary>
-  </ul>
-</div>
-
 # C# Software Projects Organization
-
-<p><b>This repository contains C# code for many different software projects. They are arranged as follows:</b></p>
+**This repository contains C# code for many different software projects. They are arranged as follows:**
 
 ---
 
