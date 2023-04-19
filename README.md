@@ -7,7 +7,12 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 * C# for Visual Studio Code (v1.25.4) - powered by OmniSharp
 * Git / GitHub
 
-### <ins> Prep1 Useful Websites </ins>
+<div id="user-content-toc">
+  <ul>
+    <summary><h1 style="display: inline-block;">Useful Websites</h1></summary>
+  </ul>
+</div>
+### <ins> Useful Websites </ins>
 #### Visual Studio Code :
 * [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
 #### C# Language :
