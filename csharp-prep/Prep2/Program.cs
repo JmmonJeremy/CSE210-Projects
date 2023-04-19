@@ -42,7 +42,15 @@ class Program
             grade = "F";
             Console.WriteLine($"Your letter grade is an {grade}");
         }
-
-
+        
+        // Determine if the user passed
+        if (gradePercentage >= 70)
+        {
+            Console.WriteLine("Congratulations! You passed the class!");
+        }
+        else
+        {
+            Console.WriteLine("I am sorry you didn't pass, but I know you can do it if you try again!");
+        }
     }    
 }
