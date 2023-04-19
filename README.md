@@ -17,11 +17,11 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 
 <div id="user-content-toc">
   <ul>
-    <summary><h1 style="display: inline-block;"><ins>C# Software Projects Organization</ins></h1></summary>
+    <summary><h1 style="display: inline-block;">C# Software Projects Organization</h1></summary>
   </ul>
 </div>
 
-<ins> **This repository contains C# code for many different software projects. They are arranged as follows:** </ins>
+**This repository contains C# code for many different software projects. They are arranged as follows:**
 ---
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like. <br>
