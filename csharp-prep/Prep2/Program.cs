@@ -44,7 +44,7 @@ class Program
         }
 
         // Do one print statement outside if else statements
-        Console.WriteLine($"{letter} is the letter grade you have earned.")
+        Console.WriteLine($"{letter} is the letter grade you have earned.");
         
         // Determine if the user passed
         if (gradePercentage >= 70)
