@@ -11,11 +11,11 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 ### <ins> Useful Website Links </ins>
 #### &ensp;&#9733; For Visual Studio Code:
 &emsp;:large_blue_diamond: [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
-#### &emsp;&#9733; For Git / GitHub:
+#### &ensp;&#9733; For Git / GitHub:
 &emsp;:large_blue_diamond: [Git & Version Control](https://docs.github.com/en/get-started/using-git/about-git)
-#### &emsp;&#9733; For C# Language:
+#### &ensp;&#9733; For C# Language:
 &emsp;:large_blue_diamond: [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
-#### &emsp;&#9733; For dotnet: 
+#### &ensp;&#9733; For dotnet: 
 &emsp;:large_blue_diamond: [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
 
 # C# Software Projects Organization
