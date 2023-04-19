@@ -3,9 +3,10 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 ### <ins> Development Environment </ins>
 
 * Visual Studio Code
-*.NET 7.0 SDK (v7.0.203) - Windows x64
-* C# for Visual Studio Code (v1.25.4) - powered by OmniSharp
 * Git / GitHub
+* C# for Visual Studio Code (v1.25.4) - powered by OmniSharp
+* .NET 7.0 SDK (v7.0.203) - Windows x64
+
 
 ### <ins> Useful Website Links </ins>
 #### &emsp;&#9733; For Visual Studio Code:
