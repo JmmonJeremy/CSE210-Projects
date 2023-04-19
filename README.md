@@ -1,6 +1,6 @@
 <style>
 
-#main-content h2 {
+#main-content h3 {
 
 margin: 0px 0px 0px 0px; 
 
