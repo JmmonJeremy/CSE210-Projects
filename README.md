@@ -27,7 +27,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 <ul><b>1) Prep1</b>
 <p><ins><b>Overview</b></ins><br>
 This is a basic question & response program using C#. I created this to demonstrate the use of the C# functions: Console.WriteLine() to print statements to the terminal and of Console.ReadLine() to capture responses from users. I also created this to demonstrate the creation and use of C# variables. <br>
-:eyeglasses: :tv: :cyclone: You can watch a demo of this software here: :large_blue_diamond: <a href="https://youtu.be/3P_2wxxeNUQ">Software Demo Video</a> <br>
+:eyes: :eyeglasses: :tv: :cyclone: You can watch a demo of this software here: :large_blue_diamond: <a href="https://youtu.be/3P_2wxxeNUQ">Software Demo Video</a> <br>
 <ins><b>Useful Website Links</b></ins></p></ul>
 
 &emsp;&emsp;:large_blue_diamond: [C# Output & Input](https://www.programiz.com/csharp-programming/basic-input-output)<br>
