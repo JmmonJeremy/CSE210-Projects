@@ -21,8 +21,8 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
   </ul>
 </div>
 
-### <ins> C# Software Projects Organization </ins>
 <ins> **This repository contains C# code for many different software projects. They are arranged as follows:** </ins>
+---
 
 * `sandbox` - An empty project that you can use to play around with any concepts you like. <br>
 * `csharp-prep` - Starter projects for each of the C# Prep assignments. <br> <br>
