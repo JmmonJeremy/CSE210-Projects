@@ -9,7 +9,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 
 
 ### <ins> Useful Website Links </ins>
-#### &emsp;&#9733; For Visual Studio Code:
+#### &ensp;&#9733; For Visual Studio Code:
 &emsp;:large_blue_diamond: [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
 #### &emsp;&#9733; For Git / GitHub:
 &emsp;:large_blue_diamond: [Git & Version Control](https://docs.github.com/en/get-started/using-git/about-git)
