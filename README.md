@@ -9,9 +9,10 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 
 <div id="user-content-toc">
   <ul>
-    <summary><h1 style="display: inline-block;">Useful Websites</h1></summary>
+    <summary><h1 style="display: inline-block;"><ins>Useful Websites</ins></h1></summary>
   </ul>
 </div>
+
 ### <ins> Useful Websites </ins>
 #### Visual Studio Code :
 * [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
