@@ -8,7 +8,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 * Git / GitHub
 
 ### <ins> Useful Websites </ins>
-#### Visual Studio Code :
+#### * Visual Studio Code :
 &emsp;:large_blue_diamond: [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
 #### C# Language :
 &emsp;:large_blue_diamond: [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
