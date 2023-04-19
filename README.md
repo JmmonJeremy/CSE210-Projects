@@ -9,11 +9,11 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 
 ### <ins> Useful Websites </ins>
 #### Visual Studio Code :
-* [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
+&emsp;&emsp;:large_blue_diamond: [Visual Studio Code & GitHub](https://code.visualstudio.com/docs/sourcecontrol/overview)
 #### C# Language :
-* [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+&emsp;&emsp;:large_blue_diamond: [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 #### Dotnet : 
-* [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
+&emsp;&emsp;:large_blue_diamond: [.NET 7.0 SDK (v7.0.203) - Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.203-windows-x64-installer?journey=vs-code)
 
 # C# Software Projects Organization
 ### This repository contains C# code for several different software projects. They are arranged as follows:
@@ -24,7 +24,8 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 <ul><b>1) Prep1</b>
 <p><ins><b>Overview</b></ins><br>
 This is a basic question & response program using C#. I created this to demonstrate the use of the C# functions: Console.WriteLine() to print statements to the terminal and of Console.ReadLine() to capture responses from users. I also created this to demonstrate the creation and use of C# variables. <br> 
-<ins><b>Useful Websites</b></ins></p></ul><br>
+<ins><b>Useful Websites</b></ins></p></ul>
+
 &emsp;&emsp;:large_blue_diamond: [C# Output & Input](https://www.programiz.com/csharp-programming/basic-input-output)<br>
 &emsp;&emsp;:large_blue_diamond: [C# Variables](https://www.tutorialspoint.com/csharp/csharp_variables.htm)
  
