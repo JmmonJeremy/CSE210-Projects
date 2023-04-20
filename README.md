@@ -43,9 +43,9 @@ This program uses C# to show the use of conditionals. I created this to demonstr
 :cyclone: :eyes: :tv: $\textcolor{brown}{\textsf{You can watch a demo of this software at this link:}}$ :large_blue_diamond: <a href="https://youtu.be/vx01q9n1dfU">Software Demo Video</a> <br>
 <ins><b>Useful Website Links</b></ins></p></ul>
 
+&emsp;&emsp;:large_blue_diamond: [C# Type Conversion](https://www.programiz.com/csharp-programming/type-conversion)<br>
 &emsp;&emsp;:large_blue_diamond: [C# Conditions and If Statements](https://www.w3schools.com/cs/cs_conditions.php)<br>
-&emsp;&emsp;:large_blue_diamond: [C# Arithmetic Operators](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators#remainder-operator-)<br>
-&emsp;&emsp;:large_blue_diamond: [C# Type Conversion](https://www.programiz.com/csharp-programming/type-conversion)
+&emsp;&emsp;:large_blue_diamond: [C# Arithmetic Operators](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators#remainder-operator-)
 
 --- 
 * **`prepare`** - Starter projects for each of the preparation Learning Activities.
