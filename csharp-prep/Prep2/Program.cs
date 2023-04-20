@@ -43,6 +43,22 @@ class Program
             // Console.WriteLine($"Your letter grade is an {letter}");
         }
 
+        // Create variable to hold grade sign
+        string sign;
+        // Determine if the letter grade is a + or a -
+        float lastNumber = gradePercentage % 10;
+        if (lastNumber >= 7)
+        {
+            sign = "+";
+        }else{
+            sign = "-";
+        }
+        // Determine if symbol should be added and add it if so
+        if (gradePercentage < 97 && gradePercentage >= 60)
+        {
+            letter = letter + sign;
+        }
+
         // Do one print statement outside if else statements
         Console.WriteLine($"{letter} is the letter grade you have earned.");
         
