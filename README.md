@@ -29,7 +29,7 @@ I created this to demonstrate the use of Visual Studio Code, GitHub, and C# inte
 <ul><b>1) Prep1</b>
 <p><ins><b>Overview</b></ins><br>
 This is a basic question & response program using C#. I created this to demonstrate the use of the C# functions: Console.WriteLine() to print statements to the terminal and of Console.ReadLine() to capture responses from users. I also created this to demonstrate the creation and use of C# variables. <br>
-:cyclone: :eyes: :tv: $\textcolor{brown}{\textsf{You can watch a demo of this software at these video links:}}$ :large_blue_diamond: <a href="https://youtu.be/ax2_TQPnVXM">YouTube</a> :large_blue_diamond: <a href="https://rumble.com/v2jcri8-learning-c-project-1.html">Rumble</a><br>
+:cyclone: :eyes: :tv: $\textcolor{brown}{\textsf{You can watch a demo of this software at these video links:}}$ :large_blue_diamond: <a href="https://youtu.be/ax2_TQPnVXM">YouTube</a> or :large_blue_diamond: <a href="https://rumble.com/v2jcri8-learning-c-project-1.html">Rumble</a><br>
 <ins><b>Useful Website Links</b></ins></p></ul>
 
 &emsp;&emsp;:large_blue_diamond: [C# Output & Input](https://www.programiz.com/csharp-programming/basic-input-output)<br>
@@ -40,7 +40,7 @@ This is a basic question & response program using C#. I created this to demonstr
 <ul><b>2) Prep2</b>
 <p><ins><b>Overview</b></ins><br>
 This program uses C# to show the use of conditionals. I created this to demonstrate the use of the C# if, if else, and else statements. I also created this to demonstrate transitioning string variable types into float variable types. <br>
-:cyclone: :eyes: :tv: $\textcolor{brown}{\textsf{You can watch a demo of this software at these video links:}}$ :large_blue_diamond: <a href="https://youtu.be/YChNzS7Nfzg">YouTube</a> :large_blue_diamond: <a href="https://rumble.com/v2jctla-learning-c-project-2.html">Rumble</a><br>
+:cyclone: :eyes: :tv: $\textcolor{brown}{\textsf{You can watch a demo of this software at these video links:}}$ :large_blue_diamond: <a href="https://youtu.be/YChNzS7Nfzg">YouTube</a> or :large_blue_diamond: <a href="https://rumble.com/v2jctla-learning-c-project-2.html">Rumble</a><br>
 <ins><b>Useful Website Links</b></ins></p></ul>
 
 &emsp;&emsp;:large_blue_diamond: [C# Type Conversion](https://www.programiz.com/csharp-programming/type-conversion)<br>
