@@ -8,11 +8,19 @@ class Program
         Console.WriteLine("Welcome to the Prep3 demonstration C# learners!");
         Console.WriteLine("");
 
+        // Create variable to hold the number to guess
+        int magicNumber;
+
         // Ask the user to input a number for the magic number & store it in a variable
-        Console.Write("What is the magic number? ");
+        Console.Write("What is the magic number? ");        
         string givenNumber = Console.ReadLine();
-        // Convert string answer to int type
-        int magicNumber = int.Parse(givenNumber);
+        // Convert string answer to int type        
+        magicNumber = int.Parse(givenNumber);
+
+        // Have number to guess be created randomly
+        Random randomGenerator = new Random();
+        magicNumber = randomGenerator.Next(1, 101);
+        
         // Create variable to hold the string guess given converted into an int type
         int guess;
 
