@@ -17,6 +17,13 @@ class Program
         // // Convert string answer to int type        
         // magicNumber = int.Parse(givenNumber);
 
+        
+        // Create variable to determine if user wants to continue playing
+        string playOn = "yes";
+
+        // Start over if user wants to play again
+        do
+        {
         // Have number to guess be created randomly
         Random randomGenerator = new Random();
         magicNumber = randomGenerator.Next(1, 101);
@@ -51,8 +58,16 @@ class Program
             else
             {
                 Console.WriteLine($"You guessed it in {count} guesses!");
+                Console.Write("Do you want to play again? ");
+                playOn = Console.ReadLine();
+                // Say goodbye if user wants to quit
+                if (playOn != "yes")
+                {                  
+                    Console.WriteLine("Thanks for playing! Hope to see you again soon!!");
+                }
             }            
         } while (guess != magicNumber);
+        } while (playOn == "yes");
 
     }
 }
