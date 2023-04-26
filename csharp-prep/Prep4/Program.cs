@@ -15,20 +15,22 @@ class Program
         // Create variable to hold the sum
         int sum = 0;
        
-        // Ask user for a list of numbers
-        Console.WriteLine("Enter a list of numbers, type 0 when finished.");        
+        // // Ask user for a list of numbers
+        // Console.WriteLine("Enter a list of numbers, type 0 when finished."); 
+        // Ask user for a list of positive & negative numbers   
+        Console.WriteLine("Enter a list of both positive and negative numbers, type 0 when finished.");  
         // Continue asking until 0 is entered
         while (number !=0)
         {
-        Console.Write("Enter number: ");
-        string answer = Console.ReadLine();
-        // Convert string answer into int number
-        number = int.Parse(answer);               
-        // Put given numbers into a storage list
-        if (number != 0)
-        {
-            numbers.Add(number);
-        }
+            Console.Write("Enter number: ");
+            string answer = Console.ReadLine();
+            // Convert string answer into int number
+            number = int.Parse(answer);               
+            // Put given numbers into a storage list
+            if (number != 0)
+            {
+                numbers.Add(number);
+            }
         
         }
 
@@ -55,5 +57,24 @@ class Program
             }
         }
         Console.WriteLine($"The largest number is: {max}");
+
+        // Create varialbe to hold the smallest positive number
+        int posMin = max; 
+        // Give the smallest positive number
+        for (int i = 0; i < total; i++)
+        {
+            if (numbers[i] < max && numbers[i] > 0)
+            {
+                posMin = numbers[i];
+            }
+        }
+        Console.WriteLine($"The smallest positive number is: {posMin}");
+        // Sort the list from smallest to largest & display them
+        numbers.Sort();
+        Console.WriteLine("The sorted list is:");
+        foreach (int digit in numbers)
+        {
+            Console.WriteLine(digit);
+        }
     }
 }
