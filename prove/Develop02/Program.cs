@@ -4,6 +4,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+        // while ()
+        Prompt prompter = new Prompt();
+       
+        while (prompter._time == prompter.Clock())
+        {
+            Console.WriteLine($"{prompter._time} = {prompter.Clock()}");
+        }
+        Console.WriteLine(prompter.SelectPrompt());
+        prompter.ListPrompts();
     }
 }
