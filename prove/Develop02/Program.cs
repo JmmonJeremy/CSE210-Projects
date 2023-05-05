@@ -9,6 +9,7 @@ class Program
         // display a message on how to stop the autoprompter
         Console.WriteLine("\nPress Enter to deactivate the autoprompter...");
         // display a message on when the autoprompter was started
+        // reference source: https://www.softwaretestinghelp.com/c-sharp/charp-date-time-format/
         DateTime startTime = DateTime.Now;
         Console.Write($"The autoprompter feature was activated on {startTime.ToString("D")} ");
         Console.WriteLine($"({startTime.ToString("t")})\n");
