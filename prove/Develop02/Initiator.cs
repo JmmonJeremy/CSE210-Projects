@@ -57,6 +57,7 @@ public class Initiator
     }
 
     // method that starts the countdown to the Journal autoprompt
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer?view=net-8.0
     public void StartTimer()
     {    
       // variable to hold the time for the next prompt
@@ -85,9 +86,11 @@ public class Initiator
     }
 
     // method to run the journal prompt and user choices
+    // reference source: https://social.technet.microsoft.com/wiki/contents/articles/37252.c-timer-schedule-a-task.aspx
     private static void AutoPrompt(Object source, ElapsedEventArgs e)
     { 
       // display the current date and time
+      // reference source: https://stackoverflow.com/questions/13044603/convert-time-span-value-to-format-hhmm-am-pm-using-c-sharp 
       DateTime entryTime = DateTime.Now;
       Console.Write($"{entryTime.ToString("D")} ");
       Console.WriteLine($"({entryTime.ToString("t")})");
