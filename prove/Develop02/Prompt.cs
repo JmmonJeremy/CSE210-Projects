@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Timers; 
 
 // added a namespace to try and fix Prompt class error of:
 // '<global namespace>' already contains a definition for 'Prompt' 
@@ -14,7 +15,9 @@ using System.Collections.Generic;
     // variable for loading in new prompts for list
     public string _prompt;
     // variable for set times to prompt
-    public string _time = "14:15:00";  
+    public string _time = "14:49:00.0095429"; 
+    // vairable holding the time for timed prompts
+    public System.Timers.Timer _clock; 
 
     // list of prompts
     // looked up how to do this from https://www.tutorialsteacher.com/csharp/csharp-list
@@ -45,17 +48,50 @@ using System.Collections.Generic;
       //  method to run as a clock to check for the timer
       public string Clock()
       {
+        string hitTime = DateTime.Now.TimeOfDay.ToString();
         TimeSpan currentTime = DateTime.Now.TimeOfDay;
         string hour = currentTime.Hours.ToString();
-        string minute = currentTime.Minutes.ToString();;
-        string second = currentTime.Seconds.ToString();;
-        return $"{hour}:{minute}:{second}";
+        string minute = currentTime.Minutes.ToString();
+        string second = currentTime.Seconds.ToString();
+        // return $"{hour}:{minute}:{second}";
+        return hitTime;
+      }
+
+      static void Timered(object sender, ElapsedEventArgs e)
+      {
+        Prompt prompting = new Prompt();
+        Console.WriteLine(prompting.SelectPrompt());
+        prompting._clock.Stop();
+        prompting.SetTimer();
       }
 
       // method to set periodic times to displaying a prompt
-      public void Timer()
+      public void SetTimer()
       {
+        // show clock is running
+        Console.WriteLine("Waiting for prompt start time.");
+
+        // trying internet code
+        // DateTime nowTime = DateTime.Now;
+        //     DateTime scheduledTime = new DateTime(nowTime.Year, nowTime.Month, nowTime.Day, 17, 5, 0, 0); //Specify your scheduled time HH,MM,SS [8am and 42 minutes]
+        //     if (nowTime > scheduledTime)
+        //     {
+        //         scheduledTime = scheduledTime.AddDays(1);
+        //     }
+ 
+        //     double tickTime = (double)(scheduledTime - DateTime.Now).TotalMilliseconds;
+        // varialbe to hold appointed time
+        TimeSpan setTime = new TimeSpan(17,28,00);
+        // variable to hold current time
         TimeSpan currentTime = DateTime.Now.TimeOfDay;
+        // varible for count down to time
+        double countdown = (double)(setTime - currentTime).TotalMilliseconds;
+        Console.WriteLine($"{setTime} - {currentTime} This is from TimeSpan: {countdown}");
+        // Console.WriteLine($"{scheduledTime} - {DateTime.Now} This is from DateTime.Now: {tickTime}");
+
+        
+        // _clock = new System.Timers.Timer(tickTime);
+        _clock.Elapsed += new ElapsedEventHandler(Timered);
 
       }
 
