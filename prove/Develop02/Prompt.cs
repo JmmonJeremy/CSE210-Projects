@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Timers; 
+using System.IO;
+
 
 // added a namespace to try and fix Prompt class error of:
 // '<global namespace>' already contains a definition for 'Prompt' 
@@ -14,14 +15,19 @@ using System.Timers;
   {
     // variable for loading in new prompts for list
     public string _prompt;
-    // variable for set times to prompt
-    public string _time = "14:49:00.0095429"; 
-    // vairable holding the time for timed prompts
-    public System.Timers.Timer _clock; 
-
-    // list of prompts
-    // looked up how to do this from https://www.tutorialsteacher.com/csharp/csharp-list
-    public List<string> _prompts = new List<string>()
+    // variable for the file of the full list of prompts
+    public string _inUsePromptFile = "inUsePrompts.txt";
+    // variable for the file of the used list of prompts
+    public string _usedPromptFile = "usedPrompts.txt";
+    // variable for the file of deleted prompts
+    public string _deletedPromptFile = "deletedPrompts.txt";
+    // variable for record times of prompts with journal entries
+    public string _time; 
+  
+    // list of prompts in use
+    // load list with a set of prompts
+    // reference source https://www.tutorialsteacher.com/csharp/csharp-list
+    public List<string> _inUsePromptList = new List<string>()
       {
         "What has happened today that you are thankful for?",
         "What challenges have you faced today?",
@@ -29,83 +35,73 @@ using System.Timers;
         "What happened today that helped to strengthen an important relationship for you?",
         "What did you accomplish that brought you closer to an important goal for you?"                    
       };
+      // list of used prompts
+      public List<string> _UsedPromptList = new List<string>();
+      // list of discarded prompts
+      public List<string> _DeletedPromptList = new List<string>();
+
+      // method to log prompt list changes in an archived textfile
+      public void UpdateLog(List<string> list)
+      {           
+        // create a file
+        using (StreamWriter createFile = new StreamWriter(_inUsePromptFile))
+        {     
+          // this puts the ~|~ characters in front of every prompt as a seperator
+          // and writes the list of prompts to the file - overwriting anything there already 
+          foreach (string p in list)
+          {             
+            createFile.WriteLine($"~|~{p}");       
+          }          
+        }
+      }
+
+      // method to update and return prompt lists
+      public List<string> UpdateList(List<string> list, string listLog)
+      {       
+        // read all the prompts in the file
+        string[] prompts = System.IO.File.ReadAllLines(listLog);
+        foreach (string prompt in prompts)
+        {    
+          // this divides each line into two items [0], which is blank
+          // amd items[1], which holds the prompt without the divider
+          string[] items = prompt.Split("~|~");
+          // therefore only use items[1]      
+          string listedPrompt1 = items[1];         
+          // add prompt to the prompt list
+          list.Add(listedPrompt1);     
+        }
+        return list;
+      }
 
       // method to randomly select the prompt
-      public string SelectPrompt()
+      public string AutoPrompt()
       {
+
         // set variable for the amount of items in a list
-        int count = _prompts.Count;
+        int count = _inUsePromptList.Count;
        
         // randomly select the list index for the prompt
         Random randomGenerator = new Random();
         int index = randomGenerator.Next(0, count);
-        // // check count result
-        // Console.WriteLine(count);
-        // Console.WriteLine(_prompts[4]);
-        return _prompts[index];
-      }
-
-      //  method to run as a clock to check for the timer
-      public string Clock()
-      {
-        string hitTime = DateTime.Now.TimeOfDay.ToString();
-        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-        string hour = currentTime.Hours.ToString();
-        string minute = currentTime.Minutes.ToString();
-        string second = currentTime.Seconds.ToString();
-        // return $"{hour}:{minute}:{second}";
-        return hitTime;
-      }
-
-      static void Timered(object sender, ElapsedEventArgs e)
-      {
-        Prompt prompting = new Prompt();
-        Console.WriteLine(prompting.SelectPrompt());
-        prompting._clock.Stop();
-        prompting.SetTimer();
-      }
-
-      // method to set periodic times to displaying a prompt
-      public void SetTimer()
-      {
-        // show clock is running
-        Console.WriteLine("Waiting for prompt start time.");
-
-        // trying internet code
-        // DateTime nowTime = DateTime.Now;
-        //     DateTime scheduledTime = new DateTime(nowTime.Year, nowTime.Month, nowTime.Day, 17, 5, 0, 0); //Specify your scheduled time HH,MM,SS [8am and 42 minutes]
-        //     if (nowTime > scheduledTime)
-        //     {
-        //         scheduledTime = scheduledTime.AddDays(1);
-        //     }
- 
-        //     double tickTime = (double)(scheduledTime - DateTime.Now).TotalMilliseconds;
-        // varialbe to hold appointed time
-        TimeSpan setTime = new TimeSpan(17,28,00);
-        // variable to hold current time
-        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-        // varible for count down to time
-        double countdown = (double)(setTime - currentTime).TotalMilliseconds;
-        Console.WriteLine($"{setTime} - {currentTime} This is from TimeSpan: {countdown}");
-        // Console.WriteLine($"{scheduledTime} - {DateTime.Now} This is from DateTime.Now: {tickTime}");
-
-        
-        // _clock = new System.Timers.Timer(tickTime);
-        _clock.Elapsed += new ElapsedEventHandler(Timered);
-
-      }
+        // return the randomly selected prompt
+        return _inUsePromptList[index];
+      }   
 
       // method to list the prompts
       public void ListPrompts()
       {
-        foreach (string p in _prompts)
+        // variable to number prompts for user
+        int promptNum = 0;
+        // runt through list of prompts
+        foreach (string p in _inUsePromptList)
         {
-          Console.WriteLine(p);
+          // increase number by one for each prompt listed
+          promptNum += 1;
+          // display prompts in a list for the user to choose from
+          Console.WriteLine($"{promptNum}) {p}");
         }
       }
 
-
-
-
+      // method to add a new prompt to the prompt list
   }
 // }

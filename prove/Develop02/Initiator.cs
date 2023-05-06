@@ -19,7 +19,7 @@ public class Initiator
       // convert string to int for comparison
       int compare = int.Parse(combine);
       // determine the start time by what time it is usig military time
-      if (compare < 103000 || compare > 203000)
+      if (compare < 103000)
       {
         TimeSpan setTime = new TimeSpan(10,30,00);
         return setTime;
@@ -51,6 +51,10 @@ public class Initiator
       }
       else 
       {
+        // the compared time is greater than 203000 in this case
+        // so it will return a negative & inaccurate millisecond countdown
+        // unless you add 24 hours to this time until midnight - not here
+        // but in the StartTimer code that uses this time for setting countdown
         TimeSpan setTime = new TimeSpan(10,30,00);
         return setTime;
       }
@@ -61,18 +65,29 @@ public class Initiator
     public void StartTimer()
     {    
       // variable to hold the time for the next prompt
-      TimeSpan setTime = SetTime();     
+      TimeSpan setTime = SetTime();          
       // variable to hold current time
       TimeSpan nowTime = DateTime.Now.TimeOfDay;
       // convert times into milliseconds
-      double milliSetTime = (setTime).TotalMilliseconds;
+      double milliSetTime = (setTime).TotalMilliseconds;     
       double milliNowTime = Math.Round((nowTime).TotalMilliseconds);     
       // figure time for countdown
       double milliseconds = milliSetTime - milliNowTime;
-      // keep milliseconds positive to avoid error
+      // keep milliseconds positive from 8:30 PM to Midnight to avoid error
       if (milliseconds < 0)
       {
-        milliseconds = 20000;
+        // if it is after 8pm in military time format
+        if (DateTime.Now.Hour > 20)
+        {  
+          // by adding 24 hours in milliseconds
+          milliseconds = (milliSetTime + 86400000) - milliNowTime; 
+        }
+        // to cover any exception I have missed  
+        else
+        {
+          milliseconds = 20000;
+        } 
+
       }
       // convert setTime into AM or PM for display     
       DateTime conversion = DateTime.Today.Add(setTime);
@@ -96,7 +111,7 @@ public class Initiator
       Console.WriteLine($"({entryTime.ToString("t")})");
       // display the Journal prompt question
       Prompt prompter = new Prompt();
-      Console.WriteLine(prompter.SelectPrompt());      
+      Console.WriteLine(prompter.AutoPrompt());      
       Console.WriteLine();
       // reset the countdown to the next prompt
       Initiator start = new Initiator();
