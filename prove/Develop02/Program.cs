@@ -1,8 +1,20 @@
 using System;
+using System.Runtime.InteropServices;
 
 // class to run the Journal application
 class Program
 {
+    const int STD_OUTPUT_HANDLE = -11;
+    const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4;
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    static extern IntPtr GetStdHandle(int nStdHandle);
+
+    [DllImport("kernel32.dll")]
+    static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+    [DllImport("kernel32.dll")]
+    static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
     // main method to run the Journal application
     static void Main(string[] args)
     {
@@ -16,12 +28,18 @@ class Program
             Console.WriteLine($"Made it!!! - {prompting}");
         }
        
-        
+
+       
     
         // CODE TO CONSTANTLY RUN THE PROGRAM FOR THE AUTOPROMPTS THROUGHOUT THE DAY //
     // ############################################################################################# //
+        // create variables of underlined start & end NOTE
+        string noteStart = "*NOTE->";
+        // string noteEnd = "<-NOTE*\n";
         // display a message on how to stop the autoprompter
-        Console.WriteLine("\nNOTE!!! To turn the autoprompter off, press Enter with the curser active in the program's terminal. !!!NOTE");
+        Console.WriteLine("\n***STARTING THE JOURNAL AUTOPROMPTER***");
+        WriteUnderline(noteStart);
+        Console.WriteLine(" To turn the autoprompter off, press Enter with the curser active in the program's terminal. ");        
         // display a message on when the autoprompter was started
         // reference source: https://www.softwaretestinghelp.com/c-sharp/charp-date-time-format/
         DateTime startTime = DateTime.Now;
@@ -37,5 +55,16 @@ class Program
         // display message stating that the autoprompter is shut down 
         Console.WriteLine("Deactivating the autoprompter application...");
     // ############################################################################################# //
+    }
+
+        // got this from https://stackoverflow.com/questions/3381952/how-to-remove-all-white-space-from-the-beginning-or-end-of-a-string
+        private static void WriteUnderline(string s)
+    {
+        var handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        uint mode;
+        GetConsoleMode(handle, out mode);
+        mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+        SetConsoleMode(handle, mode);
+        Console.Write($"\x1B[4m{s}\x1B[24m");
     }
 }

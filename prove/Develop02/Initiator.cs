@@ -15,15 +15,28 @@ public class Initiator
       // variable to hold current time
       TimeSpan nowTime = DateTime.Now.TimeOfDay;
       // set number string to compare to determine the setTime value
-      string combine = nowTime.Hours.ToString()+nowTime.Minutes.ToString()+nowTime.Seconds.ToString();
+      string nowHour = nowTime.Hours.ToString();   
+      string nowMinutes = nowTime.Minutes.ToString();
+      int minutesDigits = nowMinutes.Length;
+      if (minutesDigits < 2)
+      {
+        nowMinutes = "0" + nowMinutes;
+      }
+       string nowSeconds = nowTime.Seconds.ToString();
+      int secondsDigits = nowSeconds.Length;
+      if (secondsDigits < 2)
+      {
+        nowSeconds = "0" + nowSeconds;
+      }      
+      string combine = nowHour+nowMinutes+nowSeconds;
       // convert string to int for comparison
       int compare = int.Parse(combine);
       // determine the start time by what time it is usig military times
       // the compared time is greater than 203000 between 8:30pm & midnight
       // so it will return a negative & inaccurate millisecond countdown
       // unless you add 24 hours to this time until midnight - not here
-      // but in the StartTimer code that uses this time for setting countdown
-      if (compare < 103000 || compare > 203000)
+      // but in the StartTimer code that uses this time for setting countdown     
+      if (compare < 103000 || compare >= 203000)
       {
         TimeSpan setTime = new TimeSpan(10,30,00);
         return setTime;
@@ -56,7 +69,7 @@ public class Initiator
       else 
       {
         // here to detect failings by setting it to zero so milliseconds will go negative
-        Console.WriteLine($"{nowTime}");
+        Console.WriteLine($"This is the time that somehow caused the error: {nowTime}");
         TimeSpan setTime = new TimeSpan(00,0,00);
         return setTime;
       }
@@ -67,7 +80,7 @@ public class Initiator
     public void StartTimer()
     {    
       // variable to hold the time for the next prompt
-      TimeSpan setTime = SetTime();          
+      TimeSpan setTime = SetTime();             
       // variable to hold current time
       TimeSpan nowTime = DateTime.Now.TimeOfDay;
       // convert times into milliseconds
@@ -78,7 +91,7 @@ public class Initiator
       // keep milliseconds positive from 8:30 PM to Midnight to avoid error
       if (milliseconds < 0)
       {
-        Console.WriteLine($"This is the milliseconds count: {milliseconds}");
+        
         // if it is after 8pm in military time format
         if (DateTime.Now.Hour > 20)
         {  
@@ -88,20 +101,24 @@ public class Initiator
         // to cover any exception I have missed  
         else
         {
-          milliseconds = 20000;
+          Console.WriteLine($"This is the milliseconds count: {milliseconds}");
+          milliseconds = 30000;
         } 
 
       }
+      // convert milliseconds into hour and minutes for countdown display
+      int hours = ((Convert.ToInt32(milliseconds/1000))/60)/60;
+      double minutes = Math.Ceiling((milliseconds/1000)/60)%60;     
       // convert setTime into AM or PM for display     
       DateTime conversion = DateTime.Today.Add(setTime);
       string clockTime = conversion.ToString("hh:mm tt");
       // set varialbe to hold the date and time
       DateTime startTime = DateTime.Now;
       // display message showing the current time and the next time the program should inititiate
-       Console.WriteLine($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and the next Journal prompt is scheduled for {clockTime} or {setTime} in {milliseconds} milliseconds.");
+       Console.WriteLine($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and the next Journal prompt is scheduled for {clockTime} in {hours} hours and {minutes} minutes.");
        _countdown = new System.Timers.Timer(milliseconds);
        _countdown.Elapsed += AutoPrompter; 
-      //  _countdown.AutoReset = true;    
+       _countdown.AutoReset = false;    
        _countdown.Enabled = true;              
     }
 
@@ -116,8 +133,9 @@ public class Initiator
       Console.WriteLine($"({entryTime.ToString("t")})");
       // display the Journal prompt question
       Prompt prompter = new Prompt();
-      Console.WriteLine(prompter.RandomPrompt());      
       Console.WriteLine();
+      Console.WriteLine(prompter.RandomPrompt());      
+      Console.WriteLine();     
       // reset the countdown to the next prompt
       Initiator start = new Initiator();
       start.StartTimer();
