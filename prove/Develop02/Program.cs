@@ -10,7 +10,7 @@ class Program
         Prompt prompt = new Prompt();
         prompt.ListPrompts();
         prompt.UpdateLog(prompt._inUsePromptList);
-        List<string> list = prompt.UpdateList(prompt._UsedPromptList, prompt._inUsePromptFile);
+        List<string> list = prompt.UpdateList(prompt._usedPromptList, prompt._inUsePromptFile);
         foreach (string prompting in list)
         {
             Console.WriteLine($"Made it!!! - {prompting}");
@@ -21,7 +21,7 @@ class Program
         // CODE TO CONSTANTLY RUN THE PROGRAM FOR THE AUTOPROMPTS THROUGHOUT THE DAY //
     // ############################################################################################# //
         // display a message on how to stop the autoprompter
-        Console.WriteLine("\nNOTE: To deactivate the autoprompter software from running, press Enter with curser active in the program's terminal ...");
+        Console.WriteLine("\nNOTE!!! To turn the autoprompter off, press Enter with the curser active in the program's terminal. !!!NOTE");
         // display a message on when the autoprompter was started
         // reference source: https://www.softwaretestinghelp.com/c-sharp/charp-date-time-format/
         DateTime startTime = DateTime.Now;

@@ -18,8 +18,12 @@ public class Initiator
       string combine = nowTime.Hours.ToString()+nowTime.Minutes.ToString()+nowTime.Seconds.ToString();
       // convert string to int for comparison
       int compare = int.Parse(combine);
-      // determine the start time by what time it is usig military time
-      if (compare < 103000)
+      // determine the start time by what time it is usig military times
+      // the compared time is greater than 203000 between 8:30pm & midnight
+      // so it will return a negative & inaccurate millisecond countdown
+      // unless you add 24 hours to this time until midnight - not here
+      // but in the StartTimer code that uses this time for setting countdown
+      if (compare < 103000 || compare > 203000)
       {
         TimeSpan setTime = new TimeSpan(10,30,00);
         return setTime;
@@ -51,11 +55,9 @@ public class Initiator
       }
       else 
       {
-        // the compared time is greater than 203000 in this case
-        // so it will return a negative & inaccurate millisecond countdown
-        // unless you add 24 hours to this time until midnight - not here
-        // but in the StartTimer code that uses this time for setting countdown
-        TimeSpan setTime = new TimeSpan(10,30,00);
+        // here to detect failings by setting it to zero so milliseconds will go negative
+        Console.WriteLine($"{nowTime}");
+        TimeSpan setTime = new TimeSpan(00,0,00);
         return setTime;
       }
     }
@@ -76,6 +78,7 @@ public class Initiator
       // keep milliseconds positive from 8:30 PM to Midnight to avoid error
       if (milliseconds < 0)
       {
+        Console.WriteLine($"This is the milliseconds count: {milliseconds}");
         // if it is after 8pm in military time format
         if (DateTime.Now.Hour > 20)
         {  
@@ -92,17 +95,19 @@ public class Initiator
       // convert setTime into AM or PM for display     
       DateTime conversion = DateTime.Today.Add(setTime);
       string clockTime = conversion.ToString("hh:mm tt");
-      // display message showing the next time the program should inititiate
-       Console.WriteLine($"The next Journal prompt is scheduled for {clockTime} or {setTime} in {milliseconds} milliseconds.");
+      // set varialbe to hold the date and time
+      DateTime startTime = DateTime.Now;
+      // display message showing the current time and the next time the program should inititiate
+       Console.WriteLine($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and the next Journal prompt is scheduled for {clockTime} or {setTime} in {milliseconds} milliseconds.");
        _countdown = new System.Timers.Timer(milliseconds);
-       _countdown.Elapsed += AutoPrompt; 
-       _countdown.AutoReset = true;    
+       _countdown.Elapsed += AutoPrompter; 
+      //  _countdown.AutoReset = true;    
        _countdown.Enabled = true;              
     }
 
     // method to run the journal prompt and user choices
     // reference source: https://social.technet.microsoft.com/wiki/contents/articles/37252.c-timer-schedule-a-task.aspx
-    private static void AutoPrompt(Object source, ElapsedEventArgs e)
+    private static void AutoPrompter(Object source, ElapsedEventArgs e)
     { 
       // display the current date and time
       // reference source: https://stackoverflow.com/questions/13044603/convert-time-span-value-to-format-hhmm-am-pm-using-c-sharp 
@@ -111,7 +116,7 @@ public class Initiator
       Console.WriteLine($"({entryTime.ToString("t")})");
       // display the Journal prompt question
       Prompt prompter = new Prompt();
-      Console.WriteLine(prompter.AutoPrompt());      
+      Console.WriteLine(prompter.RandomPrompt());      
       Console.WriteLine();
       // reset the countdown to the next prompt
       Initiator start = new Initiator();

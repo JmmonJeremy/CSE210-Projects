@@ -20,7 +20,7 @@ using System.IO;
     // variable for the file of the used list of prompts
     public string _usedPromptFile = "usedPrompts.txt";
     // variable for the file of deleted prompts
-    public string _deletedPromptFile = "deletedPrompts.txt";
+    public string _removedPromptFile = "deletedPrompts.txt";
     // variable for record times of prompts with journal entries
     public string _time; 
   
@@ -36,9 +36,9 @@ using System.IO;
         "What did you accomplish that brought you closer to an important goal for you?"                    
       };
       // list of used prompts
-      public List<string> _UsedPromptList = new List<string>();
+      public List<string> _usedPromptList = new List<string>();
       // list of discarded prompts
-      public List<string> _DeletedPromptList = new List<string>();
+      public List<string> _removedPromptList = new List<string>();
 
       // method to log prompt list changes in an archived textfile
       public void UpdateLog(List<string> list)
@@ -74,12 +74,10 @@ using System.IO;
       }
 
       // method to randomly select the prompt
-      public string AutoPrompt()
+      public string RandomPrompt()
       {
-
         // set variable for the amount of items in a list
-        int count = _inUsePromptList.Count;
-       
+        int count = _inUsePromptList.Count;       
         // randomly select the list index for the prompt
         Random randomGenerator = new Random();
         int index = randomGenerator.Next(0, count);
