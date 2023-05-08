@@ -69,7 +69,7 @@ public class Initiator
       else 
       {
         // here to detect failings by setting it to zero so milliseconds will go negative
-        Console.WriteLine($"This is the time that somehow caused the error: {nowTime}");
+        Console.WriteLine($"There is an error within the SetTime class. Here is the time that somehow caused the error: {nowTime}");
         TimeSpan setTime = new TimeSpan(00,0,00);
         return setTime;
       }
@@ -101,7 +101,9 @@ public class Initiator
         // to cover any exception I have missed  
         else
         {
-          Console.WriteLine($"This is the milliseconds count: {milliseconds}");
+          Console.WriteLine($"There is an error within the StartTimer class. Here is the milliseconds of the countdown when it happened: {milliseconds}");
+          // resets the milliseconds to a positive number 
+          // so the program will keep running every 30 seconds
           milliseconds = 30000;
         } 
 
@@ -115,11 +117,15 @@ public class Initiator
       // set varialbe to hold the date and time
       DateTime startTime = DateTime.Now;
       // display message showing the current time and the next time the program should inititiate
-       Console.WriteLine($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and the next Journal prompt is scheduled for {clockTime} in {hours} hours and {minutes} minutes.");
+       Console.WriteLine($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and the next Journal prompt is scheduled for {clockTime} in {hours} hours and {minutes} minutes.\n");
        _countdown = new System.Timers.Timer(milliseconds);
-       _countdown.Elapsed += AutoPrompter; 
-       _countdown.AutoReset = false;    
-       _countdown.Enabled = true;              
+      // runs the AutoPrompter when the timer ends and triggers the Elasped event
+       _countdown.Elapsed += AutoPrompter;
+      // stops the Elasped event for a timer from being raised more than once
+       _countdown.AutoReset = false;   
+      // sets the Elasped event to be raised 
+       _countdown.Enabled = true;
+                 
     }
 
     // method to run the journal prompt and user choices
@@ -128,19 +134,15 @@ public class Initiator
     { 
       // display the current date and time
       // reference source: https://stackoverflow.com/questions/13044603/convert-time-span-value-to-format-hhmm-am-pm-using-c-sharp 
-      DateTime entryTime = DateTime.Now;
+      DateTime entryTime = DateTime.Now;      
       Console.Write($"{entryTime.ToString("D")} ");
       Console.WriteLine($"({entryTime.ToString("t")})");
       // display the Journal prompt question
-      Prompt prompter = new Prompt();
-      Console.WriteLine();
+      Prompt prompter = new Prompt();     
       Console.WriteLine(prompter.RandomPrompt());      
       Console.WriteLine();     
       // reset the countdown to the next prompt
       Initiator start = new Initiator();
-      start.StartTimer();
-      // stop the last countdown thread
-      start._countdown.Stop();     
+      start.StartTimer();         
     }
-
 }
