@@ -22,7 +22,7 @@ using System.IO;
     // variable for the file of deleted prompts
     public string _removedPromptFile = "deletedPrompts.txt";
     // variable for record times of prompts with journal entries
-    public string _time; 
+    public int _selection; 
   
     // list of prompts in use
     // load list with a set of prompts
@@ -34,7 +34,7 @@ using System.IO;
         "How have I seen the hand of the Lord in my life today?",
         "What happened today that helped to strengthen an important relationship for me?",
         "What did I accomplish that brought me closer to an important goal for me?",
-        "This is what's happened so far today:"                    
+        "This is what's happened for me so far today:"                    
       };
       // list of used prompts
       public List<string> _usedPromptList = new List<string>();
@@ -108,15 +108,53 @@ using System.IO;
 
       // method to select a new prompt from the prompt list
       public string SelectPrompt()
-      {
-        // create line for selection entry
-        Console.Write("\nSelection: "); 
-        // capture users prompt selection
-        string choice = Console.ReadLine();
-        // turn string choice into int
-        int conversion = int.Parse(choice);
+      {   
+        // set variable to hold entry line
+        string entryLine = "\nSelection: ";
+        // set variable to hold bad entry count
+        int badEntries = 0;
+        // set variable for loop
+        bool isNumeric = false;
+        // set variable for list count
+        int listCount = _inUsePromptList.Count(); 
+        // loop until the user enters a valid selection
+        while (isNumeric == false)
+        {
+          // create line for selection entry
+          Console.Write(entryLine);
+          // capture users prompt selection
+          string choice = Console.ReadLine();           
+          // check to make sure they entered a number
+          // reference source: https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/how-to-determine-whether-a-string-represents-a-numeric-value
+          // make sure number is in the prompt list
+          isNumeric = int.TryParse(choice, out _selection);
+          // have user reenter a number for selection if needed
+          if (isNumeric == false)
+          {         
+            Console.Write("Your entry was not a number. For your selection to be valid, please enter the number listed next to the prompt: ");
+            // change entry line to show it as new attempt
+            entryLine = "\nNumber Entry: ";
+            // count bad entries
+            badEntries += 1;
+          }
+          // have user reenter a selection if number is not one listed 
+          else if (_selection <= 0 || _selection > listCount)
+          {                  
+            Console.Write("That number was not a number listed next to one of the prompts. Please try again: ");
+            // reset isNumeric to false to recheck new entry
+            isNumeric = false;
+             // change entry line to show it as new attempt
+            entryLine = "\nListed Number: ";
+            // count bad entries
+            badEntries += 1;
+          }
+          else if (badEntries != 0)
+          {
+            Console.WriteLine($"\nSelection: {_selection}");
+          }
+        }        
         // turn number into index
-        int index = conversion - 1;
+        int index = _selection - 1;
         // give the transition line       
         Console.WriteLine($"Please make your entry in response to your selected prompt:");
         // display the current date and time
