@@ -87,13 +87,12 @@ public class Initiator
       double milliSetTime = (setTime).TotalMilliseconds;     
       double milliNowTime = Math.Round((nowTime).TotalMilliseconds);     
       // figure time for countdown
-      double milliseconds = milliSetTime - milliNowTime;
+      double milliseconds = milliSetTime - milliNowTime;      
       // keep milliseconds positive from 8:30 PM to Midnight to avoid error
       if (milliseconds < 0)
-      {
-        
+      {        
         // if it is after 8pm in military time format
-        if (DateTime.Now.Hour > 20)
+        if (DateTime.Now.Hour >= 20)
         {  
           // by adding 24 hours in milliseconds
           milliseconds = (milliSetTime + 86400000) - milliNowTime; 

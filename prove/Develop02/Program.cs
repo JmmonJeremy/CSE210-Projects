@@ -4,29 +4,13 @@ using System.Runtime.InteropServices;
 // class to run the Journal application
 class Program
 {
-    const int STD_OUTPUT_HANDLE = -11;
-    const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4;
-
-    [DllImport("kernel32.dll", SetLastError = true)]
-    static extern IntPtr GetStdHandle(int nStdHandle);
-
-    [DllImport("kernel32.dll")]
-    static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
-
-    [DllImport("kernel32.dll")]
-    static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
     // main method to run the Journal application
     static void Main(string[] args)
     {
         // testing methods
-        Prompt prompt = new Prompt();
-        prompt.ListPrompts();
-        prompt.UpdateLog(prompt._inUsePromptList);
-        List<string> list = prompt.UpdateList(prompt._usedPromptList, prompt._inUsePromptFile);
-        foreach (string prompting in list)
-        {
-            Console.WriteLine($"Made it!!! - {prompting}");
-        }
+        Menu menu = new Menu();
+        menu.DisplayMenu();       
+        menu.Transition();
        
 
        
@@ -57,9 +41,21 @@ class Program
     // ############################################################################################# //
     }
 
-        // got this from https://stackoverflow.com/questions/3381952/how-to-remove-all-white-space-from-the-beginning-or-end-of-a-string
-        private static void WriteUnderline(string s)
-    {
+    // got this from https://stackoverflow.com/questions/3381952/how-to-remove-all-white-space-from-the-beginning-or-end-of-a-string
+    private static void WriteUnderline(string s)
+    {        
+        const int STD_OUTPUT_HANDLE = -11;
+        const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4;
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern IntPtr GetStdHandle(int nStdHandle);
+
+        [DllImport("kernel32.dll")]
+        static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+        [DllImport("kernel32.dll")]
+        static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+
         var handle = GetStdHandle(STD_OUTPUT_HANDLE);
         uint mode;
         GetConsoleMode(handle, out mode);

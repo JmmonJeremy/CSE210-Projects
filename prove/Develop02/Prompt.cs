@@ -29,11 +29,12 @@ using System.IO;
     // reference source https://www.tutorialsteacher.com/csharp/csharp-list
     public List<string> _inUsePromptList = new List<string>()
       {
-        "What has happened today that you are thankful for?",
-        "What challenges have you faced today?",
-        "How have you seen the hand of the Lord in your life today?",
-        "What happened today that helped to strengthen an important relationship for you?",
-        "What did you accomplish that brought you closer to an important goal for you?"                    
+        "What has happened today that I am thankful for?",
+        "What challenges have I faced today?",
+        "How have I seen the hand of the Lord in my life today?",
+        "What happened today that helped to strengthen an important relationship for me?",
+        "What did I accomplish that brought me closer to an important goal for me?",
+        "This is what's happened so far today:"                    
       };
       // list of used prompts
       public List<string> _usedPromptList = new List<string>();
@@ -76,6 +77,11 @@ using System.IO;
       // method to randomly select the prompt
       public string RandomPrompt()
       {
+        // display the current date and time
+        // reference source: https://stackoverflow.com/questions/13044603/convert-time-span-value-to-format-hhmm-am-pm-using-c-sharp 
+        DateTime entryTime = DateTime.Now;      
+        Console.Write($"{entryTime.ToString("D")} ");
+        Console.WriteLine($"({entryTime.ToString("t")})");
         // set variable for the amount of items in a list
         int count = _inUsePromptList.Count;       
         // randomly select the list index for the prompt
@@ -96,10 +102,30 @@ using System.IO;
           // increase number by one for each prompt listed
           promptNum += 1;
           // display prompts in a list for the user to choose from
-          Console.WriteLine($"{promptNum}) {p}");
-        }
+          Console.WriteLine($" {promptNum} - {p}");
+        }    
       }
 
-      // method to add a new prompt to the prompt list
+      // method to select a new prompt from the prompt list
+      public string SelectPrompt()
+      {
+        // create line for selection entry
+        Console.Write("\nSelection: "); 
+        // capture users prompt selection
+        string choice = Console.ReadLine();
+        // turn string choice into int
+        int conversion = int.Parse(choice);
+        // turn number into index
+        int index = conversion - 1;
+        // give the transition line       
+        Console.WriteLine($"Please make your entry in response to your selected prompt:");
+        // display the current date and time
+        DateTime entryTime = DateTime.Now;      
+        Console.Write($"{entryTime.ToString("D")} ");
+        Console.WriteLine($"({entryTime.ToString("t")})");
+        // // display the prompt the user selected
+        // Console.WriteLine(_inUsePromptList[index]); 
+        return _inUsePromptList[index];
+      }
   }
 // }
