@@ -131,11 +131,11 @@ public class Initiator
     // reference source: https://social.technet.microsoft.com/wiki/contents/articles/37252.c-timer-schedule-a-task.aspx
     private static void AutoPrompter(Object source, ElapsedEventArgs e)
     { 
-      // display the current date and time
-      // reference source: https://stackoverflow.com/questions/13044603/convert-time-span-value-to-format-hhmm-am-pm-using-c-sharp 
-      DateTime entryTime = DateTime.Now;      
-      Console.Write($"{entryTime.ToString("D")} ");
-      Console.WriteLine($"({entryTime.ToString("t")})");
+      // // display the current date and time
+      // // reference source: https://stackoverflow.com/questions/13044603/convert-time-span-value-to-format-hhmm-am-pm-using-c-sharp 
+      // DateTime entryTime = DateTime.Now;      
+      // Console.Write($"{entryTime.ToString("D")} ");
+      // Console.WriteLine($"({entryTime.ToString("t")})");
       // display the Journal prompt question
       Prompt prompter = new Prompt();     
       Console.WriteLine(prompter.RandomPrompt());      

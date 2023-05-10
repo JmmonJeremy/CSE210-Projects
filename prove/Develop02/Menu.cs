@@ -36,6 +36,7 @@ public class Menu
   // method to hold the users choice
   public void Transition()
   {
+    // run a loop until a valid choice is made
     do
     {  
       Console.Write($"\nSelection: ");   
@@ -43,14 +44,65 @@ public class Menu
       // determine which choice the user selected
       if (_choice == "1")
       {
-        Console.WriteLine($"Please make your entry in response to:");
+        // give a transition statement
+        Console.Write("Please");
+        // add color to emphasize this text
+        // reference source: https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write(" make your entry");
+         // reset color to the original settings
+        Console.ResetColor();
+        Console.Write(" and then ");
+        // add color to emphasize this text      
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("press Enter to store it");
+        // reset color to the original settings
+        Console.ResetColor();
+        Console.WriteLine(" in response to:");
+        // store the current date and time in a variable
+        DateTime entryTime = DateTime.Now;       
+        // create variable to hold date & time as a string
+        string dateTime = entryTime.ToString("D") + " " + entryTime.ToString("t");       
         // display the current date and time
-        DateTime entryTime = DateTime.Now;      
-        Console.Write($"{entryTime.ToString("D")} ");
-        Console.WriteLine($"({entryTime.ToString("t")})");
-        // display the journal prompt
+        Console.WriteLine(dateTime);
+        // display the journal prompt in color
+        Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(_prompt);
+        Console.ResetColor();
+        // create instand of Pen
+        Pen pen = new Pen();
+        // use Pen method to add an entry
+        pen.Add(entryTime, dateTime, _prompt);
+        // have the user make a closing choice
+        Console.WriteLine("\nPlease enter a selection, would you now like to:");
+        Console.WriteLine(" 1 - Commit your entries to your Journal");
+        Console.WriteLine(" 2 - Edit this or another uncommited entry");
+        Console.WriteLine(" 3 - Engage auto-prompter without committing entires");
+        Console.WriteLine(" 4 - Edit the time of the next auto-prompt");
+      // run a loop until a valid choice is made
+      do
+      {  
+        Console.Write($"\nSelection: ");   
+        _choice = Console.ReadLine();
+        // determine which choice the user selected
+        if (_choice == "1")
+        {
+          // give a transition statement
+          Console.WriteLine("Your entries have been permanently saved to your Journal by date.");
+        }
+        else if (_choice == "2")
+        {
+          // give a transition statement
+          Console.WriteLine("Choose the entry you would like to edit:");
+        }
+        else 
+        {    
+          _choice = "invalid";  
+          Console.WriteLine("You must enter a valid choice of 1, 2, 3, 4, 5 or 6");
+        }
       }
+      while (_choice == "invalid");
+      }     
       else if (_choice == "2")
       {
         // give a transition statement
