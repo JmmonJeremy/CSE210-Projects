@@ -40,6 +40,7 @@ public class Pen
     // reference source: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
     _entryItems = (_dateTime, _promptUsed, _entry);
     // make sure file exists - only time it won't is when first run
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.appendtext?view=net-8.0
     if (File.Exists(_entryBackupFile))
     { 
       // load all backup entries to the dictionary that haven't been saved to the journal

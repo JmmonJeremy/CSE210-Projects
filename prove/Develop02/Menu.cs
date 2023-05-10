@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 
+// ### CLASS ################################################ //
 // class to run the program menu
 public class Menu
 {
+// ### VARIABLE ATTRIBUTES ################################## //  
   // variable to hold the user's option choice
   string _choice;
   // variable to hold the prompt message
@@ -19,6 +21,7 @@ public class Menu
     " 6 - Put off entry & start prompt timer",
   };
 
+// ### METHODS ############################################## //
   // method to diplay the menu for the user
   public void DisplayMenu()
   {
@@ -98,6 +101,8 @@ public class Menu
           {
             // enter a blank line before the autoprompt starts
             Console.WriteLine("Your entries have been temporarily saved in an entry list by entry time.");
+            Initiator autoprompter = new Initiator();
+            autoprompter.TurnOn();
           }
           else 
           {    
@@ -137,7 +142,7 @@ public class Menu
        else if (_choice == "6")
       {
         // give a transition statement
-        Console.WriteLine($"Your journal entry has been postponed until the next auto-prompt or program restart.");
+        Console.WriteLine($"Your journal entry has been postponed until the next auto-prompt and program restart.");
       }
       else 
       {    
