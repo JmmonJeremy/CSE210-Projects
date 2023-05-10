@@ -92,17 +92,17 @@ public class Menu
           else if (_choice == "2")
           {
             // give a transition statement
-            Console.WriteLine("Choose the entry you would like to edit:");
+            Console.WriteLine("Choose the entry you would like to edit by its listed time:");
           }
           else if (_choice == "3")
           {
             // enter a blank line before the autoprompt starts
-            Console.WriteLine("");
+            Console.WriteLine("Your entries have been temporarily saved in an entry list by entry time.");
           }
           else 
           {    
             _choice = "invalid";  
-            Console.WriteLine("You must enter a valid choice of 1, 2, 3, 4, 5 or 6");
+            Console.WriteLine("You must enter a valid choice of 1, 2 or 3");
           }
         }
         while (_choice == "invalid");
