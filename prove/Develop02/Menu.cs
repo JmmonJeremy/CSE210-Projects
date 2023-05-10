@@ -77,32 +77,36 @@ public class Menu
         Console.WriteLine("\nPlease enter a selection, would you now like to:");
         Console.WriteLine(" 1 - Commit your entries to your Journal");
         Console.WriteLine(" 2 - Edit this or another uncommited entry");
-        Console.WriteLine(" 3 - Engage auto-prompter without committing entires");
-        Console.WriteLine(" 4 - Edit the time of the next auto-prompt");
-      // run a loop until a valid choice is made
-      do
-      {  
-        Console.Write($"\nSelection: ");   
-        _choice = Console.ReadLine();
-        // determine which choice the user selected
-        if (_choice == "1")
-        {
-          // give a transition statement
-          Console.WriteLine("Your entries have been permanently saved to your Journal by date.");
+        Console.WriteLine(" 3 - Wait to commit entries and start auto-prompter");     
+        // run a loop until a valid choice is made
+        do
+        {  
+          Console.Write($"\nSelection: ");   
+          _choice = Console.ReadLine();
+          // determine which choice the user selected
+          if (_choice == "1")
+          {
+            // give a transition statement
+            Console.WriteLine("Your entries have been permanently saved to your Journal by date.");
+          }
+          else if (_choice == "2")
+          {
+            // give a transition statement
+            Console.WriteLine("Choose the entry you would like to edit:");
+          }
+          else if (_choice == "3")
+          {
+            // enter a blank line before the autoprompt starts
+            Console.WriteLine("");
+          }
+          else 
+          {    
+            _choice = "invalid";  
+            Console.WriteLine("You must enter a valid choice of 1, 2, 3, 4, 5 or 6");
+          }
         }
-        else if (_choice == "2")
-        {
-          // give a transition statement
-          Console.WriteLine("Choose the entry you would like to edit:");
-        }
-        else 
-        {    
-          _choice = "invalid";  
-          Console.WriteLine("You must enter a valid choice of 1, 2, 3, 4, 5 or 6");
-        }
-      }
-      while (_choice == "invalid");
-      }     
+        while (_choice == "invalid");
+        }     
       else if (_choice == "2")
       {
         // give a transition statement
