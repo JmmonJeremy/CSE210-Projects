@@ -89,6 +89,11 @@ public class Menu
           // determine which choice the user selected
           if (_choice == "1")
           {
+            // access the dictionary list in the Pen class for the entries
+            var entries = pen._pendingEntries;
+            // create Journal object to use method to add entries
+            Journal journal = new Journal();
+            journal.AddToJournal(entries);
             // give a transition statement
             Console.WriteLine("Your entries have been permanently saved to your Journal by date.");
           }
