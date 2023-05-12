@@ -14,10 +14,10 @@ public class Menu
   List<string> _options = new List<string>()
   {
     " 1 - Use current prompt for an entry",
-    " 2 - Edit the wording for this prompt",
+    " 2 - Create a new journal prompt to use",
     " 3 - Auto-generate a different prompt",
     " 4 - Hand pick a new prompt for an entry",
-    " 5 - Create a new journal prompt to use",
+    " 5 - Select and read an old journal entry",
     " 6 - Put off entry & start prompt timer",
   };
 
@@ -42,7 +42,7 @@ public class Menu
     // run a loop until a valid choice is made
     do
     {  
-      Console.Write($"\nSelection: ");   
+      Console.Write("\nSelection: ");   
       _choice = Console.ReadLine();
       // determine which choice the user selected
       if (_choice == "1")
@@ -78,13 +78,12 @@ public class Menu
         pen.Add(entryTime, dateTime, _prompt);
         // have the user make a closing choice
         Console.WriteLine("\nPlease enter a selection, would you now like to:");
-        Console.WriteLine(" 1 - Commit your entries to your Journal");
-        Console.WriteLine(" 2 - Edit this or another uncommited entry");
-        Console.WriteLine(" 3 - Wait to commit entries and start auto-prompter");     
+        Console.WriteLine(" 1 - Commit your entries to your Journal");       
+        Console.WriteLine(" 2 - Wait to commit entries and start auto-prompter");     
         // run a loop until a valid choice is made
         do
         {  
-          Console.Write($"\nSelection: ");   
+          Console.Write("\nSelection: ");   
           _choice = Console.ReadLine();
           // determine which choice the user selected
           if (_choice == "1")
@@ -94,15 +93,12 @@ public class Menu
             // create Journal object to use method to add entries
             Journal journal = new Journal();
             journal.AddToJournal(entries);
+            // empty the entries list
+            pen.EmptyList();
             // give a transition statement
             Console.WriteLine("Your entries have been permanently saved to your Journal by date.");
-          }
+          }          
           else if (_choice == "2")
-          {
-            // give a transition statement
-            Console.WriteLine("Choose the entry you would like to edit by its listed time:");
-          }
-          else if (_choice == "3")
           {
             // enter a blank line before the autoprompt starts
             Console.WriteLine("Your entries have been temporarily saved in an entry list by entry time.");
@@ -112,27 +108,27 @@ public class Menu
           else 
           {    
             _choice = "invalid";  
-            Console.WriteLine("You must enter a valid choice of 1, 2 or 3");
+            Console.WriteLine("You must enter a valid choice of 1 or 2");
           }
         }
         while (_choice == "invalid");
-        }     
+      }     
       else if (_choice == "2")
       {
         // give a transition statement
-        Console.WriteLine($"Please edit and reword this prompt to your liking:\n''{_prompt}''");
+        Console.WriteLine("Please enter your new journal prompt:");
       }
       else if (_choice == "3")
       {
         // give a transition statement
-        Console.WriteLine($"Here is your new prompt:");
+        Console.WriteLine("Here is your new prompt:");
         // regenerate a new prompt with options 
         DisplayMenu();
       }
       else if (_choice == "4")
       {
         // give a transition statement
-        Console.WriteLine($"Choose your prompt from this list by entering its number:");
+        Console.WriteLine("Choose your prompt from this list by entering its number:");
         // show the list of prompts to the user to choose from
         Prompt prompt = new Prompt();
         prompt.ListPrompts();
@@ -142,12 +138,58 @@ public class Menu
       else if (_choice == "5")
       {
         // give a transition statement
-        Console.WriteLine($"Please enter your new journal prompt:");
+        Console.WriteLine(" 1 - Display all uncommitted journal entries");  
+        Console.WriteLine(" 2 - Select a recent uncommitted journal entry");        
+        Console.WriteLine(" 3 - Display all entries from a journal volume");
+        Console.WriteLine(" 4 - Select a past committed journal entry day");
+        // run a loop until a valid choice is made
+        do
+        {  
+          Console.Write("\nSelection: ");   
+          _choice = Console.ReadLine();
+          // determine which choice the user selected
+          if (_choice == "1")
+          {
+            // 
+            
+          }          
+          else if (_choice == "2")
+          {
+            // tell user what they need to enter
+           
+          }
+          else if (_choice == "3")
+          {
+            // create journal instance to use the LoadAll method         
+            Journal journal = new Journal();
+            // iterate through the entries in the list
+            foreach (string entry in journal.LoadAll())
+            {
+              // print the contents to the screen
+              Console.WriteLine(entry);
+            }
+            // let the user know what has happened
+            Console.WriteLine("\n Your specified journal volume is now displayed in the terminal.");            
+          }
+           // determine which choice the user selected
+          else if (_choice == "4")
+          {
+            // show the user the format to use
+            Journal journal = new Journal();
+            journal.SelectDates();
+          }      
+          else 
+          {    
+            _choice = "invalid";  
+            Console.WriteLine("You must enter a valid choice of 1, 2, 3 or 2");
+          }
+        }
+        while (_choice == "invalid");
       }
        else if (_choice == "6")
       {
         // give a transition statement
-        Console.WriteLine($"Your journal entry has been postponed until the next auto-prompt and program restart.");
+        Console.WriteLine("Your journal entry has been postponed until the next auto-prompt and program restart.");
       }
       else 
       {    
