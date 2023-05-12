@@ -51,7 +51,8 @@ public class Pen
         // this divides each line into # of items per "WriteLine" entry [0], which is blank
         // so for the first line you skip [0] because it is empty and start with entryPart [1]
         string[] entryPart = entry.Split("~|~");
-        // seperate out the key     
+        // seperate out the key 
+        // reference source: https://www.c-sharpcorner.com/UploadFile/manas1/string-to-datetime-conversion-in-C-Sharp/ 
         DateTime key = Convert.ToDateTime(entryPart[1]);
         // seperate out the three string parts for the tuple 
         string time = entryPart[2]; 
@@ -73,51 +74,14 @@ public class Pen
       // and writes the list of prompts to the file - overwriting anything there already 
       foreach (var entryFile in _pendingEntries)
       {       
-        // createFile.WriteLine($"~|~{entryFile}"); 
+        // createFile.WriteLine($"~|~{entryFile}");
+        // reference source: https://www.dofactory.com/code-examples/csharp/dictionary-value-by-key & https://stackoverflow.com/questions/40574787/how-to-get-from-dictionarychar-tuple-int-char-int-value-for-specific-key 
         createFile.Write($"~|~{entryFile.Key}"); 
         createFile.Write($"~|~{entryFile.Value.Item1}");
         createFile.Write($"~|~{entryFile.Value.Item2}");
         createFile.WriteLine($"~|~{entryFile.Value.Item3}");      
       }          
     }
-
-    // // ############# LEARNING CODE ###################
-    // // go through each value
-    // foreach(var entryParts in _pendingEntries)
-    // {
-    //   // convert string into DateTime
-    //   // reference source: https://www.c-sharpcorner.com/UploadFile/manas1/string-to-datetime-conversion-in-C-Sharp/ 
-    //   DateTime find = Convert.ToDateTime("5/9/2023 11:13:32 PM");
-    //   find = find.Date.AddHours(find.Hour).AddMinutes(find.Minute);
-    //   timeKey = timeKey.Date.AddHours(timeKey.Hour).AddMinutes(timeKey.Minute);
-    //   if (timeKey == find)
-    //   {
-    //     Console.WriteLine($"{timeKey} == {find}");
-    //     Console.WriteLine("You passed the test");
-    //   }
-    //   // print out each item in tuple seperately
-    //   // reference source: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
-    //   Console.WriteLine(_entryItems.dateTime);
-    //   Console.WriteLine(_entryItems.promptUsed);
-    //   Console.WriteLine(_entryItems.entry);
-    //   Console.WriteLine(_timeKey);
-    //   // reference source: https://www.c-sharpcorner.com/UploadFile/mahesh/how-to-get-all-keys-of-a-dictionary-with-C-Sharp/ 
-     
-    //   Console.WriteLine("Key: {0}", entryParts);
-    //   Console.WriteLine(_pendingEntries[entryParts.Key]);
-    // }
-    // Console.WriteLine(_timeKey);
-    // // reference source: https://www.dofactory.com/code-examples/csharp/dictionary-value-by-key & https://stackoverflow.com/questions/40574787/how-to-get-from-dictionarychar-tuple-int-char-int-value-for-specific-key
-    // Console.WriteLine(_pendingEntries[_timeKey].Item1);
-    // Console.WriteLine(_pendingEntries[_timeKey].Item2);
-    // Console.WriteLine(_pendingEntries[_timeKey].Item3);
-    // Console.WriteLine(_pendingEntries.Keys.First());
-    // // reference sources: https://social.msdn.microsoft.com/Forums/vstudio/en-US/78132906-9d0a-4eff-836a-9c48253305e4/in-c-how-do-you-output-the-contents-of-a-dictionary-class?forum=csharpgeneral
-    // foreach (var value in _pendingEntries.Values)
-    //         {
-    //             Console.WriteLine("Value of the Dictionary Item is: {0}", value.Item1);
-    //         }
-    // // ############# LEARNING CODE ###################
   }
 
   // method to view pending journal entries
@@ -151,8 +115,14 @@ public class Pen
   }
 
   // method to edit pending journal entries
-  public void Edit()
+  public void EmptyList()
   {
-    
+    // empty the entry backup text file
+    using (StreamWriter emptyFile = new StreamWriter(_entryBackupFile))
+    {   
+      // empties the contents of the file 
+      // reference source: https://social.msdn.microsoft.com/Forums/vstudio/en-US/034f5982-b41f-482a-8a92-a724701543cd/how-to-remove-all-the-content-in-a-text-file-using-c-file-related-classs?forum=netfxbcl & https://social.msdn.microsoft.com/Forums/vstudio/en-US/034f5982-b41f-482a-8a92-a724701543cd/how-to-remove-all-the-content-in-a-text-file-using-c-file-related-classs?forum=netfxbcl
+      emptyFile.Flush();              
+    }
   }
 }

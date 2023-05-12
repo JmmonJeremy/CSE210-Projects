@@ -8,8 +8,7 @@ class Program
     static void Main(string[] args)
     {
         // testing methods
-        Menu menu = new Menu();
-        menu.DisplayMenu();       
+        Menu menu = new Menu();            
         menu.Transition();
         // running auto-prompter
         Initiator autoprompter = new Initiator();

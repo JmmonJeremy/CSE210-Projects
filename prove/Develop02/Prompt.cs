@@ -80,11 +80,19 @@ using System.IO;
 
     // method to randomly select the prompt
     public string RandomPrompt()
-    {
+    { 
+      // put a space between the data above it
+      Console.WriteLine();  
+      // highlight the opening statement's background color in red to catch the user's attention     
+      Console.BackgroundColor = ConsoleColor.DarkRed; 
+      // let the user know their journal prompt is being displayed
+      Console.Write("Below is an auto-generated journal prompt to start your journal entry:");
+      // reset the console display color
+      Console.ResetColor();
       // display the current date and time
       // reference source: https://stackoverflow.com/questions/13044603/convert-time-span-value-to-format-hhmm-am-pm-using-c-sharp 
       DateTime entryTime = DateTime.Now;      
-      Console.Write($"{entryTime.ToString("D")} ");
+      Console.Write($"\n{entryTime.ToString("D")} ");
       Console.WriteLine($"({entryTime.ToString("t")})");
       // set variable for the amount of items in a list
       int count = _inUsePromptList.Count;       

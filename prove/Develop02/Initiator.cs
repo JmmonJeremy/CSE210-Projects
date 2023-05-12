@@ -119,8 +119,19 @@ public class Initiator
     // set varialbe to hold the date and time
     DateTime startTime = DateTime.Now;
     // display message showing the current time and the next time the program should inititiate
-      Console.WriteLine($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and the next Journal prompt is scheduled for {clockTime} in {hours} hours and {minutes} minutes.\n");
-      _countdown = new System.Timers.Timer(milliseconds);
+    Console.Write($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and ");
+    // color these words to draw the user's attention to them
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("the next Journal prompt is scheduled for ");
+    // emphasize the next auto-prompt time by underlining & changing its color
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Program.WriteUnderline(clockTime);
+    // go back to the same color to catch the user's attenton to the end of the sentence
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine($" in {hours} hours and {minutes} minutes.\n");
+    // reset the text color to what it was
+    Console.ResetColor();
+    _countdown = new System.Timers.Timer(milliseconds);
     // runs the AutoPrompter when the timer ends and triggers the Elasped event
       _countdown.Elapsed += AutoPrompter;
     // stops the Elasped event for a timer from being raised more than once
@@ -156,10 +167,13 @@ public class Initiator
   public void TurnOn()
   {
     // create variables of underlined start & end NOTE
-    string noteStart = "*NOTE->";
-    // string noteEnd = "<-NOTE*\n";
+    string noteStart = "*NOTE->";   
+    // Highlight the opening statement's background color in red to catch the user's attention     
+    Console.BackgroundColor = ConsoleColor.DarkRed;     
     // display a message on how to stop the autoprompter
     Console.WriteLine("\n***STARTING THE JOURNAL AUTOPROMPTER***");
+    // reset the color output for the console
+    Console.ResetColor();
     // underline text in terminal
     // reference source: https://www.tutorialsteacher.com/csharp/csharp-static
     Program.WriteUnderline(noteStart);
