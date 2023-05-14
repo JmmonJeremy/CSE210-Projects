@@ -155,7 +155,7 @@ public class Menu
           else 
           {    
             _choice = "invalid";  
-            Console.WriteLine("You must enter a valid choice of 1, 2 or 3");
+            Console.WriteLine("You must enter a valid choice of 1 or 2");
           }
         }
         while (_choice == "invalid");
