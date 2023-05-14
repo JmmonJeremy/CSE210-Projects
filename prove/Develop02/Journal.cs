@@ -132,9 +132,7 @@ public class Journal
       // create a variable to add numbers for seperate list names
       int entryNumber = 1; 
       // create variable to hold the number of looping iterations
-      int loops = 0; 
-      // create varialb to keep track of repeat day entries in file
-      int repeatDay = 0;    
+      int loops = 0;         
       // create a varible to compare the loops to the dictionary list's count
       int totalEntries = entries.Count(); 
       // doing this to get the 1st date as a standard check 
@@ -220,16 +218,13 @@ public class Journal
     return _journalVolume;         
   }
 
-  // method to create a dictionary list from the requested date range
-  public IDictionary<DateOnly, List<string>> GetSelection(IDictionary<DateOnly, List<string>> journal, string _startDate, string _endDate)
-  {  
-    // create variables to be uses and i in for loop
-    int indexStart = -1;
-    // create a variable to hold the ending index number
-    int indexEnd = -1;
-    // convert start date & end date to DateOnly
-    DateOnly startDate = DateOnly.FromDateTime(Convert.ToDateTime(_startDate));
-    DateOnly endDate = DateOnly.FromDateTime(Convert.ToDateTime(_endDate));
+  // method to find the index of the start date
+  public int GetStartIndex(IDictionary<DateOnly, List<string>> journal, string _startDate)
+  {
+    // create variable to hold start date index
+    int indexStart = -1;   
+    // convert start date to DateOnly  
+    DateOnly startDate = DateOnly.FromDateTime(Convert.ToDateTime(_startDate));    
     // make sure start date file exists
     // reference source: https://www.techiedelight.com/determine-key-exists-dictionary-csharp/ 
     if(journal.TryGetValue(startDate, out var start))
@@ -250,17 +245,27 @@ public class Journal
       }
     }
     else
-    {
+    { 
       // let the user know that there is not a journal entry for that date
-      Console.WriteLine($"There is no journal entry for {_startDate}, the closest date prior to that was:");
+      Console.WriteLine($"Unfortunately there is no journal entry for the given start date of {_startDate}");
     }
+    return indexStart;
+  }
+
+  // method to find the index of the end date
+  public int GetEndIndex(IDictionary<DateOnly, List<string>> journal, string _endDate)
+  {
+    // create a variable to hold the ending index number
+    int indexEnd = -1;  
+    // convert end date to DateOnly    
+    DateOnly endDate = DateOnly.FromDateTime(Convert.ToDateTime(_endDate));
     // make sure end date file exists
     // reference source: https://www.techiedelight.com/determine-key-exists-dictionary-csharp/ 
-    if(journal.TryGetValue(endDate, out var end))
+    if(journal.TryGetValue(endDate, out var start))
     {
       // let the user know that there is a journal entry for that date
-      Console.WriteLine($"The date {_endDate} does have a journal entry.");      
-      // cycle through the journal dictionary
+      Console.WriteLine($"The date {_endDate} does have a journal entry.");
+      // cycle through the journal dictionary 
       foreach (var key in journal)
       {
         // add one for each cycle to match index numbers
@@ -274,10 +279,16 @@ public class Journal
       }
     }
     else
-    {
+    { 
       // let the user know that there is not a journal entry for that date
-      Console.WriteLine($"There is no journal entry for {_endDate}, the closet date after that was: ");
-    } 
+      Console.WriteLine($"Unfortunately there is no journal entry for the given end date of {_endDate}");
+    }
+    return indexEnd;
+  }
+
+  // method to create a dictionary list from the requested date range
+  public IDictionary<DateOnly, List<string>> GetSelection(IDictionary<DateOnly, List<string>> journal, int indexStart, int indexEnd)
+  {      
     // create iteration variable starting at -1 so count matches index #s
     int i = -1;   
     // cycle through dictionary and move all lists of journal 

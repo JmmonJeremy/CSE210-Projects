@@ -225,32 +225,96 @@ public class Menu
             Transition();          
           }
            // determine which choice the user selected
-          else if (_choice == "4")
-          {
+            else if (_choice == "4")
+            {             
+           
+            bool startDateFormat = false;
+            string startDate;
+            do
+            {            
             // prompt user for starting date + show the user the format to use
             Console.WriteLine("Please enter the start date for your desired range in this format: 6/9/2023");
             // show user they are entering the starting date
             Console.Write("Starting date: ");
             // store answer in a variable for use
-            string startDate = Console.ReadLine();
+            startDate = Console.ReadLine();
+            bool startTest = DateOnly.TryParse(startDate, out DateOnly startResult);
+            if (startTest == false)
+            {
+              // change type color of statement to red to draw user's attention
+              Console.ForegroundColor = ConsoleColor.Red;
+              Console.WriteLine("The date you entered was not in the proper format, please try again.");
+              // reset the console writing color
+              Console.ResetColor();
+              startDateFormat = false;
+            } 
+            else
+            {
+              startDateFormat = true;
+            }         
+            }
+            while (startDateFormat == false);
+
+            bool endDateFormat = false;
+            string endDate;
+            do{
             // prompt user for ending date + show the user the format to use
             Console.WriteLine("Please enter the end date for your desired range in this format: 6/9/2023");
             // show user they are entering the ending date
             Console.Write("Ending date: ");
             // store answer in a variable for use
-            string endDate = Console.ReadLine();
+            endDate = Console.ReadLine();
+            // add a space after this to seperate the output
+            Console.WriteLine();
+            bool endTest = DateOnly.TryParse(endDate, out DateOnly endResult);
+            if (endTest == false)
+            {
+              // change type color of statement to red to draw user's attention
+              Console.ForegroundColor = ConsoleColor.Red;
+              Console.WriteLine("The date you entered was not in the proper format, please try again.");
+              // reset the console writing color
+              Console.ResetColor();
+              endDateFormat = false;
+            }
+            else
+            {
+              endDateFormat = true;
+            }
+            }
+            while (endDateFormat == false);
+
+            // make an instance of the Journal class to call methods with
+            Journal journal = new Journal();
+            // create variable to hold the journal file in a dictionary list
+            // so it's not called twice in a row and gets and error for same keys
+            var journalList = journal.FileToList();
+            // call the methods to get the start date and store it in a variable
+            int startIndex = (journal.GetStartIndex(journalList, startDate));
+            // call the methods to get the end date and store it in a variable
+            int endIndex = (journal.GetEndIndex(journalList, endDate));
+            // do this if the start date isn't in the journal, but end index is
+            if (startIndex == -1 || endIndex == -1)
+            {   
+              // change type color of ending statement to red to draw user's attention
+              Console.ForegroundColor = ConsoleColor.Red;           
+              Console.WriteLine("\nSorry, to return journal entries in a date range the dates entered must both be in the journal.");
+              // reset the console writing color
+              Console.ResetColor();
+              // give them the choice to do something else or start autoprompter
+              Transition();              
+            }
+            else
+            {          
             // add a space before transition statement
             Console.WriteLine();
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
             // tell the user where the date is
             Console.WriteLine("Below are the requested journal entries within the specified date range:\n");
-             // reset the console writing color
-            Console.ResetColor(); 
-            // make an instance of the Journal class to call methods with
-            Journal journal = new Journal();
+            // reset the console writing color
+            Console.ResetColor();
             // call the methods to get the selection and store it in a variable
-            var selection = (journal.GetSelection(journal.FileToList(), startDate, endDate));
+            var selection = (journal.GetSelection(journalList, startIndex, endIndex));           
             // add a space before displaying the specified journal entries
             Console.WriteLine();
             // call the display method to display the requested date range 
@@ -263,7 +327,8 @@ public class Menu
             // reset the console writing color
             Console.ResetColor();            
             // give them the choice to do something else or start autoprompter
-            Transition();    
+            Transition();
+            }    
           }      
           else 
           {    
