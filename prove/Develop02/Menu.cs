@@ -108,6 +108,16 @@ public class Menu
           // determine which choice the user selected
           if (_choice == "1")
           {
+            // place a space after the selection
+            Console.WriteLine();
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // let the user know what has happened
+            Console.WriteLine("You have chosen to commit your entries into your journal file.");
+            // reset the console writing color
+            Console.ResetColor(); 
+            // place a space before the auto-prompter starting statement
+            Console.WriteLine();
             // access the dictionary list in the Pen class for the entries
             var entries = pen._pendingEntries;
             // create Journal object to use method to add entries
@@ -117,8 +127,8 @@ public class Menu
             pen.EmptyList();
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
-            // give a transition statement
-            Console.WriteLine("Your entries have been permanently saved to your Journal by date.\n");
+            // give a transition statement with spaces before & after it
+            Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.\n");
             // reset the console writing color
             Console.ResetColor();
             // give them the choice to do something else or start autoprompter
@@ -209,10 +219,23 @@ public class Menu
           }
           else if (_choice == "3")
           {
+            // let the user know what has happened with a space afterward
+            Console.WriteLine("You have chosen to display all of your Journal file.\n");
             // create journal instance to use the journal methods         
             Journal journal = new Journal();
-            // display all the journal entries to the console
-            journal.ConsoleDisplay(journal.FileToList());
+            // call FileTo list and get the filename 
+            // & save uploaded journal to variable
+            var myJournal = journal.FileToList();
+            // add a space before transition statement
+            Console.WriteLine();
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // tell the user where to find the requested information
+            Console.WriteLine($"|{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}| Below are all of the journal entries you have committed to your Journal |{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}|\n");
+            // reset the console writing color
+            Console.ResetColor();
+            // display all the journal entries to the console            
+            journal.ConsoleDisplay(myJournal);
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
             // let the user know what has happened with a space before it
@@ -284,10 +307,12 @@ public class Menu
             while (endDateFormat == false);
 
             // make an instance of the Journal class to call methods with
-            Journal journal = new Journal();
+            Journal journal = new Journal();           
             // create variable to hold the journal file in a dictionary list
             // so it's not called twice in a row and gets and error for same keys
             var journalList = journal.FileToList();
+            // place space before the dates are displayed from the
+            Console.WriteLine();           
             // call the methods to get the start date and store it in a variable
             int startIndex = (journal.GetStartIndex(journalList, startDate));
             // call the methods to get the end date and store it in a variable
@@ -309,8 +334,8 @@ public class Menu
             Console.WriteLine();
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
-            // tell the user where the date is
-            Console.WriteLine("Below are the requested journal entries within the specified date range:\n");
+            // tell the user where to find the requested entries
+            Console.WriteLine($"|{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}| Below are the requested journal entries within the specified date range |{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}|\n");
             // reset the console writing color
             Console.ResetColor();
             // call the methods to get the selection and store it in a variable

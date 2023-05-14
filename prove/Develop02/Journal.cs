@@ -34,6 +34,10 @@ public class Journal
   // method to save pending Journal entries to the journal file
   public void AddToJournal(IDictionary<DateTime, (string,string,string)>entries)
   {
+    // ask the user to enter their journal file
+    Console.Write("Please enter the name of your Journal file: ");
+    // store their answer in the _JournalFile variable
+    _journalFile = Console.ReadLine() + ".txt";
     // create a file that will add new entries each time this is called by adding append:true
     // reference source: https://stackoverflow.com/questions/8255533/how-to-add-new-line-into-txt-file
     using (StreamWriter createFile = new StreamWriter(_journalFile, append:true))
@@ -120,6 +124,10 @@ public class Journal
   // method to load all of the journal file into a dictionary list
   public IDictionary<DateOnly, List<string>> FileToList()
   {
+    // ask the user to enter their journal file
+    Console.Write("Please enter the name of your Journal file: ");
+    // store their answer in the _JournalFile variable
+    _journalFile = Console.ReadLine() + ".txt";;
     // check if file exists 1st
     if (File.Exists(_journalFile))
     {       

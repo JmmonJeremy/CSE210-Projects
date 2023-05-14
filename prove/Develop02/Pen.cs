@@ -114,7 +114,7 @@ public class Pen
     return _pendingEntries;
   }
 
-  // method to edit pending journal entries
+  // method to erase pending journal entries from temporary file
   public void EmptyList()
   {
     // empty the entry backup text file
