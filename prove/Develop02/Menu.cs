@@ -49,7 +49,7 @@ public class Menu
     // determine if they are making a choice or stopping the auto-prompter
     // choices would be menu or numbers 1 - 6 in string form
     // if the string is anything else it will ask for a valid entry
-    // one exception is "123456789987654321" which is a special entry
+    // one exception is "END PROGRAM" which is a special entry
     // it is entered by menu options that start the auto-prompter
     // to stop recalls from happening when stopping the auto-prompter
     // with a "null or empty" string being entered after the auto-prompter
@@ -195,7 +195,7 @@ public class Menu
             // that is passed on to this do/while loop through the Initiator's class's method
             // method TurnOn through TurnOn's variable stop, which variable is used to stop the
             // the auto-prompter or to pass on values to this do/while loop for further optoins
-            _choice = "123456789987654321";
+            _choice = "END PROGRAM";
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
             // let the user know what has happened with an empty space before it
@@ -489,7 +489,7 @@ public class Menu
         // that is passed on to this do/while loop through the Initiator's class's method
         // method TurnOn through TurnOn's variable stop, which variable is used to stop the
         // the auto-prompter or to pass on values to this do/while loop for further optoins  
-        _choice = "123456789987654321"; 
+        _choice = "END PROGRAM"; 
         // change type color of ending statement to red to draw user's attention
         Console.ForegroundColor = ConsoleColor.Red;
         // give a transition statement with an empty line before it
@@ -519,7 +519,7 @@ public class Menu
       // this choice is reached through the main menu options of
       // "6" and option "1" submenu option "3" followed by pressing
       // the enter key with nothing entered or a "Null or void" value
-      else if (_choice == "123456789987654321") 
+      else if (_choice == "END PROGRAM") 
       {
         // a useful debugging line showing looping cycles
         // Console.WriteLine("THROW AWAY!!!!!!!!!!!!");

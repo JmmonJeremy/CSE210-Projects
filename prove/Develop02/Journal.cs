@@ -34,10 +34,64 @@ public class Journal
   // method to save pending Journal entries to the journal file
   public void AddToJournal(IDictionary<DateTime, (string,string,string)>entries)
   {
-    // ask the user to enter their journal file
-    Console.Write("Please enter the name of your Journal file: ");
-    // store their answer in the _JournalFile variable
-    _journalFile = Console.ReadLine() + ".txt";
+    // create a boolean to use to keep a while loop running
+    string moveOn = "no";
+    // create a loop that runs until the user has entered a valid file name
+    // and until the user has verified that the file name they entered is correct
+    while (moveOn == "no")
+    {
+      // ask the user to enter their journal file
+      Console.Write("Please enter the name of your Journal file: ");
+      // store their answer in the _JournalFile variable
+      _journalFile = Console.ReadLine();
+      // verify that the user's file name is only contains letters and numbers
+      // reference source: https://www.techiedelight.com/check-string-consists-alphanumeric-characters-csharp/
+      if ((_journalFile.All(char.IsLetterOrDigit)) == false)
+      {
+        // show the user the filename they entered
+        Console.WriteLine($"\nYou entered: {_journalFile}");        
+        // If it is not, inform the user and ask them to enter a different file name
+        Console.WriteLine("The filename must consist of only letters and numbers with no spaces.\nPlease only use alphanumeric characters.");
+      }
+      
+      // if the file name is the correct format, then 
+      // ensure the user entered the filename they meant to
+      else
+      {
+        // show the user the filename they entered
+        Console.WriteLine($"\nYou entered: {_journalFile}");
+        // explain the .txt filename to the user and ask 
+        // for a yes or no answer for if the name is correct
+        Console.WriteLine("Is this the name you meant to enter for your filename? (yes or no)");
+        // create a variable to keep the while loop running
+        string answer = "wrong";
+        // create another while loop that will keep running
+        // until "yes" or "no" is entered by the user
+        while (answer != "yes" && answer != "no")
+        {
+          Console.Write("Correct filename: ");
+          // assign the answer to the variable answer
+          answer = Console.ReadLine();
+          // do this if it isn't yes or no
+          if (answer != "yes" && answer != "no")
+          {
+            Console.WriteLine($"You entered: {answer}");
+            Console.WriteLine("Only 'yes' or 'no' are vaild answers, please try again.");
+          }
+        }
+        // assign the value of the answer to the moveOn variable so the loop 
+        // will end if the answer is yes and loop again if the answer is no         
+        moveOn = answer;
+        // add a space after the response if the answer is no
+        if (answer == "no")
+        {
+        // empty line
+        Console.WriteLine();
+        }
+      }
+    }
+    // add .txt to the file so it can be used as a filename
+    _journalFile += ".txt";
     // create a file that will add new entries each time this is called by adding append:true
     // reference source: https://stackoverflow.com/questions/8255533/how-to-add-new-line-into-txt-file
     using (StreamWriter createFile = new StreamWriter(_journalFile, append:true))

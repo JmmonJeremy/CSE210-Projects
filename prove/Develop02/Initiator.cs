@@ -206,6 +206,7 @@ public class Initiator
     // create a variable and store the value of this entry   
     string stop = Console.ReadLine();   
     // determine if the entry was a blank line or not
+    // reference source: https://www.educative.io/answers/how-to-check-if-a-string-has-only-whitespace-or-is-empty-in-c-sharp
     bool endProgram = string.IsNullOrEmpty(stop);
     // stop raising the Elapsed event
     // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer.stop?view=net-7.0 
