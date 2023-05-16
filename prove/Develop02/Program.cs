@@ -9,10 +9,10 @@ class Program
     {
         // testing methods
         Menu menu = new Menu();            
-        menu.Transition();
+        menu.Transition("menu");
         // running auto-prompter
-        Initiator autoprompter = new Initiator();
-        autoprompter.TurnOn();
+        // Initiator autoprompter = new Initiator();
+        // autoprompter.TurnOn();
        
 
        

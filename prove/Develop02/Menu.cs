@@ -9,7 +9,7 @@ public class Menu
   // variable to hold the user's option choice
   string _choice;
   // variable to hold the prompt message
-  string _prompt;
+  string _prompt;  
   // list of menu options
   List<string> _options = new List<string>()
   {
@@ -22,13 +22,19 @@ public class Menu
   };
 
 // ### METHODS ############################################## //
-  // method to diplay the menu for the user
+  // method to diplay a random prompt followed by the main menu for the user
   public void DisplayMenu()
   {
-    Prompt prompt = new Prompt();
+    // create a Prompt object to be able to access its methods
+    Prompt prompt = new Prompt();  
+    // use the prompt object and run the RandomPrompt method
+    // display the prompts to the user by writing them to the console    
     Console.WriteLine(_prompt = prompt.RandomPrompt());
-    // tell user how to make a selection
+    // reset color to the original settings
+    Console.ResetColor();   
+    // tell user how to make a selection       
     Console.WriteLine("\nSelect an option by entering its number:");
+    Console.ResetColor();
     // display the menu to select from
     foreach (string option in _options)
     {
@@ -36,21 +42,46 @@ public class Menu
     }     
   }
 
-  // method to hold the users choice
-  public void Transition()
-  {
+  // method to take the users choice and 
+  // translate it into the appropriate actions
+  public void Transition(string leadIn)
+  { 
+    // determine if they are making a choice or stopping the auto-prompter
+    // choices would be menu or numbers 1 - 6 in string form
+    // if the string is anything else it will ask for a valid entry
+    // one exception is "123456789987654321" which is a special entry
+    // it is entered by menu options that start the auto-prompter
+    // to stop recalls from happening when stopping the auto-prompter
+    // with a "null or empty" string being entered after the auto-prompter
+    // has been started by menu option "6" or option "1" suboption "3"
+
+    // if "menu" is passed in through this method's leadIn passed in variable 
+    // variable, display the mainn menu for the user and record the choice entered 
+    // entered after the menu is displayed as the _choice variable for use below
+    if (leadIn == "menu")
+    {
     // show them the options
     DisplayMenu();
-    // run a loop until a valid choice is made
-    do
-    {  
-      Console.Write("\nSelection: ");   
+    // show them where to enter their selection
+    Console.Write("\nSelection: ");     
+    // record their choice in the variable representing it for use below  
       _choice = Console.ReadLine();
-      // determine which choice the user selected
+    } 
+    // otherwise set _choice equal to the value passed in
+    // through the leadIn passed in variable for use below
+    else 
+    {
+      // set _choice variable equal to value passed in
+      _choice = leadIn;
+    }
+    // run a loop until a valid choice is made
+    do    
+    {   
+      // MAIN MENU // CHOICE: 1 - Use current prompt for an entry
       if (_choice == "1")
       {
-        // give a transition statement
-        Console.Write("Please");
+        // give a transition statement with an empty line before it
+        Console.Write("\nPlease");
         // add color to emphasize this text
         // reference source: https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net
         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -103,9 +134,11 @@ public class Menu
         // run a loop until a valid choice is made
         do
         {  
-          Console.Write("\nSelection: ");   
+          // show user where to enter their selection
+          Console.Write("\nSelection: "); 
+          // set choice equal to their entry
           _choice = Console.ReadLine();
-          // determine which choice the user selected
+          // main menu choice(1) SUBMENU // CHOICE: 1 - Commit your entries to your Journal
           if (_choice == "1")
           {
             // place a space after the selection
@@ -127,100 +160,148 @@ public class Menu
             pen.EmptyList();
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
-            // give a transition statement with spaces before & after it
-            Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.\n");
+            // give a transition statement with an empty space before it
+            Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.");
             // reset the console writing color
             Console.ResetColor();
+            // set _choice as "menu" to use for the transition method variable
+            // so it shows the menu to the user so they know what to choose from
+            _choice = "menu";
             // give them the choice to do something else or start autoprompter
-            Transition();
+            Transition(_choice);
           } 
+          // main menu choice(1) SUBMENU // CHOICE: 2 - Wait to commit entries and see other options
           else if (_choice == "2")
           {
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
-            // let the user know what has happened
-            Console.WriteLine("You chose to wait to commit your entry to your journal and look at more journal options.");
+            // let the user know what has happened with an empty space before it
+            Console.WriteLine("\nYou chose to wait to commit your entry to your journal and look at more journal options.");
             // reset the console writing color
             Console.ResetColor(); 
             // place a space before the auto-prompter starting statement
             Console.WriteLine();
-            // give them the choice to do something else or start autoprompter
-            Transition();
-          }         
+            // set _choice as "menu" to send it to the else if menu option in
+            // this do/while loop so it will show the menu to the user so they
+            // can look at the main menu options and make another choice
+            _choice = "menu";            
+          } 
+          // main menu choice(1) SUBMENU // CHOICE: 3 - Wait to commit entries and start auto-prompter
           else if (_choice == "3")
           {
+            // set _choice equal to the "Throw away" else/if option in this do/while loop that
+            // is set up to send unneeded repetive menu calls to be killed there thus preventing
+            // them from reentering through being passed in by this method's variable "leadIn",
+            // that is passed on to this do/while loop through the Initiator's class's method
+            // method TurnOn through TurnOn's variable stop, which variable is used to stop the
+            // the auto-prompter or to pass on values to this do/while loop for further optoins
+            _choice = "123456789987654321";
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
-            // let the user know what has happened
-            Console.WriteLine("Your entries have been temporarily saved in an entry list by their entry time.");
+            // let the user know what has happened with an empty space before it
+            Console.WriteLine("\nYour entries have been temporarily saved in an entry list by their entry time.");
             // reset the console writing color
             Console.ResetColor(); 
             // place a space before the auto-prompter starting statement
-            Console.WriteLine();
+            Console.WriteLine();            
             // create and instance of the Initiator class to access its method
             Initiator autoprompter = new Initiator();
             // use the instance to access TurnOn Initiator method
-            autoprompter.TurnOn();
+            autoprompter.TurnOn();            
           }
+          // main menu choice(1) SUBMENU // do/while continuous loop message
           else 
-          {    
-            _choice = "invalid";  
+          {  
+            // set choice equal to "invalid" to rerun the submenu do/while loop
+            _choice = "invalid";
+            // tell the user what they must do to enter a valid choice 
             Console.WriteLine("You must enter a valid choice of 1 or 2");
           }
         }
+        // main menu choice(1) SUBMENU // condition to keeep the do/while loop running
         while (_choice == "invalid");
-      }     
+      } 
+      // MAIN MENU // CHOICE: 2 - Create a new journal prompt to use 
       else if (_choice == "2")
       {
-        // give a transition statement
-        Console.WriteLine("Please enter your new journal prompt:");
+        // change type color of ending statement to red to draw user's attention
+        Console.ForegroundColor = ConsoleColor.Red;
+        // give a transition statement with an empty space before it
+        Console.WriteLine("\nPlease enter your new journal prompt:");
+        // reset the console writing color
+        Console.ResetColor(); 
       }
+      // MAIN MENU // CHOICE: 3 - Auto-generate a different prompt
       else if (_choice == "3")
       {
-        // give a transition statement
-        Console.WriteLine("Here is your new prompt:");
+        // change type color of ending statement to red to draw user's attention
+        Console.ForegroundColor = ConsoleColor.Red;
+        // give a transition statement with an empty line before it
+        Console.WriteLine("\nHere is your new prompt:");
+        // reset the console writing color
+        Console.ResetColor(); 
         // regenerate a new prompt with options 
-        DisplayMenu();
+        _choice = "menu";        
       }
+      // MAIN MENU // CHOICE: 4 - Hand pick a new prompt for an entry
       else if (_choice == "4")
       {
-        // give a transition statement
-        Console.WriteLine("Choose your prompt from this list by entering its number:");
+        // change type color of ending statement to red to draw user's attention
+        Console.ForegroundColor = ConsoleColor.Red;
+        // give a transition statement with an empty space before it
+        Console.WriteLine("\nChoose your prompt from this list by entering its number:");
+        // reset the console writing color
+        Console.ResetColor(); 
         // show the list of prompts to the user to choose from
         Prompt prompt = new Prompt();
         prompt.ListPrompts();
         // display the prompt the user selected
         Console.WriteLine(prompt.SelectPrompt());             
       }
+      // MAIN MENU // CHOICE: 5 - Select and read an old journal entry
       else if (_choice == "5")
       {
-        // give a transition statement
-        Console.WriteLine("You chose to select and read an old journal entry.");
-        Console.WriteLine("\n Select an option by entering its number:");
+        // change type color of ending statement to red to draw user's attention
+        Console.ForegroundColor = ConsoleColor.Red;        
+        // give a transition statement, show the submenu and tell user how to use it
+        Console.WriteLine("\nYou chose to select and read an old journal entry.");
+        // reset the console writing color
+        Console.ResetColor(); 
+        // give the user a list of submenu choices in relation to reading
+        // old journal entries and tell them how to select their choice
+        Console.WriteLine("\nSelect an option by entering its number:");
         Console.WriteLine(" 1 - Display all uncommitted journal entries");  
         Console.WriteLine(" 2 - Select a recent uncommitted journal entry");        
         Console.WriteLine(" 3 - Display all entries from a journal volume");
         Console.WriteLine(" 4 - Display a date range of journal entries");
-        // run a loop until a valid choice is made
+        // run a do/while loop until a valid choice is made
         do
         {  
-          Console.Write("\nSelection: ");   
+          // show the user where to enter their choice
+          Console.Write("\nSelection: ");
+          // make the _choice variable equal to user's entry  
           _choice = Console.ReadLine();
-          // determine which choice the user selected
+          // main menu choice(5) SUBMENU // CHOICE: 1 - Display all uncommitted journal entries
           if (_choice == "1")
           {
             // 
             
-          }          
+          } 
+          // main menu choice(5) SUBMENU // CHOICE: 2 - Select a recent uncommitted journal entry
           else if (_choice == "2")
           {
             // tell user what they need to enter
            
           }
+          // main menu choice(5) SUBMENU // CHOICE: 3 - Display all entries from a journal volume
           else if (_choice == "3")
           {
-            // let the user know what has happened with a space afterward
-            Console.WriteLine("You have chosen to display all of your Journal file.\n");
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // let the user know what has happened with an empty space before and afterward
+            Console.WriteLine("\nYou have chosen to display all of your Journal file.\n");
+            // reset the console writing color
+            Console.ResetColor();
             // create journal instance to use the journal methods         
             Journal journal = new Journal();
             // call FileTo list and get the filename 
@@ -243,69 +324,97 @@ public class Menu
             // reference source: https://www.codeproject.com/Questions/254514/Displaying-a-symbol-in-csharp & https://en.wikipedia.org/wiki/Code_page_437 & https://www.ascii-codes.com/cp855.html & https://yorktown.cbe.wwu.edu/sandvig/shared/asciicodes.aspx
             Console.WriteLine($"\n|{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}| Your specified journal volume is now displayed in the terminal space above here |{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}|"); 
             // reset the console writing color
-            Console.ResetColor();            
-            // give them the choice to do something else or start autoprompter
-            Transition();          
+            Console.ResetColor();
+            // set _choice as "menu" to use for the transition method variable
+            // so it shows the menu to the user so they know what to choose from
+            _choice = "menu";                  
           }
-           // determine which choice the user selected
-            else if (_choice == "4")
-            {             
-           
+          // main menu choice(5) SUBMENU // CHOICE: 4 - Display a date range of journal entries
+          else if (_choice == "4")
+          {  
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // let the user know what has happened with an empty space before and afterward
+            Console.WriteLine("\nYou have chosen to display a date range of journal entries.\n");
+            // reset the console writing color
+            Console.ResetColor();           
+            // set boolean to false for the starting date
             bool startDateFormat = false;
+            // create variable to hold the starting date for the date range
             string startDate;
+            // run a do/while loop until proper date formats are entered
             do
             {            
-            // prompt user for starting date + show the user the format to use
-            Console.WriteLine("Please enter the start date for your desired range in this format: 6/9/2023");
-            // show user they are entering the starting date
-            Console.Write("Starting date: ");
-            // store answer in a variable for use
-            startDate = Console.ReadLine();
-            bool startTest = DateOnly.TryParse(startDate, out DateOnly startResult);
-            if (startTest == false)
-            {
-              // change type color of statement to red to draw user's attention
-              Console.ForegroundColor = ConsoleColor.Red;
-              Console.WriteLine("The date you entered was not in the proper format, please try again.");
-              // reset the console writing color
-              Console.ResetColor();
-              startDateFormat = false;
-            } 
-            else
-            {
-              startDateFormat = true;
-            }         
+              // prompt user for starting date + show the user the format to use
+              Console.WriteLine("Please enter the start date for your desired range in this format: 6/9/2023");
+              // show user they are entering the starting date
+              Console.Write("Starting date: ");
+              // store answer in a variable for use
+              startDate = Console.ReadLine();
+              // set the variable startTest as a boolean through TryParse method and
+              // set the startResult variable as a DateOnly holding the date if it is true
+              // referece source: https://www.tutorialspoint.com/chash-int-tryparse-method
+              bool startTest = DateOnly.TryParse(startDate, out DateOnly startResult);
+              // if it is not a properly formatted date do this
+              if (startTest == false)
+              {
+                // change type color of statement to red to draw user's attention
+                Console.ForegroundColor = ConsoleColor.Red;
+                // tell the user the date was not in the proper format and to retry
+                Console.WriteLine("The date you entered was not in the proper format, please try again.");
+                // reset the console writing color
+                Console.ResetColor();
+                // ensure the startDateFormat boolean is set to false
+                startDateFormat = false;
+              } 
+              // if is is properly formatted do this
+              else
+              {
+                // if it passes the test set the startDateFormat to true
+                startDateFormat = true;
+              }         
             }
+            // continue doing this until they enter a properly formatted date
             while (startDateFormat == false);
-
+            // set boolean to false for the ending date
             bool endDateFormat = false;
+            // create variable to hold the ending date for the date range
             string endDate;
-            do{
-            // prompt user for ending date + show the user the format to use
-            Console.WriteLine("Please enter the end date for your desired range in this format: 6/9/2023");
-            // show user they are entering the ending date
-            Console.Write("Ending date: ");
-            // store answer in a variable for use
-            endDate = Console.ReadLine();
-            // add a space after this to seperate the output
-            Console.WriteLine();
-            bool endTest = DateOnly.TryParse(endDate, out DateOnly endResult);
-            if (endTest == false)
+            // run a do/while loop until proper date formats are entered
+            do
             {
-              // change type color of statement to red to draw user's attention
-              Console.ForegroundColor = ConsoleColor.Red;
-              Console.WriteLine("The date you entered was not in the proper format, please try again.");
-              // reset the console writing color
-              Console.ResetColor();
-              endDateFormat = false;
+              // prompt user for ending date + show the user the format to use
+              Console.WriteLine("Please enter the end date for your desired range in this format: 6/9/2023");
+              // show user they are entering the ending date
+              Console.Write("Ending date: ");
+              // store answer in a variable for use
+              endDate = Console.ReadLine();
+              // add a space after this to seperate the output
+              Console.WriteLine();
+              // set the variable endTest as a boolean through TryParse method and
+              // set the endResult variable as a DateOnly holding the date if it is true            
+              bool endTest = DateOnly.TryParse(endDate, out DateOnly endResult);
+              // if it is not a properly formatted date do this
+              if (endTest == false)
+              {
+                // change type color of statement to red to draw user's attention
+                Console.ForegroundColor = ConsoleColor.Red;
+                // tell the user the date was not in the proper format and to retry
+                Console.WriteLine("The date you entered was not in the proper format, please try again.");
+                // reset the console writing color
+                Console.ResetColor();
+                // ensure the endDateFormat boolean is set to false
+                endDateFormat = false;
+              }
+              // if is is properly formatted do this
+              else
+              {
+                // if it passes the test set the endDateFormat to true
+                endDateFormat = true;
+              }
             }
-            else
-            {
-              endDateFormat = true;
-            }
-            }
+            // continue doing this until they enter a properly formatted date
             while (endDateFormat == false);
-
             // make an instance of the Journal class to call methods with
             Journal journal = new Journal();           
             // create variable to hold the journal file in a dictionary list
@@ -321,70 +430,117 @@ public class Menu
             if (startIndex == -1 || endIndex == -1)
             {   
               // change type color of ending statement to red to draw user's attention
-              Console.ForegroundColor = ConsoleColor.Red;           
+              Console.ForegroundColor = ConsoleColor.Red;
+              // let the user know they have to enter a date that has an entry for both dates 
               Console.WriteLine("\nSorry, to return journal entries in a date range the dates entered must both be in the journal.");
               // reset the console writing color
               Console.ResetColor();
-              // give them the choice to do something else or start autoprompter
-              Transition();              
+              // set _choice as "menu" to use for the transition method variable
+              // so it shows the menu to the user so they know what to choose from
+              _choice = "menu";             
             }
+            // do this if both the start and end dates are in the journal
             else
             {          
-            // add a space before transition statement
-            Console.WriteLine();
-            // change type color of ending statement to red to draw user's attention
-            Console.ForegroundColor = ConsoleColor.Red;
-            // tell the user where to find the requested entries
-            Console.WriteLine($"|{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}| Below are the requested journal entries within the specified date range |{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}|\n");
-            // reset the console writing color
-            Console.ResetColor();
-            // call the methods to get the selection and store it in a variable
-            var selection = (journal.GetSelection(journalList, startIndex, endIndex));           
-            // add a space before displaying the specified journal entries
-            Console.WriteLine();
-            // call the display method to display the requested date range 
-            journal.ConsoleDisplay(selection);             
-            // change type color of ending statement to red to draw user's attention
-            Console.ForegroundColor = ConsoleColor.Red;
-            // let the user know what has happened with a space before it
-            // plus add in an arrow pointing up            
-            Console.WriteLine($"\n|{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}| Your journal entries within the date range can now be found above in this terminal |{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}|"); 
-            // reset the console writing color
-            Console.ResetColor();            
-            // give them the choice to do something else or start autoprompter
-            Transition();
-            }    
-          }      
+              // add a space before transition statement
+              Console.WriteLine();
+              // change type color of ending statement to red to draw user's attention
+              Console.ForegroundColor = ConsoleColor.Red;
+              // tell the user where to find the requested entries
+              Console.WriteLine($"|{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}| Below are the requested journal entries within the specified date range |{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}|\n");
+              // reset the console writing color
+              Console.ResetColor();
+              // call the methods to get the selection and store it in a variable
+              var selection = (journal.GetSelection(journalList, startIndex, endIndex));           
+              // add a space before displaying the specified journal entries
+              Console.WriteLine();
+              // call the display method to display the requested date range 
+              journal.ConsoleDisplay(selection);             
+              // change type color of ending statement to red to draw user's attention
+              Console.ForegroundColor = ConsoleColor.Red;
+              // let the user know what has happened with a space before it
+              // plus add in an arrow pointing up            
+              Console.WriteLine($"\n|{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}| Your journal entries within the date range can now be found above in this terminal |{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}|"); 
+              // reset the console writing color
+              Console.ResetColor(); 
+              // set _choice as "menu" to use for the transition method variable
+              // so it shows the menu to the user so they know what to choose from
+              _choice = "menu";
+            }
+          } 
+          // main menu choice(5) SUBMENU // do/while continuous loop message     
           else 
-          {    
-            _choice = "invalid";  
-            Console.WriteLine("You must enter a valid choice of 1, 2, 3 or 2");
+          {   
+            // set choice equal to "invalid" to rerun the submenu do/while loop 
+            _choice = "invalid"; 
+            // tell the user what they must do to enter a valid choice 
+            Console.WriteLine("You must enter a valid choice of 1, 2, 3 or 4");
           }
         }
+        // main menu choice(5) SUBMENU // condition to keeep the do/while loop running
         while (_choice == "invalid");
       }
+      // MAIN MENU // CHOICE: 6 - Put off entry & start prompt timer
        else if (_choice == "6")
       {
+        // set _choice equal to the "Throw away" else/if option in this do/while loop that
+        // is set up to send unneeded repetive menu calls to be killed there thus preventing
+        // them from reentering through being passed in by this method's variable "leadIn",
+        // that is passed on to this do/while loop through the Initiator's class's method
+        // method TurnOn through TurnOn's variable stop, which variable is used to stop the
+        // the auto-prompter or to pass on values to this do/while loop for further optoins  
+        _choice = "123456789987654321"; 
         // change type color of ending statement to red to draw user's attention
         Console.ForegroundColor = ConsoleColor.Red;
-        // give a transition statement
-        Console.WriteLine("Your journal entry has been postponed until the next auto-prompt and program restart.");
+        // give a transition statement with an empty line before it
+        Console.WriteLine("\nYour journal entry has been postponed until the next auto-prompt and program restart.");
         // reset the console writing color
         Console.ResetColor(); 
         // place a space before the auto-prompter starting statement
-        Console.WriteLine();
+        Console.WriteLine();        
         // create and instance of the Initiator class to access its method
-        Initiator autoprompter = new Initiator();        
-        // use the instance to access TurnOn Initiator method
-        autoprompter.TurnOn();
+        Initiator autoprompter = new Initiator();             
+        // use the instance to access TurnOn Initiator method               
+        autoprompter.TurnOn();             
       }
+      // MAIN MENU // CHOICE: "menu"
+      // option to show the main menu again // used so the user 
+      // can type menu at any time and get back to the main menu //
+      // also used to loop other menu option in this do/when loop
+      // back to starting the menu again // also used as a error 
+      // catch if user didn't mean to start the autoprompt - so 
+      // they can enter "menu" and get back to the main menu
+      else if (_choice == "menu")
+      {        
+        // start menu over again
+        Transition("menu");         
+      }
+      // MAIN MENU // CHOICE: unlisted for special case use only
+      // this choice is reached through the main menu options of
+      // "6" and option "1" submenu option "3" followed by pressing
+      // the enter key with nothing entered or a "Null or void" value
+      else if (_choice == "123456789987654321") 
+      {
+        // a useful debugging line showing looping cycles
+        // Console.WriteLine("THROW AWAY!!!!!!!!!!!!");
+
+        // Stop the repeat cycle of this code when "Null or void" is 
+        // entered after the auto-prompter is started as a command to
+        // stop the program from running the auto-prompter
+        break;
+      }
+      // MAIN MENU // do/while continuous loop message
       else 
-      {    
-        _choice = "invalid";  
+      {   
+        // tell the user how to enter a valid choice         
         Console.WriteLine("You must enter a valid choice of 1, 2, 3, 4, 5 or 6");
+        Console.WriteLine("Please enter your choice again.");
+        Console.Write("\nSelection: ");   
+        _choice = Console.ReadLine();
       }
     }
-    while (_choice == "invalid");    
+    // MAIN MENU // conditions to keep running the loop
+    while (_choice != "1" || _choice != "2" || _choice != "3" || _choice != "4" || _choice != "5" || _choice != "6");    
   }
 }
 

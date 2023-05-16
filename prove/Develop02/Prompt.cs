@@ -99,7 +99,9 @@ using System.IO;
       // randomly select the list index for the prompt
       Random randomGenerator = new Random();
       int index = randomGenerator.Next(0, count);
-      // return the randomly selected prompt
+      // set the text color to a different color to draw attention to it
+      Console.ForegroundColor = ConsoleColor.Magenta;
+      // return the randomly selected prompt      
       return _inUsePromptList[index];
     }   
 
@@ -176,6 +178,13 @@ using System.IO;
       // // display the prompt the user selected
       // Console.WriteLine(_inUsePromptList[index]); 
       return _inUsePromptList[index];
+    }
+    
+    // method to display a selected prompt
+    public void DisplayChosenPrompt(int indexNumber) 
+    {
+      
+
     }
   }
 // }

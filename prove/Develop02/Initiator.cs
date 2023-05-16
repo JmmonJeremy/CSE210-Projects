@@ -54,9 +54,9 @@ public class Initiator
       TimeSpan setTime = new TimeSpan(14,30,00);
       return setTime;
     }
-    else if (compare < 154400)
+    else if (compare < 155800)
     {
-      TimeSpan setTime = new TimeSpan(15,44,00);
+      TimeSpan setTime = new TimeSpan(15,58,00);
       return setTime;
     }
     else if (compare < 183000)
@@ -80,7 +80,7 @@ public class Initiator
 
   // method that starts the countdown to the Journal autoprompt
   // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer?view=net-8.0
-  public void StartTimer()
+  public void StartTimer(string showNextStart)
   {    
     // variable to hold the time for the next prompt
     TimeSpan setTime = SetTime();                  
@@ -118,19 +118,26 @@ public class Initiator
     string clockTime = conversion.ToString("hh:mm tt");
     // set varialbe to hold the date and time
     DateTime startTime = DateTime.Now;
-    // display message showing the current time and the next time the program should inititiate
-    Console.Write($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and ");
-    // color these words to draw the user's attention to them
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.Write("the next Journal prompt is scheduled for ");
-    // emphasize the next auto-prompt time by underlining & changing its color
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Program.WriteUnderline(clockTime);
-    // go back to the same color to catch the user's attenton to the end of the sentence
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.WriteLine($" in {hours} hours and {minutes} minutes.\n");
-    // reset the text color to what it was
-    Console.ResetColor();
+    // set a condition for when to show this so at times the timer can 
+    // stop, pass the entry into the journal menu, perform actions and
+    // then restart seemlessly at the end and tell the user it is started
+    if (showNextStart == "yes")
+    {
+      // display message showing the current time and the next time the program should inititiate
+      Console.Write($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and ");
+      // color these words to draw the user's attention to them
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.Write("the next Journal prompt is scheduled for ");
+      // emphasize the next auto-prompt time by underlining & changing its color
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      Program.WriteUnderline(clockTime);
+      // go back to the same color to catch the user's attenton to the end of the sentence
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.WriteLine($" in {hours} hours and {minutes} minutes.\n");
+      // reset the text color to what it was
+      Console.ResetColor();
+    }
+    // variable to hold the countdown for the timer in milliseconds
     _countdown = new System.Timers.Timer(milliseconds);
     // runs the AutoPrompter when the timer ends and triggers the Elasped event
       _countdown.Elapsed += AutoPrompter;
@@ -150,22 +157,28 @@ public class Initiator
     // display a prompt to run the journal program underlined & capitalized for more emphasis       
     Program.WriteUnderline("!!! REMINDER TO RUN A JOURNAL PROMPT AND MAKE AN ENTRY !!!\n");
     // reset color to original settings
-    Console.ResetColor();
-
-    // // TODO ########## figure out how to take readline info and not stop autoprompt timer
-    // // give a random prompt and start the menu with its options
-    // Menu menu = new Menu();
-    // menu.DisplayMenu();       
-    // menu.Transition();
-        
+    Console.ResetColor();   
+    // give a random prompt and start the menu with its options
+    // create a menu object from the Menu class
+    Menu menu = new Menu();
+    // use the DisplayMenu method to only display the menu thus
+    // allowing the entry to pass into the Transition method 
+    // from the Menu class in the TurnOn method found below 
+    menu.DisplayMenu();
+    // show them where to enter their selection
+    Console.Write("\nSelection: ");        
     // reset the countdown to the next prompt
     Initiator start = new Initiator();
-    start.StartTimer();         
+    // set variable to "no" to tell the StartTimer method found above not to
+    // display the user messages when it starts the next auto-prompt timer
+    string showNextStart = "no";
+    // start the time without showing when the next autoprompt starts
+    start.StartTimer(showNextStart);         
   }
 
   // method to turn on the auto-prompt initiator
   public void TurnOn()
-  {
+  {    
     // create variables of underlined start & end NOTE
     string noteStart = "*NOTE->";   
     // Highlight the opening statement's background color in red to catch the user's attention     
@@ -182,21 +195,90 @@ public class Initiator
     // reference source: https://www.softwaretestinghelp.com/c-sharp/charp-date-time-format/
     DateTime startTime = DateTime.Now;
     Console.Write($"The autoprompter feature was activated on {startTime.ToString("D")} ");
-    Console.WriteLine($"({startTime.ToString("t")})\n");              
-    // start the autoprompter application 
-    StartTimer();     
+    Console.WriteLine($"({startTime.ToString("t")})\n"); 
+    // make variable and set to "yes" to pass into the StartTimer method 
+    // to trigger the method to display when the next autoprompt starts
+    string showNextStart = "yes";             
+    // start the autoprompter application with the StartTimer method 
+    // method having it show when the next autoprompt will start 
+    StartTimer(showNextStart);     
     // code that stops the autoprompter application by pressing Enter
-    Console.ReadLine();
-    // // reference sources for possible solutions: (2 threads for read & write to console) https://stackoverflow.com/questions/11628432/c-sharp-allow-simultaneous-console-input-and-output (paralleltasks) https://learn.microsoft.com/en-us/dotnet/standard/parallel-programming/how-to-use-parallel-invoke-to-execute-parallel-operations
-    // // IDEA keep this running until quite is entered
-    // string quit = "anything"; 
-    // while (quit != "quite")
-    // {
-    //   quit = Console.ReadLine();
-    // }     
+    // create a variable and store the value of this entry   
+    string stop = Console.ReadLine();   
+    // determine if the entry was a blank line or not
+    bool endProgram = string.IsNullOrEmpty(stop);
+    // stop raising the Elapsed event
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer.stop?view=net-7.0 
     _countdown.Stop();
-    _countdown.Dispose(); 
-    // display message stating that the autoprompter is shut down 
-    Console.WriteLine("Deactivating the autoprompter application...");
+    // release all resources used by the timer
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer.dispose?view=net-7.0
+    _countdown.Dispose();    
+    // if user is ending the auto-prompt program from running 
+    // by entering a "Null or Empty" line do this  
+    if (endProgram)
+    {    
+      // display message stating that the autoprompter is shut down 
+      Console.WriteLine("Deactivating the autoprompter application...");
+      // do nothing else to let the program end
+    }
+    // or if the entry was for a menu option to be run in the 
+    // main menu displayed from the Menu class and started by 
+    // the Autoprompter method found above in this class     
+    else if (stop == "1" || stop == "2" || stop == "3" || stop == "4" || stop == "5" || stop == "6")
+    {
+      // run the transition method to continue the program for the user
+      // instead of just letting the program shut off by
+      // creating a Menu object to use its methods
+      Menu menu = new Menu();
+      // and using the Menu object to start the Transition method
+      menu.Transition(stop);            
+    }
+    // limit accidental entries of string characters to try and shut down the autopromter
+    // not including 1 through 6 - the menu options listed in the Autoprompter method
+    // and using "menu" as an entry command to go back to the journal main menu 
+    else
+    {
+      // if a user does accidentally enter any string characters restart the autoprompter
+      // change type color of the text to red to draw user's attention
+      Console.ForegroundColor = ConsoleColor.Red;
+      // tell the user that they have restarted the autoprompter 
+      // with an empty line before and after the statement
+      Console.Write ("\nYou have restarted the auto-prompter.");
+      // change type color of the text to draw user's attention
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      // give them an option to get back to the menu or leave the auto-promter on
+      //  with an empty line after it
+      Console.Write(" If this was a mistake ");
+      // change the color back to the red
+      Console.ForegroundColor = ConsoleColor.Red;
+      Console.Write("and you would like to get back to the journal menu options ");      
+      // change type color of the text to draw user's attention again 
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.Write("type in and enter the word '");
+      // underline the word & change its color again to emphasize the word to enter
+      Console.ForegroundColor = ConsoleColor.Green;
+      Program.WriteUnderline("menu");
+      // change the color back to the previous color
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.WriteLine("' below.\n");
+      // reset the console writing color
+      Console.ResetColor();
+      // call the TurnOn method to restart the autopropmter
+      // prevent the auto-prompter from restarting if menu was entered
+      // do this if it es everything except menu and an empty string
+      if (stop != "menu" && endProgram != true)
+      {
+        // restart this method again 
+        TurnOn();
+      }     
+      // if they enter menu    
+      if (stop == "menu")
+      {
+        // create a Menu object to use its methods
+        Menu menu = new Menu();        
+        // use the Menu object to start the Transition method
+        menu.Transition(stop);              
+      }      
+    }
   }
 }
