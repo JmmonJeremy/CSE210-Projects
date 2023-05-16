@@ -14,7 +14,7 @@ public class Journal
   // variable to hold the start date of a range of Journal entries
   DateOnly _startDate;
   // variable to hold the end date of a range of Journal entries
-  DateOnly _endDate;
+  DateOnly _endDate; 
   // list to hold all of the journal entries for viewing all of the journal entries
   List<string> _dayEntries = new List<string>();
    // dictionary list to hold the journal file entries by date
@@ -44,7 +44,7 @@ public class Journal
       Console.Write("Please enter the name of your Journal file: ");
       // store their answer in the _JournalFile variable
       _journalFile = Console.ReadLine();
-      // verify that the user's file name is only contains letters and numbers
+      // verify that the user's file name only contains letters and numbers
       // reference source: https://www.techiedelight.com/check-string-consists-alphanumeric-characters-csharp/
       if ((_journalFile.All(char.IsLetterOrDigit)) == false)
       {
@@ -52,8 +52,7 @@ public class Journal
         Console.WriteLine($"\nYou entered: {_journalFile}");        
         // If it is not, inform the user and ask them to enter a different file name
         Console.WriteLine("The filename must consist of only letters and numbers with no spaces.\nPlease only use alphanumeric characters.");
-      }
-      
+      }      
       // if the file name is the correct format, then 
       // ensure the user entered the filename they meant to
       else
@@ -85,8 +84,8 @@ public class Journal
         // add a space after the response if the answer is no
         if (answer == "no")
         {
-        // empty line
-        Console.WriteLine();
+          // empty line
+          Console.WriteLine();
         }
       }
     }
@@ -178,11 +177,64 @@ public class Journal
   // method to load all of the journal file into a dictionary list
   public IDictionary<DateOnly, List<string>> FileToList()
   {
-    // ask the user to enter their journal file
-    Console.Write("Please enter the name of your Journal file: ");
-    // store their answer in the _JournalFile variable
-    _journalFile = Console.ReadLine() + ".txt";;
-    // check if file exists 1st
+    // create a boolean to use to keep a while loop running
+    string moveOn = "no";
+    // create a loop that runs until the user has entered a file name in use
+    // and until the user has verified that the file name they entered is correct
+    while (moveOn == "no")
+    {
+      // ask the user to enter their journal file
+      Console.Write("Please enter the name of your Journal file: ");
+      // store their answer in the _JournalFile variable
+      _journalFile = Console.ReadLine();
+      // verify that the user's file name has an existing filename
+      // if the file doesn't exist
+      if (!File.Exists(_journalFile + ".txt"))
+      {        
+        // show the user the filename they entered
+        Console.WriteLine($"\nYou entered: {_journalFile}");        
+        // inform the user it doesn't exitst 
+        // and ask them to enter a different file name
+        Console.WriteLine("That filename does not exist, try again.");
+      }      
+      // if the file does exist, then make sure
+      // the user entered the filename they meant to
+      else
+      {
+        // show the user the filename they entered
+        Console.WriteLine($"\nYou entered: {_journalFile}");       
+        // for a yes or no answer for if the name is correct
+        Console.WriteLine("Is this the name you meant to enter for your filename? (yes or no)");
+        // create a variable to keep the while loop running
+        string answer = "wrong";
+        // create another while loop that will keep running
+        // until "yes" or "no" is entered by the user
+        while (answer != "yes" && answer != "no")
+        {
+          Console.Write("Correct filename: ");
+          // assign the answer to the variable answer
+          answer = Console.ReadLine();
+          // do this if it isn't yes or no
+          if (answer != "yes" && answer != "no")
+          {
+            Console.WriteLine($"You entered: {answer}");
+            Console.WriteLine("Only 'yes' or 'no' are vaild answers, please try again.");
+          }
+        }
+        // assign the value of the answer to the moveOn variable so the loop 
+        // will end if the answer is yes and loop again if the answer is no         
+        moveOn = answer;
+        // add a space after the response if the answer is no
+        if (answer == "no")
+        {
+          // empty line
+          Console.WriteLine();
+        }
+      }
+    } 
+    // add .txt to the file so it can be used as a filename
+    _journalFile += ".txt";  
+    // double check if file exists 1st
     if (File.Exists(_journalFile))
     {       
       // establish variable for comparisonKey here 
