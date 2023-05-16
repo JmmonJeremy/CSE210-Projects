@@ -58,9 +58,8 @@ public class Journal
       else
       {
         // show the user the filename they entered
-        Console.WriteLine($"\nYou entered: {_journalFile}");
-        // explain the .txt filename to the user and ask 
-        // for a yes or no answer for if the name is correct
+        Console.WriteLine($"\nYou entered: {_journalFile}");       
+        // ask for a yes or no answer for if the name is correct
         Console.WriteLine("Is this the name you meant to enter for your filename? (yes or no)");
         // create a variable to keep the while loop running
         string answer = "wrong";
@@ -68,7 +67,7 @@ public class Journal
         // until "yes" or "no" is entered by the user
         while (answer != "yes" && answer != "no")
         {
-          Console.Write("Correct filename: ");
+          Console.Write("Correct filename? ");
           // assign the answer to the variable answer
           answer = Console.ReadLine();
           // do this if it isn't yes or no
@@ -89,88 +88,109 @@ public class Journal
         }
       }
     }
-    // add .txt to the file so it can be used as a filename
-    _journalFile += ".txt";
-    // create a file that will add new entries each time this is called by adding append:true
-    // reference source: https://stackoverflow.com/questions/8255533/how-to-add-new-line-into-txt-file
-    using (StreamWriter createFile = new StreamWriter(_journalFile, append:true))
-    {     
-      // create variable to hold the date comparison key
-      // reference source: https://stackoverflow.com/questions/57440077/get-first-value-of-dictionary-object-without-using-loop#:~:text=You%20can%20use%20Linq%2C%20.,from%20KeyValuePair%20irrespective%20of%20order. & https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.first?view=net-7.0
-      DateOnly comparisonKey = DateOnly.FromDateTime(entries.Keys.First());   
-      // create variable to hold count for # of days
-      int day = 1;
-      // create variable to hold the number of looping iterations
-      int loops = 0;
-      // create a varible to compare the loops to the dictionary list's count
-      int totalEntries = entries.Count; 
-      // loop through the dictionary list    
-      foreach (var entry in entries)
-      {
-        // count the number of looping iterations
-        loops += 1;          
-        // create variable to hold the date key
-        // reference source: https://learn.microsoft.com/en-us/dotnet/standard/datetime/how-to-use-dateonly-timeonly
-        DateOnly key = DateOnly.FromDateTime(entry.Key);     
-        // compare keys to see if it is the same date      
-        if (key == comparisonKey)
-        {       
-          // create generic number lists in a dictionary with controled count equal to pending entry days
-          // reference source: https://stackoverflow.com/questions/33570452/create-a-new-list-when-i-have-new-key-while-adding-to-dictionary-in-a-loop
-          if (!_jE.ContainsKey(day))
+    // make sure there are entries 
+    // if there are not do this
+    if (entries.Count() < 1)
+    {
+      // change type color of ending statement to red to draw user's attention
+      Console.ForegroundColor = ConsoleColor.Red;
+      // let the user know there are no entries to commit
+      Console.WriteLine("\nSorry, but there are no entries to commit to your file at this time.");
+      // reset the console writing color
+      Console.ResetColor();
+    }
+    // commit them to the journal file if there are entries
+    else
+    {
+      // add .txt to the file so it can be used as a filename
+      _journalFile += ".txt";
+      // create a file that will add new entries each time this is called by adding append:true
+      // reference source: https://stackoverflow.com/questions/8255533/how-to-add-new-line-into-txt-file
+      using (StreamWriter createFile = new StreamWriter(_journalFile, append:true))
+      {     
+        // create variable to hold the date comparison key
+        // reference source: https://stackoverflow.com/questions/57440077/get-first-value-of-dictionary-object-without-using-loop#:~:text=You%20can%20use%20Linq%2C%20.,from%20KeyValuePair%20irrespective%20of%20order. & https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.first?view=net-7.0
+        DateOnly comparisonKey = DateOnly.FromDateTime(entries.Keys.First());   
+        // create variable to hold count for # of days
+        int day = 1;
+        // create variable to hold the number of looping iterations
+        int loops = 0;
+        // create a varible to compare the loops to the dictionary list's count
+        int totalEntries = entries.Count; 
+        // loop through the dictionary list    
+        foreach (var entry in entries)
+        {
+          // count the number of looping iterations
+          loops += 1;          
+          // create variable to hold the date key
+          // reference source: https://learn.microsoft.com/en-us/dotnet/standard/datetime/how-to-use-dateonly-timeonly
+          DateOnly key = DateOnly.FromDateTime(entry.Key);     
+          // compare keys to see if it is the same date      
+          if (key == comparisonKey)
+          {       
+            // create generic number lists in a dictionary with controled count equal to pending entry days
+            // reference source: https://stackoverflow.com/questions/33570452/create-a-new-list-when-i-have-new-key-while-adding-to-dictionary-in-a-loop
+            if (!_jE.ContainsKey(day))
+            {
+              // create new list
+              _jE[day] = new List<string>();
+            }       
+            // load entry parts into list for matching day
+            // reference source: https://social.msdn.microsoft.com/Forums/vstudio/en-US/78132906-9d0a-4eff-836a-9c48253305e4/in-c-how-do-you-output-the-contents-of-a-dictionary-class?     
+            _jE[day].Add(entry.Value.Item1);
+            _jE[day].Add(entry.Value.Item2);
+            _jE[day].Add(entry.Value.Item3);       
+          }
+          // when new date comes do this
+          if (key != comparisonKey)
           {
-            // create new list
-            _jE[day] = new List<string>();
-          }       
-          // load entry parts into list for matching day
-          // reference source: https://social.msdn.microsoft.com/Forums/vstudio/en-US/78132906-9d0a-4eff-836a-9c48253305e4/in-c-how-do-you-output-the-contents-of-a-dictionary-class?     
-          _jE[day].Add(entry.Value.Item1);
-          _jE[day].Add(entry.Value.Item2);
-          _jE[day].Add(entry.Value.Item3);       
-        }
-        // when new date comes do this
-        if (key != comparisonKey)
-        {
-          // add the list with the date key to the dictionary list
-          _journalEntries.Add(comparisonKey, _jE[day]);     
-          // set the comparison equal to the new date
-          comparisonKey = key;        
-          // add to a count to number each key
-          day += 1; 
-          // load entry parts into list for start of next day
-          if (!_jE.ContainsKey(day))
+            // add the list with the date key to the dictionary list
+            _journalEntries.Add(comparisonKey, _jE[day]);     
+            // set the comparison equal to the new date
+            comparisonKey = key;        
+            // add to a count to number each key
+            day += 1; 
+            // load entry parts into list for start of next day
+            if (!_jE.ContainsKey(day))
+            {
+              // create new list
+              _jE[day] = new List<string>();
+            }  
+            // load entry parts into list for matching day
+            _jE[day].Add(entry.Value.Item1);
+            _jE[day].Add(entry.Value.Item2);
+            _jE[day].Add(entry.Value.Item3); 
+          }
+          // for the last day of entry times that miss above actions
+          if (loops == totalEntries)
           {
-            // create new list
-            _jE[day] = new List<string>();
-          }  
-          // load entry parts into list for matching day
-          _jE[day].Add(entry.Value.Item1);
-          _jE[day].Add(entry.Value.Item2);
-          _jE[day].Add(entry.Value.Item3); 
-        }
-        // for the last day of entry times that miss above actions
-        if (loops == totalEntries)
+            // add the list with the last entry day # to the dictionary list
+            _journalEntries.Add(key, _jE[day]);        
+          }
+        }  
+        // read contents of dictionary with just the date as the key into file
+        foreach (var entryDay in _journalEntries)
         {
-          // add the list with the last entry day # to the dictionary list
-          _journalEntries.Add(key, _jE[day]);        
-        }
-      }  
-      // read contents of dictionary with just the date as the key into file
-      foreach (var entryDay in _journalEntries)
-      {
-        // write the date key into the file 
-        // reference resource: https://www.c-sharpcorner.com/UploadFile/mahesh/how-to-get-all-keys-of-a-dictionary-with-C-Sharp/ 
-        createFile.Write($"~|~{entryDay.Key}");
-        // loop through the list associated with the key
-        // reference source: https://social.msdn.microsoft.com/Forums/vstudio/en-US/d63f766c-c8b2-4a6b-af5b-b309cb9b9ec0/dictionaryltstringgtlistltstringgtgt-how-do-i-get-each-individual-item-from-the-list-to?forum=csharpgeneral       
-        foreach (string entry in _journalEntries[entryDay.Key])
-        {
-          // keep all the entries in one line       
-          createFile.Write($"~|~{entry}");      
-        } 
-        // start a new line for the next day of journal entries     
-        createFile.WriteLine("");
-      }  
+          // write the date key into the file 
+          // reference resource: https://www.c-sharpcorner.com/UploadFile/mahesh/how-to-get-all-keys-of-a-dictionary-with-C-Sharp/ 
+          createFile.Write($"~|~{entryDay.Key}");
+          // loop through the list associated with the key
+          // reference source: https://social.msdn.microsoft.com/Forums/vstudio/en-US/d63f766c-c8b2-4a6b-af5b-b309cb9b9ec0/dictionaryltstringgtlistltstringgtgt-how-do-i-get-each-individual-item-from-the-list-to?forum=csharpgeneral       
+          foreach (string entry in _journalEntries[entryDay.Key])
+          {
+            // keep all the entries in one line       
+            createFile.Write($"~|~{entry}");      
+          } 
+          // start a new line for the next day of journal entries     
+          createFile.WriteLine("");
+        }  
+      }
+      // change type color of ending statement to red to draw user's attention
+      Console.ForegroundColor = ConsoleColor.Red;
+      // give a transition statement with an empty space before it
+      Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.");
+      // reset the console writing color
+      Console.ResetColor();
     }
   } 
 
@@ -211,7 +231,7 @@ public class Journal
         // until "yes" or "no" is entered by the user
         while (answer != "yes" && answer != "no")
         {
-          Console.Write("Correct filename: ");
+          Console.Write("Correct filename? ");
           // assign the answer to the variable answer
           answer = Console.ReadLine();
           // do this if it isn't yes or no

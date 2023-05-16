@@ -13,6 +13,10 @@ public class Pen
   string _promptUsed;
   // variable to hold the entry
   string _entry;
+  // variable to hold the username for users
+  // which is used to make the file that holds
+  // the entry backup file associated with them
+  string _userName;
   // variable to hold the entry backup file
   string _entryBackupFile = "entryBackup.txt";
   // variable to hold the entry number  
@@ -25,6 +29,68 @@ public class Pen
   public IDictionary<DateTime, (string,string,string)> _pendingEntries = new Dictionary<DateTime, (string, string, string)>();
 
 // ### METHODS ############################################## //
+  // method to tag all entries to their user
+  public string Username()
+  {
+    // create a boolean to use to keep a while loop running
+    string moveOn = "no";
+    // create a loop that runs until the user has entered a valid username
+    // and until the user has verified that the usernam they entered is correct
+    while (moveOn == "no")
+    {
+      // ask the user to enter their username
+      Console.Write("Please enter your username: ");
+      // store their answer in the _entryBackupFile variable
+      _entryBackupFile = Console.ReadLine();
+      // verify that the username only contains letters and numbers
+      // reference source: https://www.techiedelight.com/check-string-consists-alphanumeric-characters-csharp/
+      if ((_entryBackupFile.All(char.IsLetterOrDigit)) == false)
+      {
+        // show the user the username they entered
+        Console.WriteLine($"\nYou entered: {_entryBackupFile}");        
+        // If it is not, inform the user and ask them to enter a different username
+        Console.WriteLine("The username must consist of only letters and numbers with no spaces.\nPlease only use alphanumeric characters.");
+      }      
+      // if the username is the correct format, then 
+      // ensure the user entered the username they meant to
+      else
+      {
+        // show the user the username they entered
+        Console.WriteLine($"\nYou entered: {_entryBackupFile}");       
+        // ask for a yes or no answer for if the name is correct
+        Console.WriteLine("Is this the name you meant to enter for your username? (yes or no)");
+        // create a variable to keep the while loop running
+        string answer = "wrong";
+        // create another while loop that will keep running
+        // until "yes" or "no" is entered by the user
+        while (answer != "yes" && answer != "no")
+        {
+          Console.Write("Correct username? ");
+          // assign the answer to the variable answer
+          answer = Console.ReadLine();
+          // do this if it isn't yes or no
+          if (answer != "yes" && answer != "no")
+          {
+            Console.WriteLine($"You entered: {answer}");
+            Console.WriteLine("Only 'yes' or 'no' are vaild answers, please try again.");
+          }
+        }
+        // assign the value of the answer to the moveOn variable so the loop 
+        // will end if the answer is yes and loop again if the answer is no         
+        moveOn = answer;
+        // add an empty line after the response if the answer is no
+        if (answer == "no")
+        {
+          // empty line
+          Console.WriteLine();
+        }
+      }
+    }
+    // add .txt to the username so it can be used
+    // as a filename and store it in this method
+    return _entryBackupFile += ".txt";  
+  }
+  
   // method to add a temporary entry
   public void Add(DateTime timeKey, string dateTime, string _prompt)
   {

@@ -7,12 +7,23 @@ class Program
     // main method to run the Journal application
     static void Main(string[] args)
     {
-        // testing methods
+        // // testing methods
+        // Pen pen = new Pen();
+        // string file = pen.Username();
+        // var list = pen.ViewEntries();
+        // Console.WriteLine(list);
+        // foreach (var tuple in list)
+        // {
+        // Console.WriteLine(tuple.Key);
+        // Console.WriteLine(tuple.Value.Item1);
+        // Console.WriteLine(tuple.Value.Item2);
+        // Console.WriteLine(tuple.Value.Item3);
+        // }
+
+
         Menu menu = new Menu();            
         menu.Transition("menu");
-        // running auto-prompter
-        // Initiator autoprompter = new Initiator();
-        // autoprompter.TurnOn();
+     
        
 
        

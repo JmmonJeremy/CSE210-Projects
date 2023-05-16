@@ -14,7 +14,7 @@ public class Menu
   List<string> _options = new List<string>()
   {
     " 1 - Use current prompt for an entry",
-    " 2 - Create a new journal prompt to use",
+    " 2 - Commit all your entries to your Journal",
     " 3 - Auto-generate a different prompt",
     " 4 - Hand pick a new prompt for an entry",
     " 5 - Select and read an old journal entry",
@@ -80,6 +80,11 @@ public class Menu
       // MAIN MENU // CHOICE: 1 - Use current prompt for an entry
       if (_choice == "1")
       {
+        // create instand of Pen
+        Pen pen = new Pen();
+        // use the pen object to call its userName method
+        // and store the username for the backup filename
+        string backupFileName = pen.Username();
         // give a transition statement with an empty line before it
         Console.Write("\nPlease");
         // add color to emphasize this text
@@ -104,9 +109,7 @@ public class Menu
         // display the journal prompt in color
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(_prompt);
-        Console.ResetColor();
-        // create instand of Pen
-        Pen pen = new Pen();
+        Console.ResetColor();        
         // use Pen method to add an entry
         pen.Add(entryTime, dateTime, _prompt);
         // add a space before the transition statement
@@ -166,9 +169,7 @@ public class Menu
             Console.ResetColor();
             // set _choice as "menu" to use for the transition method variable
             // so it shows the menu to the user so they know what to choose from
-            _choice = "menu";
-            // give them the choice to do something else or start autoprompter
-            Transition(_choice);
+            _choice = "menu";            
           } 
           // main menu choice(1) SUBMENU // CHOICE: 2 - Wait to commit entries and see other options
           else if (_choice == "2")
@@ -221,15 +222,41 @@ public class Menu
         // main menu choice(1) SUBMENU // condition to keeep the do/while loop running
         while (_choice == "invalid");
       } 
-      // MAIN MENU // CHOICE: 2 - Create a new journal prompt to use 
+      // MAIN MENU // CHOICE: 2 - Commit all your entries to your Journal
       else if (_choice == "2")
       {
+        // create instand of Pen
+        Pen pen = new Pen();
+        // use the pen object to call its userName method
+        // and store the username for the backup filename
+        string backupFileName = pen.Username();
+        // bring up and store the dictionary list of entries
+        // to pass into the Journal class's AddToJournal method 
+        var entries = pen.ViewEntries();      
         // change type color of ending statement to red to draw user's attention
         Console.ForegroundColor = ConsoleColor.Red;
         // give a transition statement with an empty space before it
-        Console.WriteLine("\nPlease enter your new journal prompt:");
+        Console.WriteLine("\nYou have chosen to commit all of your entries to your Journal");
         // reset the console writing color
-        Console.ResetColor(); 
+        Console.ResetColor();
+        // add an empty line between text
+        Console.WriteLine();
+        // access the dictionary list in the Pen class for the entries
+        // var entries = pen._pendingEntries;
+        // create Journal object to use method to add entries
+        Journal journal = new Journal();
+        journal.AddToJournal(entries);
+        // empty the entries list
+        pen.EmptyList();
+        // // change type color of ending statement to red to draw user's attention
+        // Console.ForegroundColor = ConsoleColor.Red;
+        // // give a transition statement with an empty space before it
+        // Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.");
+        // // reset the console writing color
+        // Console.ResetColor();
+        // set _choice as "menu" to use for the transition method variable
+        // so it shows the menu to the user so they know what to choose from
+        _choice = "menu"; 
       }
       // MAIN MENU // CHOICE: 3 - Auto-generate a different prompt
       else if (_choice == "3")
