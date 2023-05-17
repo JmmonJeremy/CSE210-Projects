@@ -219,8 +219,8 @@ public class Pen
       Console.ForegroundColor = ConsoleColor.Red;
       // show just the day and time underlined
       // for the entry marker or title
-      Program.WriteUnderline($"{tuple.Key.DayOfWeek} ");
-      Program.WriteUnderline(tuple.Key.ToString("h:mm tt\n"));
+      TextStyles.WriteUnderline($"{tuple.Key.DayOfWeek} ");
+      TextStyles.WriteUnderline(tuple.Key.ToString("h:mm tt\n"));
       // color the date and time yellow
       Console.ForegroundColor = ConsoleColor.DarkYellow;
       // show the date and time

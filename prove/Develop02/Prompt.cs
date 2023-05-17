@@ -37,7 +37,11 @@ using System.IO;
       "How have I seen the hand of the Lord in my life today?",
       "What happened today that helped to strengthen an important relationship for me?",
       "What did I accomplish that brought me closer to an important goal for me?",
-      "This is what's happened for me so far today:"                    
+      "This is what's happened for me so far today:", 
+      "What physical gift are you thankful for and why?",
+      "What spiritual gift are you thankful for and why?",
+      "What relationship are you thankful for and why?",
+      "What knowledge are you thankful for and why?"                   
     };
     // list of used prompts
     public List<string> _usedPromptList = new List<string>();

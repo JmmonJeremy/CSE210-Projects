@@ -39,7 +39,7 @@ public class Initiator
     // so it will return a negative & inaccurate millisecond countdown
     // unless you add 24 hours to this time until midnight - not here
     // but in the StartTimer code that uses this time for setting countdown     
-    if (compare < 103000 || compare >= 203000)
+    if (compare < 103000 || compare >= 223000)
     {
       TimeSpan setTime = new TimeSpan(10,30,00);
       return setTime;
@@ -54,9 +54,9 @@ public class Initiator
       TimeSpan setTime = new TimeSpan(14,30,00);
       return setTime;
     }
-    else if (compare < 155800)
+    else if (compare < 153000)
     {
-      TimeSpan setTime = new TimeSpan(15,58,00);
+      TimeSpan setTime = new TimeSpan(15,30,00);
       return setTime;
     }
     else if (compare < 183000)
@@ -123,14 +123,14 @@ public class Initiator
     // then restart seemlessly at the end and tell the user it is started
     if (showNextStart == "yes")
     {
-      // display message showing the current time and the next time the program should inititiate
+      // display message showing the current time and the next time the TextStyles should inititiate
       Console.Write($"It is now {startTime.ToString("D")} at {startTime.ToString("t")} and ");
       // color these words to draw the user's attention to them
       Console.ForegroundColor = ConsoleColor.Yellow;
       Console.Write("the next Journal prompt is scheduled for ");
       // emphasize the next auto-prompt time by underlining & changing its color
       Console.ForegroundColor = ConsoleColor.Cyan;
-      Program.WriteUnderline(clockTime);
+      TextStyles.WriteUnderline(clockTime);
       // go back to the same color to catch the user's attenton to the end of the sentence
       Console.ForegroundColor = ConsoleColor.Yellow;
       Console.WriteLine($" in {hours} hours and {minutes} minutes.\n");
@@ -154,8 +154,8 @@ public class Initiator
   { 
     // color text to emphasize it
     Console.ForegroundColor = ConsoleColor.Red;
-    // display a prompt to run the journal program underlined & capitalized for more emphasis       
-    Program.WriteUnderline("!!! REMINDER TO RUN A JOURNAL PROMPT AND MAKE AN ENTRY !!!\n");
+    // display a prompt to run the journal TextStyles underlined & capitalized for more emphasis       
+    TextStyles.WriteUnderline("!!! REMINDER TO RUN A JOURNAL PROMPT AND MAKE AN ENTRY !!!\n");
     // reset color to original settings
     Console.ResetColor();   
     // give a random prompt and start the menu with its options
@@ -189,7 +189,7 @@ public class Initiator
     Console.ResetColor();
     // underline text in terminal
     // reference source: https://www.tutorialsteacher.com/csharp/csharp-static
-    Program.WriteUnderline(noteStart);
+    TextStyles.WriteUnderline(noteStart);
     Console.WriteLine(" To turn the autoprompter off, press Enter with the curser active in the program's terminal. ");        
     // display a message on when the autoprompter was started
     // reference source: https://www.softwaretestinghelp.com/c-sharp/charp-date-time-format/
@@ -258,7 +258,7 @@ public class Initiator
       Console.Write("type in and enter the word '");
       // underline the word & change its color again to emphasize the word to enter
       Console.ForegroundColor = ConsoleColor.Green;
-      Program.WriteUnderline("menu");
+      TextStyles.WriteUnderline("menu");
       // change the color back to the previous color
       Console.ForegroundColor = ConsoleColor.Yellow;
       Console.WriteLine("' below.\n");

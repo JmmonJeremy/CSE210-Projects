@@ -447,7 +447,7 @@ public class Journal
     {       
       // print the date in underlined in red to the console
       Console.ForegroundColor = ConsoleColor.Red;
-      Program.WriteUnderline($"{date.Key.ToString()}\n");
+      TextStyles.WriteUnderline($"{date.Key.ToString()}\n");
       Console.ResetColor();   
       // then print each line to the console
       foreach (string line in date.Value)

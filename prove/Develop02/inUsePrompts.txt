@@ -1,5 +1,10 @@
-~|~What has happened today that you are thankful for?
-~|~What challenges have you faced today?
-~|~How have you seen the hand of the Lord in your life today?
-~|~What happened today that helped to strengthen an important relationship for you?
-~|~What did you accomplish that brought you closer to an important goal for you?
+~|~What has happened today that I am thankful for?
+~|~What challenges have I faced today?
+~|~How have I seen the hand of the Lord in my life today?
+~|~What happened today that helped to strengthen an important relationship for me?
+~|~What did I accomplish that brought me closer to an important goal for me?
+~|~This is what's happened for me so far today:
+~|~What physical gift are you thankful for and why?
+~|~What spiritual gift are you thankful for and why?
+~|~What relationship are you thankful for and why?
+~|~What knowledge are you thankful for and why?
