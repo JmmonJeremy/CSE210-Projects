@@ -697,6 +697,7 @@ public class Menu
       }
     }
     // MAIN MENU // conditions to keep running the loop
+    // this is an infinite loop - will always evaluate as true
     while (_choice != "1" || _choice != "2" || _choice != "3" || _choice != "4" || _choice != "5" || _choice != "6");    
   }
 }
