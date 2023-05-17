@@ -184,13 +184,7 @@ public class Journal
           // start a new line for the next day of journal entries     
           createFile.WriteLine("");
         }  
-      }
-      // change type color of ending statement to red to draw user's attention
-      Console.ForegroundColor = ConsoleColor.Red;
-      // give a transition statement with an empty space before it
-      Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.");
-      // reset the console writing color
-      Console.ResetColor();
+      }    
     }
   } 
 

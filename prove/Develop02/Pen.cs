@@ -191,4 +191,56 @@ public class Pen
       emptyFile.Flush();              
     }
   }
+
+  // method to display the list of uncommited prompts
+  public void DisplayEntries()
+  {
+    // use this classes Username method to have the backup
+    // file be recorded to the correct user text document
+    string file = Username();
+    // set the returning dictionary list equal to
+    // the ViewEntries method from this class
+    var list = ViewEntries();            
+    // add a space before transition statement
+    Console.WriteLine();
+    // change type color of ending statement to red to draw user's attention
+    Console.ForegroundColor = ConsoleColor.Red;
+    // tell the user where to find the requested information
+    Console.WriteLine($"|{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}| Below are all of the journal entries not yet committed to your Journal |{Convert.ToChar(25)} {Convert.ToChar(31)} {Convert.ToChar(25)}|\n");
+    // reset the console writing color
+    Console.ResetColor();
+    // add a space before the list of entries
+    Console.WriteLine();
+    // loop through the dictionary and print out the key and
+    // tuple of the date, prompt, and entry with spaces between each set
+    foreach (var tuple in list)
+    {
+      // color the title red
+      Console.ForegroundColor = ConsoleColor.Red;
+      // show just the day and time underlined
+      // for the entry marker or title
+      Program.WriteUnderline($"{tuple.Key.DayOfWeek} ");
+      Program.WriteUnderline(tuple.Key.ToString("h:mm tt\n"));
+      // color the date and time yellow
+      Console.ForegroundColor = ConsoleColor.DarkYellow;
+      // show the date and time
+      Console.WriteLine(tuple.Value.Item1);
+      // color the journal prompt blue
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      // show the prompt
+      Console.WriteLine(tuple.Value.Item2);
+      // reset the text color to original
+      Console.ResetColor();
+      // show the entry
+      Console.WriteLine(tuple.Value.Item3);
+      // add space between entries
+      Console.WriteLine();                 
+    }
+    Console.ForegroundColor = ConsoleColor.Red;            
+    // let the user know what has happened with a space before it
+    // plus add in an arrow pointing up            
+    Console.WriteLine($"\n|{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}| Your uncommitted journal entries are now displayed in the terminal space above here |{Convert.ToChar(24)} {Convert.ToChar(30)} {Convert.ToChar(24)}|"); 
+    // reset the console writing color
+    Console.ResetColor();
+  }
 }

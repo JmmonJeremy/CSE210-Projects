@@ -168,9 +168,22 @@ using System.IO;
         }
       }        
       // turn number into index
-      int index = _selection - 1;
-      // give the transition line       
-      Console.WriteLine($"Please make your entry in response to your selected prompt:");
+      int index = _selection - 1;           
+      // give a transition statement with an empty line before it
+      Console.Write("\nPlease");
+      // add color to emphasize this text
+      // reference source: https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      Console.Write(" make your entry");
+        // reset color to the original settings
+      Console.ResetColor();
+      Console.Write(" and then ");
+      // add color to emphasize this text      
+      Console.ForegroundColor = ConsoleColor.Green;
+      Console.Write("press Enter to store it");
+      // reset color to the original settings
+      Console.ResetColor();
+      Console.WriteLine(" in response to:");
       // display the current date and time
       DateTime entryTime = DateTime.Now;      
       Console.Write($"{entryTime.ToString("D")} ");

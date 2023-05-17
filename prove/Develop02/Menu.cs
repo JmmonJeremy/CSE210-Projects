@@ -108,7 +108,9 @@ public class Menu
         Console.WriteLine(dateTime);
         // display the journal prompt in color
         Console.ForegroundColor = ConsoleColor.Yellow;
+        // display the prompt
         Console.WriteLine(_prompt);
+        // reset the text color
         Console.ResetColor();        
         // use Pen method to add an entry
         pen.Add(entryTime, dateTime, _prompt);
@@ -247,13 +249,7 @@ public class Menu
         Journal journal = new Journal();
         journal.AddToJournal(entries);
         // empty the entries list
-        pen.EmptyList();
-        // // change type color of ending statement to red to draw user's attention
-        // Console.ForegroundColor = ConsoleColor.Red;
-        // // give a transition statement with an empty space before it
-        // Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.");
-        // // reset the console writing color
-        // Console.ResetColor();
+        pen.EmptyList();       
         // set _choice as "menu" to use for the transition method variable
         // so it shows the menu to the user so they know what to choose from
         _choice = "menu"; 
@@ -273,17 +269,147 @@ public class Menu
       // MAIN MENU // CHOICE: 4 - Hand pick a new prompt for an entry
       else if (_choice == "4")
       {
+        // create instand of Pen
+        Pen pen = new Pen();        
+        // use the pen object to call its userName method
+        // and store the username for the backup filename
+        string backupFileName = pen.Username();
+        // display the current date and time
+        // store the current date and time in a variable
+        DateTime entryTime = DateTime.Now;       
+        // create variable to hold date & time as a string
+        string dateTime = entryTime.ToString("D") + " " + entryTime.ToString("t");   
         // change type color of ending statement to red to draw user's attention
         Console.ForegroundColor = ConsoleColor.Red;
         // give a transition statement with an empty space before it
-        Console.WriteLine("\nChoose your prompt from this list by entering its number:");
+        Console.WriteLine("\nYou have chosen to hand pick the prompt to respond to.");        
         // reset the console writing color
-        Console.ResetColor(); 
+        Console.ResetColor();
+        // tell the user how to make their choice
+        Console.WriteLine("\nChoose your prompt from this list by entering its number:"); 
         // show the list of prompts to the user to choose from
         Prompt prompt = new Prompt();
         prompt.ListPrompts();
-        // display the prompt the user selected
-        Console.WriteLine(prompt.SelectPrompt());             
+        // store the prompt in the _prompt variable
+        _prompt = prompt.SelectPrompt();              
+        // display the journal prompt in color
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        // display the prompt
+        Console.WriteLine(_prompt);
+        // reset the text color
+        Console.ResetColor();        
+        // use Pen method to add an entry
+        pen.Add(entryTime, dateTime, _prompt);
+        // add a space before the transition statement
+        Console.WriteLine();
+        // change type color of the smiley face to draw the user's attention
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        // add a smiley face to help encourage the user
+        Console.Write($"{Convert.ToChar(2)} {Convert.ToChar(45)}{Convert.ToChar(16)} ");
+        // change type color of ending statement to red to draw user's attention
+        Console.ForegroundColor = ConsoleColor.Red;
+        // tell the user what happened with a transition statement
+        Console.Write ("You have entered a journal response to the given prompt ");
+        // change type color of the smiley face to draw the user's attention
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        // add a smiley face to help encourage the user
+        Console.WriteLine ($"{Convert.ToChar(17)}{Convert.ToChar(45)} {Convert.ToChar(2)}\n");
+        // reset the console writing color
+        Console.ResetColor();
+        // give them the choice to do something else or start autoprompter
+        // have the user make a closing choice
+        Console.WriteLine("\nPlease enter a selection, would you now like to:");
+        Console.WriteLine(" 1 - Commit your entries to your Journal"); 
+        Console.WriteLine(" 2 - Wait to commit entries and see other options");      
+        Console.WriteLine(" 3 - Wait to commit entries and start auto-prompter");  
+        // run a loop until a valid choice is made
+        do
+        {  
+          // show user where to enter their selection
+          Console.Write("\nSelection: "); 
+          // set choice equal to their entry
+          _choice = Console.ReadLine();
+          // main menu choice(4) SUBMENU // CHOICE: 1 - Commit your entries to your Journal
+          if (_choice == "1")
+          {           
+            // place a space after the selection
+            Console.WriteLine();
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // let the user know what has happened
+            Console.WriteLine("You have chosen to commit your entries into your journal file.");
+            // reset the console writing color
+            Console.ResetColor(); 
+            // place a space before the auto-prompter starting statement
+            Console.WriteLine();
+            // access the dictionary list in the Pen class for the entries
+            var entries = pen._pendingEntries;
+            // create Journal object to use method to add entries
+            Journal journal = new Journal();
+            journal.AddToJournal(entries);
+            // empty the entries list
+            pen.EmptyList();
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // give a transition statement with an empty space before it
+            Console.WriteLine("\nYour entries have been permanently saved to your Journal by date.");
+            // reset the console writing color
+            Console.ResetColor();
+            // set _choice as "menu" to use for the transition method variable
+            // so it shows the menu to the user so they know what to choose from
+            _choice = "menu"; 
+                      
+          } 
+          // main menu choice(4) SUBMENU // CHOICE: 2 - Wait to commit entries and see other options
+          else if (_choice == "2")
+          {
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // let the user know what has happened with an empty space before it
+            Console.WriteLine("\nYou chose to wait to commit your entry to your journal and look at more journal options.");
+            // reset the console writing color
+            Console.ResetColor(); 
+            // place a space before the auto-prompter starting statement
+            Console.WriteLine();
+            // set _choice as "menu" to send it to the else if menu option in
+            // this do/while loop so it will show the menu to the user so they
+            // can look at the main menu options and make another choice
+            _choice = "menu";                     
+          } 
+          // main menu choice(4) SUBMENU // CHOICE: 3 - Wait to commit entries and start auto-prompter
+          else if (_choice == "3")
+          {
+            // set _choice equal to the "Throw away" else/if option in this do/while loop that
+            // is set up to send unneeded repetive menu calls to be killed there thus preventing
+            // them from reentering through being passed in by this method's variable "leadIn",
+            // that is passed on to this do/while loop through the Initiator's class's method
+            // method TurnOn through TurnOn's variable stop, which variable is used to stop the
+            // the auto-prompter or to pass on values to this do/while loop for further optoins
+            _choice = "END PROGRAM";
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // let the user know what has happened with an empty space before it
+            Console.WriteLine("\nYour entries have been temporarily saved in an entry list by their entry time.");
+            // reset the console writing color
+            Console.ResetColor(); 
+            // place a space before the auto-prompter starting statement
+            Console.WriteLine();            
+            // create and instance of the Initiator class to access its method
+            Initiator autoprompter = new Initiator();
+            // use the instance to access TurnOn Initiator method
+            autoprompter.TurnOn();            
+          }
+          // main menu choice(1) SUBMENU // do/while continuous loop message
+          else 
+          {  
+            // set choice equal to "invalid" to rerun the submenu do/while loop
+            _choice = "invalid";
+            // tell the user what they must do to enter a valid choice 
+            Console.WriteLine("You must enter a valid choice of 1 or 2");
+          }
+        }
+        // main menu choice(1) SUBMENU // condition to keeep the do/while loop running
+        while (_choice == "invalid");     
       }
       // MAIN MENU // CHOICE: 5 - Select and read an old journal entry
       else if (_choice == "5")
@@ -297,10 +423,9 @@ public class Menu
         // give the user a list of submenu choices in relation to reading
         // old journal entries and tell them how to select their choice
         Console.WriteLine("\nSelect an option by entering its number:");
-        Console.WriteLine(" 1 - Display all uncommitted journal entries");  
-        Console.WriteLine(" 2 - Select a recent uncommitted journal entry");        
-        Console.WriteLine(" 3 - Display all entries from a journal volume");
-        Console.WriteLine(" 4 - Display a date range of journal entries");
+        Console.WriteLine(" 1 - Display all uncommitted journal entries");               
+        Console.WriteLine(" 2 - Display all entries from a journal volume");
+        Console.WriteLine(" 3 - Display a date range of journal entries");
         // run a do/while loop until a valid choice is made
         do
         {  
@@ -311,17 +436,22 @@ public class Menu
           // main menu choice(5) SUBMENU // CHOICE: 1 - Display all uncommitted journal entries
           if (_choice == "1")
           {
-            // 
-            
-          } 
-          // main menu choice(5) SUBMENU // CHOICE: 2 - Select a recent uncommitted journal entry
+            // change type color of ending statement to red to draw user's attention
+            Console.ForegroundColor = ConsoleColor.Red;
+            // let the user know what they have chosen
+            Console.WriteLine("\nYou have chosen to display all of your uncommitted journal entries.\n");
+            // reset the console writing color
+            Console.ResetColor();
+            // create a Pen class object to access its methods
+            Pen pen = new Pen();
+            // use the Pen object to use its DisplayEntries method
+            pen.DisplayEntries(); 
+            // set _choice as "menu" to use for the transition method variable
+            // so it shows the menu to the user so they know what to choose from
+            _choice = "menu"; 
+          }           
+          // main menu choice(5) SUBMENU // CHOICE: 2 - Display all entries from a journal volume
           else if (_choice == "2")
-          {
-            // tell user what they need to enter
-           
-          }
-          // main menu choice(5) SUBMENU // CHOICE: 3 - Display all entries from a journal volume
-          else if (_choice == "3")
           {
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
@@ -356,8 +486,8 @@ public class Menu
             // so it shows the menu to the user so they know what to choose from
             _choice = "menu";                  
           }
-          // main menu choice(5) SUBMENU // CHOICE: 4 - Display a date range of journal entries
-          else if (_choice == "4")
+          // main menu choice(5) SUBMENU // CHOICE: 3 - Display a date range of journal entries
+          else if (_choice == "3")
           {  
             // change type color of ending statement to red to draw user's attention
             Console.ForegroundColor = ConsoleColor.Red;
@@ -501,7 +631,7 @@ public class Menu
             // set choice equal to "invalid" to rerun the submenu do/while loop 
             _choice = "invalid"; 
             // tell the user what they must do to enter a valid choice 
-            Console.WriteLine("You must enter a valid choice of 1, 2, 3 or 4");
+            Console.WriteLine("You must enter a valid choice of 1, 2, or 3");
           }
         }
         // main menu choice(5) SUBMENU // condition to keeep the do/while loop running
