@@ -39,7 +39,7 @@ public class Initiator
     // so it will return a negative & inaccurate millisecond countdown
     // unless you add 24 hours to this time until midnight - not here
     // but in the StartTimer code that uses this time for setting countdown     
-    if (compare < 103000 || compare >= 223000)
+    if (compare < 103000 || compare >= 203000)
     {
       TimeSpan setTime = new TimeSpan(10,30,00);
       return setTime;
