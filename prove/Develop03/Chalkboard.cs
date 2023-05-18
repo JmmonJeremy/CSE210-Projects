@@ -11,8 +11,8 @@ private string _reference;
 private List<string> _words = new List<string>();
 
 // ### CONSTRUCTORS ######################################### //
-// constructor sets up the object to recieve a string for the referenc
-// and to recieve a string for the scripture verse
+// constructor sets up the object to recieve a string for the reference
+// and to recieve a string for the scripture verse and turn it into a list of words
 public Chalkboard(string source, string scripture)
 {
   _reference = source;

@@ -1,18 +1,18 @@
 using System;
 
 // ### CLASS ################################################ //
-// class to hold and display a word from the scripture
+// class to hold a word from the scripture
 public class Chalk
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-// variable to hold an individual word
+// variable to hold an individual word from the scripture
 private string _word;
 
 // ### CONSTRUCTORS ######################################### //
 // constructor sets up the object to recieve a string for the word
 public Chalk(string word)
 { 
-  // TODO figure out a way to set the visibility of the word 
+  // set word equal to the word passed in 
   _word = word;
 }
 
