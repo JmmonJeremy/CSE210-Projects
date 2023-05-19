@@ -84,21 +84,22 @@ public class Source
     while (runAll != "done")
     {     
       // do this until 1,2,3,or 4 is entered
-      while (selection != "1" && selection != "2" && selection != "3" && selection!= "4")
+      while (selection != "1" && selection != "2" && selection != "3" && selection!= "4" && selection!= "5")
       {
         // tell the user what to do
         Console.WriteLine("For the scripture you are memorizing, please select the volume it comes from.");
         Console.WriteLine("To make your selection enter the corresponding number for the volume below:");
         // Show the user the options
-        Console.WriteLine(" 1 - Bible");
-        Console.WriteLine(" 2 - The Book of Mormon");
-        Console.WriteLine(" 3 - The Doctrine and Covenants");
-        Console.WriteLine(" 4 - The Pearl of Great Price");
+        Console.WriteLine(" 1 - The Old Testament");
+        Console.WriteLine(" 2 - The New Testament");
+        Console.WriteLine(" 3 - The Book of Mormon");
+        Console.WriteLine(" 4 - The Doctrine and Covenants");
+        Console.WriteLine(" 5 - The Pearl of Great Price");
         Console.Write("Volume: ");
         selection = Console.ReadLine();
         Console.WriteLine();
         // do this if the didn't enter 1,2,3, or 4
-        if (selection != "1" && selection != "2" && selection != "3" && selection!= "4")
+        if (selection != "1" && selection != "2" && selection != "3" && selection!= "4" && selection!= "5")
         {
           // let the user know what they need to enter
           Console.WriteLine("That is not a valid entry, you must enter 1, 2, 3, or 4. Please make a valid entry.\n");
@@ -108,15 +109,18 @@ public class Source
       switch(selection)
       {
         case "1":
-        _volume = "Bible";
+        _volume = "The Old Testament";
         break;
         case "2":
-        _volume = "The Book of Mormon";
+        _volume = "The New Testament";
         break;
         case "3":
-        _volume = "The Doctrine and Covenants";
+        _volume = "The Book of Mormon";
         break;
         case "4":
+        _volume = "The Doctrine and Covenants";
+        break;
+        case "5":
         _volume = "The Pearl of Great Price";
         break;
       }

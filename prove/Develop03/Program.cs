@@ -51,12 +51,41 @@ class Program
             sourceMethods.SetEndVerse();
         }
 
-        // print the reference source to the console
+        // put the reference source together in a string
         Console.WriteLine();
-        Console.WriteLine($"{sourceMethods.GetVolume()}    {sourceMethods.GetBook()} {sourceMethods.GetChapter()}:{sourceMethods.GetVerse()}");
+        string source = $"({sourceMethods.GetVolume()})\n\n{sourceMethods.GetBook()} {sourceMethods.GetChapter()}:{sourceMethods.GetVerse()}";
+        // get the scripture into a variable
+        string scripture = "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live:";
 
-       
-          
+        // load the source and the scripture into the 
+        // chalkboard constructor to create an object
+        Chalkboard chalkboard = new Chalkboard(source, scripture);
+        // load the scripture word list into a variable
+        List<string> scriptureWords = chalkboard.GetVerse();
+
+        // create a variable to represent quit being entered
+        string quit = "Run loop";
+
+        // create a loop to run until the user enters "quit"
+        // or until all the words in the scripture are covered
+        while (quit != "quit")
+        {
+            // clear the console screen
+            Console.Clear();
+            // display the scritpure source
+            Console.Write($"{source}  ");
+            // display the scripture to the screen
+            foreach (string word in scriptureWords)
+            {
+                Console.Write($"{word} ");
+            }
+            // add two empty lines after the scritpure
+            Console.WriteLine("\n");
+            // display instructions for the user
+            Console.Write("Press enter to hide a word or enter 'quit' to exit: ");
+            // gather and use the input from the user
+            Console.ReadLine();
+            // replace a word if they press enter
+        }         
     }
-
 }
