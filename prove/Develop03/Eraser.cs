@@ -10,6 +10,7 @@ private string _word;
 // variable to hold the placeholder for the word
 private string _placeholder = "________";
 
+
 // ### CONSTRUCTORS ######################################### //
 // constructor sets up the object to recieve a string for the _word
 // replaces that word with underscores for the _placeholder

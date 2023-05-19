@@ -8,7 +8,7 @@ public class Chalkboard
 // variable to hold the reference
 private string _reference;
 // list to hold all the words of the scripture
-private List<string> _words = new List<string>();
+private List<string> _scriptureWords = new List<string>();
 
 // ### CONSTRUCTORS ######################################### //
 // constructor sets up the object to recieve a string for the reference
@@ -18,26 +18,27 @@ public Chalkboard(string source, string scripture)
   _reference = source;
   // split string scripture up and load into the list
   // reference source: https://stackoverflow.com/questions/9263695/how-to-split-a-delimited-string-to-a-liststring
-  _words = scripture.Split(" ").ToList();
+  _scriptureWords = scripture.Split(" ").ToList();
 }
 
 // ### METHODS ############################################## //
 // getter method to get the scripture verse
 public List<string> GetVerse()
 {
-  return _words;
+  return _scriptureWords;
 }
 
 // method to hide the words
 public List<string> InsertBlanks()
 {
-  return _words;
+
+  return _scriptureWords;
 }
 
 // method for ending when all words are erased
 public List<string> AllBlank()
 {
-  return _words;
+  return _scriptureWords;
 }
 
 
