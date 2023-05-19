@@ -27,17 +27,35 @@ class Program
         // get the name of the volume the scripture comes from
         // create a Source object to acces its methods
         Source sourceMethods = new Source();
-        // run the selectVolume method with the sourceMethods object
-        string volume = (sourceMethods.SelectVolume());
-        
-        // ask the user for the book that the scripture comes from
-        Console.Write("Please enter the name of the book that the scripture comes from: ");
-        // capture book in a variable to use
-        string book = Console.ReadLine();
-        // ask the user for the chapter that the scripture comes from
-        Console.Write("Please enter the name of the book that the scripture comes from: ");
-        // capture scripture in a variable to use
-        string scripture = Console.ReadLine();
+        // run the setVolume method with the sourceMethods object
+        // to have the user set the string value of the volume
+        sourceMethods.SetVolume();
+        // run the setBook method with the sourceMethods object
+        // to have the user set the string value of the book
+        sourceMethods.SetBook();
+        // run the setChapter method with the sourceMethods object
+        // to have the user set the string value of the chapter
+        sourceMethods.SetChapter();
+        // run the setVerse method with the sourceMethods object
+        // to have the user set the string value of the verse
+        sourceMethods.SetVerse();
+        // ask the user how many verses are in the scripture
+        Console.Write("How many verses does your scripture have? ");
+        // convert the string to an int and store in a variable
+        int verses = int.Parse(Console.ReadLine());
+        // set the endVerse if there is more than one verse
+        if (verses > 1)
+        {
+            // run the setEndVerse method with the sourceMethods object
+            // to have the user set the string value of the end verse
+            sourceMethods.SetEndVerse();
+        }
+
+        // print the reference source to the console
+        Console.WriteLine();
+        Console.WriteLine($"{sourceMethods.GetVolume()}    {sourceMethods.GetBook()} {sourceMethods.GetChapter()}:{sourceMethods.GetVerse()}");
+
+       
           
     }
 
