@@ -21,7 +21,7 @@ static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
 // ### METHODS ############################################## //
 // this method underlines the text without a newline at the end
 // so yo can underline words in the middle of sentences as well
-// got this from https://stackoverflow.com/questions/3381952/how-to-remove-all-white-space-from-the-beginning-or-end-of-a-string
+// got this from https://stackoverflow.com/questions/5237666/adding-text-decorations-to-console-output
     public static void WriteUnderline(string s)
     {   
         var handle = GetStdHandle(STD_OUTPUT_HANDLE);
