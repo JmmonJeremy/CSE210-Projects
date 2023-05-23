@@ -19,6 +19,8 @@ public class Source
   private string _endVerse;
   // variable to hold all the parts of the source together in a string
   private string _source;
+  // variable to hold the name of the textfile for the last source
+  private string _sourceFileName;
 
   // ### CONSTRUCTORS ######################################### //
   // constructor to use to access methods without entering any parameter
@@ -26,31 +28,19 @@ public class Source
   public Source() 
   {
     // attribute starts empty in this constructor
-    _volume = "Not filling the volume";
+    _volume = "";
     // attribute starts empty in this constructor 
-    _book = "bookUnfilled";
+    _book = "";
     // attribute starts empty in this constructor  
-    _chapter = "chapterUnfilled";
+    _chapter = "";
     // attribute starts empty in this constructor 
-    _verse = "verseUnfilled";
+    _verse = "";
     // attribute starts empty in this constructor
-    _endVerse = "endVerseUnfilled";
-    // create variable to use if there is an end verse
-    string endVerse;
-    // 2 results depending on if _endVerse is empty    
-    if (string.IsNullOrEmpty(_endVerse))
-    {
-      // for scriptures with just one verse leave empty
-      endVerse = _endVerse;      
-    }
-    // for scriptures with more than one verse
-    else
-    {
-      // put in end verse with a dash before it
-      endVerse = $"-{_endVerse}";      
-    }
-    // attribute is built from all the other attribute variables
-    _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}{endVerse}";
+    _endVerse = "";
+    // attribute starts empty in this constructor    
+    _source = "";
+    // sets the textfile name for the last scripture source
+    _sourceFileName = "lastScriptureSource.txt";
   }
 
   // constructor sets up the object to recieve a string for
@@ -468,6 +458,8 @@ public class Source
     }
     // attribute is built from all the other attribute variables
     _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}{endVerse}"; 
+    // store the scripture source in a file as the last scripure source
+    StoreSourceParts();
   }
 
   // getter method to get the source
@@ -476,20 +468,74 @@ public class Source
     return _source;
   }
 
+  public void StoreSourceParts() 
+  {
+     using (StreamWriter createFile = new StreamWriter("lastScriptureSource.txt"))
+      {
+        createFile.Write($"{_volume}~|~{_book}~|~{_chapter}~|~{_verse}~|~{_endVerse}~|~{_endVerse}"); 
+        // createFile.Write(_book); 
+        // createFile.Write(_chapter); 
+        // createFile.Write(_verse); 
+        // createFile.Write(_endVerse); 
+        // createFile.Write(_source);  
+      }
+  }
+
   // method to set volume, book, chapter, & verse
   // from the last scripture the user used
   public void SetLastSourceParts()
   {
-    // sets the _volume equal to the incoming volume parameter
-    _volume = "The New Testament";
-    // sets the _book equal to the incoming book parameter 
-    _book = "John";
-    // sets the _chapter equal to the incoming chapter parameter 
-    _chapter = "11";
-    // sets the _verse equal to the incoming verse parameter 
-    _verse = "25";
-    // sets the _endVerse equal to the incoming endVerse parameter
-    _endVerse = "";
+    // make sure file exists - only time it won't is when first run    
+    if (File.Exists(_sourceFileName))
+    { 
+      // load the source parts into the attribute variables
+      // from the last scripture source file
+      string source = File.ReadAllText(_sourceFileName);
+      string[] sourcePart = source.Split("~|~");
+      // sets the _volume to last volume recorded
+      _volume = sourcePart[0];
+      // sets the _book to last book recorded 
+      _book = sourcePart[1];
+      // sets the _chapter to last chapter recorded 
+      _chapter = sourcePart[2];
+      // sets the _verse to last verse recorded 
+      _verse = sourcePart[3];
+      // sets the _endVerse to last end verse recorded
+      _endVerse = sourcePart[4];
+    }
+    else
+    {
+    // let the user know there is no past scripture on file, so they need to enter one
+    Console.WriteLine("Unfortunately, there is not a past scripture on file to use.");
+    Console.WriteLine("You will have to enter the scripture you wish to memorize.\n");
+    // run the SetVolume method to have the user set the _volume name
+    SetVolume();
+    // run the SetBook method to have the user set the _book name     
+    SetBook();
+    // run the SetChapter method to have the user set the _chapter number   
+    SetChapter();
+    // run the setVerse method to have the user set the _verse number   
+    SetVerse();
+    // run the setEndVerse method to have the user set the _Endverse number    
+    SetEndVerse();   
+    // put the reference source together in a string     
+    // for the _source attribute variable
+    string endVerse;
+    // 2 results depending on if _endVerse is empty    
+    if (string.IsNullOrEmpty(_endVerse))
+    {
+      // for scriptures with just one verse leave empty
+      endVerse = _endVerse;      
+    }
+    // for scriptures with more than one verse
+    else
+    {
+      // put in end verse with a dash before it
+      endVerse = $"-{_endVerse}";      
+    }
+    // attribute is built from all the other attribute variables
+    _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}{endVerse}"; 
+    }
   }
 
   // method to confirm the user's inputs
