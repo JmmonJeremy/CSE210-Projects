@@ -6,122 +6,20 @@ class Program
     // method that runs the program
     static void Main(string[] args)
     {         
-        // ### PROGRAM DESCRIPTION ##################################    
-        // put a line above the explanation
-        Console.WriteLine("______________________________________________________________________________");
-        // color the text to make sure the user sees the instructions
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
-        // explain how the program works with 2 empty lines afterwards
-        Console.WriteLine("This program is designed to help you memorize any scripure of your choice.");
-        // color the text to make sure the user sees the instructions
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("It does so by replacing one word with a placeholder each time you press enter.");
-         // return the text color to yellow to make sure the user sees the instructions
-        Console.ForegroundColor = ConsoleColor.DarkYellow; 
-        Console.WriteLine("The program ends when all of the words are replaced or when 'quit' is entered.\n");
-        // reset the text color to previous settings
-        Console.ResetColor();
+        // // ### PROGRAM DESCRIPTION ##################################    
+        // create setUp object to access its method
+        SetUp setUp = new SetUp();
+        // run the ProgramDescription method to show intro
+        setUp.ProgramDescription();
 
-        // ### CHOOSING SCRIPTURE REFERENCE #########################
-        // create a variable to hold the opening selection
-        // and to run the while loop until the condition is met
-        string answer = "Run loop";
-        // set confirmation to != yes or no so
-        // the while loop will run to confirm
-        // from the ConfirmAnswer method
-        string confirmed = "Run loop"; 
-        // create a Source object to access its methods
-        Source sourceMethods = new Source();
-        // create variable to hold the reference created in the if/else 
-        // statement below to pass into the Chalkboard's constructor
-        string source;
-        // create a while loop to run until the selection is verified
-        while (confirmed != "yes")
-        { 
-            // create a while loop to run until 1 or 2 is entered
-            while (answer != "1" && answer != "2")
-            {
-                // Communicate options to the user        
-                Console.WriteLine($"The last scripture you used was -- ");
-                Console.WriteLine("To reuse -- select the option below by entering its option number:");
-                Console.WriteLine(" 1 - Reuse --");
-                Console.WriteLine(" 2 - Use a different scripture");
-                // show user where to enter their selection
-                Console.Write("Selection: ");        
-                // capture user choice in a variable
-                answer = Console.ReadLine();
-                // put an empty space between statements
-                Console.WriteLine();
-                // if user entry is not one of the choices
-                if (answer != "1" && answer != "2")
-                {
-                    Console.WriteLine($"{answer} is not a valid entry. You must enter 1 or 2, please try again.\n");                    
-                }
-            }
-            // do this from the ConfirmAnswer method
-            // until yes is the outcom
-            confirmed = sourceMethods.ConfirmAnswer(confirmed, answer);       
-            // if they didn't confirm their choice loop starts over
-            if (confirmed == "no")
-            {
-                // set ConfirmAnswer method to run again
-                confirmed = "Run loop"; 
-                // set while loop to run again
-                answer = "Run loop";
-            } 
-        }   
-        // put an empty space between statements
-        Console.WriteLine();
-        // add a condition to avoid entering scritpure reference
-        // and to use the last scripture entered instead if desired
-        // ### GETTING SCRIPTURE SOURCE FROM LAST USE ###############
-        if (answer == "1")
-        {            
-            // load the values of the last scripture reference into the sourceMethods 
-            // object by using the LoadLastScripture method from the Source class
-            sourceMethods.LoadLastScripture();
-            // put the reference source together in a string
-            // and store in a variable to pass into Chalkboard constructor
-            Console.WriteLine();
-            source = $"\n({sourceMethods.GetVolume()})\n\n{sourceMethods.GetBook()} {sourceMethods.GetChapter()}:{sourceMethods.GetVerse()}";
-        }
-        // ### GETTING SCRIPTURE SOURCE FROM USER ###################
-        else
-        {   
-            // get the name of the volume the scripture comes from           
-            // run the setVolume method with the sourceMethods object
-            // to have the user set the string value of the volume
-            sourceMethods.SetVolume();
-            // run the setBook method with the sourceMethods object
-            // to have the user set the string value of the book
-            sourceMethods.SetBook();
-            // run the setChapter method with the sourceMethods object
-            // to have the user set the string value of the chapter
-            sourceMethods.SetChapter();
-            // run the setVerse method with the sourceMethods object
-            // to have the user set the string value of the verse
-            sourceMethods.SetVerse();
-            // run the setEndVerse method with the sourceMethods object to
-            // have the user set the string value of the verse if there is one
-            sourceMethods.SetEndVerse();
-
-            // if there isn't an end verse
-            if (string.IsNullOrEmpty(sourceMethods.GetEndVerse()))
-            {
-                // put the reference source together in a string
-                // and store in a variable to pass into Chalkboard constructor
-                Console.WriteLine();
-                source = $"\n({sourceMethods.GetVolume()})\n\n{sourceMethods.GetBook()} {sourceMethods.GetChapter()}:{sourceMethods.GetVerse()}";
-            }
-            // if there is an end verse
-            else
-            {
-                // put the reference source together in a string
-                // and store in a variable to pass into Chalkboard constructor
-                Console.WriteLine();
-                source = $"\n({sourceMethods.GetVolume()})\n\n{sourceMethods.GetBook()} {sourceMethods.GetChapter()}:{sourceMethods.GetVerse()}-{sourceMethods.GetEndVerse()}";
-            }
-        }
+        // // ### CHOOSING SCRIPTURE REFERENCE #########################        
+        // create Source object to access its methods
+        Source sourceMethods = new Source();      
+        // run the SetSource method to set the source    
+        sourceMethods.SetSource();
+        // create variable to pass the source string around
+        string source = sourceMethods.GetSource();
+       
         // TODO put in getting scripture form API
         // get the scripture into a variable
         string scripture = "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live:";

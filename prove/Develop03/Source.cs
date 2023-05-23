@@ -17,23 +17,40 @@ public class Source
   // variable to hold the ending verse for the scripture's source
   // if there is more than one verse to the scripture being memorized
   private string _endVerse;
+  // variable to hold all the parts of the source together in a string
+  private string _source;
 
   // ### CONSTRUCTORS ######################################### //
   // constructor to use to access methods without entering any parameter
   // running the methods is the sole purpose of this constructor
   public Source() 
   {
-    // nothing happens with this attribute in this constructor
-    _volume = "";
-    // nothing happens with this attribute in this constructor 
-    _book = "";
-    // nothing happens with this attribute in this constructor  
-    _chapter = "";
-    // nothing happens with this attribute in this constructor 
-    _verse = "";
-    // nothing happens with this attribute in this constructor
-    _endVerse = "";
-
+    // attribute starts empty in this constructor
+    _volume = "Not filling the volume";
+    // attribute starts empty in this constructor 
+    _book = "bookUnfilled";
+    // attribute starts empty in this constructor  
+    _chapter = "chapterUnfilled";
+    // attribute starts empty in this constructor 
+    _verse = "verseUnfilled";
+    // attribute starts empty in this constructor
+    _endVerse = "endVerseUnfilled";
+    // create variable to use if there is an end verse
+    string endVerse;
+    // 2 results depending on if _endVerse is empty    
+    if (string.IsNullOrEmpty(_endVerse))
+    {
+      // for scriptures with just one verse leave empty
+      endVerse = _endVerse;      
+    }
+    // for scriptures with more than one verse
+    else
+    {
+      // put in end verse with a dash before it
+      endVerse = $"-{_endVerse}";      
+    }
+    // attribute is built from all the other attribute variables
+    _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}{endVerse}";
   }
 
   // constructor sets up the object to recieve a string for
@@ -366,9 +383,102 @@ public class Source
     return _endVerse;
   }
 
+  // setter method to set the source string
+  public void SetSource()
+  {
+    // create a variable to hold the opening selection
+    // and to run the while loop until answer = "1" or "2"
+    string answer = "Run loop";
+    // set confirmation to != yes or no so
+    // the while loop will run to confirm
+    // from the ConfirmAnswer method
+    string confirmed = "Run loop";    
+    // create a while loop to run until the selection is verified
+    while (confirmed != "yes")
+    { 
+      // create a while loop to run until 1 or 2 is entered
+      while (answer != "1" && answer != "2")
+      {
+        // Communicate options to the user        
+        Console.WriteLine($"The last scripture you used was -- ");
+        Console.WriteLine("To reuse -- select the option below by entering its option number:");
+        Console.WriteLine(" 1 - Reuse --");
+        Console.WriteLine(" 2 - Use a different scripture");
+        // show user where to enter their selection
+        Console.Write("Selection: ");        
+        // capture user choice in a variable
+        answer = Console.ReadLine();
+        // put an empty space between statements
+        Console.WriteLine();
+        // if user entry is not one of the choices
+        if (answer != "1" && answer != "2")
+        {
+          Console.WriteLine($"{answer} is not a valid entry. You must enter 1 or 2, please try again.\n");                    
+        }
+      }
+      // do this from the ConfirmAnswer method
+      // until yes is the outcom
+      confirmed = ConfirmAnswer(confirmed, answer);       
+      // if they didn't confirm their choice loop starts over
+      if (confirmed == "no")
+      {
+        // set ConfirmAnswer method to run again
+        confirmed = "Run loop"; 
+        // set while loop to run again
+        answer = "Run loop";
+      } 
+    }     
+    // add a condition to to use the last scripture entered 
+    // instead of having to entering scritpure reference   
+    // ### GETTING SCRIPTURE SOURCE FROM LAST USE ###############
+    if (answer == "1")
+    {           
+      // load the values of the last scripture reference
+      // parts by using the SetLastSourceParts method
+      SetLastSourceParts();      
+    }
+    // ### GETTING SCRIPTURE SOURCE FROM USER ###################
+    else
+    {       
+      // run the SetVolume method to have the user set the _volume name
+      SetVolume();
+      // run the SetBook method to have the user set the _book name     
+      SetBook();
+      // run the SetChapter method to have the user set the _chapter number   
+      SetChapter();
+      // run the setVerse method to have the user set the _verse number   
+      SetVerse();
+      // run the setEndVerse method to have the user set the _Endverse number    
+      SetEndVerse();          
+    }
+    // put the reference source together in a string     
+    // for the _source attribute variable
+    string endVerse;
+    // 2 results depending on if _endVerse is empty    
+    if (string.IsNullOrEmpty(_endVerse))
+    {
+      // for scriptures with just one verse leave empty
+      endVerse = _endVerse;      
+    }
+    // for scriptures with more than one verse
+    else
+    {
+      // put in end verse with a dash before it
+      endVerse = $"-{_endVerse}";      
+    }
+    // attribute is built from all the other attribute variables
+    _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}{endVerse}"; 
+  }
+
+  // getter method to get the source
+  public string GetSource()
+  {
+    return _source;
+  }
+
   // method to set volume, book, chapter, & verse
   // from the last scripture the user used
-  public void LoadLastScripture()
+  public void SetLastSourceParts()
   {
     // sets the _volume equal to the incoming volume parameter
     _volume = "The New Testament";
