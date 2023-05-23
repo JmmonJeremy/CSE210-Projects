@@ -416,6 +416,8 @@ public class Source
         confirmed = "Run loop"; 
         // set while loop to run again
         answer = "Run loop";
+        // tell the user to try again
+        Console.WriteLine("Let's try that again . . .\n");
       } 
     }     
     // add a condition to to use the last scripture entered 
@@ -472,12 +474,7 @@ public class Source
   {
      using (StreamWriter createFile = new StreamWriter("lastScriptureSource.txt"))
       {
-        createFile.Write($"{_volume}~|~{_book}~|~{_chapter}~|~{_verse}~|~{_endVerse}~|~{_endVerse}"); 
-        // createFile.Write(_book); 
-        // createFile.Write(_chapter); 
-        // createFile.Write(_verse); 
-        // createFile.Write(_endVerse); 
-        // createFile.Write(_source);  
+        createFile.Write($"{_volume}~|~{_book}~|~{_chapter}~|~{_verse}~|~{_endVerse}~|~{_endVerse}");         
       }
   }
 

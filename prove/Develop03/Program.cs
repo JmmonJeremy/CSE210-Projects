@@ -6,13 +6,13 @@ class Program
     // method that runs the program
     static void Main(string[] args)
     {         
-        // // ### PROGRAM DESCRIPTION ##################################    
+        // ### PROGRAM DESCRIPTION ##################################    
         // create setUp object to access its method
         SetUp setUp = new SetUp();
         // run the ProgramDescription method to show intro
         setUp.ProgramDescription();
 
-        // // ### CHOOSING SCRIPTURE REFERENCE #########################        
+        // ### CHOOSING SCRIPTURE REFERENCE #########################        
         // create Source object to access its methods
         Source sourceMethods = new Source();      
         // run the SetSource method to set the source    
@@ -23,6 +23,8 @@ class Program
         // TODO put in getting scripture form API
         // get the scripture into a variable
         string scripture = "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live:";
+
+        // ### RUN THE SCRIPTURE MEMORIZER ##########################
         // load the source and the scripture into the 
         // chalkboard constructor to create an object
         Chalkboard chalkboard = new Chalkboard(source, scripture);
