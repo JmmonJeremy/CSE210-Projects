@@ -152,6 +152,11 @@ public class Initiator
   // reference source: https://social.technet.microsoft.com/wiki/contents/articles/37252.c-timer-schedule-a-task.aspx
   private static void AutoPrompter(Object source, ElapsedEventArgs e)
   { 
+    // ***********************************************************************************************************
+    // TODO create a pop-up to alert you when the timer has expired and you need to make an entry
+    // reference source: https://social.msdn.microsoft.com/Forums/en-US/ae717e36-6e61-437c-b257-8408a2a6c3a7/messagbox-pop-up-to-be-fired-from-command-line-with-arguments?forum=csharplanguage & https://stackoverflow.com/questions/55508412/c-sharp-how-can-i-pop-up-command-promptcmd-in-running-console
+    // ***********************************************************************************************************
+
     // color text to emphasize it
     Console.ForegroundColor = ConsoleColor.Red;
     // display a prompt to run the journal TextStyles underlined & capitalized for more emphasis       
