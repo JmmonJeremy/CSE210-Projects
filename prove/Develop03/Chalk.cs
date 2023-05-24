@@ -21,14 +21,6 @@ public Chalk(string word, bool hide)
 }
 
 // ### METHODS ############################################## //
-
-// getter method to get the scripture verse
-public List<string> GetVerse()
-{
-  List<string> verse = new List<string>();
-  return verse;
-}
-
 // setter method for Chalk
 public void SetHide(bool hide)
 { 

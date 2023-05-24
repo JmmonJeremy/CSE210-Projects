@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 // ### CLASS ################################################ //
 // class to introduce and set up the resources for
