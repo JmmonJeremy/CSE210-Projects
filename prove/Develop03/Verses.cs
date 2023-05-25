@@ -10,8 +10,11 @@ public class Verses
 // ### VARIABLE ATTRIBUTES ################################## //
     // this is as private as is allowed for attributes when using Serializaton
     // reference source: https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/immutability?pivots=dotnet-7-0  
-    // list to hold the list from the json scripture volume
+    // list to hold the list from the json scripture volume with name matching json key word
+    // the list name cannot be _verses or the Deserialization process will not work
     [JsonInclude]
+    // using auto-implemented properties
+    // reference source: https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties
     public List<Verse> verses {get; private set;}
 
 // ### METHODS ############################################## //

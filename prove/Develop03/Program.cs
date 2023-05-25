@@ -12,12 +12,14 @@ class Program
     // method that runs the program
     static void Main(string[] args)
     {      
-        // Test Json
-        string filePath = @"D:\Users\Owner\Documents\#1 Learning Resources\Programming Languages\CSE210-Projects\scriptures-json\flat\new-testament-flat.json";
-        var versesJson = File.ReadAllText(filePath);
-        // Verses verses = new Verses();
-        Verses verses = JsonSerializer.Deserialize<Verses>(versesJson); 
-        string request = verses.FindVerse("Revelation 22:21");
+        // Test Json       
+        ScriptureVolumes vol = new ScriptureVolumes();
+
+        string versesJson = File.ReadAllText(vol.GetfilePathNewTestament());
+       
+        // reference source: https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0 & https://www.youtube.com/watch?v=w6M-Bj-tfv4 & https://www.educative.io/answers/how-to-read-a-json-file-in-c-sharp & https://www.educba.com/json-parser-in-c-sharp/
+        Verses _verses = JsonSerializer.Deserialize<Verses>(versesJson); 
+        string request = _verses.FindVerse("Revelation 22:21");
         Console.WriteLine(request);
         // ### PROGRAM DESCRIPTION ##################################    
         // create setUp object to access its method

@@ -44,6 +44,8 @@ public class SetUp
     Console.ResetColor();
   }
 
+  // method to run a loop of displaying the scripture as the Chalkboard changes
+  // until the program ends with quit or all of the words being covered
   public void QuitLoop(List<Chalk> eachWord, string source, string scripture)
   {
     // create a loop to run until the user enters "quit"
