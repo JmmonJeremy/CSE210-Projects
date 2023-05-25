@@ -6,7 +6,7 @@ using System.IO;
 // class to hold a scripture's reference source
 public class Source
 {
-  // ### VARIABLE ATTRIBUTES ################################## // 
+// ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold the name of the volume of scripture the scripture comes from
   // (ie. Bible, Book of Mormon, Doctrine and Covenants, Pearl of Great Price)
   private string _volume;
@@ -24,7 +24,7 @@ public class Source
   // variable to hold the name of the textfile for the last source
   private string _sourceFileName;
 
-  // ### CONSTRUCTORS ######################################### //
+// ### CONSTRUCTORS ######################################### //
   // constructor to use to access methods without entering any parameter
   // running the methods is the sole purpose of this constructor
   public Source() 
@@ -77,7 +77,7 @@ public class Source
     _endVerse = endVerse;
   }
 
-  // ### METHODS ############################################## //
+// ### METHODS ############################################## //
   // setter method to set the volume the scripture comes from
   public void SetVolume() 
   {

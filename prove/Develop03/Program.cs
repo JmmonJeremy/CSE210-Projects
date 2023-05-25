@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-//Using System.Net.Http directive which will enable HttpClient.
-// using System.Net.Http;
-
-
+// ### CLASS ################################################ //
 // class to run the program
 class Program
 {
+// ### METHODS ############################################## //
     // method that runs the program
     static void Main(string[] args)
     {      
         // Test Json
-        GetScripture get = new GetScripture();
-        get.GetVerse();   
+        string filePath = @"D:\Users\Owner\Documents\#1 Learning Resources\Programming Languages\CSE210-Projects\scriptures-json\flat\new-testament-flat.json";
+        var versesJson = File.ReadAllText(filePath);
+        // Verses verses = new Verses();
+        Verses verses = JsonSerializer.Deserialize<Verses>(versesJson); 
+        string request = verses.FindVerse("Revelation 22:21");
+        Console.WriteLine(request);
         // ### PROGRAM DESCRIPTION ##################################    
         // create setUp object to access its method
         SetUp setUp = new SetUp();
@@ -30,15 +33,8 @@ class Program
         // create variable to pass the source string around
         string source = sourceMethods.GetSource();
        
-        // TODO put in getting scripture form API
-        
-        // using (var httpClient = new HttpClient())
-        // {
-        //     var json = await httpClient.GetStringAsync("url");
-
-        //     // Now parse with JSON.Net
-            
-        // }
+        // TODO put in getting scripture form API        
+       
         // get the scripture into a variable
         string scripture = "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live:";
 
@@ -57,30 +53,7 @@ class Program
         // until all the words are hidden or quit is entered by the user
         setUp.QuitLoop(eachWord, source, scripture);
     }
-
-    // public async void GetScritpure()
-    // {
-    //      using (var httpClient = new HttpClient())
-    //     {
-    //         var json = await httpClient.GetStringAsync("https://github.com/bcbooks/scriptures-json/blob/master/reference/new-testament-reference.json");
-
-    //         // Now parse with JSON.Net
-    //         return json;            
-    //     }
-    // }
-
-    // public void LoadJson()
-    // {
-    //      using (StreamReader r = new StreamReader("file.json"))
-    //     {
-    //         string json = r.ReadToEnd();
-    //         List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);
-    //     }
-    // }
-
-    
 }
-
 
         // // ############## sort this area out into classes
         // // variable to count rotations of hiding words in while/loop 

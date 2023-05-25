@@ -7,14 +7,14 @@ using System.IO;
 // the scripture memorization program to work
 public class SetUp
 {
-  // ### VARIABLE ATTRIBUTES ################################## //
+// ### VARIABLE ATTRIBUTES ################################## //
   // variable to run the while loop until the condition is met of
   // quit being entered or all words are hidden to end the program
   string _quit;
   // variable to count rotations of while/loop   
   int _rotations; 
 
-  // ### CONSTRUCTORS ######################################### //
+// ### CONSTRUCTORS ######################################### //
   public SetUp()
   {
     // set _quit to "run loop" or not "quit" to run the loop 
@@ -24,7 +24,7 @@ public class SetUp
     _rotations = -1;   
   }
 
-  // ### METHODS ############################################## //
+// ### METHODS ############################################## //
   // method to display the programs introduction & explanation
   public void ProgramDescription()
   {

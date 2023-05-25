@@ -6,7 +6,7 @@ using System.IO;
 // class to hold and display the scripture to the user
 public class Chalkboard
 {
-  // ### VARIABLE ATTRIBUTES ################################## // 
+// ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold the reference
   private string _reference;
   // list to hold all the words of the scripture
@@ -20,7 +20,7 @@ public class Chalkboard
   // was just hidden for a particular round
   private bool _hidOne;
 
-  // ### CONSTRUCTORS ######################################### //
+// ### CONSTRUCTORS ######################################### //
   // constructor sets up the object to recieve a string for the reference
   // and to recieve a string for the scripture verse and turn it into a list of words
   public Chalkboard(string source, string scripture)
@@ -47,7 +47,7 @@ public class Chalkboard
     _hidOne = false;
   }
 
-  // ### METHODS ############################################## //
+// ### METHODS ############################################## //
   // getter method to get the _scriptureWords list that is
   // made up of the words of the scripture to be memorized
   public List<string> GetScriptureWords()
@@ -59,12 +59,12 @@ public class Chalkboard
   public void SetEachWord()
   {
     // load eachWord Chalk list with words from
-        // the _scriptureWords list & set bool value to false
-        foreach (string word in _scriptureWords)
-        {
-            Chalk writeWord = new Chalk(word, false);
-            _eachWord.Add(writeWord);
-        }
+    // the _scriptureWords list & set bool value to false
+    foreach (string word in _scriptureWords)
+    {
+        Chalk writeWord = new Chalk(word, false);
+        _eachWord.Add(writeWord);
+    }
   }
 
   public List<Chalk> GetEachWord()
