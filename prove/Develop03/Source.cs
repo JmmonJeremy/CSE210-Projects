@@ -19,6 +19,10 @@ public class Source
   // variable to hold the ending verse for the scripture's source
   // if there is more than one verse to the scripture being memorized
   private string _endVerse;
+  // variable to hold the _book, _chapter, & _verse in a string
+  private string _startReference;
+  // variable to hold the _book, _chapter, & _endVerse in a string
+  private string _endReference;
   // variable to hold all the parts of the source together in a string
   private string _source;
   // variable to hold the name of the textfile for the last source
@@ -26,56 +30,12 @@ public class Source
 
 // ### CONSTRUCTORS ######################################### //
   // constructor to use to access methods without entering any parameter
-  // running the methods is the sole purpose of this constructor
+  // also sets the _sourceFileName value to begin with
   public Source() 
-  {
-    // attribute starts empty in this constructor
-    _volume = "";
-    // attribute starts empty in this constructor 
-    _book = "";
-    // attribute starts empty in this constructor  
-    _chapter = "";
-    // attribute starts empty in this constructor 
-    _verse = "";
-    // attribute starts empty in this constructor
-    _endVerse = "";
-    // attribute starts empty in this constructor    
-    _source = "";
+  {    
     // sets the textfile name for the last scripture source
     _sourceFileName = "lastScriptureSource.txt";
-  }
-
-  // constructor sets up the object to recieve a string for
-  // the book, chapter, and verse for the case of 1 verse
-  public Source(string volume, string book, string chapter, string verse)
-  { 
-    // sets the _volume equal to the incoming volume parameter
-    _volume = volume;
-    // sets the _book equal to the incoming book parameter 
-    _book = book;
-    // sets the _chapter equal to the incoming chapter parameter  
-    _chapter = chapter;
-    // sets the _verse equal to the incoming verse parameter  
-    _verse = verse;
-    // nothing happens with this attribute in this constructor
-    _endVerse = "";
-  }
-
-  // constructor sets up the object to recieve a string for the 
-  // book, chapter, verse and _endVerse for the case of 2 verses
-  public Source(string volume, string book, string chapter, string verse, string endVerse)
-  { 
-    // sets the _volume equal to the incoming volume parameter
-    _volume = volume;
-    // sets the _book equal to the incoming book parameter 
-    _book = book;
-    // sets the _chapter equal to the incoming chapter parameter 
-    _chapter = chapter;
-    // sets the _verse equal to the incoming verse parameter 
-    _verse = verse;
-    // sets the _endVerse equal to the incoming endVerse parameter
-    _endVerse = endVerse;
-  }
+  } 
 
 // ### METHODS ############################################## //
   // setter method to set the volume the scripture comes from
@@ -464,7 +424,7 @@ public class Source
     _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}{endVerse}"; 
     // store the scripture source in a file as the last scripure source
     StoreSourceParts();
-  }
+  }  
 
   // getter method to get the source
   public string GetSource()
@@ -472,11 +432,48 @@ public class Source
     return _source;
   }
 
+  // setter method to set the _reference variable
+  public void SetStartReference()
+  {
+    // attribute is built from most of the other attribute variables   
+    _startReference = $"{_book} {_chapter}:{_verse}"; 
+  }
+
+  // getter method for the _reference variable
+  public string GetStartReference()
+  {
+    return _startReference;
+  }
+
+  // setter method to set the _reference variable
+  public void SetEndReference()
+  {
+    // if there is no end verse
+    if (string.IsNullOrEmpty(_endVerse))
+    {
+      // set the end reference as blank
+      _endReference = "";
+    }
+    // if there is an end verse
+    else{
+      // create this from the _book, _chapter, & _endVerse variables   
+      _endReference = $"{_book} {_chapter}:{_endVerse}"; 
+    }
+  }
+
+  // getter method for the _reference variable
+  public string GetEndReference()
+  {
+    return _endReference;
+  }
+
+  // method to store the last scripture source
+  // in a file so it can be used later by the user
   public void StoreSourceParts() 
   {
      using (StreamWriter createFile = new StreamWriter("lastScriptureSource.txt"))
       {
-        createFile.Write($"{_volume}~|~{_book}~|~{_chapter}~|~{_verse}~|~{_endVerse}~|~{_endVerse}");         
+        createFile.Write($"{_volume}~|~{_book}~|~{_chapter}~|~{_verse}~|~{_endVerse}");         
       }
   }
 

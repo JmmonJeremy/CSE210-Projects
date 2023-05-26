@@ -41,7 +41,9 @@ public class Verses
 
     // method to return the verses the user selected
     public List<string> FindVerses(string startRef, string endRef)
-    {    
+    {           
+        // variable to represent the count
+        int count = verses.Count; 
         // variable for the index # of the verses' starting reference
         int startRefIndex = 0;
         // variable for the index # of the verses' ending reference 
@@ -52,19 +54,20 @@ public class Verses
         bool gotEndRef = false;
         // bolean to show wether both the verses' references were found
         bool listed = true;
-        // variable to hold the string entered for the verses' reference
-        string missing = "The reference you entered";
-        // variable to diplay the string entered for either the starting
-        // or ending reference or both if they couldn't be found
-        string notListed = $"{missing} could not be found.";
+        // variable to diplay the string value entered by the 
+        // user for the starting reference if it couldn't be found
+        string noStartRef = $"{endRef} could not be found.";
+        // variable to diplay the string value entered by the  
+        // user for the ending reference if it couldn't be found
+        string noEndRef = $"{endRef} could not be found.";
         // variable to hold a message letting the user know why their selection
         // wasn't displayed for them to use with the scripture memorizer
         string missingRef = "There was a problem with the references you entered.";
         // list to return the selected verses or the error messages
         List<string> foundVerses = new List<string>();
         // cycle through the list of scriptures from the volume
-        for (int i = 0; i < verses.Count; i++)
-        {
+        for (int i = 0; i < count; i++)
+        {          
             // when the verses' starting reference equals
             // the Verse object's reference string value
             if (verses[i].reference == startRef)
@@ -73,7 +76,7 @@ public class Verses
                 // reference index variable for later use            
                 startRefIndex = i;
                 // indicate that the verses' starting reference was found
-                gotStartRef = true;          
+                gotStartRef = true;                         
             }
             // when the verses' ending reference equals
             // the Verse object's reference string value
@@ -83,65 +86,59 @@ public class Verses
                 // reference index variable for later use    
                 endRefIndex = i;
                 // indicate that the verses' starting reference was found
-                gotEndRef = true;
+                gotEndRef = true;               
             } 
             // after the last verse in the list is checked for a match, if the
             // starting reference was found, but the ending reference wasn't   
-            if (i == (verses.Count - 1) && gotStartRef && !gotEndRef)
+            if (i == (count-1) && gotStartRef && !gotEndRef)
             {
                 // indicates that one of the references wasn't found
-                listed = false;
-                // change the variable to the missing ending reference string
-                missing = endRef;
+                listed = false;                
                 // let the user know what string end reference wasn't found
-                foundVerses.Add(notListed);
+                foundVerses.Add(noEndRef);
                 // let the user know what string start reference was found
                 foundVerses.Add($"{startRef} was found.");
             }
             // after the last verse in the list is checked for a match, if the
             // ending reference was found, but the starting reference wasn't   
-            if (i == (verses.Count - 1) && !gotStartRef && gotEndRef)
+            if (i == (count-1) && !gotStartRef && gotEndRef)
             {
                 // indicates that one of the references wasn't found
-                listed = false;
-                // change the variable to the missing starting reference string
-                missing = startRef;
+                listed = false;               
                 // let the user know what string start reference wasn't found
-                foundVerses.Add(notListed);
+                foundVerses.Add(noStartRef);
                 // let the user know what string end reference was found
                 foundVerses.Add($"{endRef} was found.");
             }
             // after the last verse in the list is checked for a match, if the
             // starting reference and the ending reference were both not found 
-            if (i == (verses.Count - 1) && !gotStartRef && !gotEndRef)
-            {
+            if (i == (count - 1) && !gotStartRef && !gotEndRef)
+            {               
                 // indicates that both of the references weren't found
-                listed = false;
-                // change the variable to the missing starting reference string
-                missing = startRef;
+                listed = false;               
                 // let the user know what string start reference wasn't found
-                foundVerses.Add(notListed);
-                // change the variable to the missing ending reference string
-                missing = endRef;
+                foundVerses.Add(noStartRef);                
                 // let the user know what string end reference wasn't found
-                foundVerses.Add(notListed);
+                foundVerses.Add(noEndRef);
             }
             // if either or both of the verses' references were not found
-            if (!listed)
+            if (i == (count - 1) && !listed)
             {
                 // insert this message at the beginning of the list
                 // so that it is the beginning of the error message
-                foundVerses.Insert(0, missingRef);
+                foundVerses.Insert(0, missingRef);               
             }
             // if both of the verses's references were found
-            else
+            if (gotStartRef && gotEndRef)
             {
                 // cycle through those only those verses
                 for (i = startRefIndex; i <= endRefIndex; i++)
-                {
+                {                    
                     // and add those verses to the list
-                    foundVerses.Add(verses[i].text);
-                }
+                    foundVerses.Add(verses[i].text);                    
+                }               
+                // end the search
+                break;
             }        
         }
         // return the list to be displayed

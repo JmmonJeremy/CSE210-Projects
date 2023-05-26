@@ -175,7 +175,7 @@ public class Chalkboard
   {   
     // when Chalk object's _hide bolean is marked as true 
     if (eachWord[i].GetHide())
-    {    
+    {        
       // create an Eraser object & pass the Chalk object into it
       Eraser erase = new Eraser(eachWord[i].GetWord());
       // Change the background color on the screen to dark gray
@@ -186,7 +186,7 @@ public class Chalkboard
       // reset the background color to original setting
       Console.ResetColor();
       // add a space after the placeholder
-      Console.Write(" ");
+      Console.Write(" ");      
     }
   }
 

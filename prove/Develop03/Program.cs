@@ -34,12 +34,33 @@ class Program
         sourceMethods.SetSource();
         // create variable to pass the source string around
         string source = sourceMethods.GetSource();
-       
-        // TODO put in getting scripture form API        
-       
-        // get the scripture into a variable
-        string scripture = "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live:";
-
+        // load the _startReference variable to be able to get it
+        sourceMethods.SetStartReference();
+        // load the _endReference variable to be able to get it
+        sourceMethods.SetEndReference();
+        // set a variable to hold the scripture
+        string scripture = "";
+        // load the list of scripture returns into a list
+        var scriptureReturnList = setUp.SetUpScripture(sourceMethods.GetVolume(), sourceMethods.GetStartReference(), sourceMethods.GetEndReference());
+        // cycle through the list and create one string
+        foreach (string part in scriptureReturnList)
+        {
+            // if it is not the last string in the list
+            // reference source: https://www.techiedelight.com/find-last-element-in-a-list-in-csharp/
+            if (part != (scriptureReturnList.Last()))
+            {
+                // put an empty line between it and the line 
+                // above it and put a space after the string
+                scripture += $"\n\n{part} ";
+            }
+            // if it is the last string in the list
+            else
+            {
+                // do the same thing without the space after it
+                scripture += $"\n\n{part}";
+            }            
+        } 
+               
         // // ### RUN THE SCRIPTURE MEMORIZER ##########################
         // load the source and the scripture into the 
         // chalkboard constructor to create an object
