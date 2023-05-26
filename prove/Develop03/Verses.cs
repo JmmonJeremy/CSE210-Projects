@@ -21,8 +21,9 @@ public class Verses
     // method to find the verse the user selected
     public string FindVerse(string verseRef)
     {    
-        // string to return the scripture verse or a not found message
-        string foundVerse = "The reference you entered could not be found.";
+        // string to return the scripture verse or a not found message 
+        // with a message at the end telling the user how to start over
+        string foundVerse = "!!! The reference you entered could not be found.\n\n\nTo try again enter 'restart'";
         // loop through the list
         foreach(Verse verse in verses)
         {
@@ -62,7 +63,7 @@ public class Verses
         string noEndRef = $"{endRef} could not be found.";
         // variable to hold a message letting the user know why their selection
         // wasn't displayed for them to use with the scripture memorizer
-        string missingRef = "There was a problem with the references you entered.";
+        string missingRef = "!!! There was a problem with the references you entered.";
         // list to return the selected verses or the error messages
         List<string> foundVerses = new List<string>();
         // cycle through the list of scriptures from the volume
@@ -126,7 +127,9 @@ public class Verses
             {
                 // insert this message at the beginning of the list
                 // so that it is the beginning of the error message
-                foundVerses.Insert(0, missingRef);               
+                foundVerses.Insert(0, missingRef); 
+                // add a message at the end telling them how to start over
+                foundVerses.Add("\n\nTo try again enter 'restart'");
             }
             // if both of the verses's references were found
             if (gotStartRef && gotEndRef)

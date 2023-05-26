@@ -47,10 +47,12 @@ public class SetUp
   }
 
   // method to get the verse or verses for memorizing set up 
-  public List<string> SetUpScripture(string volume, string startReference, string endReference)
+  public string SetUpScripture(string volume, string startReference, string endReference)
   {
-    // create a variable to hold the verses selected
-    List<string> selectedVerse = new List<string>();
+    // create a variable to hold a verse if only one
+    string selectedVerses = "There was an error while setting up your scritpure.";
+    // create a list to hold the verses selected
+    List<string> verseList = new List<string>();
     // create a scripture volume object with all
     // the volumes loaded as json string files
     ScriptureVolumes volumes = new ScriptureVolumes();
@@ -63,13 +65,13 @@ public class SetUp
       if (string.IsNullOrEmpty(endReference))
       {
         // use the Verses class object to find & return the requested verse
-        selectedVerse.Add(oldTestamentVerses.FindVerse(startReference));
+        selectedVerses = oldTestamentVerses.FindVerse(startReference);
       }
       // if there is an endReference
       else
       {
         // use the Verses class object to find & return the requested verses
-        selectedVerse = oldTestamentVerses.FindVerses(startReference, endReference);
+        verseList = oldTestamentVerses.FindVerses(startReference, endReference);
       }
     }
     // when the volume equals New Testament
@@ -81,13 +83,13 @@ public class SetUp
       if (string.IsNullOrEmpty(endReference))
       {
       // use the Verses class object to find & return the requested verse
-      selectedVerse.Add(newTestamentVerses.FindVerse(startReference));
+      selectedVerses = newTestamentVerses.FindVerse(startReference);
       } 
       // if there is an endReference   
       else
       {
         // use the Verses class object to find & return the requested verses
-        selectedVerse = newTestamentVerses.FindVerses(startReference, endReference);
+        verseList = newTestamentVerses.FindVerses(startReference, endReference);
       }
     }
     // when the volume equals Book of Mormon
@@ -99,13 +101,13 @@ public class SetUp
       if (string.IsNullOrEmpty(endReference))
       {
       // use the Verses class object to find & return the requested verse
-      selectedVerse.Add(bookOfMormonVerses.FindVerse(startReference));
+      selectedVerses = bookOfMormonVerses.FindVerse(startReference);
       }
       // if there is an endReference
       else
       {
         // use the Verses class object to find & return the requested verses
-        selectedVerse = bookOfMormonVerses.FindVerses(startReference, endReference);
+        verseList = bookOfMormonVerses.FindVerses(startReference, endReference);
       }
     }
     // when the volume equals Doctrine and Covenants
@@ -117,13 +119,13 @@ public class SetUp
       if (string.IsNullOrEmpty(endReference))
       {
       // use the Verses class object to find & return the requested verse
-      selectedVerse.Add(doctrineAndCovenantsVerses.FindVerse(startReference));
+      selectedVerses = doctrineAndCovenantsVerses.FindVerse(startReference);
       }
       // if there is an endReference
       else
       {
         // use the Verses class object to find & return the requested verses
-        selectedVerse =doctrineAndCovenantsVerses.FindVerses(startReference, endReference);
+        verseList = doctrineAndCovenantsVerses.FindVerses(startReference, endReference);
       }
     }
     // when the volume equals Pearl of Great Price
@@ -135,17 +137,42 @@ public class SetUp
       if (string.IsNullOrEmpty(endReference))
       {
       // use the Verses class object to find & return the requested verse
-      selectedVerse.Add(pearlOfGreatPriceVerses.FindVerse(startReference));
+      selectedVerses = pearlOfGreatPriceVerses.FindVerse(startReference);
       }
       // if there is an endReference
       else
       {
         // use the Verses class object to find & return the requested verses
-        selectedVerse =pearlOfGreatPriceVerses.FindVerses(startReference, endReference);
+        verseList = pearlOfGreatPriceVerses.FindVerses(startReference, endReference);
       }      
     }
+    // if there are item in the list
+    if (verseList.Count > 0)
+    {
+      // clear string in selectedVerses
+      selectedVerses = "";
+    }
+    
+    // cycle through the list and create one string
+    foreach (string part in verseList)
+    {
+      // if it is not the last string in the list
+      // reference source: https://www.techiedelight.com/find-last-element-in-a-list-in-csharp/
+      if (part != (verseList.Last()))
+      {
+        // put an empty line between it and the line 
+        // above it and put a space after the string
+        selectedVerses += $"\n\n{part} ";
+      }
+      // if it is the last string in the list
+      else
+      {
+        // do the same thing without the space after it
+        selectedVerses += $"\n\n{part}";
+      }            
+    } 
     // return the list with the verse or verses
-    return selectedVerse;
+    return selectedVerses;
   }
 
   // method to run a loop of displaying the scripture as the Chalkboard changes
@@ -154,7 +181,7 @@ public class SetUp
   {
     // create a loop to run until the user enters "quit"
     // or until all the words in the scripture are covered
-    while (_quit != "quit" && _rotations != eachWord.Count)
+    while (_quit != "quit" && _quit != "restart" && _rotations != eachWord.Count)
     {      
       // count the rotations of the while loop, this is
       // used to avoid a change in the first rotation

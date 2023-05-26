@@ -56,15 +56,19 @@ public class Chalkboard
   }
 
   // setter method for the _eachWord list
-  public void SetEachWord()
+  public bool SetEachWord()
   {
+    bool restart = false;
     // load eachWord Chalk list with words from
     // the _scriptureWords list & set bool value to false
     foreach (string word in _scriptureWords)
     {
-        Chalk writeWord = new Chalk(word, false);
-        _eachWord.Add(writeWord);
+      if (word == "!!!")
+      restart = true;
+      Chalk writeWord = new Chalk(word, false);
+      _eachWord.Add(writeWord);
     }
+    return restart;
   }
 
   public List<Chalk> GetEachWord()

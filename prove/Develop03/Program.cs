@@ -8,6 +8,10 @@ using System.Text.Json.Serialization;
 // class to run the program
 class Program
 {
+// ### VARIABLE ATTRIBUTES ################################## //
+// bool to restart everything if needed
+private bool _restart = false;
+
 // ### METHODS ############################################## //
     // method that runs the program
     static void Main(string[] args)
@@ -21,6 +25,9 @@ class Program
         Verses _verses = JsonSerializer.Deserialize<Verses>(vol.GetJsonNewTestament()); 
         string request = _verses.FindVerse("Revelation 22:21");
         Console.WriteLine(request);
+        Program program = new Program();
+        do
+        {
         // ### PROGRAM DESCRIPTION ##################################    
         // create setUp object to access its method
         SetUp setUp = new SetUp();
@@ -37,29 +44,9 @@ class Program
         // load the _startReference variable to be able to get it
         sourceMethods.SetStartReference();
         // load the _endReference variable to be able to get it
-        sourceMethods.SetEndReference();
-        // set a variable to hold the scripture
-        string scripture = "";
-        // load the list of scripture returns into a list
-        var scriptureReturnList = setUp.SetUpScripture(sourceMethods.GetVolume(), sourceMethods.GetStartReference(), sourceMethods.GetEndReference());
-        // cycle through the list and create one string
-        foreach (string part in scriptureReturnList)
-        {
-            // if it is not the last string in the list
-            // reference source: https://www.techiedelight.com/find-last-element-in-a-list-in-csharp/
-            if (part != (scriptureReturnList.Last()))
-            {
-                // put an empty line between it and the line 
-                // above it and put a space after the string
-                scripture += $"\n\n{part} ";
-            }
-            // if it is the last string in the list
-            else
-            {
-                // do the same thing without the space after it
-                scripture += $"\n\n{part}";
-            }            
-        } 
+        sourceMethods.SetEndReference();       
+        // load the scripture or list of scriptures into a string variable
+        string scripture = setUp.SetUpScripture(sourceMethods.GetVolume(), sourceMethods.GetStartReference(), sourceMethods.GetEndReference());       
                
         // // ### RUN THE SCRIPTURE MEMORIZER ##########################
         // load the source and the scripture into the 
@@ -69,12 +56,26 @@ class Program
         List<string> scriptureWords = chalkboard.GetScriptureWords();
         // load _eachWord Chalk list with words from the 
         // scriptureWords list while setting _hide to false
-        chalkboard.SetEachWord();
+        program._restart = chalkboard.SetEachWord();
         // get the _eachWord list
         List<Chalk> eachWord = chalkboard.GetEachWord();       
         // set up a loop to display the source and scripture repeatedly
         // until all the words are hidden or quit is entered by the user
         setUp.QuitLoop(eachWord, source, scripture);
+        }
+        while (program._restart == true);
+    }
+
+    // setter method to set the _restart bolean
+    public void SetRestart(bool state)
+    {
+        _restart = state;
+    }
+
+    // getter method for the _restart
+    public bool GetRestart()
+    {
+        return _restart;
     }
 }
 
