@@ -15,10 +15,10 @@ class Program
         // Test Json       
         ScriptureVolumes vol = new ScriptureVolumes();
 
-        string versesJson = File.ReadAllText(vol.GetfilePathNewTestament());
+        
        
         // reference source: https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0 & https://www.youtube.com/watch?v=w6M-Bj-tfv4 & https://www.educative.io/answers/how-to-read-a-json-file-in-c-sharp & https://www.educba.com/json-parser-in-c-sharp/
-        Verses _verses = JsonSerializer.Deserialize<Verses>(versesJson); 
+        Verses _verses = JsonSerializer.Deserialize<Verses>(vol.GetJsonNewTestament()); 
         string request = _verses.FindVerse("Revelation 22:21");
         Console.WriteLine(request);
         // ### PROGRAM DESCRIPTION ##################################    

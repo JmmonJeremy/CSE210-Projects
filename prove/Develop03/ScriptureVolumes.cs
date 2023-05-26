@@ -25,17 +25,18 @@ public class ScriptureVolumes
   // json file, as well as the file name
   private string _filePathPearlOfGreatPrice;
   // string variable to hold the Old Testament json string file
-  private string _JsonOldTestament;
+  private string _jsonOldTestament;
   // string variable to hold the New Testament json string file
-  private string _JsonNewTestament;
+  private string _jsonNewTestament;
   // string variable to hold the Book of Mormon json string file
-  private string _JsonBookOfMormon;
-  // string variable to hold the New Testament json string file
-  private string _JsonDoctrineAndCovenants;
-  // string variable to hold the Book of Mormon json string file
-  private string _JsonPearlOfGreatPrice;
+  private string _jsonBookOfMormon;
+  // string variable to hold the Doctine and Covenants json string file
+  private string _jsonDoctrineAndCovenants;
+  // string variable to hold the Pearl of Great Price json string file
+  private string _jsonPearlOfGreatPrice;
 // ### CONSTRUCTORS ######################################### //
-  // construtor that build the string value of the volume paths
+  // construtor that builds the string value of the volume paths variables
+  // and fills the volume variables with their respective volumes string json
   public ScriptureVolumes()
   {
     // build the path from Path class methods so it will find the correct 
@@ -46,13 +47,18 @@ public class ScriptureVolumes
     // ### USED TO HELP BUILD ALL SCRIPTURE VOLUME PATHS
     // this is the path of the folder holding the repository starting 
     // from the directory you are running the program code from
+    // reference source: https://yetanotherchris.dev/csharp/6-ways-to-get-the-current-directory-in-csharp/ 
+    // & https://learn.microsoft.com/en-us/dotnet/api/system.io.directory.getparent?view=net-7.0 &
+    // https://stackoverflow.com/questions/6875904/how-do-i-find-the-parent-directory-in-c
     string repositoryPath = Directory.GetParent((Directory.GetParent(Directory.GetCurrentDirectory())).ToString()).ToString();
     // ### OLD TESTAMENT ENDING PATH ONLY
     // this is the path of the submodule's json scriputure volume on my computer 
     // using Path.GetFullPath to get it except for the drive D:(rest of path below)
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.path.getfullpath?view=net-7.0
     string submodulePathOT = @"\scriptures-json\flat\old-testament-flat.json";         
     // add the repository Path to the submodulePath for the correct file path
     // hopefully that resulted in the correct file path for your computer
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.path.join?view=net-7.0#system-io-path-join(system-readonlyspan((system-char))-system-readonlyspan((system-char)))
     _filePathOldTestament = Path.Join(repositoryPath, submodulePathOT);
     // ### NEW TESTAMENT ENDING PATH ONLY
     // this is the path of the submodule's json scriputure volume on my computer 
@@ -74,44 +80,58 @@ public class ScriptureVolumes
     string submodulePathDandC = @"\scriptures-json\flat\doctrine-and-covenants-flat.json";         
     // add the repository Path to the submodulePath for the correct file path
     // hopefully that resulted in the correct file path for your computer
-    _filePathNewTestament = Path.Join(repositoryPath, submodulePathDandC);
+    _filePathDoctrineAndCovenants = Path.Join(repositoryPath, submodulePathDandC);
     // ### PEARL OF GREAT PRICE ENDING PATH ONLY
     // this is the path of the submodule's json scriputure volume on my computer 
     // using Path.GetFullPath to get it except for the drive D:(rest of path below)    
     string submodulePathPofGP = @"\scriptures-json\flat\pearl-of-great-price-flat.json";         
     // add the repository Path to the submodulePath for the correct file path
     // hopefully that resulted in the correct file path for your computer
-    _filePathNewTestament = Path.Join(repositoryPath, submodulePathPofGP);  
+    _filePathPearlOfGreatPrice = Path.Join(repositoryPath, submodulePathPofGP);
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.readalltext?view=net-7.0
+    // & https://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c
+    // read the whole Old Testament into the json string file
+    _jsonOldTestament = File.ReadAllText(_filePathOldTestament);
+    // read the whole the New Testament into the json string file
+    _jsonNewTestament = File.ReadAllText(_filePathNewTestament);
+    // read the whole Book of Mormon into the json string file
+    _jsonBookOfMormon = File.ReadAllText(_filePathBookOfMormon);
+    // read the whole Doctrine and Covenants into the json string file
+    _jsonDoctrineAndCovenants = File.ReadAllText(_filePathDoctrineAndCovenants);
+    // read the whole Pearl of Great Price into the json string file
+    _jsonPearlOfGreatPrice = File.ReadAllText(_filePathPearlOfGreatPrice);  
   }
 
 // ### METHODS ############################################## //
-  // getter method for the _filePathOldTestament
-  public string GetfilePathNewTestament()
+  // getter method for the _jsonOldTestament
+  public string GetJsonOldTestament()
   {    
-    return _filePathNewTestament;
+    return _jsonOldTestament;
   }
 
-  // getter method for the _filePathNewTestament
-  public string GetfilePathOldTestament()
+  // getter method for the _jsonNewTestament
+  public string GetJsonNewTestament()
   {    
-    return _filePathOldTestament;
+    return _jsonNewTestament;
   }
 
-  // getter method for the _filePathBookOfMormon
-  public string GetfilePathBookOfMormon()
+  // getter method for the _jsonBookOfMormon
+  public string GetJsonBookOfMormon()
   {    
-    return _filePathBookOfMormon;
+    return _jsonBookOfMormon;
   }
 
-  // getter method for the _filePathDoctrineAndCovenants
-  public string GetfileDoctrineAndCovenants()
+  // getter method for the _jsonDoctrineAndCovenants
+  public string GetJsonDoctrineAndCovenants()
   {    
-    return _filePathDoctrineAndCovenants;
+    return _jsonDoctrineAndCovenants;
   }
 
-  // getter method for the _filePathPearlOfGreatPrice
-  public string GetfilePearlOfGreatPrice()
+  // getter method for the _jsonPearlOfGreatPrice
+  public string GetJsonPearlOfGreatPrice()
   {    
-    return _filePathPearlOfGreatPrice;
+    return _jsonPearlOfGreatPrice;
   }
+
+
 }
