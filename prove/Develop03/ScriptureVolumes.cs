@@ -19,7 +19,7 @@ public class ScriptureVolumes
   // string variable to hold the path to the Doctrine and Covenants web json file
   private string _webLinkDoctrineAndCovenants = "https://raw.githubusercontent.com/bcbooks/scriptures-json/master/flat/doctrine-and-covenants-flat.json";
   // string variable to hold the path to the Pearl of Great Price web json file
-  private string _webLinkPearlOfGreatPrice = "https://github.com/bcbooks/scriptures-json/blob/master/flat/pearl-of-great-price-flat.json";
+  private string _webLinkPearlOfGreatPrice = "https://raw.githubusercontent.com/bcbooks/scriptures-json/master/flat/pearl-of-great-price-flat.json";
   // string variable to hold the file path to the Old Testament
   // json file, as well as the file name
   private string _filePathOldTestament;
@@ -212,7 +212,7 @@ public class ScriptureVolumes
         // wait for the response
         _jsonNewTestament = await client.GetStringAsync(website);          
         // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The New Testament' from HttpClient.");       
+        Console.WriteLine("Got 'The New Testament' from HttpClient.");            
       }
       // catch errors and handle them
       catch (HttpRequestException e)
@@ -232,7 +232,7 @@ public class ScriptureVolumes
         // save the whole New Testament into the json string file
         _jsonNewTestament = webClient.DownloadString(website);
         // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The New Testament' from WebClient."); 
+        Console.WriteLine("Got 'The New Testament' from WebClient.");       
       } 
     } 
     // if the both web requests returned nothing or did't return a json file   
@@ -377,7 +377,7 @@ public class ScriptureVolumes
         // wait for the response
         _jsonPearlOfGreatPrice = await client.GetStringAsync(website);          
         // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Pearl of Great Price' from HttpClient.");       
+        Console.WriteLine("Got 'The Pearl of Great Price' from HttpClient.");                
       }
       // catch errors and handle them
       catch (HttpRequestException e)
