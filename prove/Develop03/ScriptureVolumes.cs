@@ -110,40 +110,34 @@ public class ScriptureVolumes
   } 
 
 // ### METHODS ############################################## //
-  // getter method for the _jsonOldTestament
-  public string GetJsonOldTestament()
-  {    
-    return _jsonOldTestament;
-  }
-
-  // getter method for the _jsonNewTestament
-  public string GetJsonNewTestament()
-  {    
-    return _jsonNewTestament;
-  }
-
-  // getter method for the _jsonBookOfMormon
-  public string GetJsonBookOfMormon()
-  {    
-    return _jsonBookOfMormon;
-  }
-
-  // getter method for the _jsonDoctrineAndCovenants
-  public string GetJsonDoctrineAndCovenants()
-  {    
-    return _jsonDoctrineAndCovenants;
-  }
-
-  // getter method for the _jsonPearlOfGreatPrice
-  public string GetJsonPearlOfGreatPrice()
-  {    
-    return _jsonPearlOfGreatPrice;
-  }
-
   // getter method for the Old Testament json web link 
   public string GetWebLinkOldTestament()
   {    
     return _webLinkOldTestament;
+  }
+
+  // getter method for the New Testament json web link 
+  public string GetWebLinkNewTestament()
+  {    
+    return _webLinkNewTestament;
+  }
+
+  // getter method for the Book of Mormon json web link 
+  public string GetWebLinkBookOfMormon()
+  {    
+    return _webLinkBookOfMormon;
+  }
+
+  // getter method for the Doctrine and Covenants json web link 
+  public string GetWebLinkDoctrineAndCovenants()
+  {    
+    return _webLinkDoctrineAndCovenants;
+  }
+
+  // getter method for the Pearl of Great Price json web link 
+  public string GetWebLinkPearlOfGreatPrice()
+  {    
+    return _webLinkPearlOfGreatPrice;
   }
 
   // method to set the Old Testament json scripture variable
@@ -409,5 +403,35 @@ public class ScriptureVolumes
         Console.Write(_jsonPearlOfGreatPrice);
       }
     }    
+  }
+
+  // getter method for the _jsonOldTestament
+  public string GetJsonOldTestament()
+  {    
+    return _jsonOldTestament;
+  }
+
+  // getter method for the _jsonNewTestament
+  public string GetJsonNewTestament()
+  {    
+    return _jsonNewTestament;
+  }
+
+  // getter method for the _jsonBookOfMormon
+  public string GetJsonBookOfMormon()
+  {    
+    return _jsonBookOfMormon;
+  }
+
+  // getter method for the _jsonDoctrineAndCovenants
+  public string GetJsonDoctrineAndCovenants()
+  {    
+    return _jsonDoctrineAndCovenants;
+  }
+
+  // getter method for the _jsonPearlOfGreatPrice
+  public string GetJsonPearlOfGreatPrice()
+  {    
+    return _jsonPearlOfGreatPrice;
   }
 }

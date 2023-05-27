@@ -55,18 +55,27 @@ public class SetUp
     List<string> verseList = new List<string>();
     // create ScritureVolumes object to access its methods
     ScriptureVolumes volumes = new ScriptureVolumes();
-    // create a variable to hold the weblink for the Old Testament
+    // create a variable to hold the weblink for the scripture volumes
     // and get the weblink through the ScriptureVolumes' get method   
     string linkOT = volumes.GetWebLinkOldTestament();
-    
+    string linkNT = volumes.GetWebLinkNewTestament();
+    string linkBOM = volumes.GetWebLinkBookOfMormon();
+    string linkDAC = volumes.GetWebLinkDoctrineAndCovenants();
+    string linkPOGP = volumes.GetWebLinkPearlOfGreatPrice();    
     // use a variable to hold the async task waiting for the 
-    // ScriptureVolumes method to load its _jsonOldTestament string
+    // ScriptureVolumes method to load its _json"VolumeName" string
     var getOTJson = Task.Run(async () => await volumes.SetJsonOldTestament(linkOT));
-
-    // use the Wait method to wait until the _jsonOldTestament 
+    var getNTJson = Task.Run(async () => await volumes.SetJsonNewTestament(linkNT));
+    var getBOMJson = Task.Run(async () => await volumes.SetJsonBookOfMormon(linkBOM));
+    var getDACJson = Task.Run(async () => await volumes.SetJsonDoctrineAndCovenants(linkDAC));
+    var getPOGPJson = Task.Run(async () => await volumes.SetJsonPearlOfGreatPrice(linkPOGP));
+    // use the Wait method to wait until the _json"VolumeName" 
     // string is loaded in ScriptureVolumes by the set method
     getOTJson.Wait();
-  
+    getNTJson.Wait();
+    getBOMJson.Wait();
+    getDACJson.Wait();
+    getPOGPJson.Wait();  
     // when the volume equals Old Testament
     if (volume == "The Old Testament") 
     {
