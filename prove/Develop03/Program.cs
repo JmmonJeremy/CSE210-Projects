@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -16,16 +18,12 @@ private bool _restart = false;
     // method that runs the program
     static void Main(string[] args)
     {      
-        // Test Json       
-        ScriptureVolumes vol = new ScriptureVolumes();
+        // Test CODE      
 
-        
-       
-        // reference source: https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0 & https://www.youtube.com/watch?v=w6M-Bj-tfv4 & https://www.educative.io/answers/how-to-read-a-json-file-in-c-sharp & https://www.educba.com/json-parser-in-c-sharp/
-        Verses _verses = JsonSerializer.Deserialize<Verses>(vol.GetJsonNewTestament()); 
-        string request = _verses.FindVerse("Revelation 22:21");
-        Console.WriteLine(request);
+// ###############################################################################################
+        // create a program object to access the _restart private variable
         Program program = new Program();
+        // set up a loop to run if the user enters an incorrect reference
         do
         {
         // ### PROGRAM DESCRIPTION ##################################    
@@ -56,6 +54,8 @@ private bool _restart = false;
         List<string> scriptureWords = chalkboard.GetScriptureWords();
         // load _eachWord Chalk list with words from the 
         // scriptureWords list while setting _hide to false
+        // and set the boolean for the do/while loop to run
+        // if the user entered a bad reference for a verse
         program._restart = chalkboard.SetEachWord();
         // get the _eachWord list
         List<Chalk> eachWord = chalkboard.GetEachWord();       
@@ -63,6 +63,7 @@ private bool _restart = false;
         // until all the words are hidden or quit is entered by the user
         setUp.QuitLoop(eachWord, source, scripture);
         }
+        // condition for running the loop when user enters incorrect reference
         while (program._restart == true);
     }
 

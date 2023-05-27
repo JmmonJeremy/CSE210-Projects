@@ -53,9 +53,20 @@ public class SetUp
     string selectedVerses = "There was an error while setting up your scritpure.";
     // create a list to hold the verses selected
     List<string> verseList = new List<string>();
-    // create a scripture volume object with all
-    // the volumes loaded as json string files
+    // create ScritureVolumes object to access its methods
     ScriptureVolumes volumes = new ScriptureVolumes();
+    // create a variable to hold the weblink for the Old Testament
+    // and get the weblink through the ScriptureVolumes' get method   
+    string linkOT = volumes.GetWebLinkOldTestament();
+    
+    // use a variable to hold the async task waiting for the 
+    // ScriptureVolumes method to load its _jsonOldTestament string
+    var getOTJson = Task.Run(async () => await volumes.SetJsonOldTestament(linkOT));
+
+    // use the Wait method to wait until the _jsonOldTestament 
+    // string is loaded in ScriptureVolumes by the set method
+    getOTJson.Wait();
+  
     // when the volume equals Old Testament
     if (volume == "The Old Testament") 
     {
