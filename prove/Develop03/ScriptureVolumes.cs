@@ -151,8 +151,8 @@ public class ScriptureVolumes
       {     
         // wait for the response
         _jsonOldTestament = await client.GetStringAsync(website);          
-        // show where the file came from for debugging
-        Console.WriteLine("Got this from HttpClient.");       
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Old Testament' from HttpClient.");       
       }
       // catch errors and handle them
       catch (HttpRequestException e)
@@ -172,7 +172,9 @@ public class ScriptureVolumes
       using (WebClient webClient = new WebClient())
       {   
         // save the whole Old Testament into the json string file
-        _jsonOldTestament = webClient.DownloadString(website); 
+        _jsonOldTestament = webClient.DownloadString(website);
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Old Testament' from WebClient.");  
       } 
     } 
     // if the both web requests returned nothing or did't return a json file   
@@ -186,7 +188,8 @@ public class ScriptureVolumes
       {
         // read the whole Old Testament into the json string file
         _jsonOldTestament = File.ReadAllText(_filePathOldTestament);
-        Console.WriteLine("Got it from the local file!");
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Old Testament' from the local file!");
       }
       else
       {
@@ -208,8 +211,8 @@ public class ScriptureVolumes
       {     
         // wait for the response
         _jsonNewTestament = await client.GetStringAsync(website);          
-        // show where the file came from for debugging
-        Console.WriteLine("Got this from HttpClient.");       
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The New Testament' from HttpClient.");       
       }
       // catch errors and handle them
       catch (HttpRequestException e)
@@ -227,7 +230,9 @@ public class ScriptureVolumes
       using (WebClient webClient = new WebClient())
       {   
         // save the whole New Testament into the json string file
-        _jsonNewTestament = webClient.DownloadString(website); 
+        _jsonNewTestament = webClient.DownloadString(website);
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The New Testament' from WebClient."); 
       } 
     } 
     // if the both web requests returned nothing or did't return a json file   
@@ -238,7 +243,8 @@ public class ScriptureVolumes
       {
         // read the whole New Testament into the json string file
         _jsonNewTestament = File.ReadAllText(_filePathNewTestament);
-        Console.WriteLine("Got it from the local file!");
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The New Testament' from the local file!");
       }
       else
       {
@@ -260,8 +266,8 @@ public class ScriptureVolumes
       {     
         // wait for the response
         _jsonBookOfMormon = await client.GetStringAsync(website);          
-        // show where the file came from for debugging
-        Console.WriteLine("Got this from HttpClient.");       
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Book of Mormon' from HttpClient.");       
       }
       // catch errors and handle them
       catch (HttpRequestException e)
@@ -279,7 +285,9 @@ public class ScriptureVolumes
       using (WebClient webClient = new WebClient())
       {   
         // save the whole Book of Mormon into the json string file
-        _jsonBookOfMormon = webClient.DownloadString(website); 
+        _jsonBookOfMormon = webClient.DownloadString(website);
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Book of Mormon' from WebClient.");  
       } 
     } 
     // if the both web requests returned nothing or did't return a json file   
@@ -290,7 +298,8 @@ public class ScriptureVolumes
       {
         // read the whole Book of Mormon into the json string file
         _jsonBookOfMormon = File.ReadAllText(_filePathBookOfMormon);
-        Console.WriteLine("Got it from the local file!");
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Book of Mormon' from the local file!");
       }
       else
       {
@@ -312,8 +321,8 @@ public class ScriptureVolumes
       {     
         // wait for the response
         _jsonDoctrineAndCovenants = await client.GetStringAsync(website);          
-        // show where the file came from for debugging
-        Console.WriteLine("Got this from HttpClient.");       
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Doctrine and Covenants' from HttpClient.");       
       }
       // catch errors and handle them
       catch (HttpRequestException e)
@@ -331,7 +340,9 @@ public class ScriptureVolumes
       using (WebClient webClient = new WebClient())
       {   
         // save the whole Doctrine and Covenants into the json string file
-        _jsonDoctrineAndCovenants = webClient.DownloadString(website); 
+        _jsonDoctrineAndCovenants = webClient.DownloadString(website);
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Doctrine and Covenants' from WebClient.");  
       } 
     } 
     // if the both web requests returned nothing or did't return a json file   
@@ -342,7 +353,8 @@ public class ScriptureVolumes
       {
         // read the whole Doctrine and Covenants into the json string file
         _jsonDoctrineAndCovenants = File.ReadAllText(_filePathDoctrineAndCovenants);
-        Console.WriteLine("Got it from the local file!");
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Doctrine and Covenants' from the local file!");
       }
       else
       {
@@ -364,8 +376,8 @@ public class ScriptureVolumes
       {     
         // wait for the response
         _jsonPearlOfGreatPrice = await client.GetStringAsync(website);          
-        // show where the file came from for debugging
-        Console.WriteLine("Got this from HttpClient.");       
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Pearl of Great Price' from HttpClient.");       
       }
       // catch errors and handle them
       catch (HttpRequestException e)
@@ -384,6 +396,8 @@ public class ScriptureVolumes
       {   
         // save the whole Pearl of Great Price into the json string file
         _jsonPearlOfGreatPrice = webClient.DownloadString(website); 
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Pearl of Great Price' from WebClient."); 
       } 
     } 
     // if the both web requests returned nothing or did't return a json file   
@@ -394,7 +408,8 @@ public class ScriptureVolumes
       {
         // read the whole Pearl of Great Price into the json string file
         _jsonPearlOfGreatPrice = File.ReadAllText(_filePathPearlOfGreatPrice);
-        Console.WriteLine("Got it from the local file!");
+        // show where the file came from to show how file was obtained
+        Console.WriteLine("Got 'The Pearl of Great Price' from the local file!");
       }
       else
       {

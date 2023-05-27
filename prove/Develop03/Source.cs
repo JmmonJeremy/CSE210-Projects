@@ -26,17 +26,28 @@ public class Source
   // variable to hold all the parts of the source together in a string
   private string _source;
   // variable to hold the name of the textfile for the last source
-  private string _sourceFileName;
+  private string _sourceFileName= "lastScriptureSource.txt";
 
 // ### CONSTRUCTORS ######################################### //
   // constructor to use to access methods without entering any parameter
   // also sets the _sourceFileName value to begin with
   public Source() 
   {    
-    // sets the textfile name for the last scripture source
-    _sourceFileName = "lastScriptureSource.txt";
+    // this is empty because it is just used to access the methods 1st   
   } 
-
+  // constructor for source with one verse
+  public Source(string source)
+  {
+    // sets the source equal to the source entered
+    _source = source;
+    
+  }
+  // constructor for source with more than one verse
+  public Source(int verses)
+  {
+    // sets the source with a dash in it
+     _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}-{_endVerse}"; 
+  }
 // ### METHODS ############################################## //
   // setter method to set the volume the scripture comes from
   public void SetVolume() 
@@ -323,8 +334,10 @@ public class Source
         }
       }
     }
+    // just one verse in scripture to memorize
     else
     {
+      // sets end verse to empty
       _endVerse = "";
     } 
   }
@@ -562,20 +575,25 @@ public class Source
      // run this until they enter a number
       while (!checker || number < 1)
       {  
-        // ask the user how many verses are in the scripture
+        // gives user direction on what to enter
         Console.Write(direction);
-        // store the answer to how many verses in a variable
-        string versesStr = Console.ReadLine();
+        // store the answer to how the direction
+        string answer = Console.ReadLine();
         // ensure the user is entering a number by testing it
         // convert the string to an int if it is a number
-        checker = int.TryParse(versesStr, out number);
-        // if it is not a number have them enter again
+        // and change number variable to user's answer to direction
+        // and sets checker boolean to true or false
+        checker = int.TryParse(answer, out number);
+        // if it is not a number or is less than 1 have them enter again
         if (!checker || number < 1)
         {
           Console.WriteLine("\nYour entry was not a valid number, you must enter a number of 1 or greater.");
           Console.WriteLine("Please try again by entering a valid number.\n");
         }
       }
+      // returns user's answer to direction variable
+      // checker turns answer from user stored in answer variable
+      // into the value being stored in the int number variable 
       return number;
   }
 }
