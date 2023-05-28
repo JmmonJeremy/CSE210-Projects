@@ -30,17 +30,7 @@ public class Chalkboard
     // reference source: https://stackoverflow.com/questions/9263695/how-to-split-a-delimited-string-to-a-liststring
     _scriptureWords = scripture.Split(" ").ToList();
     // insert the Chalk list attribute to be filled
-    _eachWord = new List<Chalk>();
-
-    // TODO *** See if this can be done in the Construtor istead of in setter method ***
-    // // load eachWord Chalk list with words from ???????????
-    // // the _scriptureWords list & set bool value to false
-    // foreach (string word in _scriptureWords)
-    // {
-    //     Chalk writeWord = new Chalk(word, false);
-    //     _eachWord.Add(writeWord);
-    // }                                           ???????????
-    
+    _eachWord = new List<Chalk>();    
     // this starts out as false
     _allHidden = false;
     // this starts out as false
