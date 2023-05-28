@@ -143,29 +143,47 @@ public class ScriptureVolumes
   // method to set the Old Testament json scripture variable
   public async Task SetJsonOldTestament(string website)
   {
-    // ### 1ST TRY to get the volume from the website USING HTTPCLIENT 
-    using (var client = new HttpClient())
+    // ### 1ST TRY to get the volume USING THE FILEPATH TO THE LOCAL FILE 
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.readalltext?view=net-7.0
+    // & https://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c *
+    // https://stackoverflow.com/questions/34064067/test-for-a-json-file-in-the-bin-folder    
+    if (File.Exists(_filePathOldTestament))
     {
-      // Call asynchronous network methods in a try/catch block to handle exceptions.
-      try
-      {     
-        // wait for the response
-        _jsonOldTestament = await client.GetStringAsync(website);          
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Old Testament' from HttpClient.");       
-      }
-      // catch errors and handle them
-      catch (HttpRequestException e)
-      { 
-        // communicate what happened for debugging 
-        Console.WriteLine("\nException Caught!");
-        Console.WriteLine("Message :{0} ", e.Message);
-      }     
+      // read the whole Old Testament into the json string file
+      _jsonOldTestament = File.ReadAllText(_filePathOldTestament);
+      // show where the file came from to show how file was obtained
+      Console.WriteLine("Got 'The Old Testament' from the local file!");
     }
-    // if the HttpClient request returned nothing or did't return a json file
+    // initialize a variable that will trigger the next option 
+    // of WebClient to retrieve the data if there is an error
+    string failed = "There was an error while setting up your scripture.";
+    // if the local file path returned nothing or didn't return a json file
     if (string.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{')
     {
-      // ### 2nd TRY to get the volume from the website THIS TIME USING WEBCLIENT
+      // ### 2ND TRY to get the volume from the website USING HTTPCLIENT 
+      using (var client = new HttpClient())
+      {
+        // Call asynchronous network methods in a try/catch block to handle exceptions.
+        try
+        {     
+          // wait for the response
+          _jsonOldTestament = await client.GetStringAsync(website);          
+          // show where the file came from to show how file was obtained
+          Console.WriteLine("Got 'The Old Testament' from HttpClient.");       
+        }
+        // catch errors and handle them
+        catch (HttpRequestException e)
+        { 
+          // communicate what happened for debugging 
+          Console.WriteLine("\nException Caught! This error is from 'HttpClient's' method.");
+          Console.WriteLine("Message :{0} ", e.Message);
+        }     
+      }
+    }
+    // if the HttpClient request returned nothing or did't return a json file or failed
+    if (string.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{' || failed == "HttPClient failed")
+    {
+      // ### 3RD TRY to get the volume from the website THIS TIME USING WEBCLIENT
       // reference source: https://stackoverflow.com/questions/5566942/how-to-get-a-json-string-from-url & 
       // https://stackoverflow.com/questions/40208647/how-to-use-httpclient-without-async & https://stackoverflow.com/questions/54680159/c-sharp-how-to-retry-if-await-url-getstringasync-null 
       // tool from System.Net used to get the json file from the website
@@ -177,55 +195,56 @@ public class ScriptureVolumes
         Console.WriteLine("Got 'The Old Testament' from WebClient.");  
       } 
     } 
-    // if the both web requests returned nothing or did't return a json file   
-    if (String.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{')
+    // if the both the local file and the web requests returned nothing or did't return a json file
+    if (string.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{')
     {
-      // ### 3rd TRY to get the volume THIS TIME USING THE FILEPATH TO THE LOCAL FILE 
-      // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.readalltext?view=net-7.0
-      // & https://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c *
-      // https://stackoverflow.com/questions/34064067/test-for-a-json-file-in-the-bin-folder    
-      if (File.Exists(_filePathOldTestament))
-      {
-        // read the whole Old Testament into the json string file
-        _jsonOldTestament = File.ReadAllText(_filePathOldTestament);
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Old Testament' from the local file!");
-      }
-      else
-      {
-        // let the user know that neither the web request or the file pathway was good
-        _jsonOldTestament = "Neither the web or file download of json file was successful.";
-        Console.Write(_jsonOldTestament);
-      }
-    }    
+      // let the user know that neither the web request or the file pathway was good      
+      Console.Write("Neither the local file path or the web file download of json file was successful.");
+    }       
   }
 
   // method to set the New Testament json scripture variable
   public async Task SetJsonNewTestament(string website)
   {
-    // ### 1ST TRY to get the volume from the website USING HTTPCLIENT 
-    using (var client = new HttpClient())
+    // ### 1ST TRY to get the volume USING THE FILEPATH TO THE LOCAL FILE         
+    if (File.Exists(_filePathNewTestament))
     {
-      // Call asynchronous network methods in a try/catch block to handle exceptions.
-      try
-      {     
-        // wait for the response
-        _jsonNewTestament = await client.GetStringAsync(website);          
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The New Testament' from HttpClient.");            
-      }
-      // catch errors and handle them
-      catch (HttpRequestException e)
-      { 
-        // communicate what happened for debugging 
-        Console.WriteLine("\nException Caught!");
-        Console.WriteLine("Message :{0} ", e.Message);
-      }     
+      // read the whole New Testament into the json string file
+      _jsonNewTestament = File.ReadAllText(_filePathNewTestament);
+      // show where the file came from to show how file was obtained
+      Console.WriteLine("Got 'The New Testament' from the local file!");
     }
-    // if the HttpClient request returned nothing or did't return a json file
+    // initialize a variable that will trigger the next option 
+    // of WebClient to retrieve the data if there is an error
+    string failed = "There was an error while setting up your scripture.";
+    // if the local file path returned nothing or didn't return a json file
     if (string.IsNullOrEmpty(_jsonNewTestament) || _jsonNewTestament[0] != '{')
+    {    
+      // ### 2ND TRY to get the volume from the website USING HTTPCLIENT 
+      using (var client = new HttpClient())
+      {
+        // Call asynchronous network methods in a try/catch block to handle exceptions.
+        try
+        {     
+          // wait for the response
+          _jsonNewTestament = await client.GetStringAsync(website);          
+          // show where the file came from to show how file was obtained
+          Console.WriteLine("Got 'The New Testament' from HttpClient.");            
+        }
+        // catch errors and handle them
+        catch (HttpRequestException e)
+        { 
+          // communicate what happened for debugging 
+          Console.WriteLine("\nException Caught! This error is from 'HttpClient's' method.");
+          Console.WriteLine("Message :{0} ", e.Message);
+          failed = "HttPClient failed";       
+        }     
+      }
+    }
+    // if the HttpClient request returned nothing or didn't return a json file or failed
+    if (string.IsNullOrEmpty(_jsonNewTestament) || _jsonNewTestament[0] != '{' || failed == "HttPClient failed")
     {
-      // ### 2nd TRY to get the volume from the website THIS TIME USING WEBCLIENT      
+      // ### 3RD TRY to get the volume from the website THIS TIME USING WEBCLIENT      
       // tool from System.Net used to get the json file from the website
       using (WebClient webClient = new WebClient())
       {   
@@ -235,52 +254,55 @@ public class ScriptureVolumes
         Console.WriteLine("Got 'The New Testament' from WebClient.");       
       } 
     } 
-    // if the both web requests returned nothing or did't return a json file   
-    if (String.IsNullOrEmpty(_jsonNewTestament) || _jsonNewTestament[0] != '{')
+    // if the both the local file and the web requests returned nothing or did't return a json file    
+    if (string.IsNullOrEmpty(_jsonNewTestament) || _jsonNewTestament[0] != '{')
     {
-      // ### 3rd TRY to get the volume THIS TIME USING THE FILEPATH TO THE LOCAL FILE         
-      if (File.Exists(_filePathNewTestament))
-      {
-        // read the whole New Testament into the json string file
-        _jsonNewTestament = File.ReadAllText(_filePathNewTestament);
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The New Testament' from the local file!");
-      }
-      else
-      {
-        // let the user know that neither the web request or the file pathway was good
-        _jsonNewTestament = "Neither the web or file download of json file was successful.";
-        Console.Write(_jsonNewTestament);
-      }
-    }    
+      // let the user know that neither the web request or the file pathway was good      
+      Console.Write("Neither the local file path or the web file download of json file was successful.");
+    }   
   }
 
   // method to set the Book of Mormon json scripture variable
   public async Task SetJsonBookOfMormon(string website)
   {
-    // ### 1ST TRY to get the volume from the website USING HTTPCLIENT 
-    using (var client = new HttpClient())
+    // ### 1ST TRY to get the volume USING THE FILEPATH TO THE LOCAL FILE
+    if (File.Exists(_filePathBookOfMormon))
     {
-      // Call asynchronous network methods in a try/catch block to handle exceptions.
-      try
-      {     
-        // wait for the response
-        _jsonBookOfMormon = await client.GetStringAsync(website);          
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Book of Mormon' from HttpClient.");       
-      }
-      // catch errors and handle them
-      catch (HttpRequestException e)
-      { 
-        // communicate what happened for debugging 
-        Console.WriteLine("\nException Caught!");
-        Console.WriteLine("Message :{0} ", e.Message);
-      }     
+      // read the whole Book of Mormon into the json string file
+      _jsonBookOfMormon = File.ReadAllText(_filePathBookOfMormon);
+      // show where the file came from to show how file was obtained
+      Console.WriteLine("Got 'The Book of Mormon' from the local file!");
     }
-    // if the HttpClient request returned nothing or did't return a json file
+    // initialize a variable that will trigger the next option 
+    // of WebClient to retrieve the data if there is an error
+    string failed = "There was an error while setting up your scripture.";
+    // if the local file path returned nothing or didn't return a json file
     if (string.IsNullOrEmpty(_jsonBookOfMormon) || _jsonBookOfMormon[0] != '{')
     {
-      // ### 2nd TRY to get the volume from the website THIS TIME USING WEBCLIENT      
+      // ### 2ND TRY to get the volume from the website USING HTTPCLIENT 
+      using (var client = new HttpClient())
+      {
+        // Call asynchronous network methods in a try/catch block to handle exceptions.
+        try
+        {     
+          // wait for the response
+          _jsonBookOfMormon = await client.GetStringAsync(website);          
+          // show where the file came from to show how file was obtained
+          Console.WriteLine("Got 'The Book of Mormon' from HttpClient.");       
+        }
+        // catch errors and handle them
+        catch (HttpRequestException e)
+        { 
+          // communicate what happened for debugging 
+          Console.WriteLine("\nException Caught! This error is from 'HttpClient's' method.");
+          Console.WriteLine("Message :{0} ", e.Message);
+        }     
+      }
+    }
+    // if the HttpClient request returned nothing or did't return a json file or failed
+    if (string.IsNullOrEmpty(_jsonBookOfMormon) || _jsonBookOfMormon[0] != '{' || failed == "HttPClient failed")
+    {
+      // ### 3RD TRY to get the volume from the website THIS TIME USING WEBCLIENT      
       // tool from System.Net used to get the json file from the website
       using (WebClient webClient = new WebClient())
       {   
@@ -290,52 +312,55 @@ public class ScriptureVolumes
         Console.WriteLine("Got 'The Book of Mormon' from WebClient.");  
       } 
     } 
-    // if the both web requests returned nothing or did't return a json file   
-    if (String.IsNullOrEmpty(_jsonBookOfMormon) || _jsonBookOfMormon[0] != '{')
+    // if the both the local file and the web requests returned nothing or did't return a json file
+    if (string.IsNullOrEmpty(_jsonBookOfMormon) || _jsonBookOfMormon[0] != '{')
     {
-      // ### 3rd TRY to get the volume THIS TIME USING THE FILEPATH TO THE LOCAL FILE         
-      if (File.Exists(_filePathBookOfMormon))
-      {
-        // read the whole Book of Mormon into the json string file
-        _jsonBookOfMormon = File.ReadAllText(_filePathBookOfMormon);
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Book of Mormon' from the local file!");
-      }
-      else
-      {
-        // let the user know that neither the web request or the file pathway was good
-        _jsonBookOfMormon = "Neither the web or file download of json file was successful.";
-        Console.Write(_jsonBookOfMormon);
-      }
-    }    
+      // let the user know that neither the web request or the file pathway was good      
+      Console.Write("Neither the local file path or the web file download of json file was successful.");
+    }       
   }
 
   // method to set the Doctrine and Covenants json scripture variable
   public async Task SetJsonDoctrineAndCovenants(string website)
   {
-    // ### 1ST TRY to get the volume from the website USING HTTPCLIENT 
-    using (var client = new HttpClient())
+    // ### 1ST TRY to get the volume USING THE FILEPATH TO THE LOCAL FILE
+    if (File.Exists(_filePathDoctrineAndCovenants))
     {
-      // Call asynchronous network methods in a try/catch block to handle exceptions.
-      try
-      {     
-        // wait for the response
-        _jsonDoctrineAndCovenants = await client.GetStringAsync(website);          
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Doctrine and Covenants' from HttpClient.");       
-      }
-      // catch errors and handle them
-      catch (HttpRequestException e)
-      { 
-        // communicate what happened for debugging 
-        Console.WriteLine("\nException Caught!");
-        Console.WriteLine("Message :{0} ", e.Message);
-      }     
+      // read the whole Doctrine and Covenants into the json string file
+      _jsonDoctrineAndCovenants = File.ReadAllText(_filePathDoctrineAndCovenants);
+      // show where the file came from to show how file was obtained
+      Console.WriteLine("Got 'The Doctrine and Covenants' from the local file!");
     }
-    // if the HttpClient request returned nothing or did't return a json file
+    // initialize a variable that will trigger the next option 
+    // of WebClient to retrieve the data if there is an error
+    string failed = "There was an error while setting up your scripture.";
+    // if the local file path returned nothing or didn't return a json file
     if (string.IsNullOrEmpty(_jsonDoctrineAndCovenants) || _jsonDoctrineAndCovenants[0] != '{')
     {
-      // ### 2nd TRY to get the volume from the website THIS TIME USING WEBCLIENT      
+      // ### 2ND TRY to get the volume from the website USING HTTPCLIENT 
+      using (var client = new HttpClient())
+      {
+        // Call asynchronous network methods in a try/catch block to handle exceptions.
+        try
+        {     
+          // wait for the response
+          _jsonDoctrineAndCovenants = await client.GetStringAsync(website);          
+          // show where the file came from to show how file was obtained
+          Console.WriteLine("Got 'The Doctrine and Covenants' from HttpClient.");       
+        }
+        // catch errors and handle them
+        catch (HttpRequestException e)
+        { 
+          // communicate what happened for debugging 
+          Console.WriteLine("\nException Caught! This error is from 'HttpClient's' method.");
+          Console.WriteLine("Message :{0} ", e.Message);
+        }     
+      }
+    }
+    // if the HttpClient request returned nothing or did't return a json file or failed
+    if (string.IsNullOrEmpty(_jsonDoctrineAndCovenants) || _jsonDoctrineAndCovenants[0] != '{' || failed == "HttPClient failed")
+    {
+      // ### 3RD TRY to get the volume from the website THIS TIME USING WEBCLIENT      
       // tool from System.Net used to get the json file from the website
       using (WebClient webClient = new WebClient())
       {   
@@ -344,53 +369,56 @@ public class ScriptureVolumes
         // show where the file came from to show how file was obtained
         Console.WriteLine("Got 'The Doctrine and Covenants' from WebClient.");  
       } 
-    } 
-    // if the both web requests returned nothing or did't return a json file   
-    if (String.IsNullOrEmpty(_jsonDoctrineAndCovenants) || _jsonDoctrineAndCovenants[0] != '{')
+    }     
+    // if the both the local file and the web requests returned nothing or did't return a json file
+    if (string.IsNullOrEmpty(_jsonDoctrineAndCovenants) || _jsonDoctrineAndCovenants[0] != '{')
     {
-      // ### 3rd TRY to get the volume THIS TIME USING THE FILEPATH TO THE LOCAL FILE         
-      if (File.Exists(_filePathDoctrineAndCovenants))
-      {
-        // read the whole Doctrine and Covenants into the json string file
-        _jsonDoctrineAndCovenants = File.ReadAllText(_filePathDoctrineAndCovenants);
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Doctrine and Covenants' from the local file!");
-      }
-      else
-      {
-        // let the user know that neither the web request or the file pathway was good
-        _jsonDoctrineAndCovenants = "Neither the web or file download of json file was successful.";
-        Console.Write(_jsonDoctrineAndCovenants);
-      }
-    }    
+      // let the user know that neither the web request or the file pathway was good      
+      Console.Write("Neither the local file path or the web file download of json file was successful.");
+    }      
   }
 
   // method to set the Pearl of Great Price json scripture variable
   public async Task SetJsonPearlOfGreatPrice(string website)
   {
-    // ### 1ST TRY to get the volume from the website USING HTTPCLIENT 
-    using (var client = new HttpClient())
+    // ### 1ST TRY to get the volume USING THE FILEPATH TO THE LOCAL FILE
+    if (File.Exists(_filePathPearlOfGreatPrice))
     {
-      // Call asynchronous network methods in a try/catch block to handle exceptions.
-      try
-      {     
-        // wait for the response
-        _jsonPearlOfGreatPrice = await client.GetStringAsync(website);          
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Pearl of Great Price' from HttpClient.");                
+      // read the whole Pearl of Great Price into the json string file
+      _jsonPearlOfGreatPrice = File.ReadAllText(_filePathPearlOfGreatPrice);
+      // show where the file came from to show how file was obtained
+      Console.WriteLine("Got 'The Pearl of Great Price' from the local file!");
+    }
+    // initialize a variable that will trigger the next option 
+    // of WebClient to retrieve the data if there is an error
+    string failed = "There was an error while setting up your scripture.";
+    // if the local file path returned nothing or didn't return a json file      
+    if (String.IsNullOrEmpty(_jsonPearlOfGreatPrice) || _jsonPearlOfGreatPrice[0] != '{')
+    {
+      // ### 2ND TRY to get the volume from the website USING HTTPCLIENT 
+      using (var client = new HttpClient())
+      {
+        // Call asynchronous network methods in a try/catch block to handle exceptions.
+        try
+        {     
+          // wait for the response
+          _jsonPearlOfGreatPrice = await client.GetStringAsync(website);          
+          // show where the file came from to show how file was obtained
+          Console.WriteLine("Got 'The Pearl of Great Price' from HttpClient.");                
+        }
+        // catch errors and handle them
+        catch (HttpRequestException e)
+        { 
+          // communicate what happened for debugging 
+          Console.WriteLine("\nException Caught! This error is from 'HttpClient's' method.");
+          Console.WriteLine("Message :{0} ", e.Message);
+        }     
       }
-      // catch errors and handle them
-      catch (HttpRequestException e)
-      { 
-        // communicate what happened for debugging 
-        Console.WriteLine("\nException Caught!");
-        Console.WriteLine("Message :{0} ", e.Message);
-      }     
     }
     // if the HttpClient request returned nothing or did't return a json file
     if (string.IsNullOrEmpty(_jsonPearlOfGreatPrice) || _jsonPearlOfGreatPrice[0] != '{')
     {
-      // ### 2nd TRY to get the volume from the website THIS TIME USING WEBCLIENT      
+      // ### 3RD TRY to get the volume from the website THIS TIME USING WEBCLIENT      
       // tool from System.Net used to get the json file from the website
       using (WebClient webClient = new WebClient())
       {   
@@ -399,25 +427,13 @@ public class ScriptureVolumes
         // show where the file came from to show how file was obtained
         Console.WriteLine("Got 'The Pearl of Great Price' from WebClient."); 
       } 
-    } 
-    // if the both web requests returned nothing or did't return a json file   
-    if (String.IsNullOrEmpty(_jsonPearlOfGreatPrice) || _jsonPearlOfGreatPrice[0] != '{')
+    }     
+    // if the both the local file and the web requests returned nothing or did't return a json file
+    if (String.IsNullOrEmpty(_jsonPearlOfGreatPrice) || _jsonPearlOfGreatPrice[0] != '{')    
     {
-      // ### 3rd TRY to get the volume THIS TIME USING THE FILEPATH TO THE LOCAL FILE         
-      if (File.Exists(_filePathPearlOfGreatPrice))
-      {
-        // read the whole Pearl of Great Price into the json string file
-        _jsonPearlOfGreatPrice = File.ReadAllText(_filePathPearlOfGreatPrice);
-        // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Pearl of Great Price' from the local file!");
-      }
-      else
-      {
-        // let the user know that neither the web request or the file pathway was good
-        _jsonPearlOfGreatPrice = "Neither the web or file download of json file was successful.";
-        Console.Write(_jsonPearlOfGreatPrice);
-      }
-    }    
+      // let the user know that neither the web request or the file pathway was good      
+      Console.Write("Neither the local file path or the web file download of json file was successful.");
+    }       
   }
 
   // getter method for the _jsonOldTestament

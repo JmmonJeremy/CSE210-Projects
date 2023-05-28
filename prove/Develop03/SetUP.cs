@@ -76,7 +76,7 @@ public class SetUp
   public string SetUpScripture(string volume, string startReference, string endReference)
   {
     // create a variable to hold a verse if only one
-    string selectedVerses = "There was an error while setting up your scritpure.";
+    string selectedVerses = "There was an error while setting up your scripture.\nThe source providing the scripture volume did not load.";
     // create a list to hold the verses selected
     List<string> verseList = new List<string>();
     // create ScritureVolumes object to access its methods
@@ -101,7 +101,17 @@ public class SetUp
       // STEP #3 store task
       var getOTJson = Task.Run(async () => await volumes.SetJsonOldTestament(linkOT));
       // STEP #4 wait until the task is completed and the volume loaded
-      getOTJson.Wait();
+      try
+      {
+        getOTJson.Wait();
+      }
+      // catch & identify exception errors
+      catch (AggregateException ae) 
+      {
+        Console.WriteLine("Exception Caught! This error is from the '.Wait()' method.");
+        foreach (var ex in ae.InnerExceptions)
+        Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
+      }      
     }
     // NEW TESTAMENT - STEP #1 
     // only do this if the New Testament is the chosen volume
@@ -116,10 +126,12 @@ public class SetUp
       {
         getNTJson.Wait();
       }
+      // catch & identify exception errors
       catch (AggregateException ae) 
       {
+        Console.WriteLine("Exception Caught! This error is from the '.Wait()' method.");
         foreach (var ex in ae.InnerExceptions)
-        Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);
+        Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
       }      
     }
     // BOOK OF MORMON - STEP #1 
@@ -130,8 +142,18 @@ public class SetUp
       string linkBOM = volumes.GetWebLinkBookOfMormon();
       // STEP #3 store task
       var getBOMJson = Task.Run(async () => await volumes.SetJsonBookOfMormon(linkBOM));
-      // STEP #4 wait until the task is completed and the volume loaded
-      getBOMJson.Wait();
+      // STEP #4 wait until the task is completed and the volume loaded      
+      try
+      {
+        getBOMJson.Wait();
+      }
+      // catch & identify exception errors
+      catch (AggregateException ae) 
+      {
+        Console.WriteLine("Exception Caught! This error is from the '.Wait()' method.");
+        foreach (var ex in ae.InnerExceptions)
+        Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
+      }
     }
     // DOCTRINE & COVENANTS - STEP #1 
     // only do this if the Doctrine & Covenants is the chosen volume
@@ -141,8 +163,18 @@ public class SetUp
       string linkDAC = volumes.GetWebLinkDoctrineAndCovenants();
       // STEP #3 store task
       var getDACJson = Task.Run(async () => await volumes.SetJsonDoctrineAndCovenants(linkDAC));
-      // STEP #4 wait until the task is completed and the volume loaded
-      getDACJson.Wait();
+      // STEP #4 wait until the task is completed and the volume loaded      
+      try
+      {
+        getDACJson.Wait();
+      }
+      // catch & identify exception errors
+      catch (AggregateException ae) 
+      {
+        Console.WriteLine("Exception Caught! This error is from the '.Wait()' method.");
+        foreach (var ex in ae.InnerExceptions)
+        Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
+      }
     }
     // PEARL OF GREAT PRICE - STEP #1 
     // only do this if the Pearl of Great Price is the chosen volume
@@ -152,106 +184,118 @@ public class SetUp
       string linkPOGP = volumes.GetWebLinkPearlOfGreatPrice();
       // STEP #3 store task
       var getPOGPJson = Task.Run(async () => await volumes.SetJsonPearlOfGreatPrice(linkPOGP));
-      // STEP #4 wait until the task is completed and the volume loaded
-      getPOGPJson.Wait();
-    }      
-    // when the volume equals Old Testament
-    if (volume == "The Old Testament") 
-    {
-      // create a Verses class object to load with the Old Testament verses
-      Verses oldTestamentVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonOldTestament());
-      // if there is no endReference
-      if (string.IsNullOrEmpty(endReference))
+      // STEP #4 wait until the task is completed and the volume loaded      
+      try
       {
+        getPOGPJson.Wait();
+      }
+      // catch & identify exception errors
+      catch (AggregateException ae) 
+      {
+        Console.WriteLine("Exception Caught! This error is from the '.Wait()' method.");
+        foreach (var ex in ae.InnerExceptions)
+        Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
+      }
+    } 
+    if (!string.IsNullOrEmpty(volumes.GetJsonNewTestament()))
+    {        
+      // when the volume equals Old Testament
+      if (volume == "The Old Testament") 
+      {
+        // create a Verses class object to load with the Old Testament verses
+        Verses oldTestamentVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonOldTestament());
+        // if there is no endReference
+        if (string.IsNullOrEmpty(endReference))
+        {
+          // use the Verses class object to find & return the requested verse
+          selectedVerses = oldTestamentVerses.FindVerse(startReference);
+        }
+        // if there is an endReference
+        else
+        {
+          // use the Verses class object to find & return the requested verses
+          verseList = oldTestamentVerses.FindVerses(startReference, endReference);
+        }
+      }
+      // when the volume equals New Testament
+      else if (volume == "The New Testament") 
+      {
+        // create a Verses class object to load with the New Testament verses
+        Verses newTestamentVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonNewTestament());
+        // if there is no endReference
+        if (string.IsNullOrEmpty(endReference))
+        {
         // use the Verses class object to find & return the requested verse
-        selectedVerses = oldTestamentVerses.FindVerse(startReference);
+        selectedVerses = newTestamentVerses.FindVerse(startReference);
+        } 
+        // if there is an endReference   
+        else
+        {
+          // use the Verses class object to find & return the requested verses
+          verseList = newTestamentVerses.FindVerses(startReference, endReference);
+        }
       }
-      // if there is an endReference
-      else
+      // when the volume equals Book of Mormon
+      if (volume == "The Book of Mormon") 
       {
-        // use the Verses class object to find & return the requested verses
-        verseList = oldTestamentVerses.FindVerses(startReference, endReference);
+        // create a Verses class object to load with the Book of Mormon verses
+        Verses bookOfMormonVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonBookOfMormon());
+        // if there is no endReference
+        if (string.IsNullOrEmpty(endReference))
+        {
+        // use the Verses class object to find & return the requested verse
+        selectedVerses = bookOfMormonVerses.FindVerse(startReference);
+        }
+        // if there is an endReference
+        else
+        {
+          // use the Verses class object to find & return the requested verses
+          verseList = bookOfMormonVerses.FindVerses(startReference, endReference);
+        }
       }
-    }
-    // when the volume equals New Testament
-    else if (volume == "The New Testament") 
-    {
-      // create a Verses class object to load with the New Testament verses
-      Verses newTestamentVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonNewTestament());
-      // if there is no endReference
-      if (string.IsNullOrEmpty(endReference))
+      // when the volume equals Doctrine and Covenants
+      else if (volume == "The Doctrine and Covenants") 
       {
-      // use the Verses class object to find & return the requested verse
-      selectedVerses = newTestamentVerses.FindVerse(startReference);
-      } 
-      // if there is an endReference   
-      else
-      {
-        // use the Verses class object to find & return the requested verses
-        verseList = newTestamentVerses.FindVerses(startReference, endReference);
+        // create a Verses class object to load with the Doctrine and Covenants verses
+        Verses doctrineAndCovenantsVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonDoctrineAndCovenants());
+        // if there is no endReference
+        if (string.IsNullOrEmpty(endReference))
+        {
+        // use the Verses class object to find & return the requested verse
+        selectedVerses = doctrineAndCovenantsVerses.FindVerse(startReference);
+        }
+        // if there is an endReference
+        else
+        {
+          // use the Verses class object to find & return the requested verses
+          verseList = doctrineAndCovenantsVerses.FindVerses(startReference, endReference);
+        }
       }
-    }
-    // when the volume equals Book of Mormon
-    if (volume == "The Book of Mormon") 
-    {
-      // create a Verses class object to load with the Book of Mormon verses
-      Verses bookOfMormonVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonBookOfMormon());
-      // if there is no endReference
-      if (string.IsNullOrEmpty(endReference))
+      // when the volume equals Pearl of Great Price
+      else if (volume == "The Pearl of Great Price")
       {
-      // use the Verses class object to find & return the requested verse
-      selectedVerses = bookOfMormonVerses.FindVerse(startReference);
+        // create a Verses class object to load with the Pearl of Great Price verses
+        Verses pearlOfGreatPriceVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonPearlOfGreatPrice());
+        // if there is no endReference
+        if (string.IsNullOrEmpty(endReference))
+        {
+        // use the Verses class object to find & return the requested verse
+        selectedVerses = pearlOfGreatPriceVerses.FindVerse(startReference);
+        }
+        // if there is an endReference
+        else
+        {
+          // use the Verses class object to find & return the requested verses
+          verseList = pearlOfGreatPriceVerses.FindVerses(startReference, endReference);
+        }      
       }
-      // if there is an endReference
-      else
-      {
-        // use the Verses class object to find & return the requested verses
-        verseList = bookOfMormonVerses.FindVerses(startReference, endReference);
-      }
-    }
-    // when the volume equals Doctrine and Covenants
-    else if (volume == "The Doctrine and Covenants") 
-    {
-      // create a Verses class object to load with the Doctrine and Covenants verses
-      Verses doctrineAndCovenantsVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonDoctrineAndCovenants());
-      // if there is no endReference
-      if (string.IsNullOrEmpty(endReference))
-      {
-      // use the Verses class object to find & return the requested verse
-      selectedVerses = doctrineAndCovenantsVerses.FindVerse(startReference);
-      }
-      // if there is an endReference
-      else
-      {
-        // use the Verses class object to find & return the requested verses
-        verseList = doctrineAndCovenantsVerses.FindVerses(startReference, endReference);
-      }
-    }
-    // when the volume equals Pearl of Great Price
-    else if (volume == "The Pearl of Great Price")
-    {
-      // create a Verses class object to load with the Pearl of Great Price verses
-      Verses pearlOfGreatPriceVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonPearlOfGreatPrice());
-      // if there is no endReference
-      if (string.IsNullOrEmpty(endReference))
-      {
-      // use the Verses class object to find & return the requested verse
-      selectedVerses = pearlOfGreatPriceVerses.FindVerse(startReference);
-      }
-      // if there is an endReference
-      else
-      {
-        // use the Verses class object to find & return the requested verses
-        verseList = pearlOfGreatPriceVerses.FindVerses(startReference, endReference);
-      }      
-    }
-    // if there are item in the list
+    }     
+    // if there are items in the list
     if (verseList.Count > 0)
     {
       // clear string in selectedVerses
       selectedVerses = "";
-    }
-    
+    }    
     // cycle through the list and create one string
     foreach (string part in verseList)
     {
