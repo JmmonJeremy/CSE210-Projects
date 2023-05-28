@@ -43,10 +43,10 @@ public class Source
     
   }
   // constructor for source with more than one verse
-  public Source(int verses)
+  public Source(string source, string endVerse)
   {
     // sets the source with a dash in it
-     _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}-{_endVerse}"; 
+     _source = $"{source}-{endVerse}";
   }
 // ### METHODS ############################################## //
   // setter method to set the volume the scripture comes from
@@ -419,22 +419,9 @@ public class Source
       SetEndVerse();          
     }
     // put the reference source together in a string     
-    // for the _source attribute variable
-    string endVerse;
-    // 2 results depending on if _endVerse is empty    
-    if (string.IsNullOrEmpty(_endVerse))
-    {
-      // for scriptures with just one verse leave empty
-      endVerse = _endVerse;      
-    }
-    // for scriptures with more than one verse
-    else
-    {
-      // put in end verse with a dash before it
-      endVerse = $"-{_endVerse}";      
-    }
+    // for the _source attribute variable    
     // attribute is built from all the other attribute variables
-    _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}{endVerse}"; 
+    _source = $"({_volume})\n\n{_book} {_chapter}:{_verse}"; 
     // store the scripture source in a file as the last scripure source
     StoreSourceParts();
   }  

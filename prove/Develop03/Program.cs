@@ -37,8 +37,12 @@ private bool _restart = false;
         Source sourceMethods = new Source();      
         // run the SetSource method to set the source    
         sourceMethods.SetSource();
-        // create variable to pass the source string around
+        // get the ending verse stored in a variable
+        string endVerse = sourceMethods.GetEndVerse();
+        // get the source with one verse stored in a variable
         string source = sourceMethods.GetSource();
+        // get the final source with or without an endVerse
+        string finalSource = setUp.SetUpSource(endVerse, source);
         // load the _startReference variable to be able to get it
         sourceMethods.SetStartReference();
         // load the _endReference variable to be able to get it
@@ -49,7 +53,7 @@ private bool _restart = false;
         // // ### RUN THE SCRIPTURE MEMORIZER ##########################
         // load the source and the scripture into the 
         // chalkboard constructor to create an object
-        Chalkboard chalkboard = new Chalkboard(source, scripture);
+        Chalkboard chalkboard = new Chalkboard(finalSource, scripture);
         // load the scripture word list into a variable
         List<string> scriptureWords = chalkboard.GetScriptureWords();
         // load _eachWord Chalk list with words from the 
@@ -61,7 +65,7 @@ private bool _restart = false;
         List<Chalk> eachWord = chalkboard.GetEachWord();       
         // set up a loop to display the source and scripture repeatedly
         // until all the words are hidden or quit is entered by the user
-        setUp.QuitLoop(eachWord, source, scripture);
+        setUp.QuitLoop(eachWord, finalSource, scripture);
         }
         // condition for running the loop when user enters incorrect reference
         while (program._restart == true);

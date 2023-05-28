@@ -46,6 +46,34 @@ public class SetUp
     Console.ResetColor();
   }
 
+  // method to get the correct source for the 
+  // scripture or scriptures being memorized
+  public string SetUpSource(string endVerse, string source)
+  {
+    // ### set up two Source constructors
+    // create a variable to hold the final constructed source
+    string finalSource;        
+    Console.WriteLine($"The last verse is set as: {endVerse}");       
+    // determine if the source will include an ending verse    
+    if (string.IsNullOrEmpty(endVerse))
+    {
+    // use constructor for the source containing a single verse
+    Source uniSource = new Source(source);
+    // and assign it to the variable of finalSource
+    finalSource = uniSource.GetSource();            
+    }
+    // for scriptures with more than one verse
+    else
+    {
+    // use constructor for the source containing multiple verses
+    Source multiSource = new Source(source, endVerse);
+    // and assign it to the variable of finalSource
+    finalSource = multiSource.GetSource();
+    }
+    Console.WriteLine($"The final verson of the source is set as: {finalSource}");
+    return finalSource;  
+  }
+
   // method to get the verse or verses for memorizing set up 
   public string SetUpScripture(string volume, string startReference, string endReference)
   {
@@ -86,7 +114,15 @@ public class SetUp
       // STEP #3 store task
       var getNTJson = Task.Run(async () => await volumes.SetJsonNewTestament(linkNT));
       // STEP #4 wait until the task is completed and the volume loaded
-      getNTJson.Wait();
+      try
+      {
+        getNTJson.Wait();
+      }
+      catch (AggregateException ae) 
+      {
+        foreach (var ex in ae.InnerExceptions)
+        Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);
+      }      
     }
     // BOOK OF MORMON - STEP #1 
     // only do this if the Book of Mormon is the chosen volume
