@@ -103,6 +103,7 @@ public class SetUp
       // STEP #4 wait until the task is completed and the volume loaded
       try
       {
+        // reference source: https://stackoverflow.com/questions/23048285/call-asynchronous-method-in-constructor
         getOTJson.Wait();
       }
       // catch & identify exception errors
