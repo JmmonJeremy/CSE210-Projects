@@ -52,8 +52,7 @@ public class SetUp
   {
     // ### set up two Source constructors
     // create a variable to hold the final constructed source
-    string finalSource;        
-    Console.WriteLine($"The last verse is set as: {endVerse}");       
+    string finalSource;         
     // determine if the source will include an ending verse    
     if (string.IsNullOrEmpty(endVerse))
     {
@@ -69,8 +68,7 @@ public class SetUp
     Source multiSource = new Source(source, endVerse);
     // and assign it to the variable of finalSource
     finalSource = multiSource.GetSource();
-    }
-    Console.WriteLine($"The final verson of the source is set as: {finalSource}");
+    }    
     return finalSource;  
   }
 
