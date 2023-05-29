@@ -81,6 +81,9 @@ public class SetUp
     List<string> verseList = new List<string>();
     // create ScritureVolumes object to access its methods
     ScriptureVolumes volumes = new ScriptureVolumes();
+    // set up variable to hold the json volume so it can change
+    // according to what the user enters for the volume
+    string jsonVolume = "";
     // ### STEP #1 ONLY DO IF THE SCRIPTURE COMES FROM THAT VOLUME
     // determine which volume the user is using
     // ### STEP #2 STORE WEB LINK IN 'link"volume abbreviation' VARIABLE
@@ -95,7 +98,7 @@ public class SetUp
     // OLD TESTAMENT - STEP #1 
     // only do this if the Old Testament is the chosen volume
     if (volume == "The Old Testament") 
-    { 
+    {       
       // STEP #2 store link
       string linkOT = volumes.GetWebLinkOldTestament();
       // STEP #3 store task
@@ -112,12 +115,15 @@ public class SetUp
         Console.WriteLine("Exception Caught! This error is from the '.Wait()' method.");
         foreach (var ex in ae.InnerExceptions)
         Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
-      }      
+      }
+      // set the value of the jsonVolume variable to the results after loading the json 
+      // Old Testament string into the _jsonOldTestament ScriptureVolumes' attribute
+      jsonVolume = volumes.GetJsonOldTestament();      
     }
     // NEW TESTAMENT - STEP #1 
     // only do this if the New Testament is the chosen volume
     if (volume == "The New Testament") 
-    { 
+    {       
       // STEP #2 store link
       string linkNT = volumes.GetWebLinkNewTestament();
       // STEP #3 store task
@@ -133,12 +139,15 @@ public class SetUp
         Console.WriteLine("Exception Caught! This error is from the '.Wait()' method.");
         foreach (var ex in ae.InnerExceptions)
         Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
-      }      
+      } 
+      // set the value of the jsonVolume variable to the results after loading the json 
+      // New Testament string into the _jsonNewTestament ScriptureVolumes' attribute
+      jsonVolume = volumes.GetJsonNewTestament();      
     }
     // BOOK OF MORMON - STEP #1 
     // only do this if the Book of Mormon is the chosen volume
     if (volume == "The Book of Mormon") 
-    { 
+    {       
       // STEP #2 store link
       string linkBOM = volumes.GetWebLinkBookOfMormon();
       // STEP #3 store task
@@ -155,11 +164,14 @@ public class SetUp
         foreach (var ex in ae.InnerExceptions)
         Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
       }
+      // set the value of the jsonVolume variable to the results after loading the json 
+      // Book of Mormon string into the _jsonBookofMormon ScriptureVolumes' attribute
+      jsonVolume = volumes.GetJsonBookOfMormon();
     }
     // DOCTRINE & COVENANTS - STEP #1 
     // only do this if the Doctrine & Covenants is the chosen volume
     if (volume == "The Doctrine and Covenants") 
-    { 
+    {       
       // STEP #2 store link
       string linkDAC = volumes.GetWebLinkDoctrineAndCovenants();
       // STEP #3 store task
@@ -176,11 +188,14 @@ public class SetUp
         foreach (var ex in ae.InnerExceptions)
         Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
       }
+      // set the value of the jsonVolume variable to the results after loading the json
+      // D & C string into the _jsonDoctrineAndCovenants ScriptureVolumes' attribute
+      jsonVolume = volumes.GetJsonDoctrineAndCovenants();
     }
     // PEARL OF GREAT PRICE - STEP #1 
     // only do this if the Pearl of Great Price is the chosen volume
     if (volume == "The Pearl of Great Price") 
-    { 
+    {       
       // STEP #2 store link
       string linkPOGP = volumes.GetWebLinkPearlOfGreatPrice();
       // STEP #3 store task
@@ -197,8 +212,11 @@ public class SetUp
         foreach (var ex in ae.InnerExceptions)
         Console.WriteLine("{0}: {1}", ex.GetType().Name, ex.Message);       
       }
+      // set the value of the jsonVolume variable to the results after loading the json 
+      // P of GP string into the _jsonPearlOfGreatPrice ScriptureVolumes' attribute
+      jsonVolume = volumes.GetJsonPearlOfGreatPrice();
     } 
-    if (!string.IsNullOrEmpty(volumes.GetJsonNewTestament()))
+    if (!string.IsNullOrEmpty(jsonVolume))
     {        
       // when the volume equals Old Testament
       if (volume == "The Old Testament") 

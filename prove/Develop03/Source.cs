@@ -140,27 +140,39 @@ public class Source
     string confirmed = "Run loop"; 
     // do this until the user confirms their entry
     while (runAll != "done")
-    {      
-      // ask the user for the book that the scripture comes from
-      Console.WriteLine("Please enter the name of the book");
-      Console.Write("that the scripture comes from: ");
-      // set the _book variable to users input
-      _book = Console.ReadLine();
-      Console.WriteLine();
-      // do this from the ConfirmAnswer method
-      // until yes is the outcom
-      confirmed = ConfirmAnswer(confirmed, _book);       
-      // if they confirmed their choice
-      if (confirmed == "yes")
+    { 
+      // if the volume is D&C set the book as D&C to match the json key
+      if (_volume == "The Doctrine and Covenants")
       {
+        // set the book as D&C
+        _book = "D&C";
         // end loop
         runAll = "done";
-      } 
-      else
-      {
-        // set ConfirmAnswer method to run again
-        confirmed = "Run loop"; 
       }
+      // otherwise have the user enter the book name
+      else 
+      {    
+        // ask the user for the book that the scripture comes from
+        Console.WriteLine("Please enter the name of the book");
+        Console.Write("that the scripture comes from: ");
+        // set the _book variable to users input
+        _book = Console.ReadLine();
+        Console.WriteLine();
+        // do this from the ConfirmAnswer method
+        // until yes is the outcom
+        confirmed = ConfirmAnswer(confirmed, _book);       
+        // if they confirmed their choice
+        if (confirmed == "yes")
+        {
+          // end loop
+          runAll = "done";
+        } 
+        else
+        {
+          // set ConfirmAnswer method to run again
+          confirmed = "Run loop"; 
+        }
+      }     
     } 
   }
 
