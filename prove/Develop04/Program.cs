@@ -17,7 +17,7 @@ class Program
         // testing
         Activity activity = new Activity();
         int seconds = activity.Opening();
-        activity.Spinner(seconds);
+        activity.PrepareActivity();
         activity.Closing();
 
         // Console.WriteLine("Hello Develop04 World!");

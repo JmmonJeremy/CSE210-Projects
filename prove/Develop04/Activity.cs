@@ -79,6 +79,23 @@ public class Activity
     _sessionLength = validator.StringNumberCheck();
     return _sessionLength;
   }
+  
+  // method to prepare to start an activity
+  public void PrepareActivity()
+  {
+    // clear the console screen
+    Console.Clear();
+    // display a message on the console telling the 
+    // user to prepare to begin the activity
+    Console.WriteLine($"Prepare to begin your {_activityName}. . .");
+    // pause for 6 seconds and display a spinner while doing so
+    Spinner(6);
+  }
+  // method to display the closing message
+  public void Closing()
+  {
+    Console.WriteLine($"\nYou have completed another {_sessionLength} seconds of the {_activityName}.");
+  }
 
   // method to display the time spinner animation
   public void Spinner(int seconds)
@@ -231,11 +248,5 @@ public class Activity
     }
     // used for trouble shooting to see if the elapsed time matched the setting for the timer
     Console.WriteLine($"Time Outside while loop: {DateTime.Now}");     
-  }
-
-  // method to display the opening message
-  public void Closing()
-  {
-    Console.WriteLine($"\nYou have completed another {_sessionLength} seconds of the {_activityName}.");
   }
 }
