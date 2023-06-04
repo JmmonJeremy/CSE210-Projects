@@ -15,12 +15,15 @@ class Program
         choice = menu.PresentMenu();
 
         // testing
-        Activity activity = new Activity();
+        BreathingActivity buildActivity = new BreathingActivity();
+        BreathingActivity activity = new BreathingActivity(buildActivity.GetBreathingName(), buildActivity.GetBreathingDescription());
         int seconds = activity.Opening();
-        activity.PrepareActivity();
-        activity.Closing();
-
-        // Console.WriteLine("Hello Develop04 World!");
+        activity.SetInhaleTime();
+        activity.SetExhaleTime();
+        activity.PrepareActivity();        
+        activity.RunActivity(seconds, activity.BreathingExercises);
+        activity.EndActivity();        
+        choice = activity.Closing();
         }
     }
 }

@@ -16,7 +16,7 @@ public class Menu
   // method to present the menu to the user 
   // and to return the user's choice
   public string PresentMenu()
-  { 
+  {     
     // create a string to hold the user's selection 
     // and to keep the while loop running until there's a valid entry
     string selection = "No selection made.";   

@@ -8,14 +8,20 @@ using System.Diagnostics;
 public class Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // variable to hold the activity's name
+  // variable to hold a generic activity name
+  private string _genericName;
+  // variable to hold the generic activity description
+  private string _genericDescription;
+  // variable to hold the activity's name  
   private string _activityName;
   // variable to hold the activity's description
   private string _description;
-  // variable to hold the session length in seconds
+  // variable to hold the session length in seconds  
   private int _sessionLength;
   // varialbe to hold the session length prompt
   private string _sessionLengthPrompt;
+  // boolean to run an acitivity loop
+  private bool _doActivity; 
   // list to hold the spinner animaton symbols
   private List<string> _spinnerSymbols= new List<string>()
   {
@@ -43,39 +49,75 @@ public class Activity
   };
 
 // ### CONSTRUCTORS ######################################### //
-  // constructor 
-  public Activity() 
+  // constructor to be able to use set generic variables
+  //  and to use the get methods to get the variables values
+  public Activity()
   {
-    _activityName = "activity";
-    _description = "as you perform it";
+    // set the value of the _genericName
+    _genericName = "activity";
+    // set the value of the _genericDescription
+    _genericDescription = "because being active and doing something is good for your health and well being.";    
+  }
+  // constructor to set up the activity
+  public Activity(string activityName, string description) 
+  {
+    _activityName = activityName;
+    _description = description;
     _sessionLengthPrompt = "How long, in seconds, would you like for your activity session? ";
+    _doActivity = true;
   }
 
 // ### METHODS ############################################## //
-  // getter method to get the _activityName
-  public string GetActivityName()
+  // getter method to get the _genericName
+  public string GetGenericName()
   { 
-    return _activityName;
+    return _genericName;
+  }  
+
+  // setter method for the _spinnerSymbols list
+  public void SetSpinnerSymbols(bool clear, List<string> spinnerSymbols)
+  {
+    if (clear) 
+    {
+      // reference source: https://www.tutorialspoint.com/how-to-empty-a-chash-list
+      // empty the list of any content
+      _spinnerSymbols.Clear();
+    }
+    // reference source: https://www.tutorialspoint.com/How-to-append-a-second-list-to-an-existing-list-in-Chash
+    // add the items to the list
+    _spinnerSymbols.AddRange(spinnerSymbols);        
   }
 
-  // getter method to get the _description
-  public string GetDescription()
-  { 
-    return _description;
+  // method to get the _spinnerSymbols list
+  public List<string> GetSpinnerSymbols()
+  {
+    return _spinnerSymbols;
   }
 
-  
+  // // setter method to set the _doActivity boolean
+  // public void SetDoActivity(bool doActivity)
+  // { 
+  //   _doActivity = doActivity;
+  // } 
+
+  // // getter method to get the _doActivity boolean
+  // public bool GetDoActivity()
+  // { 
+  //   return _doActivity;
+  // } 
 
   // method to display the opening message
   public int Opening() 
   {
+    // clear the console screen
+    Console.Clear();
+    // welcome the user and explain what will happen
     Console.WriteLine($"Welcome to the {_activityName}.\n");
-    Console.WriteLine($"This activity will help you {_description}.\n");
-    // Console.Write($"How long, in seconds, would you like for your activity session? ");
-    // _sessionLength = int.Parse(Console.ReadLine());
+    Console.WriteLine($"This activity will help you {_description}.\n");   
     // create a validator object to run its method with
+    // and pass the prompt question into the object
     Validator validator = new Validator(_sessionLengthPrompt);
-    // set the sessionLength equal to the result of the StringNumberCheck method
+    // set the _sessionLength equal to the result of the StringNumberCheck method
     _sessionLength = validator.StringNumberCheck();
     return _sessionLength;
   }
@@ -89,16 +131,80 @@ public class Activity
     // user to prepare to begin the activity
     Console.WriteLine($"Prepare to begin your {_activityName}. . .");
     // pause for 6 seconds and display a spinner while doing so
-    Spinner(6);
-  }
-  // method to display the closing message
-  public void Closing()
-  {
-    Console.WriteLine($"\nYou have completed another {_sessionLength} seconds of the {_activityName}.");
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
+    // add an empty line after preparing the user to start
+    Console.WriteLine();
   }
 
+  // method to congratualate the user on completing the activity
+  public void EndActivity()
+  {
+    // congratualat the user on completing the activity
+    Console.WriteLine("Excellent job!!!");
+    // pause for 6 seconds and display a spinner while doing so
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
+  }
+
+  // method to display the closing message
+  public string Closing()
+  {
+    // let the user know they have completed the session and
+    // how long they did it for with an empty line before it
+    Console.WriteLine($"\nYou have completed another {_sessionLength} seconds of the {_activityName}.");
+    // tell the user to press enter to continue with an empty line before it
+    Console.Write("\nPress enter to go back to the main menu or 'quit' to end the program: ");
+    // create a variable to return "4" if they enter quit or anything else to continue
+    string choice = Console.ReadLine();
+    // clear the console screen
+    Console.Clear();    
+    // set return "4" to end the program if the enter quit
+    if (choice == "quit")
+    {
+      choice = "4";
+    }
+    return choice;
+  }
+
+  // method to run a generic activity
+  public void ActivityExercises()
+  {
+    // direct the user to do their activity
+    Console.WriteLine("Commence with your decided activity now!");
+  }
+
+
+  // method to run the activity for the designated amount of time
+  public void RunActivity(int seconds, Action method)
+  {
+    // set the beginning time for the activity
+    DateTime beginTime = DateTime.Now;
+    // set the finishing time for the activity by adding the seconds the user 
+    // decides on for the length of the activity to the beginning time here
+    DateTime finishTime = beginTime.AddSeconds(seconds);  
+    // run a while/loop until time has elapsed
+    while (_doActivity)
+    {
+      // put the current time in a variable
+      DateTime currentTime = DateTime.Now;
+      // when the current time has not yet reached the finish time
+      if (currentTime < finishTime)
+      {
+        // reference source: https://forum.unity.com/threads/how-do-you-pass-a-void-method-into-another-method-as-a-parameter.362005/
+        // run the activity method
+        method.Invoke();        
+      }
+      // when the current time reaches the finish time
+      else
+      {
+        // set _doActivity to false to end the activity while/loop
+        _doActivity = false;
+      }
+    }
+  }
+
+  // Reference sources: http://programmingisfun.com/consolecolor_parameter/
   // method to display the time spinner animation
-  public void Spinner(int seconds)
+  public void Spinner(ConsoleColor countColor, ConsoleColor symbolColor, int seconds)
   {
     // ### SET UP VARIABLE TO USE IN WHILE LOOP
     // boolean created to run the loop until time is complete so it doesn't crash
@@ -111,12 +217,12 @@ public class Activity
     int threadNumber = 0;
     // create a starting time for the spinner
     DateTime start = DateTime.Now;
-    // use the starting time to help troubleshoot the timing of the timer
-    Console.WriteLine(start);
+    // // use the starting time to help troubleshoot the timing of the timer
+    // Console.WriteLine(start);
     // create an ending time for the spinner
     DateTime end = start.AddSeconds(seconds);
-    // use the ending time to help troubleshoot the timing of the timer    
-     Console.WriteLine(end);
+    // // use the ending time to help troubleshoot the timing of the timer    
+    //  Console.WriteLine(end);
     // create a variable to hold the index number starting at 0    
     int i = 0;
     // create a variable to hold the while loop rotations 
@@ -148,7 +254,7 @@ public class Activity
         // words the seconds value to the countDown variable
         countDown = $"{(rotation/4).ToString()}";
         // color the number light blue
-        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.ForegroundColor = countColor;
       }
       // if it is not the second count rotation
       else
@@ -161,7 +267,7 @@ public class Activity
       // display a dot or number every while/loop rotation
       Console.Write($"{countDown}(");
       // color the background of the spinner clock dark blue
-      Console.BackgroundColor = ConsoleColor.DarkBlue;
+      Console.BackgroundColor = symbolColor;
       // display the symbols mimicking clock hands within the spinner clock
       Console.Write($" {symbol} ");      
       // reset color to the original settings
@@ -215,9 +321,9 @@ public class Activity
         run = false;
         // erase the spinner clock & move to a new line
         Console.Write($"      \n");
-        // use the time this ends to match the cycle through this method
-        // to the passing of 1 second with DateTime - used for debugging
-        Console.WriteLine(DateTime.Now);
+        // // use the time this ends to match the cycle through this method
+        // // to the passing of 1 second with DateTime - used for debugging
+        // Console.WriteLine(DateTime.Now);
         // end while loop right now
         return;
       } 
@@ -246,7 +352,7 @@ public class Activity
       // & store the number converted to an int so it can be subtracted from the sleep time setting      
       adjustment = Convert.ToInt32(ts.TotalMilliseconds + 8 - 250);      
     }
-    // used for trouble shooting to see if the elapsed time matched the setting for the timer
-    Console.WriteLine($"Time Outside while loop: {DateTime.Now}");     
+    // // used for trouble shooting to see if the elapsed time matched the setting for the timer
+    // Console.WriteLine($"Time Outside while loop: {DateTime.Now}");     
   }
 }
