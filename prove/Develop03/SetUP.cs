@@ -255,7 +255,7 @@ public class SetUp
         }
       }
       // when the volume equals Book of Mormon
-      if (volume == "The Book of Mormon") 
+      else if (volume == "The Book of Mormon") 
       {
         // create a Verses class object to load with the Book of Mormon verses
         Verses bookOfMormonVerses = JsonSerializer.Deserialize<Verses>(volumes.GetJsonBookOfMormon());

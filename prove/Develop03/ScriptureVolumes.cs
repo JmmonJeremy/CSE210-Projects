@@ -67,7 +67,7 @@ public class ScriptureVolumes
     // this is the path of the submodule's json scriputure volume on my computer 
     // using Path.GetFullPath to get it except for the drive D:(rest of path below)
     // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.path.getfullpath?view=net-7.0
-    string submodulePathOT = @"\scriptures-json\flat\old-testament-flat.json";         
+    string submodulePathOT = @$"{Path.DirectorySeparatorChar}scriptures-json{Path.DirectorySeparatorChar}flat{Path.DirectorySeparatorChar}old-testament-flat.json";         
     // add the repository Path to the submodulePath for the correct file path
     // hopefully that resulted in the correct file path for your computer
     // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.path.join?view=net-7.0#system-io-path-join(system-readonlyspan((system-char))-system-readonlyspan((system-char)))
@@ -143,64 +143,212 @@ public class ScriptureVolumes
   // method to set the Old Testament json scripture variable
   public async Task SetJsonOldTestament(string website)
   {
-    // ### 1ST TRY to get the volume USING THE FILEPATH TO THE LOCAL FILE 
-    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.readalltext?view=net-7.0
-    // & https://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c *
-    // https://stackoverflow.com/questions/34064067/test-for-a-json-file-in-the-bin-folder    
-    if (File.Exists(_filePathOldTestament))
+    // create a variable to the while loop
+    string fileChoice = "run loop";
+    // set up a while loop to run until a file has been accepted or the user chooses to exit the process
+    while (fileChoice != "accept" && fileChoice != "stop")
     {
-      // read the whole Old Testament into the json string file
-      _jsonOldTestament = File.ReadAllText(_filePathOldTestament);
-      // show where the file came from to show how file was obtained
-      Console.WriteLine("Got 'The Old Testament' from the local file!");
-    }
-    // initialize a variable that will trigger the next option 
-    // of WebClient to retrieve the data if there is an error
-    string failed = "There was an error while setting up your scripture.";
-    // if the local file path returned nothing or didn't return a json file
-    if (string.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{')
-    {
-      // ### 2ND TRY to get the volume from the website USING HTTPCLIENT 
-      using (var client = new HttpClient())
+      // have user decide where to get the file from
+      Console.WriteLine("Select the method to obtain your scripture by entering its number:");
+      Console.WriteLine(" 1 - Submodule local offline file");
+      Console.WriteLine(" 2 - HttpClient method for website file");
+      Console.WriteLine(" 3 - WebClient method for website file");
+      Console.WriteLine(" 4 - Enter your scripture file manually"); 
+      // show the user where to enter their selection
+      Console.Write("Selection: ");
+      // store their choice in the while loop varialbe
+      fileChoice = Console.ReadLine(); 
+      // place an empty line after the user's selection 
+      Console.WriteLine(); 
+      // if the user chooses to get it from the Submodule
+      if (fileChoice == "1")
       {
-        // Call asynchronous network methods in a try/catch block to handle exceptions.
-        try
-        {     
-          // wait for the response
-          _jsonOldTestament = await client.GetStringAsync(website);          
+        // ### 1ST TRY to get the volume USING THE FILEPATH TO THE LOCAL FILE 
+        // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.readalltext?view=net-7.0
+        // & https://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c *
+        // https://stackoverflow.com/questions/34064067/test-for-a-json-file-in-the-bin-folder    
+        // if the file path works & the file is empty or doesn't have the json file
+        if (File.Exists(_filePathOldTestament) && (string.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{'))
+        {
+          // read the whole Old Testament into the json string file
+          _jsonOldTestament = File.ReadAllText(_filePathOldTestament);
           // show where the file came from to show how file was obtained
-          Console.WriteLine("Got 'The Old Testament' from HttpClient.");       
+          Console.WriteLine("Got 'The Old Testament' from the local file!");
+          // pause to let the user see where the file came from & give a choice to use the online source
+          Console.Write("Enter 'accept' to set up your scripture for memorization, 'menu' to go back to the selection options, or 'stop' to stop setting up your scripture file: ");
+          // store user's response in the while loop variable
+          fileChoice = Console.ReadLine(); 
+          // add an empty line before displaying the menu again
+          Console.WriteLine();
+          // empty file if the do not accept this loading method
+          if (fileChoice != "accept")
+          {
+            _jsonOldTestament = "";
+          } 
         }
-        // catch errors and handle them
-        catch (HttpRequestException e)
-        { 
-          // communicate what happened for debugging 
-          Console.WriteLine("\nException Caught! This error is from 'HttpClient's' method.");
-          Console.WriteLine("Message :{0} ", e.Message);
-        }     
+        // if the file path does not work
+        else
+        {
+          // let the user know what happened
+          Console.WriteLine("An error occured while trying to obtain the scripture from the Submodule's local file. \n");
+          // let the user know the most likely cause & its solution
+          Console.WriteLine("If you cloned this program from GitHub this most likely happened because the 'scripture-json' Submodule's directories are empty.");
+          Console.WriteLine("When cloning a Project from GitHub, by default you will get the directories that contain Submodules, but none of the files within them.");
+          Console.WriteLine("After cloning a Project with a Submodule from GitHub, the git commands of 'submodule init' and 'submodule update' must be entered to get the Submodule's files.\n");
+          
+          Console.WriteLine("Your current options now are to load your scripture to be memorized with this program from the internet or to enter it manually.");
+          Console.Write("Enter 'menu' to go back to the selection options for an alternative loading method, or 'stop' to stop setting up your scripture file: ");
+          // store user's response in the while loop variable
+          fileChoice = Console.ReadLine(); 
+          // add an empty line before displaying the menu again
+          Console.WriteLine();
+        }
+      }      
+      // if the user chooses to get it from the HttpClient
+      if (fileChoice == "2")
+      {        
+        // if the file is empty
+        if (string.IsNullOrEmpty(_jsonOldTestament))
+        {
+          // ### 2ND TRY to get the volume from the website USING HTTPCLIENT 
+          using (var client = new HttpClient())
+          {
+            // Call asynchronous network methods in a try/catch block to handle exceptions.
+            try
+            {     
+              // wait for the response
+              _jsonOldTestament = await client.GetStringAsync(website);
+              // when the json file is retrieved from the website
+              if (_jsonOldTestament[0] == '{')
+              {          
+                // show where the file came from to show how file was obtained
+                Console.WriteLine("Got 'The Old Testament' from HttpClient.");
+                // pause to let the user see where the file came from & give a choice to use the online source
+                Console.Write("Enter 'accept' to set up your scripture for memorization, 'menu' to go back to the selection options, or 'stop' to stop setting up your scripture file: ");
+                // store user's response in the while loop variable
+                fileChoice = Console.ReadLine();
+                // add an empty line before displaying the menu again
+                Console.WriteLine();
+                // empty file if the do not accept this loading method
+                if (fileChoice != "accept")
+                {
+                  _jsonOldTestament = "";
+                } 
+              }
+              // when the json file was not retrieved from the website
+              else if (_jsonOldTestament[0] != '{')
+              {
+                // empty the variable of the incorrect contents
+                _jsonOldTestament = "";
+                // let the user know the correct file was not retrieved & the most likely cause
+                Console.WriteLine("There was an error while attempting to set up your scripture with the 'HttpClient' method.");
+                Console.WriteLine("The Old Testament json file was not retrieved from the website.");
+                Console.WriteLine("The website address saved under the _webLinkOldTestament variable is probably incorrect.\n");
+                // give the user their options
+                Console.WriteLine("Your current options now are to load your scripture to be memorized with this program from the local Submodule file or to enter it manually.");
+                Console.Write("Enter 'menu' to go back to the selection options for an alternative loading method, or 'stop' to stop setting up your scripture file: ");
+                // store user's response in the while loop variable
+                fileChoice = Console.ReadLine();
+                // add an empty line before displaying the menu again
+                Console.WriteLine();
+              } 
+            }
+            // catch errors and handle them
+            catch (HttpRequestException e)
+            { 
+              // communicate what happened for debugging 
+              Console.WriteLine("\nException Caught! An error occured while using the 'HttpClient's' method.");
+              Console.WriteLine("Message :{0} \n", e.Message);
+              // give the user their options
+              Console.WriteLine("Your current options now are to load your scripture to be memorized with this program from another method or to enter it manually.");
+              Console.Write("Enter 'menu' to go back to the selection options for an alternative loading method, or 'stop' to stop setting up your scripture file: ");
+              // store user's response in the while loop variable
+              fileChoice = Console.ReadLine();
+              // add an empty line before displaying the menu again
+              Console.WriteLine();
+            }     
+          }
+        }                    
       }
-    }
-    // if the HttpClient request returned nothing or did't return a json file or failed
-    if (string.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{' || failed == "HttPClient failed")
-    {
-      // ### 3RD TRY to get the volume from the website THIS TIME USING WEBCLIENT
-      // reference source: https://stackoverflow.com/questions/5566942/how-to-get-a-json-string-from-url & 
-      // https://stackoverflow.com/questions/40208647/how-to-use-httpclient-without-async & https://stackoverflow.com/questions/54680159/c-sharp-how-to-retry-if-await-url-getstringasync-null 
-      // tool from System.Net used to get the json file from the website
-      using (WebClient webClient = new WebClient())
-      {   
-        // save the whole Old Testament into the json string file
-        _jsonOldTestament = webClient.DownloadString(website);
+      // if the user chooses to get it from the WebClient
+      if (fileChoice == "3")
+      {
+        // if the file is empty or doesn't have the json file
+        if (string.IsNullOrEmpty(_jsonOldTestament))
+        {
+          // ### 3RD TRY to get the volume from the website THIS TIME USING WEBCLIENT
+          // reference source: https://stackoverflow.com/questions/5566942/how-to-get-a-json-string-from-url & 
+          // https://stackoverflow.com/questions/40208647/how-to-use-httpclient-without-async & https://stackoverflow.com/questions/54680159/c-sharp-how-to-retry-if-await-url-getstringasync-null 
+          // tool from System.Net used to get the json file from the website
+          using (WebClient webClient = new WebClient())
+          {
+            // save the whole Old Testament into the json string file
+            _jsonOldTestament = webClient.DownloadString(website);
+          } 
+          // when the json file is retrieved from the website
+          if (_jsonOldTestament[0] == '{')
+          { 
+            // show where the file came from to show how file was obtained
+            Console.WriteLine("Got 'The Old Testament' from WebClient.");
+            // pause to let the user see where the file came from & give a choice to use the online source
+            Console.Write("Enter 'accept' to set up your scripture for memorization, 'menu' to go back to the selection options, or 'stop' to stop setting up your scripture file: ");
+            // store user's response in the while loop variable
+            fileChoice = Console.ReadLine();
+            // add an empty line before displaying the menu again
+            Console.WriteLine();
+            // empty file if the do not accept this loading method
+            if (fileChoice != "accept")
+            {
+              _jsonOldTestament = "";
+            }   
+          }
+          // when the json file was not retrieved from the website
+          else if (_jsonOldTestament[0] != '{')
+          {
+            // empty the variable of the incorrect contents
+            _jsonOldTestament = "";
+            // let the user know the correct file was not retrieved & the most likely cause
+            Console.WriteLine("There was an error while attempting to set up your scripture with the 'WebClient' method.");
+            Console.WriteLine("The Old Testament json file was not retrieved from the website.");
+            Console.WriteLine("The website address saved under the _webLinkOldTestament variable is probably incorrect.\n");
+            // give the user their options
+            Console.WriteLine("Your current options now are to load your scripture to be memorized with this program from the local Submodule file or to enter it manually.");
+            Console.Write("Enter 'menu' to go back to the selection options for an alternative loading method, or 'stop' to stop setting up your scripture file: ");
+            // store user's response in the while loop variable
+            fileChoice = Console.ReadLine();
+            // add an empty line before displaying the menu again
+            Console.WriteLine();
+          }          
+        }       
+        // // the file is not empty or does not contain the json file
+        // else
+        // {
+        //   // communicate what happened for debugging 
+        //   Console.WriteLine("\nAn error occured before using the 'WebClient's' method.\n");       
+        //   // give the user their options
+        //   Console.WriteLine("Your current options now are to load your scripture to be memorized with this program from another method or enter it manually.");
+        //   Console.Write("Enter 'menu' to go back to the selection options for an alternative loading method, or 'stop' to stop setting up your scripture file: ");
+        //   // store user's response in the while loop variable
+        //   fileChoice = Console.ReadLine();
+        //   // add an empty line before displaying the menu again
+        //   Console.WriteLine();
+        // }
+      }
+      // if the user chooses to get enter the scripture by hand
+      if (fileChoice == "4")
+      {
+        // tell the user to enter their scripture by hand
+        Console.WriteLine("Please enter the text for your scripture below:");
+        // _jsonOldTestament = Console.ReadLine();
         // show where the file came from to show how file was obtained
-        Console.WriteLine("Got 'The Old Testament' from WebClient.");  
-      } 
-    } 
-    // if the both the local file and the web requests returned nothing or did't return a json file
-    if (string.IsNullOrEmpty(_jsonOldTestament) || _jsonOldTestament[0] != '{')
-    {
-      // let the user know that neither the web request or the file pathway was good      
-      Console.Write("Neither the local file path or the web file download of json file was successful.");
-    }       
+        Console.WriteLine("Sorry, but unfortunately this option is not fully operational yet.");
+        // pause before showing the user the menu options again
+        Console.WriteLine("Press enter to continue ");
+        Console.ReadLine();      
+        // set fileChoice to run the menu for now until code to run this option is complete        
+        fileChoice = "run loop";         
+      }
+    }      
   }
 
   // method to set the New Testament json scripture variable
