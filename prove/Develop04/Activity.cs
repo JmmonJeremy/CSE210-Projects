@@ -9,13 +9,13 @@ public class Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold a generic activity name
-  private string _genericName;
-  // variable to hold the generic activity description
-  private string _genericDescription;
-  // variable to hold the activity's name  
   private string _activityName;
+  // variable to hold the generic activity description
+  private string _activityDescription;
+  // variable to hold the activity's name  
+  private string _activityIntro;
   // variable to hold the activity's description
-  private string _description;
+  private string _descriptionIntro;
   // variable to hold the session length in seconds  
   private int _sessionLength;
   // varialbe to hold the session length prompt
@@ -54,24 +54,38 @@ public class Activity
   public Activity()
   {
     // set the value of the _genericName
-    _genericName = "activity";
-    // set the value of the _genericDescription
-    _genericDescription = "because being active and doing something is good for your health and well being.";    
+    _activityName = "activity";
+    // set the value of the _activityDescription
+    _activityDescription = "because being active and doing something is good for your health and well being.";    
   }
   // constructor to set up the activity
   public Activity(string activityName, string description) 
-  {
+  {  
+    // reset the value of the _activityName to what is passed in here, so I don't have to
+    // use the get methods for the activity name and then pass it in as a variable value to 
+    // use for inserting the activity name in the PrepareActivity and the Closing methods
     _activityName = activityName;
-    _description = description;
+    // set the value of the _activityIntro 
+    _activityIntro = $"Welcome to the {activityName}.";
+    // set the value of the _descriptionIntro
+    _descriptionIntro = $"This activity will help you {description}";
+    // set the value of the _sessionLengthPrompt
     _sessionLengthPrompt = "How long, in seconds, would you like for your activity session? ";
+    // set the value of the the _doActivity boolean
     _doActivity = true;
   }
 
 // ### METHODS ############################################## //
   // getter method to get the _genericName
-  public string GetGenericName()
+  public string GetActivityName()
   { 
-    return _genericName;
+    return _activityName;
+  } 
+
+  // getter method to get the _reflectionDescription
+  public string GetActivityDescription()
+  { 
+    return _activityDescription;
   }  
 
   // setter method for the _spinnerSymbols list
@@ -112,8 +126,8 @@ public class Activity
     // clear the console screen
     Console.Clear();
     // welcome the user and explain what will happen
-    Console.WriteLine($"Welcome to the {_activityName}.\n");
-    Console.WriteLine($"This activity will help you {_description}.\n");   
+    Console.WriteLine($"{_activityIntro}\n");
+    Console.WriteLine($"{_descriptionIntro}\n");   
     // create a validator object to run its method with
     // and pass the prompt question into the object
     Validator validator = new Validator(_sessionLengthPrompt);

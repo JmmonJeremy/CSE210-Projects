@@ -23,7 +23,7 @@ public class BreathingActivity : Activity
     // set the value of the _breathingName
     _breathingName = "Breathing Activity";
     // set the value of the _breathingDescription
-    _breathingDescription = "relax by guiding you through sets of timed in breaths and out breaths";    
+    _breathingDescription = "relax by guiding you through sets of timed in breaths and out breaths.";    
   }
   // constructor to set up for the Breathing Activity
   public BreathingActivity(string activityName, string description) : base (activityName, description)

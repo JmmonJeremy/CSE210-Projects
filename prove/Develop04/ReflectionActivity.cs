@@ -9,7 +9,7 @@ public class ReflectionActivity : Activity
   // variable to hold the activity name
   private string _reflectionName;
   // variable to hold the activity description
-  private string _reflectionDescription;
+  private string _reflectionDescription;  
   // list to hold the list of reflection prompts for the activity
   private List<string> _promptList = new List<string>()
   {
@@ -56,7 +56,7 @@ public class ReflectionActivity : Activity
     // set the value of the _reflectionName
     _reflectionName = "Reflection Activity";
     // set the value of the _reflectionDescription
-    _reflectionDescription = "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life";    
+    _reflectionDescription = "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life.";    
   }
   // constructor to set up for the Reflectoin Activity
   public ReflectionActivity(string activityName, string description) : base (activityName, description)
