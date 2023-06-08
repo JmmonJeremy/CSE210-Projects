@@ -6,9 +6,9 @@ using System.IO;
 public class BreathingActivity : Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // variable to hold a generic activity name
+  // variable to hold the activity name
   private string _breathingName;
-  // variable to hold the generic activity description
+  // variable to hold the activity description
   private string _breathingDescription;
   // variable to hold the in breath time in seconds
   int _inhaleTime;
@@ -20,9 +20,9 @@ public class BreathingActivity : Activity
   //  and to use the get methods to get the variables values
   public BreathingActivity()
   {
-    // set the value of the _genericName
+    // set the value of the _breathingName
     _breathingName = "Breathing Activity";
-    // set the value of the _genericDescription
+    // set the value of the _breathingDescription
     _breathingDescription = "relax by guiding you through sets of timed in breaths and out breaths";    
   }
   // constructor to set up for the Breathing Activity

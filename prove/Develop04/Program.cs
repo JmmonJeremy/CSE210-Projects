@@ -15,13 +15,14 @@ class Program
         choice = menu.PresentMenu();
 
         // testing
-        BreathingActivity buildActivity = new BreathingActivity();
-        BreathingActivity activity = new BreathingActivity(buildActivity.GetBreathingName(), buildActivity.GetBreathingDescription());
+        ReflectionActivity buildActivity = new ReflectionActivity();
+        ReflectionActivity activity = new ReflectionActivity(buildActivity.GetReflectionName(), buildActivity.GetReflectionDescription());
         int seconds = activity.Opening();
-        activity.SetInhaleTime();
-        activity.SetExhaleTime();
-        activity.PrepareActivity();        
-        activity.RunActivity(seconds, activity.BreathingExercises);
+        // activity.SetInhaleTime();
+        // activity.SetExhaleTime();
+        activity.PrepareActivity(); 
+        activity.PrepareExercises();       
+        activity.RunActivity(seconds, activity.ReflectionExercises);
         activity.EndActivity();        
         choice = activity.Closing();
         }

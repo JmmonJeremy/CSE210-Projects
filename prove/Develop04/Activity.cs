@@ -129,7 +129,7 @@ public class Activity
     Console.Clear();
     // display a message on the console telling the 
     // user to prepare to begin the activity
-    Console.WriteLine($"Prepare to begin your {_activityName}. . .");
+    Console.WriteLine($"Prepare to start your {_activityName} in 6 seconds. . .");
     // pause for 6 seconds and display a spinner while doing so
     Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
     // add an empty line after preparing the user to start
@@ -139,8 +139,8 @@ public class Activity
   // method to congratualate the user on completing the activity
   public void EndActivity()
   {
-    // congratualat the user on completing the activity
-    Console.WriteLine("Excellent job!!!");
+    // congratualate the user on completing the activity with an empty line before it
+    Console.WriteLine("\nExcellent job!!!");
     // pause for 6 seconds and display a spinner while doing so
     Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
   }
