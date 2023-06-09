@@ -9,9 +9,9 @@ public class Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold a generic activity name
-  private string _activityName;
+  private string _activityName = "activity";
   // variable to hold the generic activity description
-  private string _activityDescription;
+  private string _activityDescription = "by setting a timer for you to keep track of your activity with.";
   // variable to hold the activity's name  
   private string _activityIntro;
   // variable to hold the activity's description
@@ -49,14 +49,10 @@ public class Activity
   };
 
 // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use set generic variables
-  //  and to use the get methods to get the variables values
+  // constructor to be able to use the RunAllActivity method
   public Activity()
   {
-    // set the value of the _genericName
-    _activityName = "activity";
-    // set the value of the _activityDescription
-    _activityDescription = "because being active and doing something is good for your health and well being.";    
+    // nothing needed in here 
   }
   // constructor to set up the activity
   public Activity(string activityName, string description) 
@@ -66,28 +62,16 @@ public class Activity
     // use for inserting the activity name in the PrepareActivity and the Closing methods
     _activityName = activityName;
     // set the value of the _activityIntro 
-    _activityIntro = $"Welcome to the {activityName}.";
+    _activityIntro = $"Welcome to your {activityName}.";
     // set the value of the _descriptionIntro
     _descriptionIntro = $"This activity will help you {description}";
     // set the value of the _sessionLengthPrompt
-    _sessionLengthPrompt = "How long, in seconds, would you like for your activity session? ";
-    // set the value of the the _doActivity boolean
+    _sessionLengthPrompt = "How long, in seconds, would you like for your activity session? "; 
+    // set the value of the boolen to run the while loop
     _doActivity = true;
   }
 
 // ### METHODS ############################################## //
-  // getter method to get the _genericName
-  public string GetActivityName()
-  { 
-    return _activityName;
-  } 
-
-  // getter method to get the _reflectionDescription
-  public string GetActivityDescription()
-  { 
-    return _activityDescription;
-  }  
-
   // setter method for the _spinnerSymbols list
   public void SetSpinnerSymbols(bool clear, List<string> spinnerSymbols)
   {
@@ -108,20 +92,8 @@ public class Activity
     return _spinnerSymbols;
   }
 
-  // // setter method to set the _doActivity boolean
-  // public void SetDoActivity(bool doActivity)
-  // { 
-  //   _doActivity = doActivity;
-  // } 
-
-  // // getter method to get the _doActivity boolean
-  // public bool GetDoActivity()
-  // { 
-  //   return _doActivity;
-  // } 
-
   // method to display the opening message
-  public int Opening() 
+  public void Opening() 
   {
     // clear the console screen
     Console.Clear();
@@ -132,8 +104,7 @@ public class Activity
     // and pass the prompt question into the object
     Validator validator = new Validator(_sessionLengthPrompt);
     // set the _sessionLength equal to the result of the StringNumberCheck method
-    _sessionLength = validator.StringNumberCheck();
-    return _sessionLength;
+    _sessionLength = validator.StringNumberCheck();    
   }
   
   // method to prepare to start an activity
@@ -164,7 +135,7 @@ public class Activity
   {
     // let the user know they have completed the session and
     // how long they did it for with an empty line before it
-    Console.WriteLine($"\nYou have completed another {_sessionLength} seconds of the {_activityName}.");
+    Console.WriteLine($"\nYou have completed {_sessionLength} seconds of your {_activityName}.");
     // tell the user to press enter to continue with an empty line before it
     Console.Write("\nPress enter to go back to the main menu or 'quit' to end the program: ");
     // create a variable to return "4" if they enter quit or anything else to continue
@@ -174,27 +145,41 @@ public class Activity
     // set return "4" to end the program if the enter quit
     if (choice == "quit")
     {
-      choice = "4";
+      choice = "5";
     }
     return choice;
-  }
+  } 
 
-  // method to run a generic activity
+  // method to run a timed activity
   public void ActivityExercises()
-  {
+  {  
     // direct the user to do their activity
-    Console.WriteLine("Commence with your decided activity now!");
+    Console.WriteLine("Starting the timer for your activity now:");  
+    // run the timer for the time the user decided for their activity
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, _sessionLength);
+    // change the color of the type to red for emphasis
+    Console.ForegroundColor = ConsoleColor.Red;
+    // let the user know that the time is expired with an empty space before it
+    Console.WriteLine("\nTimes up!");
+    // change the type color back to its original settings
+    Console.ResetColor();
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.console.beep?view=net-7.0
+    // play a tone to let the user know the time is expired
+    Console.Beep(262,350);
+    Console.Beep(262,350);
+    Console.Beep(262,350);
+    Console.Beep(220,1000);
   }
 
 
   // method to run the activity for the designated amount of time
-  public void RunActivity(int seconds, Action method)
+  public void RunActivity(Action method)
   {
     // set the beginning time for the activity
     DateTime beginTime = DateTime.Now;
     // set the finishing time for the activity by adding the seconds the user 
     // decides on for the length of the activity to the beginning time here
-    DateTime finishTime = beginTime.AddSeconds(seconds);  
+    DateTime finishTime = beginTime.AddSeconds(_sessionLength);  
     // run a while/loop until time has elapsed
     while (_doActivity)
     {
@@ -214,6 +199,28 @@ public class Activity
         _doActivity = false;
       }
     }
+  }
+
+  // method to run everything for the timed activity
+   public string RunAllActivity()
+  {    
+    // create activity object so the correct activity name and description are passed in
+    // as well as all of the other things for the intro and the boolean
+    Activity activity = new Activity(_activityName , _activityDescription);
+    // run the opening with the correct activity name & descriptiorn from the object
+    activity.Opening();
+    // run prepare with the correct activity name from using the object
+    activity.PrepareActivity();   
+    // run the central part of the Activity with the object so it works
+    // properly by including the boolean and _sessionLength values    
+    activity.RunActivity(activity.ActivityExercises);   
+    // run end activity message
+    EndActivity();
+    // run the closing with the correct activity name with the object
+    // then save the choice of the user in the choice variable 
+    string choice = activity.Closing();
+    // return the user's choice
+    return choice;
   }
 
   // Reference sources: http://programmingisfun.com/consolecolor_parameter/
@@ -314,8 +321,9 @@ public class Activity
       Console.Write("\b\b\b\b\b\b \b");
       // if the rotation number has no left over number when divided by 4 & then by
       // 10 or in other words when 10 seconds has been displayed by the countDown
-      // ### START COUNT OF 10 OVER ON THE SAME LINE
-      if ((Convert.ToDouble(rotation) / 4) % 10 == 0)
+      // unless rotation / 4 equals the timer length in seconds meaning it is the last count number
+      // ### START COUNT OF 10 OVER ON THE SAME LINE UNLESS ITS THE END COUNT
+      if ((Convert.ToDouble(rotation) / 4) % 10 == 0 && rotation / 4 != seconds)
       {
         // erase the spinner clock
         Console.WriteLine($"\b      ");

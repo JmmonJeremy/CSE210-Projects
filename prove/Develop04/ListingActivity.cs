@@ -7,9 +7,9 @@ public class ListingActivity : Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold the activity name
-  private string _listingName;
+  private string _listingName = "Listing Activity";
   // variable to hold the activity description
-  private string _listingDescription;  
+  private string _listingDescription = "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can.";   
   // list to hold the list of listing prompts for the activity
   private List<string> _subjectList = new List<string>()
   {
@@ -44,14 +44,10 @@ public class ListingActivity : Activity
   private int _responseCount;
 
   // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use set listing variables
-  //  and to use the get methods to get the variables values
+  // constructor to be able to use the RunAllListing methods
   public ListingActivity()
   {
-    // set the value of the _listingName
-    _listingName = "Listing Activity";
-    // set the value of the _reflectionDescription
-    _listingDescription = "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can.";    
+    // nothing needed in here    
   }
   // constructor to set up for the Listing Activity
   public ListingActivity(string activityName, string description) : base (activityName, description)
@@ -60,19 +56,7 @@ public class ListingActivity : Activity
   }
 
 // ### METHODS ############################################## //
-  // getter method to get the _listingName
-  public string GetListingName() 
-  {
-    return _listingName;
-  }
-  
-  // getter method to get the _listingDescription
-  public string GetListingDescription()
-  { 
-    return _listingDescription;
-  } 
-
-  // method to get a random subject question
+  // method to get & return a random subject question
   public string RandomSubject()
   {
     // set a variable to hold the _subjectList count
@@ -128,5 +112,33 @@ public class ListingActivity : Activity
   {
     // show the user how many responses they listed with an empty space before it
     Console.WriteLine($"\nYou listed {_responseCount} reponses!");
+  }
+
+  // method to run everyting for the Listing Activity
+  public string RunAllListing()
+  {    
+    // create listing object so the correct activity name and description are passed in
+    // as well as all of the other things for the intro and the boolean
+    ListingActivity listing = new ListingActivity(_listingName, _listingDescription);
+    // run the opening with the correct activity name & descriptiorn from using
+    // the object while running this inherited method from the Activity class
+    listing.Opening();
+    // run prepare with the correct activity name from using the object 
+    // while running this inherited method from the Activity class
+    listing.PrepareActivity(); 
+    // run this class specific PrepareListing method
+    PrepareListing();
+    // run the central part of the Listing Activity with the object while running this inherited method 
+    // from the Activity class so it works properly by including the boolean and _sessionLength values   
+    listing.RunActivity(ListingExercises);
+    // run this class specific DisplayCount method
+    DisplayCount();
+    // run end activity message in this inherited method from the Activity class
+    EndActivity();
+    // run the closing with the correct activity name with the object while running this inherited
+    // method from the Activity class then save the choice of the user in the choice variable  
+    string choice = listing.Closing();
+    // return the user's choice
+    return choice;
   }
 }
