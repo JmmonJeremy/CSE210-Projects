@@ -15,14 +15,15 @@ class Program
         choice = menu.PresentMenu();
 
         // testing
-        ReflectionActivity buildActivity = new ReflectionActivity();
-        ReflectionActivity activity = new ReflectionActivity(buildActivity.GetReflectionName(), buildActivity.GetReflectionDescription());
+        ListingActivity buildActivity = new ListingActivity();
+        ListingActivity activity = new ListingActivity(buildActivity.GetListingName(), buildActivity.GetListingDescription());
         int seconds = activity.Opening();
         // activity.SetInhaleTime();
         // activity.SetExhaleTime();
         activity.PrepareActivity(); 
-        activity.PrepareExercises();       
-        activity.RunActivity(seconds, activity.ReflectionExercises);
+        activity.PrepareListing();       
+        activity.RunActivity(seconds, activity.ListingExercises);
+        activity.DisplayCount();
         activity.EndActivity();        
         choice = activity.Closing();
         }

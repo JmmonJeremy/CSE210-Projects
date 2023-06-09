@@ -13,39 +13,39 @@ public class ReflectionActivity : Activity
   // list to hold the list of reflection prompts for the activity
   private List<string> _promptList = new List<string>()
   {
-    "Think of a time when you showed love for someone.",
-    "Think of a time when you endured hardship for a good cause.",
-    "Think of a time when you helped someone do something that they couldn't have done alone.",
-    "Think of a time when you put the needs of someone else above your own needs.",
-    "Think of a time when you gave a gift to someone.",
-    "Think of a positive contribution you have given to a project.",
-    "Think of something positive that you have created.",
-    "Think of a time when you gave someone your full attention and listened intently to them.",
-    "Think of a time when you did something difficult because you were motivated by love.",
-    "Think of a time when you did something uncomfortable because you were motivated by love.",
-    "Think of a time when your love overcame your fear.",
-    "Think of a time when you did something for someone else when you didn't have to.",
-    "Think of some positive thoughts that you have had.",
-    "Think of a time when you complemented someone.",
-    "Think of a time when dispite someone's mistreatment of you, you returned kindness to them.",
-    "Think of something good you have done.",
-    "Think of a good characteristic you possess and a time when you demonstrated that characteristic"
+    "Think of a time when I showed love for someone.",
+    "Think of a time when I endured hardship for a good cause.",
+    "Think of a time when I helped someone do something that they couldn't have done alone.",
+    "Think of a time when I put the needs of someone else above my own needs.",
+    "Think of a time when I gave a gift to someone.",
+    "Think of a positive contribution I have given to a project.",
+    "Think of something positive that I have created.",
+    "Think of a time when I gave someone my full attention and listened intently to them.",
+    "Think of a time when I did something difficult because I was motivated by love.",
+    "Think of a time when I did something uncomfortable because I was motivated by love.",
+    "Think of a time when my love overcame my fear.",
+    "Think of a time when I did something for someone else when I didn't have to.",
+    "Think of some positive thoughts that I have had.",
+    "Think of a time when I complemented someone.",
+    "Think of a time when dispite someone's mistreatment of me, I returned kindness to them.",
+    "Think of something good I have done.",
+    "Think of a good characteristic I possess and a time when I demonstrated that characteristic"
   };
   // list to hold questions for further reflection about the prompt 
   private List<string> _questionList = new List<string>()
   {
-    "How does this experience confirm the goodness within you?",
-    "Have you done something like this more than once?",
-    "What moved you to action?",
-    "How did this event make you feel?",
-    "What helped you to successfully accomplish this?",
-    "What do you most cherrish about this experience",
-    "Can you learn anything from this experience that you can apply elsewhere?",
-    "What does this experience teach you about yourself?",
-    "What can you do to better remember times like this in your life?",
-    "How can this help you to love yourself?",
-    "What can you do to better reinforce actions like this in your life?",
-    "Can you see yourself doing things like this more often?",    
+    "How does this experience confirm the goodness within me?",
+    "Have I done something like this more than once?",
+    "What moved me to action?",
+    "How did this event make me feel?",
+    "What helped me to successfully accomplish this?",
+    "What do I most cherrish about this experience",
+    "Can I learn anything from this experience that I can apply elsewhere?",
+    "What does this experience teach me about myself?",
+    "What can I do to better remember times like this in my life?",
+    "How can this help me to love myself?",
+    "What can I do to better reinforce actions like this in my life?",
+    "Can I see myself doing things like this more often?",    
   };
 
 // ### CONSTRUCTORS ######################################### //
@@ -103,8 +103,8 @@ public class ReflectionActivity : Activity
     return _questionList [indexSelector];
   } 
 
-  // method to help the user to prompt to use the prompt
-  public void PrepareExercises()
+  // method to display a prompt and prepare the user to start reflection about it
+  public void PrepareReflection()
   {
     // tell the user what to do with an empty line before it
     Console.WriteLine("\nThink of a response for the following prompt:");

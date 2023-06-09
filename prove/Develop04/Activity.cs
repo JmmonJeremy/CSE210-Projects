@@ -154,7 +154,7 @@ public class Activity
   public void EndActivity()
   {
     // congratualate the user on completing the activity with an empty line before it
-    Console.WriteLine("\nExcellent job!!!");
+    Console.WriteLine("\nWell done!!!");
     // pause for 6 seconds and display a spinner while doing so
     Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
   }
