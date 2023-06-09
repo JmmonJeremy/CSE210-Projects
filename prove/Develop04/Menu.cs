@@ -28,7 +28,7 @@ public class Menu
     // and to keep the while loop running until there's a valid entry
     string selection = "No selection made.";   
     // create a loop to run until a valid choice is entered
-    while (selection != "1" && selection != "2" && selection != "3" && selection != "4")
+    while (selection != "1" && selection != "2" && selection != "3" && selection != "4" && selection != "5")
     {
     // display the menu and directions
     Console.WriteLine("Select an option by entering its number:");
@@ -61,26 +61,42 @@ public class Menu
   {
     while (_choice != "5")
     {
-    // use the PresentMenu method to display menu options and return
-    // the user's choice - then store it in the while loop variable
-    _choice = PresentMenu();
-    // run the options the user chose
-    // if they chose a timed activity
-    if (_choice == "1")
-    {
-      // create an activity object to run its methods
-      Activity activity = new Activity();
-      // run the timed activity
-      _choice = activity.RunAllActivity();
-    }
-    // if they chose the listing activity
-    if (_choice == "4")
-    {
-      // create a ListingActivity object to run its methods
-      ListingActivity listing = new ListingActivity();
-      // run the listing activity
-      _choice = listing.RunAllListing();
-    }
+      // use the PresentMenu method to display menu options and return
+      // the user's choice - then store it in the while loop variable
+      _choice = PresentMenu();
+      // run the options the user chose
+      // if they chose a timed activity
+      if (_choice == "1")
+      {
+        // create an activity object to run its methods
+        Activity activity = new Activity();
+        // run the timed activity
+        _choice = activity.RunAllActivity();
+      }
+       // if they chose the breathing activity
+      if (_choice == "2")
+      {
+        // create a BreathingActivity object to run its methods
+        BreathingActivity breathing = new BreathingActivity();
+        // run the breathing activity
+        _choice = breathing.RunAllBreathing();
+      }
+      // if they chose the reflection activity
+      if (_choice == "3")
+      {
+        // create a ReflectionActivity object to run its methods
+        ReflectionActivity reflection = new ReflectionActivity();
+        // run the reflection activity
+        _choice = reflection.RunAllReflection();
+      }
+      // if they chose the listing activity
+      if (_choice == "4")
+      {
+        // create a ListingActivity object to run its methods
+        ListingActivity listing = new ListingActivity();
+        // run the listing activity
+        _choice = listing.RunAllListing();
+      }    
     }
   }
 } 

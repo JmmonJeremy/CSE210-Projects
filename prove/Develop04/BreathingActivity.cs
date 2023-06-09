@@ -7,23 +7,19 @@ public class BreathingActivity : Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold the activity name
-  private string _breathingName;
+  private string _breathingName = "Breathing Activity";
   // variable to hold the activity description
-  private string _breathingDescription;
+  private string _breathingDescription = "relax by guiding you through sets of timed in breaths and out breaths.";
   // variable to hold the in breath time in seconds
   int _inhaleTime;
   // variable to hold the out breath time in seconds
   int _exhaleTime; 
 
 // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use set breathing variables
-  //  and to use the get methods to get the variables values
+  // constructor to be able to use the RunAllBreathing method
   public BreathingActivity()
   {
-    // set the value of the _breathingName
-    _breathingName = "Breathing Activity";
-    // set the value of the _breathingDescription
-    _breathingDescription = "relax by guiding you through sets of timed in breaths and out breaths.";    
+    // nothing needed in here    
   }
   // constructor to set up for the Breathing Activity
   public BreathingActivity(string activityName, string description) : base (activityName, description)
@@ -32,18 +28,6 @@ public class BreathingActivity : Activity
     }
 
 // ### METHODS ############################################## //
-  // getter method to get the _breathingName
-  public string GetBreathingName()
-  { 
-    return _breathingName;
-  }
-
-  // getter method to get the _breathingDescription
-  public string GetBreathingDescription()
-  { 
-    return _breathingDescription;
-  }  
-
   // method to guide the user when breathing in
   public void SetInhaleTime()
   {
@@ -100,5 +84,33 @@ public class BreathingActivity : Activity
     Console.WriteLine();    
     // set the _spinnerSymbols list to the original contents    
     SetSpinnerSymbols(true, clonedList);
+  }
+
+  // method to run everyting for the Breathing Activity
+  public string RunAllBreathing()
+  {    
+    // create breathing object so the correct activity name and description are passed in
+    // as well as all of the other things for the intro and the boolean
+    BreathingActivity breathing = new BreathingActivity(_breathingName, _breathingDescription);
+    // run the opening with the correct activity name & descriptiorn from using
+    // the object while running this inherited method from the Activity class
+    breathing.Opening();
+    // run the class specific set inhale time method
+    SetInhaleTime();
+    // run the class specific set exhale time method
+    SetExhaleTime();
+    // run prepare with the correct activity name from using the object 
+    // while running this inherited method from the Activity class
+    breathing.PrepareActivity();    
+    // run the central part of the Breathing Activity with the object while running this inherited method 
+    // from the Activity class so it works properly by including the boolean and _sessionLength values   
+    breathing.RunActivity(BreathingExercises);   
+    // run end activity message in this inherited method from the Activity class
+    EndActivity();
+    // run the closing with the correct activity name with the object while running this inherited
+    // method from the Activity class then save the choice of the user in the choice variable  
+    string choice = breathing.Closing();
+    // return the user's choice
+    return choice;
   }
 }

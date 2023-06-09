@@ -44,7 +44,7 @@ public class ListingActivity : Activity
   private int _responseCount;
 
   // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use the RunAllListing methods
+  // constructor to be able to use the RunAllListing method
   public ListingActivity()
   {
     // nothing needed in here    

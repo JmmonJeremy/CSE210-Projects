@@ -7,9 +7,9 @@ public class ReflectionActivity : Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold the activity name
-  private string _reflectionName;
+  private string _reflectionName = "Reflection Activity";
   // variable to hold the activity description
-  private string _reflectionDescription;  
+  private string _reflectionDescription = "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life.";   
   // list to hold the list of reflection prompts for the activity
   private List<string> _promptList = new List<string>()
   {
@@ -49,14 +49,10 @@ public class ReflectionActivity : Activity
   };
 
 // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use set reflection variables
-  //  and to use the get methods to get the variables values
+  // constructor to be able to use the RunAllReflection method
   public ReflectionActivity()
   {
-    // set the value of the _reflectionName
-    _reflectionName = "Reflection Activity";
-    // set the value of the _reflectionDescription
-    _reflectionDescription = "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life.";    
+    // nothing needed in here    
   }
   // constructor to set up for the Reflectoin Activity
   public ReflectionActivity(string activityName, string description) : base (activityName, description)
@@ -65,18 +61,6 @@ public class ReflectionActivity : Activity
   }
 
 // ### METHODS ############################################## //
-  // getter method to get the _reflectionName
-  public string GetReflectionName() 
-  {
-    return _reflectionName;
-  }
-
-  // getter method to get the _reflectionDescription
-  public string GetReflectionDescription()
-  { 
-    return _reflectionDescription;
-  } 
-
   // method to get a random prompt
   public string RandomPrompt()
   {
@@ -90,7 +74,7 @@ public class ReflectionActivity : Activity
     return _promptList[indexSelector];
   } 
 
-   // method to get a random question
+  // method to get a random question
   public string RandomQuestion()
   {
     // set a variable to hold the _questionList count
@@ -150,5 +134,31 @@ public class ReflectionActivity : Activity
     Spinner(ConsoleColor.Green, ConsoleColor.DarkGreen, 15); 
     // set the _spinnerSymbols list to the original contents    
     SetSpinnerSymbols(true, clonedList);    
+  }
+
+  // method to run everyting for the Reflection Activity
+  public string RunAllReflection()
+  {    
+    // create reflection object so the correct activity name and description are passed in
+    // as well as all of the other things for the intro and the boolean
+    ReflectionActivity reflection = new ReflectionActivity(_reflectionName, _reflectionDescription);
+    // run the opening with the correct activity name & descriptiorn from using
+    // the object while running this inherited method from the Activity class
+    reflection.Opening();
+    // run prepare with the correct activity name from using the object 
+    // while running this inherited method from the Activity class
+    reflection.PrepareActivity(); 
+    // run this class specific PrepareReflection method
+    PrepareReflection();
+    // run the central part of the Reflection Activity with the object while running this inherited method 
+    // from the Activity class so it works properly by including the boolean and _sessionLength values   
+    reflection.RunActivity(ReflectionExercises);   
+    // run end activity message in this inherited method from the Activity class
+    EndActivity();
+    // run the closing with the correct activity name with the object while running this inherited
+    // method from the Activity class then save the choice of the user in the choice variable  
+    string choice = reflection.Closing();
+    // return the user's choice
+    return choice;
   }
 }
