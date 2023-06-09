@@ -10,7 +10,7 @@ public class ListingActivity : Activity
   private string _listingName = "Listing Activity";
   // variable to hold the activity description
   private string _listingDescription = "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can.";   
-  // list to hold the list of listing prompts for the activity
+  // list to hold the list of listing subjects for the activity
   private List<string> _subjectList = new List<string>()
   {
     "What am I looking forward to today?",
@@ -40,6 +40,8 @@ public class ListingActivity : Activity
     "What are my greatest talents or skills?",
     "What things represent me and why?",    
   };
+  // list to hold the used listing subjects
+  private List<string> _usedSubjects = new List<string>();
   // variable to hold the number of entries in response to a subject
   private int _responseCount;
 
@@ -59,12 +61,41 @@ public class ListingActivity : Activity
   // method to get & return a random subject question
   public string RandomSubject()
   {
+    // PREVENT REUSE OF THE SAME SUBJECT - START
+    // if the _usedSubjects list is not empty
+    if (_usedSubjects.Count > 0)
+    {
+      // cycle through the list
+      foreach (string usedsubject in _usedSubjects)
+      { 
+        // if the subject exists in the _usedSubjects list       
+        if (_subjectList.Contains(usedsubject))
+        {
+          // remove it from the _subjectList 
+          _subjectList.Remove(usedsubject);
+        }        
+      }
+    // PREVENT REUSE OF THE SAME SUBJECT - PAUSE #1
+    }     
     // set a variable to hold the _subjectList count
     int count = _subjectList.Count;
+    // PREVENT REUSE OF THE SAME SUBJECT - RESTART #1
+    // if the _subjectList is empty
+    if (count == 0)
+    {
+      // add the contents of the _usedSubjects list to the _subjectList
+      _subjectList.AddRange(_usedSubjects);
+      // empty the contents of the _usedSubjects list
+      _usedSubjects.Clear();
+    // PREVENT REUSE OF THE SAME SUBJECT - PAUSE #2
+    } 
     // create a Random object for selecting the index #
     Random _randomIndexSelector = new Random();
     // randomly select a number to represent a list index
-    int indexSelector = _randomIndexSelector.Next(0, count);    
+    int indexSelector = _randomIndexSelector.Next(0, count);
+    // PREVENT REUSE OF THE SAME SUBJECT - RESTART #2 & END
+    // add the selected subject to a new list
+    _usedSubjects.Add(_subjectList[indexSelector]);     
     // return the subject question with that index from the _subjectList
     return _subjectList[indexSelector];
   } 
@@ -74,11 +105,11 @@ public class ListingActivity : Activity
   {
     // give the user directions on what to do
     Console.WriteLine("Enter as many responses as you can for the following subject:");    
-    // put an empty space before the prompt and indent it
+    // put an empty space before the subject and indent it
     Console.Write("\n    ");
-    // change the color of the background for the prompt
+    // change the color of the background for the subject
     Console.BackgroundColor = ConsoleColor.DarkGray;    
-    // display the subject prompt with a space after it
+    // display the subject subject with a space after it
     Console.WriteLine($" {Convert.ToChar(2)}{Convert.ToChar(2)}{Convert.ToChar(2)} {RandomSubject()} {Convert.ToChar(2)}{Convert.ToChar(2)}{Convert.ToChar(2)} \n");
     // reset the backgroung color to what it was
     Console.ResetColor();

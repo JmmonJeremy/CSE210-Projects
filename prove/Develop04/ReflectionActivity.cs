@@ -31,6 +31,8 @@ public class ReflectionActivity : Activity
     "Think of something good I have done.",
     "Think of a good characteristic I possess and a time when I demonstrated that characteristic"
   };
+  // list to hold the used reflection prompts
+  private List<string> _usedPrompts = new List<string>();
   // list to hold questions for further reflection about the prompt 
   private List<string> _questionList = new List<string>()
   {
@@ -47,6 +49,8 @@ public class ReflectionActivity : Activity
     "What can I do to better reinforce actions like this in my life?",
     "Can I see myself doing things like this more often?",    
   };
+  // list to hold the used reflection questions
+  private List<string> _usedQuestions = new List<string>();
 
 // ### CONSTRUCTORS ######################################### //
   // constructor to be able to use the RunAllReflection method
@@ -64,12 +68,41 @@ public class ReflectionActivity : Activity
   // method to get a random prompt
   public string RandomPrompt()
   {
+    // PREVENT REUSE OF THE SAME PROMPT - START
+    // if the _usedPrompts list is not empty
+    if (_usedPrompts.Count > 0)
+    {
+      // cycle through the list
+      foreach (string usedprompt in _usedPrompts)
+      { 
+        // if the prompt exists in the _usedPrompts list       
+        if (_promptList.Contains(usedprompt))
+        {
+          // remove it from the _promptList 
+          _promptList.Remove(usedprompt);
+        }        
+      }
+    // PREVENT REUSE OF THE SAME PROMPT - PAUSE #1
+    }       
     // set a variable to hold the _promptList count
     int count = _promptList.Count;
+    // PREVENT REUSE OF THE SAME PROMPT - RESTART #1
+    // if the _promptList is empty
+    if (count == 0)
+    {
+      // add the contents of the _usedPrompts list to the _promptList
+      _promptList.AddRange(_usedPrompts);
+      // empty the contents of the _usedPrompts list
+      _usedPrompts.Clear();
+    // PREVENT REUSE OF THE SAME PROMPT - PAUSE #2
+    }    
     // create a Random object for selecting the index #
     Random _randomIndexSelector = new Random();
     // randomly select a number to represent a list index
-    int indexSelector = _randomIndexSelector.Next(0, count);    
+    int indexSelector = _randomIndexSelector.Next(0, count); 
+    // PREVENT REUSE OF THE SAME PROMPT - RESTART #2 & END
+    // add the selected prompt to a new list
+    _usedPrompts.Add(_promptList[indexSelector]); 
     // return the prompt with that index from the _promptList
     return _promptList[indexSelector];
   } 
@@ -77,12 +110,47 @@ public class ReflectionActivity : Activity
   // method to get a random question
   public string RandomQuestion()
   {
+    // PREVENT REUSE OF THE SAME QUESTON - START
+    // if the _usedQuestions list is not empty
+    if (_usedQuestions.Count > 0)
+    {
+      // cycle through the list
+      foreach (string usedquestion in _usedQuestions)
+      { 
+        // DEBUG CODE: Console.WriteLine($"USED-Q: {usedquestion}");
+        // if the question exists in the _usedQuestions list       
+        if (_questionList.Contains(usedquestion))
+        {
+          // remove it from the _questionList 
+          _questionList.Remove(usedquestion);
+          // DEBUG CODE: foreach (string question in _questionList)
+          // {
+          //   Console.WriteLine($"Q-LIST: {question}");
+          // }
+        }        
+      }
+    // PREVENT REUSE OF THE SAME QUESTION - PAUSE #1
+    } 
+    // DEBUG CODE: else{Console.WriteLine("The used question list is empty.");}       
     // set a variable to hold the _questionList count
     int count = _questionList.Count;
+    // PREVENT REUSE OF THE SAME QUESTION - RESTART #1
+    // if the _questionList is empty
+    if (count == 0)
+    {
+      // add the contents of the _usedQuestions list to the _questionList
+      _questionList.AddRange(_usedQuestions);
+      // empty the contents of the _usedQuestions list
+      _usedQuestions.Clear();
+    // PREVENT REUSE OF THE SAME QUESTION - PAUSE #2
+    }    
     // create a Random object for selecting the index #
     Random _randomIndexSelector = new Random();
     // randomly select a number to represent a list index
-    int indexSelector = _randomIndexSelector.Next(0, count);    
+    int indexSelector = _randomIndexSelector.Next(0, count);
+    // PREVENT REUSE OF THE SAME QUESTION - RESTART #2 & END
+    // add the selected question to a new list
+    _usedQuestions.Add(_questionList[indexSelector]);    
     // return the prompt with that index
     return _questionList [indexSelector];
   } 
