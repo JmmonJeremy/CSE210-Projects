@@ -115,8 +115,8 @@ public class Activity
     // display a message on the console telling the 
     // user to prepare to begin the activity
     Console.WriteLine($"Prepare to start your {_activityName} in 6 seconds. . .");
-    // pause for 6 seconds and display a spinner while doing so
-    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
+    // pause for 6 seconds and display a spinner while doing so CHANGED FROM 6 TO 1 FOR DEBUGGING
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 1);
     // add an empty line after preparing the user to start
     Console.WriteLine();
   }
@@ -126,8 +126,8 @@ public class Activity
   {
     // congratualate the user on completing the activity with an empty line before it
     Console.WriteLine("\nWell done!!!");
-    // pause for 6 seconds and display a spinner while doing so
-    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
+    // pause for 6 seconds and display a spinner while doing so CHANGED FROM 6 TO 1 FOR DEBUGGING
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 1);
   }
 
   // method to display the closing message
@@ -163,14 +163,31 @@ public class Activity
     Console.WriteLine("\nTimes up!");
     // change the type color back to its original settings
     Console.ResetColor();
-    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.console.beep?view=net-7.0
+    // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.console.beep?view=net-7.0 & https://learn.microsoft.com/en-us/dotnet/api/system.platformnotsupportedexception?view=net-7.0 & https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/exception-handling-statements
     // play a tone to let the user know the time is expired
-    Console.Beep(262,350);
-    Console.Beep(262,350);
-    Console.Beep(262,350);
-    Console.Beep(220,1000);
+    // use try to catch exception for OS other than Windows
+    try
+    {
+      // do a melodic "dun, dun, dun, lower duuuuh"
+      Console.Beep(262,350);
+      Console.Beep(262,350);
+      Console.Beep(262,350);
+      Console.Beep(220,1000);
+    }
+    // catch the exception if OS is not Windows
+    catch (PlatformNotSupportedException e)
+    {
+      // show the exception
+      Console.WriteLine(e.Message);
+      // explain what I will do instead
+      Console.WriteLine("Since your operating system is not Window four beeps of the same tone and length is all I could give you.");
+      // give four beep sounds
+      Console.Beep();
+      Console.Beep();
+      Console.Beep();
+      Console.Beep();
+    }   
   }
-
 
   // method to run the activity for the designated amount of time
   public void RunActivity(Action method)

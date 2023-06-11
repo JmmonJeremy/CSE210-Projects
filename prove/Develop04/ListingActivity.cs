@@ -9,7 +9,11 @@ public class ListingActivity : Activity
   // variable to hold the activity name
   private string _listingName = "Listing Activity";
   // variable to hold the activity description
-  private string _listingDescription = "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can.";   
+  private string _listingDescription = "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can."; 
+  // variable to hold the file for the _subjectList storage
+  private string _subjectsFile = "subjectList.txt";
+  // variable to hold the file for the _usedSubjects storage
+  private string _usedSubjectsFile = "usedSubjects.txt";  
   // list to hold the list of listing subjects for the activity
   private List<string> _subjectList = new List<string>()
   {
@@ -147,13 +151,18 @@ public class ListingActivity : Activity
 
   // method to run everyting for the Listing Activity
   public string RunAllListing()
-  {    
+  {  
+    // create object of FileListRelationship class to run its methods
+    FileListRelationship convert = new FileListRelationship();  
     // create listing object so the correct activity name and description are passed in
     // as well as all of the other things for the intro and the boolean
     ListingActivity listing = new ListingActivity(_listingName, _listingDescription);
     // run the opening with the correct activity name & descriptiorn from using
     // the object while running this inherited method from the Activity class
     listing.Opening();
+    // convert the _subjectsFile & _usedSubjectsFile to their matching lists
+    convert.FileToList(_subjectsFile, _subjectList); 
+    convert.FileToList(_usedSubjectsFile, _usedSubjects);
     // run prepare with the correct activity name from using the object 
     // while running this inherited method from the Activity class
     listing.PrepareActivity(); 
@@ -164,6 +173,9 @@ public class ListingActivity : Activity
     listing.RunActivity(ListingExercises);
     // run this class specific DisplayCount method
     DisplayCount();
+    // save the _subjectList & _usedSubjects to a file to recover with next start up    
+    convert.ListToFile(_subjectList, _subjectsFile); 
+    convert.ListToFile(_usedSubjects, _usedSubjectsFile);
     // run end activity message in this inherited method from the Activity class
     EndActivity();
     // run the closing with the correct activity name with the object while running this inherited

@@ -11,14 +11,7 @@ public class Menu
   string _choice = "run program";
 
 // ### CONSTRUCTORS ######################################### //
-  // constructor 
-  public Menu()
-  {
-    // set the value of the _choice variable to begin running the while loop
-    _choice = "run program";
-    
-  }
-
+  // no constructors needed
 // ### METHODS ############################################## //
   // method to present the menu to the user 
   // and to return the user's choice
