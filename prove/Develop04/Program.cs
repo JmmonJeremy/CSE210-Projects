@@ -27,6 +27,8 @@ generic beep that was available.
 7) I made it so that no prompt would be used again until they have been used once during a session.
 8) I then went a step further and made it so that no prompt would be used again until they had all been used even if you start the program over
 again, by saving the lists to a file and updating the lists from that file when the program is run again.
+9) I added an option after the selected activity has run for the user to end the program by typing in the key word "quit" or go to the main 
+menu by hitting enter.
 */
 
 class Program
