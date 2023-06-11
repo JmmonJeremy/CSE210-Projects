@@ -188,8 +188,8 @@ public class ReflectionActivity : Activity
     Console.WriteLine("\nNow contemplate each of the following questions in relation to your response:");
     // prepare them to begin
     Console.WriteLine("Starting in 10 seconds. . . "); 
-    // display a count and clock spinner for a countdown CHANGED FROM 10 TO 1 FOR DEBUGGING
-    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 1); 
+    // display a count and clock spinner for a countdown CHANGE FROM 10 TO 1 FOR DEBUGGING
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 10); 
     // clear the screen for the beginning of the reflection activity
     Console.Clear();
   }
@@ -210,8 +210,8 @@ public class ReflectionActivity : Activity
     SetSpinnerSymbols(true, reflectionSymbols);    
     // display the mindfulness prompt
     Console.WriteLine($"{RandomQuestion()}");
-    // display a count and clock spinner for a countdown CHANGED FROM 15 TO 1 FOR DEBUGGING
-    Spinner(ConsoleColor.Green, ConsoleColor.DarkGreen, 1); 
+    // display a count and clock spinner for a countdown CHANGE FROM 15 TO 1 FOR DEBUGGING
+    Spinner(ConsoleColor.Green, ConsoleColor.DarkGreen, 15); 
     // set the _spinnerSymbols list to the original contents    
     SetSpinnerSymbols(true, clonedList);    
   }

@@ -115,8 +115,8 @@ public class Activity
     // display a message on the console telling the 
     // user to prepare to begin the activity
     Console.WriteLine($"Prepare to start your {_activityName} in 6 seconds. . .");
-    // pause for 6 seconds and display a spinner while doing so CHANGED FROM 6 TO 1 FOR DEBUGGING
-    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 1);
+    // pause for 6 seconds and display a spinner while doing so CHANGE FROM 6 TO 1 FOR DEBUGGING
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
     // add an empty line after preparing the user to start
     Console.WriteLine();
   }
@@ -126,8 +126,8 @@ public class Activity
   {
     // congratualate the user on completing the activity with an empty line before it
     Console.WriteLine("\nWell done!!!");
-    // pause for 6 seconds and display a spinner while doing so CHANGED FROM 6 TO 1 FOR DEBUGGING
-    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 1);
+    // pause for 6 seconds and display a spinner while doing so CHANGE FROM 6 TO 1 FOR DEBUGGING
+    Spinner(ConsoleColor.Cyan, ConsoleColor.DarkBlue, 6);
   }
 
   // method to display the closing message
