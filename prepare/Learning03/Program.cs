@@ -6,8 +6,8 @@ class Program
     {
         // set text color to yellow
         Console.ForegroundColor = ConsoleColor.Yellow;
-        // say hello world
-        Console.WriteLine("Hello Learning03 World!\n");
+        // welcomes C# learners with an empty line afterwards
+        Console.WriteLine("Welcome to the Learning03 demonstration C# learners!\n");
         // reset text color to original settings
         Console.ResetColor();
 

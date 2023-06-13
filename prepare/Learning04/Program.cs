@@ -9,7 +9,7 @@ class Program
     static void Main(string[] args)
     {
         // welcomes C# learners with an empty line afterwards
-        Console.WriteLine("Hello Learning04 World!\n");
+        Console.WriteLine("Welcome to the Learning04 demonstration C# learners!\n");
 
         // testing the Assignment base class
         Assignment assignment = new Assignment("Samuel Bennett", "Multiplication");
