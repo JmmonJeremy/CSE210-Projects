@@ -7,8 +7,8 @@ using System.IO;
 public class Menu
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // variable 
-  string _choice = "run program";
+  // variable to hold the user's choice and to run the while loop 
+  private string _choice = "run program";
 
 // ### CONSTRUCTORS ######################################### //
   // no constructors needed

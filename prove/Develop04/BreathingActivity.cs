@@ -11,9 +11,9 @@ public class BreathingActivity : Activity
   // variable to hold the activity description
   private string _breathingDescription = "relax by guiding you through sets of timed in breaths and out breaths.";
   // variable to hold the in breath time in seconds
-  int _inhaleTime;
+  private int _inhaleTime;
   // variable to hold the out breath time in seconds
-  int _exhaleTime; 
+  private int _exhaleTime; 
 
 // ### CONSTRUCTORS ######################################### //
   // constructor to be able to use the RunAllBreathing method
