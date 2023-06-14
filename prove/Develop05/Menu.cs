@@ -123,9 +123,7 @@ public class Menu
       }
        // if they chose to list their goals
       if (_choice == "2")
-      {
-        // get the goal list
-
+      {        
         // display the user's list of goals to them
         goal.ListGoals();        
       }
