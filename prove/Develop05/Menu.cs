@@ -110,6 +110,7 @@ public class Menu
       {
         // determine the type of goal to create
         string goalType = GoalTypeMenu();
+        // if the goal type is a one-off
         if (goalType == "1")
         {
           // set the values for the _goalTitle & _description
@@ -119,7 +120,18 @@ public class Menu
           OneOffGoal oneOff = new OneOffGoal(goal.GetGoalTitle(), goal.GetDescription());
           // load the goal into the list
           goal.SetGoalList(oneOff);                    
-        }       
+        } 
+        // if the goal type is a habit
+        if (goalType == "2")
+        {
+          // set the values for the _goalTitle & _description
+          goal.SetGoalTitle();
+          goal.SetDescription();
+          // create a HabitGoal
+          HabitGoal habit = new HabitGoal(goal.GetGoalTitle(), goal.GetDescription());
+          // load the goal into the list
+          goal.SetGoalList(habit); 
+        }      
       }
        // if they chose to list their goals
       if (_choice == "2")
