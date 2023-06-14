@@ -55,6 +55,7 @@ public class ListingActivity : Activity
   {
     // nothing needed in here    
   }
+  
   // constructor to set up for the Listing Activity
   public ListingActivity(string activityName, string description) : base (activityName, description)
   {

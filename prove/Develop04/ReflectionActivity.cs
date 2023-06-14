@@ -66,6 +66,7 @@ public class ReflectionActivity : Activity
   {
     // nothing needed in here    
   }
+  
   // constructor to set up for the Reflectoin Activity
   public ReflectionActivity(string activityName, string description) : base (activityName, description)
   {

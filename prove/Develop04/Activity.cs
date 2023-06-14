@@ -54,6 +54,7 @@ public class Activity
   {
     // nothing needed in here 
   }
+  
   // constructor to set up the activity
   public Activity(string activityName, string description) 
   {  

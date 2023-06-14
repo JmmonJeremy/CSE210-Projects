@@ -21,6 +21,7 @@ public class BreathingActivity : Activity
   {
     // nothing needed in here    
   }
+  
   // constructor to set up for the Breathing Activity
   public BreathingActivity(string activityName, string description) : base (activityName, description)
     {
