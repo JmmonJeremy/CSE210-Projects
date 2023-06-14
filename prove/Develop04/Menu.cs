@@ -41,7 +41,7 @@ public class Menu
     {
       // inform the user their entry was invalid, tell them what is valid, and to try again.
       Console.WriteLine($"You entered '{selection}', which is not recognized as a valid choice.");
-      Console.WriteLine("Your entry must be a 1, 2, 3, or 4 to be a valid choice.");
+      Console.WriteLine("Your entry must be a 1, 2, 3, 4 or 5 to be a valid choice.");
       Console.WriteLine("Please try again.\n");
     }   
     }
