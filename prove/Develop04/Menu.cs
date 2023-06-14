@@ -23,27 +23,27 @@ public class Menu
     // create a loop to run until a valid choice is entered
     while (selection != "1" && selection != "2" && selection != "3" && selection != "4" && selection != "5")
     {
-    // display the menu and directions
-    Console.WriteLine("Select an option by entering its number:");
-    Console.WriteLine(" 1 - Start a timed activity");
-    Console.WriteLine(" 2 - Start a breathing activity");
-    Console.WriteLine(" 3 - Start a reflecting activity");
-    Console.WriteLine(" 4 - Start a listing activity");
-    Console.WriteLine(" 5 - Quit");
-    // show the user where to make their entry
-    Console.Write("Selection: ");
-    // store the entry in the selection variable
-    selection = Console.ReadLine();
-    // add a space after the menu
-    Console.WriteLine();
-    // if the user didn't enter a valid choice
-    if (selection != "1" && selection != "2" && selection != "3" && selection != "4" && selection != "5")
-    {
-      // inform the user their entry was invalid, tell them what is valid, and to try again.
-      Console.WriteLine($"You entered '{selection}', which is not recognized as a valid choice.");
-      Console.WriteLine("Your entry must be a 1, 2, 3, 4 or 5 to be a valid choice.");
-      Console.WriteLine("Please try again.\n");
-    }   
+      // display the menu and directions
+      Console.WriteLine("Select an option by entering its number:");
+      Console.WriteLine(" 1 - Start a timed activity");
+      Console.WriteLine(" 2 - Start a breathing activity");
+      Console.WriteLine(" 3 - Start a reflecting activity");
+      Console.WriteLine(" 4 - Start a listing activity");
+      Console.WriteLine(" 5 - Quit");
+      // show the user where to make their entry
+      Console.Write("Selection: ");
+      // store the entry in the selection variable
+      selection = Console.ReadLine();
+      // add a space after the menu
+      Console.WriteLine();
+      // if the user didn't enter a valid choice
+      if (selection != "1" && selection != "2" && selection != "3" && selection != "4" && selection != "5")
+      {
+        // inform the user their entry was invalid, tell them what is valid, and to try again.
+        Console.WriteLine($"You entered '{selection}', which is not recognized as a valid choice.");
+        Console.WriteLine("Your entry must be a 1, 2, 3, 4 or 5 to be a valid choice.");
+        Console.WriteLine("Please try again.\n");
+      }   
     }
     // return the user's selection
     return selection;
