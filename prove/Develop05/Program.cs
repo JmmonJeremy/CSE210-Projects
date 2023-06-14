@@ -5,6 +5,10 @@ class Program
     static void Main(string[] args)
     {
         // testing code
-        Console.WriteLine("Hello Develop05 World!");
+        
+        // create a menu object to run its RunChoices method
+        Menu menu = new Menu();
+        // run the RunChoices metod until the user quits
+        menu.RunChoices();
     }
 }
