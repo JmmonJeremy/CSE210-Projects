@@ -116,7 +116,7 @@ public class Menu
           // set the values for the _goalTitle & _description
           goal.SetGoalTitle();
           goal.SetDescription();
-          // create a OneOffGoal
+          // create a OneOffGoal object
           OneOffGoal oneOff = new OneOffGoal(goal.GetGoalTitle(), goal.GetDescription());
           // load the goal into the list
           goal.SetGoalList(oneOff);                    
@@ -127,11 +127,25 @@ public class Menu
           // set the values for the _goalTitle & _description
           goal.SetGoalTitle();
           goal.SetDescription();
-          // create a HabitGoal
+          // create a HabitGoal object
           HabitGoal habit = new HabitGoal(goal.GetGoalTitle(), goal.GetDescription());
           // load the goal into the list
           goal.SetGoalList(habit); 
-        }      
+        }
+        // if the goal type is a accrual
+        if (goalType == "3")
+        {
+          // set the values for the _goalTitle & _description
+          goal.SetGoalTitle();
+          goal.SetDescription();
+          // create an AccrualGoal object
+          AccrualGoal accrual = new AccrualGoal(goal.GetGoalTitle(), goal.GetDescription());
+          // set the values for the _accrualNumber & _bonusPoints
+          accrual.SetAccrualNumber();
+          accrual.SetBonusPoints();
+          // load the goal into the list
+          goal.SetGoalList(accrual); 
+        }        
       }
        // if they chose to list their goals
       if (_choice == "2")
