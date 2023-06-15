@@ -31,16 +31,13 @@ public class Goal
     _goalTitle = goalTitle;
     // set the _description to what is passed in
     _description = description;    
-    // have the user set the points associated with this goal
-    Console.Write("How many points would you like this goal to be worth? ");
-    // change the color of the text to green
-    Console.ForegroundColor = ConsoleColor.Green;
-    // save the string response in a variable
-    string points = Console.ReadLine();
-    // reset the text color to the original settings
-    Console.ResetColor();
-    // convert string to int and record the point value in the _point variable
-    _points = int.Parse(points); 
+    // create user prompt for setting the points associated with this goal & save it in a variable
+    string pointsPrompt = "How many points would you like this goal to be worth? ";
+    // create a validator object to run its method with
+    // and pass the prompt question into the object
+    Validator validator = new Validator(pointsPrompt);    
+    // set the _points equal to the int number the StringNumberCheck method returns
+    _points = validator.StringNumberCheck();   
     // set _earnedPoints as 0
     _earnedPoints = 0;
   }

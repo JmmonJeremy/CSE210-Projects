@@ -31,31 +31,25 @@ public class AccrualGoal : Goal
   // method to set the _accrualNumber variable
   public void SetAccrualNumber()
   {    
-    // prompt the user to enter the accrual number
-    Console.Write("Please enter the number of times the goal needs to be done to reach the goal: ");
-    // change the color of the text to green
-    Console.ForegroundColor = ConsoleColor.Green;    
-    // save the string response in a variable
-    string accrualNumber = Console.ReadLine();    
-    // convert string to int and record the accrual number value in the _accrualNumber variable
-    _accrualNumber = int.Parse(accrualNumber);    
-    // reset the text color to the original settings
-    Console.ResetColor();
+    // create user prompt for setting the accrual number associated with this goal & save it in a variable
+    string accrualNumberPrompt = "Please enter the number of times the goal needs to be done to reach the goal: ";
+    // create a validator object to run its method with
+    // and pass the prompt question into the object
+    Validator validator = new Validator(accrualNumberPrompt);    
+    // set the _accrualNumber equal to the int number the StringNumberCheck method returns
+    _accrualNumber = validator.StringNumberCheck();     
   }
 
   // method to set the _bonusPoints variable
   public void SetBonusPoints()
-  {    
-    // prompt the user to enter the bonus points
-    Console.Write("What is the bonus point amount for reaching the goal: ");
-    // change the color of the text to green
-    Console.ForegroundColor = ConsoleColor.Green;    
-    // save the string response in a variable
-    string bonusPoints = Console.ReadLine();    
-    // convert string to int and record the bonus points value in the _bonusPoints variable
-    _bonusPoints = int.Parse(bonusPoints);    
-    // reset the text color to the original settings
-    Console.ResetColor();
+  {      
+    // create user prompt for setting the bonus points associated with this goal & save it in a variable
+    string bonusPointsPrompt = "What is the bonus point amount for reaching the goal: ";
+    // create a validator object to run its method with
+    // and pass the prompt question into the object
+    Validator validator = new Validator(bonusPointsPrompt);    
+    // set the _bonusPoints equal to the int number the StringNumberCheck method returns
+    _bonusPoints = validator.StringNumberCheck();    
   }
 
   // method to list out a goal
