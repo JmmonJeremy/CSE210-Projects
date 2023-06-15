@@ -1,0 +1,4 @@
+0
+OneOffGoal:mow~|~mow the front and back lawn~|~100~|~False
+HabitGoal:study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100
+AccrualGoal:list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~0

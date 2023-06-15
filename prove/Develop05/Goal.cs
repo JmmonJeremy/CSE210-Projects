@@ -195,19 +195,23 @@ public class Goal
     // create a validator object to run its method with
     // and pass the prompt question into the object
     Validator validator = new Validator(filenamePrompt);    
-    // set the _filename equal to the string the ConfirmEntry method returns
-    _filename = validator.ConfirmEntry();
-    // save this information to the textfile
-    // points earned
-    Console.WriteLine(_earnedPoints);
-    // OneOffGoal's: goal class, goal title, description, point value, done: true or false
-    // HabitGoal's : goal class, goal title, description, point value
-    // AccrualGoal's: goal class, goal title, description, point value, bonus point value, accrual number, times done
-    foreach (Goal goal in _goalList)
-    {
-      
-      // list the goal for the user to see
-      Console.WriteLine($"{goal.CreateGoalText()}");
+    // set the _filename equal to the string the ConfirmEntry method returns with .txt on the end
+    _filename = validator.ConfirmEntry() + ".txt";
+    // create a StreamWriter object to be able to write a textfile
+    using (StreamWriter outputFile = new StreamWriter(_filename))
+    {  
+      // save this information to the textfile
+      // points earned
+      outputFile.WriteLine(_earnedPoints);
+      // OneOffGoal's: goal class, goal title, description, point value, done: true or false
+      // HabitGoal's : goal class, goal title, description, point value
+      // AccrualGoal's: goal class, goal title, description, point value, bonus point value, accrual number, times done
+      foreach (Goal goal in _goalList)
+      {
+        
+        // list the goal for the user to see
+        outputFile.WriteLine($"{goal.CreateGoalText()}");
+      }    
     }
   }
 }
