@@ -16,6 +16,8 @@ public class Goal
   private int _earnedPoints;
   // variable to hold a list of goals
   private List<Goal> _goalList = new List<Goal>();
+  // varialbe to hold the filename for saving goals to a textfile
+  private string _filename;
 
 // ### CONSTRUCTORS ######################################### //
 // constructor to be able to use the Goal methods
@@ -159,5 +161,17 @@ public class Goal
       // reset the text color to original settings
       Console.ResetColor();
     }
+  }
+
+  // method to save goals to a text file
+  public void SaveGoals()
+  {
+    // ask the user for the filename to save the goals to & save the prompt to a variable
+    string filenamePrompt = "Please enter a filename to save the goals under: ";
+    // create a validator object to run its method with
+    // and pass the prompt question into the object
+    Validator validator = new Validator(filenamePrompt);    
+    // set the _filename equal to the string the ConfirmEntry method returns
+    _filename = validator.ConfirmEntry(); 
   }
 }
