@@ -57,17 +57,27 @@ public class Goal
     // change the color of the text to yellow
     Console.ForegroundColor = ConsoleColor.Yellow;
     // give the user a lead in statement for how many points they have with empty line before
-    Console.Write("\nYour earned points score is: ");
+    Console.Write("\nYour earned points score is:");
+    // change the color of the text to dark blue
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    // display special characters before the point total
+    Console.Write($" {Convert.ToChar(183)}:{Convert.ToChar(183)}  ");
     // change the text color back to the original settings
     Console.ResetColor();
     // change the background color for the space showing the amount of points
     Console.BackgroundColor = ConsoleColor.DarkBlue;
     // display points
-    Console.WriteLine($" {_earnedPoints} "); 
+    Console.Write($" {_earnedPoints} ");
     // reset the background color to original settings
     Console.ResetColor();
-    // add an empty space after the statement
-    Console.WriteLine(); 
+    // set text color to dark blue to put in the symbols
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    // display special characters after the point total
+    Console.Write($"  {Convert.ToChar(183)}:{Convert.ToChar(183)}");
+    // reset the text color to original settings
+    Console.ResetColor();
+    // add a new line and an empty space after the statement
+    Console.WriteLine("\n"); 
   }
 
   // method to set the goal title
