@@ -82,15 +82,7 @@ public class Goal
 
   // method to se the goal description
   public void SetDescription()
-  {
-    // // prompt the user to enter the goal description
-    // Console.Write("Please enter a short description of your goal: ");
-    // // change the color of the text to green
-    // Console.ForegroundColor = ConsoleColor.Green;
-    // // store the description in the _descriptoin variable
-    // _description = Console.ReadLine();
-    // // reset the text color to the original settings
-    // Console.ResetColor();
+  {   
     // create user prompt for setting the goal description associated with this goal & save it in a variable
     string descriptionPrompt = "Please enter a short description of your goal: ";
     // create a validator object to run its method with
