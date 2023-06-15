@@ -15,16 +15,17 @@ public class AccrualGoal : Goal
 
 // ### CONSTRUCTORS ######################################### //
   // constructor to be able to use the AccrualGoal methods
+  // and to return used goals saved to a textfile
   public AccrualGoal()
-  {
-    // set the _completedCount to 0
-    _completedCount = 0;
+  {    
     // nothing needed in here 
   }
 
   // constructor to pass in the goal title and description from the user
   public AccrualGoal(string goalTitle, string description) : base(goalTitle, description)
   {
+    // set the completed count to 0 to start with
+    _completedCount = 0;
     // this is all done in the base class
   }
 // ### METHODS ############################################## //
@@ -59,5 +60,23 @@ public class AccrualGoal : Goal
     string listedGoal = $"{count}) [ ] {GetGoalTitle()} ({GetDescription()}) {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  Have done: {_completedCount}/{_accrualNumber}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  <{Convert.ToChar(171)}{Convert.ToChar(127)}{Convert.ToChar(187)}>";
     // return the listed goal string
     return listedGoal; 
-  }  
+  } 
+
+  // method to get the class name
+  public override string GetGoalType()
+  {
+    // create an object of the class
+    AccrualGoal accrual = new AccrualGoal();
+    // return type as a string
+    return accrual.GetType().ToString();
+  } 
+
+  // method to create & return an accrual goal string
+  public override string CreateGoalText()
+  {           
+    // list the goal for the user to see
+    string goalText = $"{GetGoalType()}:{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{_bonusPoints}~|~{_accrualNumber}~|~{_completedCount}";
+    // return the listed goal string
+    return goalText; 
+  }
 }

@@ -156,7 +156,7 @@ public class Menu
       // if they chose to save their goals
       if (_choice == "3")
       {
-        
+        goal.SaveGoals();
       }
       // if they chose to load their goals
       if (_choice == "4")

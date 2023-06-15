@@ -45,7 +45,13 @@ public class Goal
   }
 
 // ### METHODS ############################################## //
-  // method to create new goals
+  // getter method for the _points variable
+  public int GetPoints()
+  {
+    return _points;
+  }
+
+  // method to display the points a user has earned
   public void DisplayPoints()
   { 
     // change the color of the text to yellow
@@ -125,7 +131,7 @@ public class Goal
   }
 
   // method to list all goals
-  public virtual void ListGoals()
+  public void ListGoals()
   {    
     // change the color of the text to yellow
     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -163,6 +169,24 @@ public class Goal
     }
   }
 
+  // method to get the class name
+  public virtual string GetGoalType()
+  {
+    // create an object of the class
+    Goal goal = new Goal();
+    // return type as a string
+    return goal.GetType().ToString();
+  }
+
+  // method to create & return a goal string
+  public virtual string CreateGoalText()
+  {           
+    // list the goal for the user to see
+    string goalText = $"{GetGoalType()}:{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}";
+    // return the listed goal string
+    return goalText; 
+  }
+
   // method to save goals to a text file
   public void SaveGoals()
   {
@@ -172,6 +196,18 @@ public class Goal
     // and pass the prompt question into the object
     Validator validator = new Validator(filenamePrompt);    
     // set the _filename equal to the string the ConfirmEntry method returns
-    _filename = validator.ConfirmEntry(); 
+    _filename = validator.ConfirmEntry();
+    // save this information to the textfile
+    // points earned
+    Console.WriteLine(_earnedPoints);
+    // OneOffGoal's: goal class, goal title, description, point value, done: true or false
+    // HabitGoal's : goal class, goal title, description, point value
+    // AccrualGoal's: goal class, goal title, description, point value, bonus point value, accrual number, times done
+    foreach (Goal goal in _goalList)
+    {
+      
+      // list the goal for the user to see
+      Console.WriteLine($"{goal.CreateGoalText()}");
+    }
   }
 }

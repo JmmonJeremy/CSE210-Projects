@@ -11,6 +11,7 @@ public class HabitGoal : Goal
 
 // ### CONSTRUCTORS ######################################### //
   // constructor to be able to use the HabitGoal methods
+  // and to return used goals saved to a textfile
   public HabitGoal()
   {
     // nothing needed in here 
@@ -22,10 +23,13 @@ public class HabitGoal : Goal
     // this is all done in the base class
   }
 // ### METHODS ############################################## //
-  // method
-  public void CreateGoal()
-  {     
-
+  // method to get the class name
+  public override string GetGoalType()
+  {
+    // create an object of the class
+    HabitGoal habit = new HabitGoal();
+    // return type as a string
+    return habit.GetType().ToString();
   }
 
 }
