@@ -112,9 +112,24 @@ public class Goal
     // Console.WriteLine($"The list count after adding the object is: {_goalList.Count}");
   }
 
-  // method to list all goals
-  public void ListGoals()
+  // method to return the _goalList
+  public List<Goal> GetGoalList()
   {
+    return _goalList;
+  }
+
+  // method to list out a goal
+  public virtual string CreateListedGoal(int count)
+  {           
+    // list the goal for the user to see
+    string listedGoal = $"{count}) [ ] {GetGoalTitle()} ({GetDescription()})";
+    // return the listed goal string
+    return listedGoal; 
+  }
+
+  // method to list all goals
+  public virtual void ListGoals()
+  {    
     // change the color of the text to yellow
     Console.ForegroundColor = ConsoleColor.Yellow;
     // give an introductory statement
@@ -126,7 +141,7 @@ public class Goal
     // check to make sure the list isn't empty
     if (_goalList.Count > 0)
     {
-      // change the color of the text to yellow
+      // change the color of the text to blue
       Console.ForegroundColor = ConsoleColor.Cyan;
       // list goals for the user to see
       foreach (Goal goal in _goalList)
@@ -134,7 +149,7 @@ public class Goal
         // increment the count by 1 for each loop
         count ++;
         // list the goal for the user to see
-        Console.WriteLine($"{count}) [ ] {_goalTitle} ({_description})");
+        Console.WriteLine($"{goal.CreateListedGoal(count)}");
       }
       // reset the text color to the original settings
       Console.ResetColor();
