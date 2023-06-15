@@ -27,8 +27,6 @@ public class Validator
   }
 
 // ### METHODS ############################################## //
-  // method to present the menu to the user 
-  // and to return the user's choice
   // method to insure the input was a number
   public int StringNumberCheck()
   {
