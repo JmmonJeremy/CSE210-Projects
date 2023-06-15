@@ -6,13 +6,15 @@ using System.IO;
 public class Validator
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // boolean to run the StringNumberCheck
+  // boolean to run the StringNumberCheck method's while loop
   private bool _isNumber;
-  // variable to start the validation loop in the StringNumberCheck
+  // variable to start the validation while loop in the StringNumberCheck
   // and is then used to hold the string number entered by the user converted to an int
   private int _number;
   // variable to hold the direction for input statement
   private string _inputDirection;
+  // variable to run the ConfirmAnswer method's while loop
+  private string _confirm;
 
 // ### CONSTRUCTORS ######################################### //
   // constructor set up for the StringNumberCheck
@@ -24,9 +26,43 @@ public class Validator
     _number = 0;
     // set the _inputDirection equal to the inputDirection passed in
     _inputDirection = inputDirection;
+    // set the _confirm variable to "no" run the while loop
+    _confirm = "no";
   }
 
-// ### METHODS ############################################## //  
+// ### METHODS ############################################## // 
+  // method to confirm the user entered what they wanted to
+  public string ConfirmEntry()
+  {   
+    // create a variable to hold and return the user's entry
+    string entry = "none"; 
+    // run a while loop until the user is confirms their entry with "yes"
+    while (_confirm != "yes") 
+    {
+      // gives user direction on what to enter
+      Console.Write(_inputDirection);
+      // change the color of the text to green so the answer is typed in green
+      Console.ForegroundColor = ConsoleColor.Green;
+      // store the entry to the direction for input
+      entry = Console.ReadLine();
+      // reset the text color to the original settings
+      Console.ResetColor();
+      // tell the user what they entered
+      Console.Write("You entered: ");
+      // change the color of the text to green
+      Console.ForegroundColor = ConsoleColor.Green;
+      // show the user's entry
+      Console.WriteLine($"{entry}");
+      // reset the text color to the original settings
+      Console.ResetColor();
+      // tell the user how to confirm or reject their entry
+      Console.Write("Is this what you want to enter (yes or no)? ");
+      // record their answer to stop or continue running the while loop
+      _confirm = Console.ReadLine();
+    }
+    return entry;
+  }
+
   // method to insure the input was a number
   public int StringNumberCheck()
   {
@@ -49,8 +85,13 @@ public class Validator
         // if it is not a number or is less than 1 have them enter again
         if (!_isNumber || _number < 1)
         {
-          Console.WriteLine("\nYour entry was not a valid number, you must enter a number of 1 or greater.");
-          Console.WriteLine("Please try again by entering a valid number.\n");
+          // change the color of the text to green so the answer is typed in green
+          Console.ForegroundColor = ConsoleColor.Green;
+          Console.Write(answer); 
+          // reset the text color to the original settings
+          Console.ResetColor();
+          Console.WriteLine(" is not a valid number, you must enter a number of 1 or greater.");
+          Console.WriteLine("Please try again by entering a valid number.");
         }
       }
       // returns user's answer to direction variable

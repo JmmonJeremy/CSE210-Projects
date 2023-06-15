@@ -64,15 +64,14 @@ public class Goal
 
   // method to set the goal title
   public void SetGoalTitle()
-  {
-    // prompt the user to enter the goal title
-    Console.Write("What is the title for your goal? ");
-    // change the color of the text to green
-    Console.ForegroundColor = ConsoleColor.Green;
-    // store the answer in the _goalTitle variable
-    _goalTitle = Console.ReadLine();
-    // reset the text color to the original settings
-    Console.ResetColor();
+  {      
+    // create user prompt for setting the goal title associated with this goal & save it in a variable
+    string goalTitlePrompt = "What is the title for your goal? ";
+    // create a validator object to run its method with
+    // and pass the prompt question into the object
+    Validator validator = new Validator(goalTitlePrompt);    
+    // set the _goalTitle equal to the string the ConfirmEntry method returns
+    _goalTitle = validator.ConfirmEntry(); 
   }
 
   // method to get the goal title
@@ -84,14 +83,21 @@ public class Goal
   // method to se the goal description
   public void SetDescription()
   {
-    // prompt the user to enter the goal description
-    Console.Write("Please enter a short description of your goal: ");
-    // change the color of the text to green
-    Console.ForegroundColor = ConsoleColor.Green;
-    // store the description in the _descriptoin variable
-    _description = Console.ReadLine();
-    // reset the text color to the original settings
-    Console.ResetColor();
+    // // prompt the user to enter the goal description
+    // Console.Write("Please enter a short description of your goal: ");
+    // // change the color of the text to green
+    // Console.ForegroundColor = ConsoleColor.Green;
+    // // store the description in the _descriptoin variable
+    // _description = Console.ReadLine();
+    // // reset the text color to the original settings
+    // Console.ResetColor();
+    // create user prompt for setting the goal description associated with this goal & save it in a variable
+    string descriptionPrompt = "Please enter a short description of your goal: ";
+    // create a validator object to run its method with
+    // and pass the prompt question into the object
+    Validator validator = new Validator(descriptionPrompt);    
+    // set the _description equal to the string the ConfirmEntry method returns
+    _description = validator.ConfirmEntry(); 
   }
 
   // method to get the goal description
