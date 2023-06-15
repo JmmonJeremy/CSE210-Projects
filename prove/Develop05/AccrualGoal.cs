@@ -62,7 +62,7 @@ public class AccrualGoal : Goal
   public override string CreateListedGoal(int count)
   {           
     // list the goal for the user to see
-    string listedGoal = $"{count}) [ ] {GetGoalTitle()} ({GetDescription()}) {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} Have done: {_completedCount}/{_accrualNumber} |{Convert.ToChar(127)}{Convert.ToChar(176)}|";
+    string listedGoal = $"{count}) [ ] {GetGoalTitle()} ({GetDescription()}) {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  Have done: {_completedCount}/{_accrualNumber}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  <{Convert.ToChar(171)}{Convert.ToChar(127)}{Convert.ToChar(187)}>";
     // return the listed goal string
     return listedGoal; 
   }  
