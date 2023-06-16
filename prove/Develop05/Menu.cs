@@ -10,14 +10,15 @@ public class Menu
   // variable to hold the user's choice and to run the while loop
   private string _choice = "run program";
   // variable to hold the filename prompt
-  private string _filenamePrompt;
+  private string _filenamePrompt;  
 
 // ### CONSTRUCTORS ######################################### //
   // no constructors needed
 // ### METHODS ############################################## //
-  // method to present the menu to the user 
-  // and to return the user's choice
-  public string PresentMenu(Goal goal)
+  // method to present the menu to the user and to return the user's choice
+  // passing in an object to the object is not recreated after running a menu option
+  // this also allow the method to present the user's earned points with the object
+  public string PresentMainMenu(Goal goal)
   {     
     // create a string to hold the user's selection 
     // and to keep the while loop running until there's a valid entry
@@ -59,7 +60,7 @@ public class Menu
   }
 
   // menu for the user to select the type of goal
-  public string GoalTypeMenu()
+  public string PresentGoalTypeMenu()
   {
     Console.WriteLine("There are three types of goals you may create.");
     Console.WriteLine("Please select the type of goal you are creating from the list below.\n");
@@ -96,59 +97,68 @@ public class Menu
     return selection; 
   }
 
-  // method to run the choice the user selects
-  public void RunChoices()
+  // method to run the user's choice for the goal type 
+  public void RunGoalTypeChoices(Goal goal)
+  {  
+    // determine the type of goal to create
+    string goalType = PresentGoalTypeMenu();
+    // if the goal type is a one-off
+    if (goalType == "1")
+    {
+      // set the values for the _goalTitle & _description
+      goal.SetGoalTitle("userSets");
+      goal.SetDescription("userSets");
+      // create a OneOffGoal object
+      OneOffGoal oneOff = new OneOffGoal(goal.GetGoalTitle(), goal.GetDescription());
+      // load the goal into the list
+      goal.SetGoalList(oneOff);                    
+    } 
+    // if the goal type is a habit
+    if (goalType == "2")
+    {
+      // set the values for the _goalTitle & _description
+      goal.SetGoalTitle("userSets");
+      goal.SetDescription("userSets");
+      // create a HabitGoal object
+      HabitGoal habit = new HabitGoal(goal.GetGoalTitle(), goal.GetDescription());
+      // load the goal into the list
+      goal.SetGoalList(habit); 
+    }
+    // if the goal type is a accrual
+    if (goalType == "3")
+    {
+      // set the values for the _goalTitle & _description
+      goal.SetGoalTitle("userSets");
+      goal.SetDescription("userSets");
+      // create an AccrualGoal object
+      AccrualGoal accrual = new AccrualGoal(goal.GetGoalTitle(), goal.GetDescription());
+      // set the values for the _accrualNumber & _bonusPoints
+      accrual.SetAccrualNumber("userSets");
+      accrual.SetBonusPoints("userSets");
+      // load the goal into the list
+      goal.SetGoalList(accrual); 
+    }    
+  }
+
+  // method to run the user's choice from the main menu
+  public void RunMainChoices()
   {
     // create a Goal object to be used throughout running of this menu
     Goal goal = new Goal();
     while (_choice != "6")
-    {      
-      // use the PresentMenu method to display menu options and return
+    { 
+     
+      // use the PresentMainMenu method to display menu options and return
       // the user's choice - then store it in the while loop variable
-      _choice = PresentMenu(goal);
+      _choice = PresentMainMenu(goal);
       // run the options the user chose
       // if they chose a to create a new goal
       if (_choice == "1")
-      {
-        // determine the type of goal to create
-        string goalType = GoalTypeMenu();
-        // if the goal type is a one-off
-        if (goalType == "1")
-        {
-          // set the values for the _goalTitle & _description
-          goal.SetGoalTitle("userSets");
-          goal.SetDescription("userSets");
-          // create a OneOffGoal object
-          OneOffGoal oneOff = new OneOffGoal(goal.GetGoalTitle(), goal.GetDescription());
-          // load the goal into the list
-          goal.SetGoalList(oneOff);                    
-        } 
-        // if the goal type is a habit
-        if (goalType == "2")
-        {
-          // set the values for the _goalTitle & _description
-          goal.SetGoalTitle("userSets");
-          goal.SetDescription("userSets");
-          // create a HabitGoal object
-          HabitGoal habit = new HabitGoal(goal.GetGoalTitle(), goal.GetDescription());
-          // load the goal into the list
-          goal.SetGoalList(habit); 
-        }
-        // if the goal type is a accrual
-        if (goalType == "3")
-        {
-          // set the values for the _goalTitle & _description
-          goal.SetGoalTitle("userSets");
-          goal.SetDescription("userSets");
-          // create an AccrualGoal object
-          AccrualGoal accrual = new AccrualGoal(goal.GetGoalTitle(), goal.GetDescription());
-          // set the values for the _accrualNumber & _bonusPoints
-          accrual.SetAccrualNumber();
-          accrual.SetBonusPoints();
-          // load the goal into the list
-          goal.SetGoalList(accrual); 
-        }        
-      }
+      {  
+        // present the user with the goal type choices
+        RunGoalTypeChoices(goal);
+      }   
+      
        // if they chose to list their goals
       if (_choice == "2")
       {        
@@ -169,11 +179,11 @@ public class Menu
       if (_choice == "4")
       {        
         // set the _filenamePrompt to pass into the SetFileName method
-        _filenamePrompt = "What is the filename for the goals you would like to load? ";
+        _filenamePrompt = "What is the filename for the goals you would like to load? ";       
         // set the _filename from the Goal class
         goal.SetFilename(_filenamePrompt);
         // load the specified textfile as Goal objects into the _goalList
-        goal.LoadGoalList();        
+        goal.LoadGoalList();            
       } 
       // if they chose to record their completion of a goal
       if (_choice == "5")
