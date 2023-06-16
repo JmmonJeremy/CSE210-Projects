@@ -9,6 +9,8 @@ public class Menu
 // ### VARIABLE ATTRIBUTES ################################## // 
   // variable to hold the user's choice and to run the while loop
   private string _choice = "run program";
+  // variable to hold the filename prompt
+  private string _filenamePrompt;
 
 // ### CONSTRUCTORS ######################################### //
   // no constructors needed
@@ -114,8 +116,8 @@ public class Menu
         if (goalType == "1")
         {
           // set the values for the _goalTitle & _description
-          goal.SetGoalTitle();
-          goal.SetDescription();
+          goal.SetGoalTitle("userSets");
+          goal.SetDescription("userSets");
           // create a OneOffGoal object
           OneOffGoal oneOff = new OneOffGoal(goal.GetGoalTitle(), goal.GetDescription());
           // load the goal into the list
@@ -125,8 +127,8 @@ public class Menu
         if (goalType == "2")
         {
           // set the values for the _goalTitle & _description
-          goal.SetGoalTitle();
-          goal.SetDescription();
+          goal.SetGoalTitle("userSets");
+          goal.SetDescription("userSets");
           // create a HabitGoal object
           HabitGoal habit = new HabitGoal(goal.GetGoalTitle(), goal.GetDescription());
           // load the goal into the list
@@ -136,8 +138,8 @@ public class Menu
         if (goalType == "3")
         {
           // set the values for the _goalTitle & _description
-          goal.SetGoalTitle();
-          goal.SetDescription();
+          goal.SetGoalTitle("userSets");
+          goal.SetDescription("userSets");
           // create an AccrualGoal object
           AccrualGoal accrual = new AccrualGoal(goal.GetGoalTitle(), goal.GetDescription());
           // set the values for the _accrualNumber & _bonusPoints
@@ -156,12 +158,22 @@ public class Menu
       // if they chose to save their goals
       if (_choice == "3")
       {
+        // set the _filenamePrompt to pass into the SetFileName method
+        _filenamePrompt = "Please enter a filename to save the goals under: ";
+        // set the _filename from the Goal class
+        goal.SetFilename(_filenamePrompt);
+        // save the _earnedPoints and _goalList to a textfile
         goal.SaveGoals();
       }
       // if they chose to load their goals
       if (_choice == "4")
-      {
-        
+      {        
+        // set the _filenamePrompt to pass into the SetFileName method
+        _filenamePrompt = "What is the filename for the goals you would like to load? ";
+        // set the _filename from the Goal class
+        goal.SetFilename(_filenamePrompt);
+        // load the specified textfile as Goal objects into the _goalList
+        goal.LoadGoalList();        
       } 
       // if they chose to record their completion of a goal
       if (_choice == "5")
