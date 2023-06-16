@@ -90,7 +90,9 @@ public class Validator
           Console.Write(answer); 
           // reset the text color to the original settings
           Console.ResetColor();
+          // let the user know waht they entered isn't valid and what is
           Console.WriteLine(" is not a valid number, you must enter a number of 1 or greater.");
+          // ask user to try again
           Console.WriteLine("Please try again by entering a valid number.");
         }
       }
