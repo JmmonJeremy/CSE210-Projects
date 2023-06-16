@@ -6,9 +6,9 @@ class Program
     {
         // testing code
         
-        // create a menu object to run its RunChoices method
+        // create a menu object to run its RunMainChoices method
         Menu menu = new Menu();
-        // run the RunChoices metod until the user quits
-        menu.RunChoices();
+        // run the RunMainChoices metod until the user quits
+        menu.RunMainChoices();
     }
 }
