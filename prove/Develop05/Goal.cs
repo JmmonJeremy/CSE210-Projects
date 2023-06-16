@@ -150,8 +150,9 @@ public class Goal
   // method to add a goal to the list
   public void SetGoalList(Goal goal)
   {
-    // add the goal to the list
-    _goalList.Add(goal);
+    // reference source: https://www.techiedelight.com/add-item-at-the-beginning-of-a-list-in-csharp/
+    // add the goal to the beginning of the list
+    _goalList.Insert(0, goal);
     // // debuggin code - found that the object creation had to be outside the while loop
     // Console.WriteLine($"The list count after adding the object is: {_goalList.Count}");
   }
@@ -258,9 +259,9 @@ public class Goal
 
   // method to save goals to a text file
   public void SaveGoals()
-  {
+  {    
     // after the _filename is set load any previous Goal objects saved under this filename
-    LoadGoalList(); 
+    LoadGoalList();     
     // create a StreamWriter object to be able to write a textfile
     using (StreamWriter outputFile = new StreamWriter(_filename))
     {  
@@ -271,8 +272,7 @@ public class Goal
       // HabitGoal's : goal class, goal title, description, point value
       // AccrualGoal's: goal class, goal title, description, point value, bonus point value, accrual number, times done
       foreach (Goal goal in _goalList)
-      {
-        
+      {        
         // list the goal for the user to see
         outputFile.WriteLine($"{goal.CreateGoalText()}");
       }    
@@ -327,8 +327,12 @@ public class Goal
   // method to load _goalList with Goals from textfile
   public void LoadGoalList()
   {
+    // create a boolean to prevent loading the same goal multiple times
+    bool duplicate = false;
     // retrieve goals objects from textfile
-    SetRetrievedOjects();
+    SetRetrievedOjects();    
+    // // debugging code for finding duplicates of goals when loading the list multiple time
+    // Console.WriteLine($"The GoalList count in LoadGoalList before adding Goal object types to the GoalList is: {GetGoalList().Count}");
     // cycle through the _retrievedObjects list
     foreach (Goal type in GetRetrievedObjects())
     {
@@ -336,11 +340,27 @@ public class Goal
       type.DivideAttributes();
       // if the Goal object has a _goalTitle
       if (!string.IsNullOrEmpty(type.GetGoalTitle()))
-      {
+      {   
+        // cycle through the _goalList 
+        foreach (Goal goal in GetGoalList()) 
+        {
+          // if the type & goal objects have matching _goalTitle and _description 
+          if (goal.GetGoalTitle() == type.GetGoalTitle() && goal.GetDescription() == type.GetDescription())
+          {
+            // identify them as a duplicate
+            duplicate = true;
+          }
+        }
+        // if the _goalTitle and _description didn't have a match
+        if (duplicate == false) 
+        { 
         // add the goal Goal object to the _goalList
         GetGoalList().Add(type);
+        }        
       }
     }
+    // // debugging code for finding duplicates of goals when loading the list multiple time
+    // Console.WriteLine($"The GoalList count in LoadGoalList after adding Goal object types to the GoalList is: {GetGoalList().Count}");
   }
 
   // method to break up retrieved attribute into the different variables
