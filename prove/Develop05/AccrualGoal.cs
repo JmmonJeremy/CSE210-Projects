@@ -30,27 +30,47 @@ public class AccrualGoal : Goal
   }
 // ### METHODS ############################################## //
   // method to set the _accrualNumber variable
-  public void SetAccrualNumber()
-  {    
-    // create user prompt for setting the accrual number associated with this goal & save it in a variable
-    string accrualNumberPrompt = "Please enter the number of times the goal needs to be done to reach the goal: ";
-    // create a validator object to run its method with
-    // and pass the prompt question into the object
-    Validator validator = new Validator(accrualNumberPrompt);    
-    // set the _accrualNumber equal to the int number the StringNumberCheck method returns
-    _accrualNumber = validator.StringNumberCheck();     
+  public void SetAccrualNumber(string accrualNumber)
+  {   
+    // if the user is setting the _accrualNumber
+    if (accrualNumber == "userSets")
+    { 
+      // create user prompt for setting the accrual number associated with this goal & save it in a variable
+      string accrualNumberPrompt = "Please enter the number of times the goal needs to be done to reach the goal: ";
+      // create a validator object to run its method with
+      // and pass the prompt question into the object
+      Validator validator = new Validator(accrualNumberPrompt);    
+      // set the _accrualNumber equal to the int number the StringNumberCheck method returns
+      _accrualNumber = validator.StringNumberCheck(); 
+    } 
+    // otherwise 
+    else
+    {
+      // set the _accrualNumber to the string passed in converted to an int
+      _accrualNumber = int.Parse(accrualNumber);
+    }  
   }
 
   // method to set the _bonusPoints variable
-  public void SetBonusPoints()
-  {      
-    // create user prompt for setting the bonus points associated with this goal & save it in a variable
-    string bonusPointsPrompt = "What is the bonus point amount for reaching the goal: ";
-    // create a validator object to run its method with
-    // and pass the prompt question into the object
-    Validator validator = new Validator(bonusPointsPrompt);    
-    // set the _bonusPoints equal to the int number the StringNumberCheck method returns
-    _bonusPoints = validator.StringNumberCheck();    
+  public void SetBonusPoints(string bonusPoints)
+  {   
+    // if the user is setting the _bonurPoints
+    if (bonusPoints == "userSets")
+    {    
+      // create user prompt for setting the bonus points associated with this goal & save it in a variable
+      string bonusPointsPrompt = "What is the bonus point amount for reaching the goal: ";
+      // create a validator object to run its method with
+      // and pass the prompt question into the object
+      Validator validator = new Validator(bonusPointsPrompt);    
+      // set the _bonusPoints equal to the int number the StringNumberCheck method returns
+      _bonusPoints = validator.StringNumberCheck();
+    } 
+    // otherwise 
+    else
+    {
+      // set the _bonusPoints to the string passed in converted to an int
+      _bonusPoints = Convert.ToInt32(bonusPoints);
+    }     
   }
 
   // method to list out a goal
@@ -94,9 +114,11 @@ public class AccrualGoal : Goal
     // fill the _points variable with the next string from the split converted to an int
     SetPoints(int.Parse(attributes[3]));
     // reference source: https://www.shekhali.com/understanding-the-difference-between-int-int16-int32-and-int64-in-c-sharp/# & https://www.freecodecamp.org/news/how-to-convert-a-string-to-an-integer-in-c-sharp/#
-    // fill the _accrualNumber with the next string from the split converted to an int 
-    _accrualNumber = Convert.ToInt32(attributes[4]);     
-    // fill the _completedCount with the last string from the split converted to an int
-    _completedCount = Convert.ToInt32(attributes[5]);     
+    // fill the _bonusPoints with the next string from the split converted to an int by the method     
+    SetBonusPoints(attributes[4]);        
+    // fill the _accrualNumber with the next string from the split converted to an int by the method
+    SetAccrualNumber(attributes[5]); 
+    // fill the _completedCount with the last string from the split converted to an int 
+    _completedCount = int.Parse(attributes[6]); 
   }
 }
