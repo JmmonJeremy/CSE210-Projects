@@ -279,14 +279,6 @@ public class Goal
     }
   }
 
-  // method to create an object of the class
-  public virtual Goal CreateObject()
-  {
-    // create an object
-    Goal goal = new Goal();
-    return goal;
-  }
-
   // method to load a file of goal objects into a list
   public void SetRetrievedOjects()
   {    
