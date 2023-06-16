@@ -305,7 +305,13 @@ public class Goal
         goal.SetAttributes(segments[1]);
         // load the object into the _retrievedOjects list
         _retrievedObjects.Add(goal);             
-      }      
+      }
+      // // debugging code to see what object were created and what the attributes saved were
+      // foreach (Goal type in GetRetrievedObjects())
+      // {
+      //   Console.WriteLine($"The goal type is: {type.GetGoalType()}");
+      //   Console.WriteLine($"The attributes are: {type.GetAttributes()}");
+      // }
     }
     // if filename doesn't exist
     else
