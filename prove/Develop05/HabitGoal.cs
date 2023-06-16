@@ -32,4 +32,18 @@ public class HabitGoal : Goal
     return habit.GetType().ToString();
   }
 
+  // method to break up retrieved attribute into the different variables
+  public override void DivideAttributes()
+  {   
+    // reference source: https://www.c-sharpcorner.com/UploadFile/mahesh/split-string-in-C-Sharp/#
+    // split the attribute string by its "~|~" separator characters
+    // ~|~goal title~|~description~|~point value
+    string[] attributes = GetAttributes().Split("~|~");
+    // fill the _goalTitle variable with the right hand side of the 1st split
+    SetGoalTitle(attributes[1]);
+    // fill the _description variable with the next string from the split
+    SetDescription(attributes[2]);
+    // fill the _points variable with the next string from the split converted to an int
+    SetPoints(int.Parse(attributes[3]));
+  }
 }

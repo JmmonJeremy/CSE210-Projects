@@ -75,8 +75,28 @@ public class AccrualGoal : Goal
   public override string CreateGoalText()
   {           
     // list the goal for the user to see
-    string goalText = $"{GetGoalType()}:{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{_bonusPoints}~|~{_accrualNumber}~|~{_completedCount}";
+    string goalText = $"{GetGoalType()}:~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{_bonusPoints}~|~{_accrualNumber}~|~{_completedCount}";
     // return the listed goal string
     return goalText; 
+  }
+
+  // method to break up retrieved attribute into the different variables
+  public override void DivideAttributes()
+  {    
+    // reference source: https://www.c-sharpcorner.com/UploadFile/mahesh/split-string-in-C-Sharp/#
+    // split the attribute string by its "~|~" separator characters
+    // ~|~goal title~|~description~|~point value~|~bonus point value~|~accrual number~|~completed count
+    string[] attributes = GetAttributes().Split("~|~");
+    // fill the _goalTitle variable with the right hand side of the 1st split
+    SetGoalTitle(attributes[1]);
+    // fill the _description variable with the next string from the split
+    SetDescription(attributes[2]);
+    // fill the _points variable with the next string from the split converted to an int
+    SetPoints(int.Parse(attributes[3]));
+    // reference source: https://www.shekhali.com/understanding-the-difference-between-int-int16-int32-and-int64-in-c-sharp/# & https://www.freecodecamp.org/news/how-to-convert-a-string-to-an-integer-in-c-sharp/#
+    // fill the _accrualNumber with the next string from the split converted to an int 
+    _accrualNumber = Convert.ToInt32(attributes[4]);     
+    // fill the _completedCount with the last string from the split converted to an int
+    _completedCount = Convert.ToInt32(attributes[5]);     
   }
 }
