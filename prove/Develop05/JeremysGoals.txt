@@ -1,4 +1,6 @@
-0
-OneOffGoal:mow~|~mow the front and back lawn~|~100~|~False
-HabitGoal:study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100
-AccrualGoal:list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~0
+Goal:~|~0
+OneOffGoal:~|~do situps~|~do 100 situps~|~100~|~False
+AccrualGoal:~|~attend Temple~|~Attend the temple 3 times this month~|~100~|~0~|~500~|~3
+OneOffGoal:~|~mow~|~mow the front and back lawn~|~100~|~False
+HabitGoal:~|~study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100
+AccrualGoal:~|~list calories~|~record calories eaten during a meal~|~25~|~0~|~0~|~100
