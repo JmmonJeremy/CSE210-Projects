@@ -77,7 +77,7 @@ public class AccrualGoal : Goal
   public override string CreateListedGoal(int count)
   {           
     // list the goal for the user to see
-    string listedGoal = $"{count}) [ ] {GetGoalTitle()} ({GetDescription()}) {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  Have done: {_completedCount}/{_accrualNumber}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  <{Convert.ToChar(171)}{Convert.ToChar(127)}{Convert.ToChar(187)}>";
+    string listedGoal = $"{count}) {GetCompletedBox()} {GetGoalTitle()} ({GetDescription()}) {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  Have done: {_completedCount}/{_accrualNumber}  {Convert.ToChar(183)}:{Convert.ToChar(183)}  <{Convert.ToChar(171)}{Convert.ToChar(127)}{Convert.ToChar(187)}>";
     // return the listed goal string
     return listedGoal; 
   } 
@@ -95,7 +95,7 @@ public class AccrualGoal : Goal
   public override string CreateGoalText()
   {           
     // list the goal for the user to see
-    string goalText = $"{GetGoalType()}:~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{_bonusPoints}~|~{_accrualNumber}~|~{_completedCount}";
+    string goalText = $"{GetGoalType()}:{GetCompletedBox()}~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{_bonusPoints}~|~{_accrualNumber}~|~{_completedCount}~|~{GetGoalCompleted()}";
     // return the listed goal string
     return goalText; 
   }
@@ -107,7 +107,9 @@ public class AccrualGoal : Goal
     // split the attribute string by its "~|~" separator characters
     // ~|~goal title~|~description~|~point value~|~bonus point value~|~accrual number~|~completed count
     string[] attributes = GetAttributes().Split("~|~");
-    // fill the _goalTitle variable with the right hand side of the 1st split
+    // fill the _completedBox variable with the 1st string value in the list
+    SetCompletedBox(attributes[0]);
+    // fill the _goalTitle variable with the next string from the split
     SetGoalTitle(attributes[1]);
     // fill the _description variable with the next string from the split
     SetDescription(attributes[2]);
@@ -119,6 +121,9 @@ public class AccrualGoal : Goal
     // fill the _accrualNumber with the next string from the split converted to an int by the method
     SetAccrualNumber(attributes[5]); 
     // fill the _completedCount with the last string from the split converted to an int 
-    _completedCount = int.Parse(attributes[6]); 
+    _completedCount = int.Parse(attributes[6]);
+    // reference source: https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
+    // fill the _goalCompleted boolean with the last string from the split converted to a bool
+    SetGoalCompleted(bool.Parse(attributes[7]));  
   }
 }
