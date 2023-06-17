@@ -13,6 +13,12 @@ public class Goal
   private string _description;
   // variable to hold the value in points assigned to a goal
   private int _points;
+  // variable to hold the unfinished goal number for user selection
+  private int _unfinishedGoalNumber;
+  // variable boolean to indicate if the goal has been accomplished
+  private bool _goalCompleted;
+  // variable to hold the check off box for a listed goal
+  private string _completedBox;
   // variable to hold the value in earned points for the user
   private int _earnedPoints;
   // variable to hold a list of goals
@@ -44,24 +50,14 @@ public class Goal
     // and pass the prompt question into the object
     Validator validator = new Validator(pointsPrompt);    
     // set the _points equal to the int number the StringNumberCheck method returns
-    _points = validator.StringNumberCheck();   
+    _points = validator.StringNumberCheck();
+    // set the _completedBox string value
+    _completedBox = "[ ]";
     // set _earnedPoints as 0
     _earnedPoints = 0;
   }
 
 // ### METHODS ############################################## //
-  // setter method for the _points variable
-  public void SetPoints(int points)
-  {
-    _points = points;
-  }
-
-  // getter method for the _points variable
-  public int GetPoints()
-  {
-    return _points;
-  }
-
   // method to display the points a user has earned
   public void DisplayPoints()
   { 
@@ -119,7 +115,7 @@ public class Goal
     return _goalTitle;
   }
 
-  // method to se the goal description
+  // method to set the goal description
   public void SetDescription(string description)
   { 
     // if user is setting it up pass in "userSets" 
@@ -145,6 +141,54 @@ public class Goal
   public string GetDescription()
   {
     return _description;
+  }
+
+  // setter method for the _points variable
+  public void SetPoints(int points)
+  {
+    _points = points;
+  }
+
+  // getter method for the _points variable
+  public int GetPoints()
+  {
+    return _points;
+  }
+
+  // setter method for the _unfinishedGoalNumber
+  public void SetUnfinishedGoalNumber(int unfinishedGoalNumber)
+  {
+    _unfinishedGoalNumber = unfinishedGoalNumber;
+  }
+
+  // getter method for the _goalCompleted bool
+  public int GetUnfinishedGoalNumber()
+  {
+    return _unfinishedGoalNumber;
+  }
+
+  // setter method for the _goalCompleted bool
+  public void SetGoalCompleted(bool goalCompleted)
+  {
+    _goalCompleted = goalCompleted;
+  }
+
+  // getter method for the _goalCompleted bool
+  public bool GetGoalCompleted()
+  {
+    return _goalCompleted;
+  }
+
+  // setter method for the _completed variable
+  public void SetCompletedBox(string completedBox)
+  {
+    _completedBox = completedBox;    
+  }
+
+  // getter method for the _completed variable
+  public string GetCompletedBox()
+  {
+    return _completedBox;    
   }
 
   // method to add a goal to the list
@@ -195,7 +239,7 @@ public class Goal
   public virtual string CreateListedGoal(int count)
   {           
     // list the goal for the user to see
-    string listedGoal = $"{count}) [ ] {GetGoalTitle()} ({GetDescription()})";
+    string listedGoal = $"{count}) {GetCompletedBox()} {GetGoalTitle()} ({GetDescription()})";
     // return the listed goal string
     return listedGoal; 
   }
@@ -252,7 +296,7 @@ public class Goal
   public virtual string CreateGoalText()
   {           
     // list the goal for the user to see
-    string goalText = $"{GetGoalType()}:~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}";
+    string goalText = $"{GetGoalType()}:{GetCompletedBox()}~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{GetGoalCompleted()}";
     // return the listed goal string
     return goalText; 
   }
@@ -377,6 +421,65 @@ public class Goal
     string[] attributes = GetAttributes().Split("~|~");
     // fill the _earnedPoints variable with the right hand side of the 1st split
     _earnedPoints = int.Parse(attributes[1]);    
+  }
+
+  // method to create a listing for an unfinished goal
+  
+
+  // method to list goals available to be marked as fully or partially completed
+  public void ListUnfinishedGoals()
+  {    
+    // create a variable to show a number next to the goal
+    int count = 0;
+    // make sure there are goals in the list
+    if (_goalList.Count > 0)
+    {
+      // tell the user you are listing the unfinished goals
+      Console.WriteLine("Here is a list of the goals you have not yet noted as complete:");
+      // cycle through the list of Goal objects
+      foreach (Goal goal in _goalList)
+      {        
+        // determine if the goal is completed or not
+        if (!goal.GetGoalCompleted())
+        {
+          // increase count variable by 1 for each cycle
+          count ++;
+          // set the _unfinishedGoalNumber so to this number
+          // so what the user enters will pick that goal
+          goal.SetUnfinishedGoalNumber(count);
+          // list the goal with the _unfinishedNumber next to it
+          Console.WriteLine($"{goal.GetUnfinishedGoalNumber()}) {goal.GetGoalTitle()}");
+        }       
+      }
+      // if no goals in the list were uncompleted
+      if (count == 0)
+      {
+      // put the cursor at the beginning of the line again to write over the first line title
+      Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1); 
+      // let the user know there are no goals available to mark as complete add blank spaces to erase title
+      Console.WriteLine("Sorry, there are no goals for you to record as complete.       ");
+      // let the user know all goals they've entered are already completed
+      Console.WriteLine("All of the goals you have entered are already marked as complete.");
+      // let the user know what they need to do before they can record any goals as complete
+      Console.WriteLine("You must create a new goal before you can record a goal as complete.");
+      }
+    }
+    // if there are no goals
+    else
+    {
+      // let the user know there are no goals available to mark as complete
+      Console.WriteLine("Sorry, there are no goals for you to record as complete.");
+      // let the user know the program shows no goals for them
+      Console.WriteLine("You have no goals loaded into the program at this time.");
+      // let the user know what they need to do before they can record any goals as complete
+      Console.WriteLine("You must create a goal or load saved goals before you can record a goal as complete.");
+    }
+  }
+
+  // method to show when part or all of a goal has been completed
+  public void NoteAccomplishment()
+  {
+
   }
   
 }
