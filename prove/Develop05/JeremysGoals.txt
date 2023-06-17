@@ -8,4 +8,4 @@ OneOffGoal:[ ]~|~do situps~|~do 100 situps~|~100~|~False
 AccrualGoal:[ ]~|~attend Temple~|~Attend the temple 3 times this month~|~100~|~500~|~3~|~0~|~False
 OneOffGoal:[ ]~|~mow~|~mow the front and back lawn~|~100~|~False
 HabitGoal:[ ]~|~study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100~|~False
-AccrualGoal:[ ]~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~4~|~True
+AccrualGoal:[ ]~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~4~|~False
