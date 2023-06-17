@@ -39,11 +39,16 @@ public class HabitGoal : Goal
     // split the attribute string by its "~|~" separator characters
     // ~|~goal title~|~description~|~point value
     string[] attributes = GetAttributes().Split("~|~");
-    // fill the _goalTitle variable with the right hand side of the 1st split
+    // fill the _completedBox variable with the 1st string value in the list
+    SetCompletedBox(attributes[0]);
+    // fill the _goalTitle variable with the next string from the split
     SetGoalTitle(attributes[1]);
     // fill the _description variable with the next string from the split
     SetDescription(attributes[2]);
     // fill the _points variable with the next string from the split converted to an int
     SetPoints(int.Parse(attributes[3]));
+    // reference source: https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
+    // fill the _goalCompleted boolean with the last string from the split converted to a bool
+    SetGoalCompleted(bool.Parse(attributes[4])); 
   }
 }
