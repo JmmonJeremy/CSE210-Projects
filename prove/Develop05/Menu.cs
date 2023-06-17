@@ -188,7 +188,7 @@ public class Menu
       // if they chose to record their completion of a goal
       if (_choice == "5")
       {
-        
+        _goal.ListUnfinishedGoals();
       }     
     }
   }
