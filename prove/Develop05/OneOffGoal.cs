@@ -35,15 +35,6 @@ public class OneOffGoal : Goal
     return oneOff.GetType().ToString();
   }
 
-  // method to create & return an one off goal string
-  public override string CreateGoalText()
-  {           
-    // list the goal for the user to see
-    string goalText = $"{GetGoalType()}:~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{_goalCompleted}";
-    // return the listed goal string
-    return goalText; 
-  }
-
   // method to break up retrieved attribute into the different variables
   public override void DivideAttributes()
   {   
@@ -51,7 +42,9 @@ public class OneOffGoal : Goal
     // split the attribute string by its "~|~" separator characters
     // ~|~goal title~|~description~|~point value~|~goal completed: true or false
     string[] attributes = GetAttributes().Split("~|~");
-    // fill the _goalTitle variable with the right hand side of the 1st split
+    // fill the _completedBox variable with the 1st string value in the list
+    SetCompletedBox(attributes[0]);
+    // fill the _goalTitle variable with the next string from the split
     SetGoalTitle(attributes[1]);
     // fill the _description variable with the next string from the split
     SetDescription(attributes[2]);
@@ -59,7 +52,7 @@ public class OneOffGoal : Goal
     SetPoints(int.Parse(attributes[3]));
     // reference source: https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
     // fill the _goalCompleted boolean with the last string from the split converted to a bool
-    _goalCompleted = bool.Parse(attributes[4]);        
+    SetGoalCompleted(bool.Parse(attributes[4]));        
   }
 
 }
