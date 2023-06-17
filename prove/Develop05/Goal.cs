@@ -237,9 +237,15 @@ public class Goal
 
   // method to list out a goal
   public virtual string CreateListedGoal(int count)
-  {           
+  {   
+    // use this variable to space listings 1-9 different from 10 or greater
+    string space = "  ";
+    if (count > 9)
+    {
+      space = " ";
+    } 
     // list the goal for the user to see
-    string listedGoal = $"{count}) {GetCompletedBox()} {GetGoalTitle()} ({GetDescription()})";
+    string listedGoal = $"{count}.{space}{GetCompletedBox()} {GetGoalTitle()} ({GetDescription()})";
     // return the listed goal string
     return listedGoal; 
   }
@@ -447,8 +453,14 @@ public class Goal
           // set the _unfinishedGoalNumber so to this number
           // so what the user enters will pick that goal
           goal.SetUnfinishedGoalNumber(count);
+          // use this variable to space listings 1-9 different from 10 or greater
+          string space = "  ";
+          if (count > 9)
+          {
+            space = " ";
+          }    
           // list the goal with the _unfinishedNumber next to it
-          Console.WriteLine($"{goal.GetUnfinishedGoalNumber()}) {goal.GetGoalTitle()}");
+          Console.WriteLine($"{goal.GetUnfinishedGoalNumber()}){space}{goal.GetGoalTitle()}");
         }       
       }
       // if no goals in the list were uncompleted
