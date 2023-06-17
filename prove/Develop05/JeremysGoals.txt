@@ -1,10 +1,11 @@
 Goal:~|~0
-AccrualGoal:~|~clean the toilet~|~clean the inside and outside of the bathroom toilets~|~200~|~1000~|~4~|~0
-HabitGoal:~|~up at 6am~|~get up at 6am every day~|~200
-HabitGoal:~|~brush teeth~|~brush teeth 2 times a day~|~100
-OneOffGoal:~|~lose 5 lbs~|~lose 5 lbs in a week~|~200~|~False
-OneOffGoal:~|~do situps~|~do 100 situps~|~100~|~False
-AccrualGoal:~|~attend Temple~|~Attend the temple 3 times this month~|~100~|~500~|~3~|~0
-OneOffGoal:~|~mow~|~mow the front and back lawn~|~100~|~False
-HabitGoal:~|~study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100
-AccrualGoal:~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~0
+OneOffGoal:[ ]~|~run 5 miles~|~run 5 miles all at once~|~500~|~False
+AccrualGoal:[ ]~|~clean the toilet~|~clean the inside and outside of the bathroom toilets~|~200~|~1000~|~4~|~0~|~False
+HabitGoal:[ ]~|~up at 6am~|~get up at 6am every day~|~200~|~False
+HabitGoal:[ ]~|~brush teeth~|~brush teeth 2 times a day~|~100~|~False
+OneOffGoal:[ ]~|~lose 5 lbs~|~lose 5 lbs in a week~|~200~|~False
+OneOffGoal:[ ]~|~do situps~|~do 100 situps~|~100~|~False
+AccrualGoal:[ ]~|~attend Temple~|~Attend the temple 3 times this month~|~100~|~500~|~3~|~0~|~False
+OneOffGoal:[ ]~|~mow~|~mow the front and back lawn~|~100~|~False
+HabitGoal:[ ]~|~study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100~|~False
+AccrualGoal:[ ]~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~4~|~True

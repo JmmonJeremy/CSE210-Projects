@@ -1,0 +1,2 @@
+Goal:~|~0
+OneOffGoal:[X]~|~run~|~run at least 5 miles at once without stopping~|~500~|~True
