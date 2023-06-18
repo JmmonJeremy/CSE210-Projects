@@ -309,9 +309,9 @@ public class Goal
 
   // method to save goals to a text file
   public void SaveGoals()
-  {    
+  {  
     // after the _filename is set load any previous Goal objects saved under this filename
-    LoadGoalList();     
+    LoadGoalList();      
     // create a StreamWriter object to be able to write a textfile
     using (StreamWriter outputFile = new StreamWriter(_filename))
     {  
@@ -396,23 +396,37 @@ public class Goal
       type.DivideAttributes();
       // if the Goal object has a _goalTitle
       if (!string.IsNullOrEmpty(type.GetGoalTitle()))
-      {   
+      {          
         // cycle through the _goalList 
         foreach (Goal goal in GetGoalList()) 
-        {
+        {  
+          // set duplicate to false to start each comparison
+          duplicate = false;         
           // if the type & goal objects have matching _goalTitle and _description 
           if (goal.GetGoalTitle() == type.GetGoalTitle() && goal.GetDescription() == type.GetDescription())
           {
             // identify them as a duplicate
             duplicate = true;
+            // if the goals are the same but the _completionBox and _goalCompleted values are different
+            if (goal.GetCompletedBox() != type.GetCompletedBox() && goal.GetGoalCompleted() != type.GetGoalCompleted()) 
+            {
+              // reset the value of the _completedBox in the _goalList
+              goal.SetCompletedBox(type.GetCompletedBox());
+              // reset the value of the _goalCompleted bool value in the _goalList
+              goal.SetGoalCompleted(type.GetGoalCompleted());
+              // // debugging code to figure out how to pass on the _completeionBox & _goalCompleted values
+              // Console.WriteLine($"The goal in _goalList completed box is: {goal.GetCompletedBox()}");
+              // Console.WriteLine($"The type in _divided attributes completed box is: {type.GetCompletedBox()}");
+            }
           }
+             
         }
         // if the _goalTitle and _description didn't have a match
         if (duplicate == false) 
         { 
         // add the goal Goal object to the _goalList
         GetGoalList().Add(type);
-        }        
+        }            
       }
     }
     // // debugging code for finding duplicates of goals when loading the list multiple time
@@ -427,14 +441,11 @@ public class Goal
     string[] attributes = GetAttributes().Split("~|~");
     // fill the _earnedPoints variable with the right hand side of the 1st split
     _earnedPoints = int.Parse(attributes[1]);    
-  }
-
-  // method to create a listing for an unfinished goal
-  
+  }  
 
   // method to list goals available to be marked as fully or partially completed
-  public void ListUnfinishedGoals()
-  {    
+  public int ListUnfinishedGoals()
+  {       
     // create a variable to show a number next to the goal
     int count = 0;
     // make sure there are goals in the list
@@ -460,38 +471,82 @@ public class Goal
             space = " ";
           }    
           // list the goal with the _unfinishedNumber next to it
-          Console.WriteLine($"{goal.GetUnfinishedGoalNumber()}){space}{goal.GetGoalTitle()}");
+          Console.WriteLine($"{goal.GetUnfinishedGoalNumber()}){space}{goal.GetGoalTitle()}");          
         }       
       }
       // if no goals in the list were uncompleted
       if (count == 0)
       {
       // put the cursor at the beginning of the line again to write over the first line title
-      Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1); 
+      Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+      // change the color of the text to red to alert the user
+      Console.ForegroundColor = ConsoleColor.Red;
       // let the user know there are no goals available to mark as complete add blank spaces to erase title
       Console.WriteLine("Sorry, there are no goals for you to record as complete.       ");
+      // reset the text color to the original settings
+      Console.ResetColor();
       // let the user know all goals they've entered are already completed
       Console.WriteLine("All of the goals you have entered are already marked as complete.");
       // let the user know what they need to do before they can record any goals as complete
       Console.WriteLine("You must create a new goal before you can record a goal as complete.");
+      // end the menu option to it doesn't perform the other methods by returning 0
+      return count;
       }
     }
     // if there are no goals
     else
     {
+      // change the color of the text to red to alert the user
+      Console.ForegroundColor = ConsoleColor.Red;
       // let the user know there are no goals available to mark as complete
       Console.WriteLine("Sorry, there are no goals for you to record as complete.");
+      // reset the text color to the original settings
+      Console.ResetColor();
       // let the user know the program shows no goals for them
       Console.WriteLine("You have no goals loaded into the program at this time.");
       // let the user know what they need to do before they can record any goals as complete
       Console.WriteLine("You must create a goal or load saved goals before you can record a goal as complete.");
+      // end the menu option to it doesn't perform the other methods by returning 0
+      return count;
     }
+    // return a number > 0 to show there is a goal available to complete
+    return count;
   }
 
   // method to show when part or all of a goal has been completed
   public void NoteAccomplishment()
-  {
-
+  {    
+    // create a variable to hold the user's goal selection
+    string goalSelection = "";
+    // create prompt asking the user which goal they want to check off
+    // store prompt in a variable to pass into a Validator method
+    string goalSelectionPrompt = "Select the goal to note its accomplishment by entering its number:";
+    // display the prompt to the user
+    Console.WriteLine(goalSelectionPrompt);
+    // show the user where to make their entry
+    Console.Write("Selection: ");
+    // change the color of the text to green
+    Console.ForegroundColor = ConsoleColor.Green;
+    // store the entry in the selection variable
+    goalSelection = Console.ReadLine();
+    // reset the background color to original settings
+    Console.ResetColor();
+    // add a space after the menu
+    Console.WriteLine();
+    // cycle through each goal object in the list
+    foreach (Goal goal in _goalList)
+    {
+      // if the goal Selection matches a goal listed
+      if (int.Parse(goalSelection) == goal.GetUnfinishedGoalNumber())
+      {
+        // mark the goal as completed in the _completedBox variable
+        goal.SetCompletedBox("[X]");
+        // change the _goalCompleted bool to true
+        goal.SetGoalCompleted(true);
+        // add the _point value for this goal to the _earnedPoints value
+        _earnedPoints = goal.GetPoints();
+      }
+    }
   }
   
 }
