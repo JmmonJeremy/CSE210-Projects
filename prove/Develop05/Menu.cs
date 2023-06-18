@@ -135,8 +135,8 @@ public class Menu
       // create an AccrualGoal object
       AccrualGoal accrual = new AccrualGoal(_goal.GetGoalTitle(), _goal.GetDescription());
       // set the values for the _accrualNumber & _bonusPoints
-      accrual.SetAccrualNumber("userSets");
-      accrual.SetBonusPoints("userSets");
+      accrual.SetAccrualNumber();
+      accrual.SetBonusPoints();
       // load the goal into the list
       _goal.SetGoalList(accrual); 
     }    
