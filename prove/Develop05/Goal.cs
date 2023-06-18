@@ -309,9 +309,7 @@ public class Goal
 
   // method to save goals to a text file
   public void SaveGoals()
-  {  
-    // after the _filename is set load any previous Goal objects saved under this filename
-    LoadGoalList();      
+  {           
     // create a StreamWriter object to be able to write a textfile
     using (StreamWriter outputFile = new StreamWriter(_filename))
     {  
@@ -392,16 +390,16 @@ public class Goal
     // cycle through the _retrievedObjects list
     foreach (Goal type in GetRetrievedObjects())
     {
+      // set duplicate to false to start each comparison
+      duplicate = false;  
       // fill the goal object attributes & put in __goalList
       type.DivideAttributes();
       // if the Goal object has a _goalTitle
       if (!string.IsNullOrEmpty(type.GetGoalTitle()))
       {          
         // cycle through the _goalList 
-        foreach (Goal goal in GetGoalList()) 
-        {  
-          // set duplicate to false to start each comparison
-          duplicate = false;         
+        foreach (Goal goal in _goalList) 
+        {                   
           // if the type & goal objects have matching _goalTitle and _description 
           if (goal.GetGoalTitle() == type.GetGoalTitle() && goal.GetDescription() == type.GetDescription())
           {
