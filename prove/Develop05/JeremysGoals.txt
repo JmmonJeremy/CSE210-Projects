@@ -1,5 +1,5 @@
-Goal:~|~0
-OneOffGoal:[ ]~|~run 5 miles~|~run 5 miles all at once~|~500~|~False
+Goal:~|~500
+OneOffGoal:[X]~|~run 5 miles~|~run 5 miles all at once~|~500~|~True
 AccrualGoal:[ ]~|~clean the toilet~|~clean the inside and outside of the bathroom toilets~|~200~|~1000~|~4~|~0~|~False
 HabitGoal:[ ]~|~up at 6am~|~get up at 6am every day~|~200~|~False
 HabitGoal:[ ]~|~brush teeth~|~brush teeth 2 times a day~|~100~|~False
@@ -8,4 +8,4 @@ OneOffGoal:[ ]~|~do situps~|~do 100 situps~|~100~|~False
 AccrualGoal:[ ]~|~attend Temple~|~Attend the temple 3 times this month~|~100~|~500~|~3~|~0~|~False
 OneOffGoal:[ ]~|~mow~|~mow the front and back lawn~|~100~|~False
 HabitGoal:[ ]~|~study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100~|~False
-AccrualGoal:[ ]~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~4~|~False
+AccrualGoal:[ ]~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~0~|~False
