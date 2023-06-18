@@ -171,8 +171,9 @@ public class Menu
         // set the _filenamePrompt to pass into the SetFileName method
         _filenamePrompt = "Please enter a filename to save the goals under: ";
         // set the _filename from the Goal class
-        _goal.SetFilename(_filenamePrompt);
-        // save the _earnedPoints and _goalList to a textfile
+        _goal.SetFilename(_filenamePrompt);         
+        // save the _earnedPoints and _goalList to a textfile if the user completed any goals
+        // also save the _completedBox string and _completedGoal bool values to a textfile
         _goal.SaveGoals();
       }
       // if they chose to load their goals
@@ -188,7 +189,13 @@ public class Menu
       // if they chose to record their completion of a goal
       if (_choice == "5")
       {
-        _goal.ListUnfinishedGoals();
+        int availableGoals = _goal.ListUnfinishedGoals();
+        if (availableGoals > 0)
+        {
+          _goal.NoteAccomplishment();
+          // save the _completedBox string and _completedGoal bool values to a textfile
+          _goal.SaveGoals();
+        }
       }     
     }
   }
