@@ -31,6 +31,8 @@ public class Validator
   }
 
 // ### METHODS ############################################## // 
+  // method to verfity a specified number range was entered
+
   // method to confirm the user entered what they wanted to
   public string ConfirmEntry()
   {   
