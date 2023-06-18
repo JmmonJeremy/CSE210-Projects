@@ -6,13 +6,12 @@ using System.IO;
 public class OneOffGoal : Goal
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // variable boolean to indicate if the goal has been accomplished
-  private bool _goalCompleted;
+  // variable 
   
 
 // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use the OneOffGoal methods
-  // and to return used goals saved to a textfile
+  // constructor used to return goals saved to a textfile by
+  // creating an OneOffGoal object in the GetGoalType method  
   public OneOffGoal()
   {
     // nothing needed in here 
@@ -20,9 +19,7 @@ public class OneOffGoal : Goal
 
   // constructor to pass in the goal title and description from the user
   public OneOffGoal(string goalTitle, string description) : base(goalTitle, description)
-  {
-    // set the goal completed to start off as false
-    _goalCompleted = false;
+  {    
     // this is all done in the base class
   }
 // ### METHODS ############################################## //
@@ -54,5 +51,4 @@ public class OneOffGoal : Goal
     // fill the _goalCompleted boolean with the last string from the split converted to a bool
     SetGoalCompleted(bool.Parse(attributes[4]));        
   }
-
 }
