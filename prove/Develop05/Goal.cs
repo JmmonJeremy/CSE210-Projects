@@ -31,7 +31,9 @@ public class Goal
   private List<Goal> _retrievedObjects = new List<Goal>();
 
 // ### CONSTRUCTORS ######################################### //
-// constructor to be able to use the Goal methods
+  // constructor to be able to use the Goal methods in the Menu class
+  // it is also used to return goals saved to a textfile by
+  // creating an OneOffGoal object in the GetGoalType method
   public Goal()
   {
     // nothing needed in here 
@@ -161,7 +163,7 @@ public class Goal
     _unfinishedGoalNumber = unfinishedGoalNumber;
   }
 
-  // getter method for the _goalCompleted bool
+  // getter method for the _unfinishedGoalNumber bool
   public int GetUnfinishedGoalNumber()
   {
     return _unfinishedGoalNumber;
@@ -229,10 +231,70 @@ public class Goal
     return _attributes;
   }
 
+  // setter method to load a file of goal objects into a list
+  public void SetRetrievedOjects()
+  {    
+    // double check if file exists 1st
+    if (File.Exists(_filename))
+    {
+      // load all file entries to a string list    
+      string[] entries = System.IO.File.ReadAllLines(_filename);
+      // cycle through each entry
+      foreach (string entry in entries)
+      {
+        // seperate the string into the object and its attributes using the colon
+        string[] segments = entry.Split(":");  
+        // reference source: https://codereview.stackexchange.com/questions/4174/better-way-to-create-objects-from-strings & https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.getexecutingassembly?view=net-7.0 & https://medium.com/knowledge-pills/what-is-getexecutingassembly-in-c-1d7830f38f85# & https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.createinstance?view=net-7.0 
+        // #2 "as" Operator: https://www.geeksforgeeks.org/c-sharp-as-operator-keyword/
+        // ### ALTERNATE OPTION: create Goal object from the string of the Goal base class or Goal derived classes
+        // Goal goal = Assembly.GetExecutingAssembly().CreateInstance(segments[0]) as Goal;
+        // reference source: #1 Casing: https://exceptionnotfound.net/csharp-in-simple-terms-3-casting-conversion-parsing-is-as-and-typeof/ 
+        // #2 Activator.CreateInstance method: https://learn.microsoft.com/en-us/dotnet/api/System.Activator.Createinstance?view=net-7.0
+        // #3 Type.GetType method: https://stackoverflow.com/questions/4876683/c-sharp-convert-dynamic-string-to-existing-class & https://learn.microsoft.com/en-us/dotnet/api/system.type.gettype?view=net-7.0
+        // create a Goal object or instance from the string of the Goal base class or Goal derived classes
+        Goal goal = (Goal)Activator.CreateInstance(Type.GetType(segments[0]));
+        // store the attributes in the _attributes variable
+        goal.SetAttributes(segments[1]);
+        // load the object into the _retrievedOjects list
+        _retrievedObjects.Add(goal);             
+      }
+      // // debugging code to see what object were created and what the attributes saved were
+      // foreach (Goal type in GetRetrievedObjects())
+      // {
+      //   Console.WriteLine($"The goal type is: {type.GetGoalType()}");
+      //   Console.WriteLine($"The attributes are: {type.GetAttributes()}");
+      // }
+    }
+    // if filename doesn't exist
+    else
+    {
+      // let the user know that this file doesn't exist
+      Console.Write("The filename ");
+      // change the color of the text to green so the text stands out
+      Console.ForegroundColor = ConsoleColor.Green;
+      // reference source: https://reactgo.com/csharp-remove-last-n-characters-string/
+      // show the user what they entered
+      Console.Write($"{_filename.Remove(_filename.Length-4)}");     
+      // reset the text color to the original settings
+      Console.ResetColor();
+      // let the user know that this file doesn't exist & to check their spelling
+      Console.WriteLine(" does not exist. Please check the spelling of your filename.");
+    }
+  }
+
   // getter method for the _retrievedObjects list
   public List<Goal> GetRetrievedObjects()
   {
     return _retrievedObjects;
+  }
+
+  // method to get the class name
+  public virtual string GetGoalType()
+  {
+    // create an object of the class
+    Goal goal = new Goal();
+    // return type as a string
+    return goal.GetType().ToString();
   }
 
   // method to list out a goal
@@ -287,16 +349,7 @@ public class Goal
       // reset the text color to original settings
       Console.ResetColor();
     }
-  }
-
-  // method to get the class name
-  public virtual string GetGoalType()
-  {
-    // create an object of the class
-    Goal goal = new Goal();
-    // return type as a string
-    return goal.GetType().ToString();
-  }
+  }  
 
   // method to create & return a goal string
   public virtual string CreateGoalText()
@@ -325,58 +378,7 @@ public class Goal
         outputFile.WriteLine($"{goal.CreateGoalText()}");
       }    
     }
-  }
-
-  // method to load a file of goal objects into a list
-  public void SetRetrievedOjects()
-  {    
-    // double check if file exists 1st
-    if (File.Exists(_filename))
-    {
-      // load all file entries to a string list    
-      string[] entries = System.IO.File.ReadAllLines(_filename);
-      // cycle through each entry
-      foreach (string entry in entries)
-      {
-        // seperate the string into the object and its attributes using the colon
-        string[] segments = entry.Split(":");  
-        // reference source: https://codereview.stackexchange.com/questions/4174/better-way-to-create-objects-from-strings & https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.getexecutingassembly?view=net-7.0 & https://medium.com/knowledge-pills/what-is-getexecutingassembly-in-c-1d7830f38f85# & https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.createinstance?view=net-7.0 
-        // #2 "as" Operator: https://www.geeksforgeeks.org/c-sharp-as-operator-keyword/
-        // ### ALTERNATE OPTION: create Goal object from the string of the Goal base class or Goal derived classes
-        // Goal goal = Assembly.GetExecutingAssembly().CreateInstance(segments[0]) as Goal;
-        // reference source: #1 Casing: https://exceptionnotfound.net/csharp-in-simple-terms-3-casting-conversion-parsing-is-as-and-typeof/ 
-        // #2 Activator.CreateInstance method: https://learn.microsoft.com/en-us/dotnet/api/System.Activator.Createinstance?view=net-7.0
-        // #3 Type.GetType method: https://stackoverflow.com/questions/4876683/c-sharp-convert-dynamic-string-to-existing-class & https://learn.microsoft.com/en-us/dotnet/api/system.type.gettype?view=net-7.0
-        // create a Goal object or instance from the string of the Goal base class or Goal derived classes
-        Goal goal = (Goal)Activator.CreateInstance(Type.GetType(segments[0]));
-        // store the attributes in the _attributes variable
-        goal.SetAttributes(segments[1]);
-        // load the object into the _retrievedOjects list
-        _retrievedObjects.Add(goal);             
-      }
-      // // debugging code to see what object were created and what the attributes saved were
-      // foreach (Goal type in GetRetrievedObjects())
-      // {
-      //   Console.WriteLine($"The goal type is: {type.GetGoalType()}");
-      //   Console.WriteLine($"The attributes are: {type.GetAttributes()}");
-      // }
-    }
-    // if filename doesn't exist
-    else
-    {
-      // let the user know that this file doesn't exist
-      Console.Write("The filename ");
-      // change the color of the text to green so the text stands out
-      Console.ForegroundColor = ConsoleColor.Green;
-      // reference source: https://reactgo.com/csharp-remove-last-n-characters-string/
-      // show the user what they entered
-      Console.Write($"{_filename.Remove(_filename.Length-4)}");     
-      // reset the text color to the original settings
-      Console.ResetColor();
-      // let the user know that this file doesn't exist & to check their spelling
-      Console.WriteLine(" does not exist. Please check the spelling of your filename.");
-    }
-  }
+  }  
 
   // method to load _goalList with Goals from textfile
   public void LoadGoalList()
@@ -384,7 +386,7 @@ public class Goal
     // create a boolean to prevent loading the same goal multiple times
     bool duplicate = false;
     // retrieve goals objects from textfile
-    SetRetrievedOjects();    
+    SetRetrievedOjects();      
     // // debugging code for finding duplicates of goals when loading the list multiple time
     // Console.WriteLine($"The GoalList count in LoadGoalList before adding Goal object types to the GoalList is: {GetGoalList().Count}");
     // cycle through the _retrievedObjects list
@@ -392,8 +394,15 @@ public class Goal
     {
       // set duplicate to false to start each comparison
       duplicate = false;  
-      // fill the goal object attributes & put in __goalList
+      // fill the goal object attributes and put in #1 Goal objects _earnedPoints & #2 _goalList
       type.DivideAttributes();
+      // pass on the _earnedPoints value from the saved textfile 
+      // to the current Goal objects's _earnedPoints variable
+      _earnedPoints = GetRetrievedObjects()[0]._earnedPoints;
+      // // debugging code to figure out how to pass on the __earnedPoints value
+      // Console.WriteLine($"#1 The type in _divided attributes _earned points is: {type._earnedPoints}");
+      // Console.WriteLine($"#2 The _earnedpoints is: {_earnedPoints}");
+      // Console.WriteLine($"#2 The GetRetrievedObjects()[0] _earnedpoints is: {GetRetrievedObjects()[0]._earnedPoints}");
       // if the Goal object has a _goalTitle
       if (!string.IsNullOrEmpty(type.GetGoalTitle()))
       {          
@@ -407,7 +416,7 @@ public class Goal
             duplicate = true;
             // if the goals are the same but the _completionBox and _goalCompleted values are different
             if (goal.GetCompletedBox() != type.GetCompletedBox() && goal.GetGoalCompleted() != type.GetGoalCompleted()) 
-            {
+            {              
               // reset the value of the _completedBox in the _goalList
               goal.SetCompletedBox(type.GetCompletedBox());
               // reset the value of the _goalCompleted bool value in the _goalList
@@ -415,14 +424,21 @@ public class Goal
               // // debugging code to figure out how to pass on the _completeionBox & _goalCompleted values
               // Console.WriteLine($"The goal in _goalList completed box is: {goal.GetCompletedBox()}");
               // Console.WriteLine($"The type in _divided attributes completed box is: {type.GetCompletedBox()}");
-            }
+              // debugging code to figure out how to pass on the __earnedPoints value
+              // Console.WriteLine($"#3 The goal in _goalListearned points is: {goal._earnedPoints}");
+              // Console.WriteLine($"#4 The type in _divided attributes _earned points is: {type._earnedPoints}");
+            }            
           }
+          // // debugging code to figure out how to pass on the __earnedPoints value
+          // Console.WriteLine($"#5 The goal in _goalListearned points is: {goal._earnedPoints}");
+          // Console.WriteLine($"#6 The type in _divided attributes _earnedpoints is: {type._earnedPoints}");
              
         }
         // if the _goalTitle and _description didn't have a match
         if (duplicate == false) 
         { 
-        // add the goal Goal object to the _goalList
+        // add the goals or Goal objects from the textfile to the _goalList
+        // unless they are already loaded into the _goalList
         GetGoalList().Add(type);
         }            
       }
@@ -438,7 +454,9 @@ public class Goal
     // split the attribute string by its "~|~" separator characters
     string[] attributes = GetAttributes().Split("~|~");
     // fill the _earnedPoints variable with the right hand side of the 1st split
-    _earnedPoints = int.Parse(attributes[1]);    
+    _earnedPoints = int.Parse(attributes[1]); 
+    // //debugging code to find why _earned point value wasn't being passed on
+    // Console.WriteLine($"#0 The _earnedPoint value in DivideAttributes is: {_earnedPoints}"); 
   }  
 
   // method to list goals available to be marked as fully or partially completed
@@ -511,6 +529,15 @@ public class Goal
     return count;
   }
 
+  // method to make changes when recording goal completion
+  public virtual void MarkComplete()
+  {
+    // mark the goal as completed in the _completedBox variable
+    SetCompletedBox("[X]");
+    // change the _goalCompleted bool to true
+    SetGoalCompleted(true);    
+  }
+
   // method to show when part or all of a goal has been completed
   public void NoteAccomplishment()
   {    
@@ -537,12 +564,10 @@ public class Goal
       // if the goal Selection matches a goal listed
       if (int.Parse(goalSelection) == goal.GetUnfinishedGoalNumber())
       {
-        // mark the goal as completed in the _completedBox variable
-        goal.SetCompletedBox("[X]");
-        // change the _goalCompleted bool to true
-        goal.SetGoalCompleted(true);
+        // mark the goal complete as appropriate for the goal object
+        goal.MarkComplete();
         // add the _point value for this goal to the _earnedPoints value
-        _earnedPoints = goal.GetPoints();
+        _earnedPoints += goal.GetPoints();
       }
     }
   }
