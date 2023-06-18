@@ -10,8 +10,8 @@ public class HabitGoal : Goal
   
 
 // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use the HabitGoal methods
-  // and to return used goals saved to a textfile
+  // constructor used to return goals saved to a textfile by
+  // creating a HabitGoal object in the GetGoalType method
   public HabitGoal()
   {
     // nothing needed in here 
@@ -50,5 +50,14 @@ public class HabitGoal : Goal
     // reference source: https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
     // fill the _goalCompleted boolean with the last string from the split converted to a bool
     SetGoalCompleted(bool.Parse(attributes[4])); 
+  }
+
+  // method to make changes when recording goal completion
+  public override void MarkComplete()
+  {
+    // don't mark the goal as completed in the _completedBox variable
+    SetCompletedBox("[ ]");
+    // keep the _goalCompleted bool to false
+    SetGoalCompleted(false);    
   }
 }
