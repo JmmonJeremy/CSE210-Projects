@@ -1,4 +1,5 @@
 Goal:~|~0
-AccrualGoal:[ ]~|~list calories~|~record calories after a meal~|~100~|~300~|~4~|~0~|~False
-AccrualGoal:[ ]~|~attend Temple~|~attend the temple 2 times in a month~|~50~|~200~|~2~|~0~|~False
-OneOffGoal:[ ]~|~run~|~run at least 5 miles at once without stopping~|~500~|~False
+HabitGoal:[ ]~|~memorize scripture~|~memorize 1 scripture a month~|~150~|~False~|~goals.txt
+AccrualGoal:[ ]~|~list calories~|~record calories after a meal~|~100~|~300~|~4~|~0~|~False~|~goals.txt
+AccrualGoal:[ ]~|~attend Temple~|~attend the temple 2 times in a month~|~50~|~200~|~2~|~0~|~False~|~goals.txt
+OneOffGoal:[ ]~|~run~|~run at least 5 miles at once without stopping~|~500~|~False~|~goals.txt
