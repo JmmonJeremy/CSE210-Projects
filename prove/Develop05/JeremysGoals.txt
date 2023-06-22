@@ -1,11 +1,12 @@
 Goal:~|~1500
-OneOffGoal:[X]~|~run 5 miles~|~run 5 miles all at once~|~500~|~True
-AccrualGoal:[ ]~|~clean the toilet~|~clean the inside and outside of the bathroom toilets~|~200~|~1000~|~4~|~0~|~False
-HabitGoal:[ ]~|~up at 6am~|~get up at 6am every day~|~200~|~False
-HabitGoal:[ ]~|~brush teeth~|~brush teeth 2 times a day~|~100~|~False
-OneOffGoal:[ ]~|~lose 5 lbs~|~lose 5 lbs in a week~|~200~|~False
-OneOffGoal:[ ]~|~do situps~|~do 100 situps~|~100~|~False
-AccrualGoal:[X]~|~attend Temple~|~Attend the temple 3 times this month~|~1100~|~500~|~3~|~4~|~True
-OneOffGoal:[ ]~|~mow~|~mow the front and back lawn~|~100~|~False
-HabitGoal:[ ]~|~study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100~|~False
-AccrualGoal:[ ]~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~0~|~False
+OneOffGoal:[ ]~|~run~|~run for 30 minutes straight~|~150~|~False~|~JeremysGoals.txt
+OneOffGoal:[X]~|~run 5 miles~|~run 5 miles all at once~|~500~|~True~|~JeremysGoals.txt
+AccrualGoal:[ ]~|~clean the toilet~|~clean the inside and outside of the bathroom toilets~|~200~|~1000~|~4~|~0~|~False~|~JeremysGoals.txt
+HabitGoal:[ ]~|~up at 6am~|~get up at 6am every day~|~200~|~False~|~JeremysGoals.txt
+HabitGoal:[ ]~|~brush teeth~|~brush teeth 2 times a day~|~100~|~False~|~JeremysGoals.txt
+OneOffGoal:[ ]~|~lose 5 lbs~|~lose 5 lbs in a week~|~200~|~False~|~JeremysGoals.txt
+OneOffGoal:[ ]~|~do situps~|~do 100 situps~|~100~|~False~|~JeremysGoals.txt
+AccrualGoal:[X]~|~attend Temple~|~Attend the temple 3 times this month~|~1100~|~500~|~3~|~4~|~True~|~JeremysGoals.txt
+OneOffGoal:[ ]~|~mow~|~mow the front and back lawn~|~100~|~False~|~JeremysGoals.txt
+HabitGoal:[ ]~|~study scriptures~|~read or listen to the scriptures at least 15 minutes a day~|~100~|~False~|~JeremysGoals.txt
+AccrualGoal:[ ]~|~list calories~|~record calories eaten during a meal~|~25~|~100~|~4~|~0~|~False~|~JeremysGoals.txt
