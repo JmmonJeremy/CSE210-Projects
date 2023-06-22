@@ -105,7 +105,7 @@ public class AccrualGoal : Goal
   public override string CreateGoalText()
   {           
     // list the goal for the user to see
-    string goalText = $"{GetGoalType()}:{GetCompletedBox()}~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{GetBonusPoints()}~|~{GetAccrualNumber()}~|~{GetCompletedCount()}~|~{GetGoalCompleted()}";
+    string goalText = $"{GetGoalType()}:{GetCompletedBox()}~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{GetBonusPoints()}~|~{GetAccrualNumber()}~|~{GetCompletedCount()}~|~{GetGoalCompleted()}~|~{GetFilename()}";
     // return the listed goal string
     return goalText; 
   }
@@ -130,11 +130,13 @@ public class AccrualGoal : Goal
     _bonusPoints = Convert.ToInt32(attributes[4]);        
     // fill the _accrualNumber with the next string from the split converted to an int by the method
     _accrualNumber = int.Parse(attributes[5]); 
-    // fill the _completedCount with the last string from the split converted to an int 
+    // fill the _completedCount with the next string from the split converted to an int by the method
     _completedCount = int.Parse(attributes[6]);
     // reference source: https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
-    // fill the _goalCompleted boolean with the last string from the split converted to a bool
-    SetGoalCompleted(bool.Parse(attributes[7]));  
+    // fill the _goalCompleted boolean with the next string from the split converted to a bool by the method
+    SetGoalCompleted(bool.Parse(attributes[7]));
+    // fill the _filename with the last string from the split
+    SetFilename(attributes[8]);
   }
 
   // method to make changes when recording goal completion
