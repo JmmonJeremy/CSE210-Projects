@@ -48,11 +48,14 @@ public class Goal
     _description = description;    
     // create user prompt for setting the points associated with this goal & save it in a variable
     string pointsPrompt = "How many points would you like this goal to be worth? ";
-    // create a validator object to run its method with
-    // and pass the prompt question into the object
-    Validator validator = new Validator(pointsPrompt);    
+    // create a validator object to run its method with and
+    // pass the prompt question into the object  & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator2 = new Validator("Use prompt", pointsPrompt);    
     // set the _points equal to the int number the StringNumberCheck method returns
-    _points = validator.StringNumberCheck();
+    // and set the method to use the prompt the first time the method is used with "Use Prompt"
+    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
+    _points = validator2.StringNumberCheck("Use prompt", "Do ConfirmEntry");
     // set the _completedBox string value
     _completedBox = "[ ]";
     // set _earnedPoints as 0
@@ -97,11 +100,13 @@ public class Goal
     {  
       // create user prompt for setting the goal title associated with this goal & save it in a variable
       string goalTitlePrompt = "What is the title for your goal? ";
-      // create a validator object to run its method with
-      // and pass the prompt question into the object
-      Validator validator = new Validator(goalTitlePrompt);    
-      // set the _goalTitle equal to the string the ConfirmEntry method returns
-      _goalTitle = validator.ConfirmEntry(); 
+      // create a validator object to run its method with and
+      // pass the prompt question into the object  & for the user's 
+      // entry value put 'Use prompt' since user will change value after the prompt
+      Validator validator = new Validator("Use prompt", goalTitlePrompt);    
+      // set the _goalTitle equal to the string the ConfirmEntry method returns and with
+      // "Use prompt" set the method to to use the prompt the first time the method is used
+      _goalTitle = validator.ConfirmEntry("Use prompt"); 
     }
     // otherwise
     else
@@ -125,11 +130,13 @@ public class Goal
     {  
       // create user prompt for setting the goal description associated with this goal & save it in a variable
       string descriptionPrompt = "Please enter a short description of your goal: ";
-      // create a validator object to run its method with
-      // and pass the prompt question into the object
-      Validator validator = new Validator(descriptionPrompt);    
-      // set the _description equal to the string the ConfirmEntry method returns
-      _description = validator.ConfirmEntry();
+      // create a validator object to run its method with and
+      // pass the prompt question into the object  & for the user's 
+      // entry value put 'Use prompt' since user will change value after the prompt
+      Validator validator = new Validator("Use prompt", descriptionPrompt);    
+      // set the _description equal to the string the ConfirmEntry method returns and with
+      // "Use prompt" set the method to to use the prompt the first time the method is used
+      _description = validator.ConfirmEntry("Use prompt");
     }
     // otherwise
     else
@@ -212,11 +219,13 @@ public class Goal
   // setter method for the _filename variable
   public void SetFilename(string filenamePrompt)
   {      
-    // create a validator object to run its method with
-    // and pass the prompt question into the object
-    Validator validator = new Validator(filenamePrompt);    
-    // set a variable equal to the string the ConfirmEntry method returns with .txt on the end      
-    _filename = $"{validator.ConfirmEntry()}.txt";
+    // create a validator object to run its method with and
+    // pass the prompt question into the object  & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", filenamePrompt);    
+    // set a variable equal to the string the ConfirmEntry method returns with .txt on the end 
+    // and with "Use prompt" set the method to to use the prompt the first time the method is used
+    _filename = $"{validator.ConfirmEntry("Use prompt")}.txt";
   }
   
   // setter method for the _attributes variable
@@ -467,8 +476,12 @@ public class Goal
     // make sure there are goals in the list
     if (_goalList.Count > 0)
     {
-      // tell the user you are listing the unfinished goals
-      Console.WriteLine("Here is a list of the goals you have not yet noted as complete:");
+      // change the color of the text to blue to have it stand out
+        Console.ForegroundColor = ConsoleColor.Cyan;
+      // tell the user you are listing the unfinished goals with an empty line before it
+      Console.WriteLine("\nHere is a list of the goals you have not yet noted as complete:");
+      // reset the text color to the original settings
+      Console.ResetColor();
       // cycle through the list of Goal objects
       foreach (Goal goal in _goalList)
       {        
@@ -539,37 +552,37 @@ public class Goal
   }
 
   // method to show when part or all of a goal has been completed
-  public void NoteAccomplishment()
-  {    
+  public void NoteAccomplishment(int upperLimit)
+  {      
     // create a variable to hold the user's goal selection
     string goalSelection = "";
-    // create prompt asking the user which goal they want to check off
-    // store prompt in a variable to pass into a Validator method
-    string goalSelectionPrompt = "Select the goal to note its accomplishment by entering its number:";
-    // display the prompt to the user
-    Console.WriteLine(goalSelectionPrompt);
-    // show the user where to make their entry
-    Console.Write("Selection: ");
-    // change the color of the text to green
-    Console.ForegroundColor = ConsoleColor.Green;
-    // store the entry in the selection variable
-    goalSelection = Console.ReadLine();
-    // reset the background color to original settings
-    Console.ResetColor();
-    // add a space after the menu
-    Console.WriteLine();
-    // cycle through each goal object in the list
-    foreach (Goal goal in _goalList)
-    {
-      // if the goal Selection matches a goal listed
-      if (int.Parse(goalSelection) == goal.GetUnfinishedGoalNumber())
+    // only do if there is something listed to check off as done
+    if (upperLimit > 0)
+  {
+      // create prompt asking the user which goal they want to check off
+      // store prompt in a variable to pass into a Validator method
+      string goalSelectionPrompt = "Select the goal to note its accomplishment by entering its number:\nSelection: ";
+      // create a validator object to run its method with and
+      // pass the prompt question into the object & for the user's 
+      // entry value put 'Use prompt' since user will change value after the prompt
+      Validator validator = new Validator("Use prompt", goalSelectionPrompt);    
+      // using the SelectionCheck method get an entry that is confirmed and valid 
+      goalSelection = validator.SelectionCheck(upperLimit);      
+      // cycle through each goal object in the list
+      foreach (Goal goal in _goalList)
       {
-        // mark the goal complete as appropriate for the goal object
-        goal.MarkComplete();
-        // add the _point value for this goal to the _earnedPoints value
-        _earnedPoints += goal.GetPoints();
-      }
+        // if the goal Selection matches a goal listed
+        if (int.Parse(goalSelection) == goal.GetUnfinishedGoalNumber())
+        {
+          // mark the goal complete as appropriate for the goal object
+          goal.MarkComplete();
+          // add the _point value for this goal to the _earnedPoints value
+          _earnedPoints += goal.GetPoints();
+          // set the _unfinishedGoalNumber associated with the user's
+          // selection to 0 so it won't accidentally be used again
+          goal.SetUnfinishedGoalNumber(0);
+        }
+      }   
     }
-  }
-  
+  }  
 }
