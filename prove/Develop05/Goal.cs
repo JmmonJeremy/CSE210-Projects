@@ -218,14 +218,32 @@ public class Goal
 
   // setter method for the _filename variable
   public void SetFilename(string filenamePrompt)
-  {      
-    // create a validator object to run its method with and
-    // pass the prompt question into the object  & for the user's 
-    // entry value put 'Use prompt' since user will change value after the prompt
-    Validator validator = new Validator("Use prompt", filenamePrompt);    
-    // set a variable equal to the string the ConfirmEntry method returns with .txt on the end 
-    // and with "Use prompt" set the method to to use the prompt the first time the method is used
-    _filename = $"{validator.ConfirmEntry("Use prompt")}.txt";
+  {  
+    // reference source: https://www.tutorialspoint.com/how-to-get-last-4-characters-from-string-in-chash
+    // if the 'filenamePrompt' passed in doesn't end with .txt
+    if (filenamePrompt.Substring(filenamePrompt.Length - 4) != ".txt") 
+    {   
+      // create a validator object to run its method with and
+      // pass the prompt question into the object  & for the user's 
+      // entry value put 'Use prompt' since user will change value after the prompt
+      Validator validator = new Validator("Use prompt", filenamePrompt);    
+      // set a variable equal to the string the ConfirmEntry method returns with .txt on the end 
+      // and with "Use prompt" set the method to to use the prompt the first time the method is used
+      _filename = $"{validator.ConfirmEntry("Use prompt")}.txt";
+    }
+    // if not prompting the user to set the _filename
+    // identified by the filenamePrompt passed in ending with .txt
+    else
+    {
+      // set _filename equal to what is passed in
+      _filename = filenamePrompt;
+    }
+  }
+
+  // getter method for the _filename variable
+  public string GetFilename()
+  {
+    return _filename;
   }
   
   // setter method for the _attributes variable
@@ -364,7 +382,7 @@ public class Goal
   public virtual string CreateGoalText()
   {           
     // list the goal for the user to see
-    string goalText = $"{GetGoalType()}:{GetCompletedBox()}~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{GetGoalCompleted()}";
+    string goalText = $"{GetGoalType()}:{GetCompletedBox()}~|~{GetGoalTitle()}~|~{GetDescription()}~|~{GetPoints()}~|~{GetGoalCompleted()}~|~{GetFilename()}";
     // return the listed goal string
     return goalText; 
   }
@@ -411,13 +429,13 @@ public class Goal
       // // debugging code to figure out how to pass on the __earnedPoints value
       // Console.WriteLine($"#1 The type in _divided attributes _earned points is: {type._earnedPoints}");
       // Console.WriteLine($"#2 The _earnedpoints is: {_earnedPoints}");
-      // Console.WriteLine($"#2 The GetRetrievedObjects()[0] _earnedpoints is: {GetRetrievedObjects()[0]._earnedPoints}");
+      // Console.WriteLine($"#3 The GetRetrievedObjects()[0] _earnedpoints is: {GetRetrievedObjects()[0]._earnedPoints}");
       // if the Goal object has a _goalTitle
       if (!string.IsNullOrEmpty(type.GetGoalTitle()))
       {          
         // cycle through the _goalList 
         foreach (Goal goal in _goalList) 
-        {                   
+        {                           
           // if the type & goal objects have matching _goalTitle and _description 
           if (goal.GetGoalTitle() == type.GetGoalTitle() && goal.GetDescription() == type.GetDescription())
           {
@@ -449,11 +467,32 @@ public class Goal
         // add the goals or Goal objects from the textfile to the _goalList
         // unless they are already loaded into the _goalList
         GetGoalList().Add(type);
-        }            
-      }
+        }
+      }        
     }
     // // debugging code for finding duplicates of goals when loading the list multiple time
     // Console.WriteLine($"The GoalList count in LoadGoalList after adding Goal object types to the GoalList is: {GetGoalList().Count}");
+    
+    // empty the _retrievedObjects list so it is empty if another list is loaded
+    _retrievedObjects.Clear();
+    // reference source: https://www.techiedelight.com/remove-elements-from-list-while-iterating-csharp/
+    // create a list to remove goal objects with the wrong filename
+    List<Goal> wrongList = new List<Goal>();
+    // cycle through the _goalList 
+    foreach (Goal goal in _goalList) 
+    { 
+    // if the filename in list doesn't match the loaded filename
+    if (goal.GetFilename() != _filename) 
+      {  
+        // add that goal object to a list so it will be removed
+        wrongList.Add(goal);
+        // // debugging code for figuring out how to remove goal objects with different filenames
+        // Console.WriteLine($"The _goalList filename is: {goal.GetFilename()}");
+        // Console.WriteLine($"The loaded filename is: {_filename}");
+      }
+    } 
+    // remove the goal objects with the wrong filename
+    _goalList.RemoveAll(wrongList.Contains);
   }
 
   // method to break up retrieved attribute into the different variables
