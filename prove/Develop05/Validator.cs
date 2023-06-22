@@ -94,8 +94,11 @@ public class Validator
     int cycle = 0;
     // create a variable to hold and return the user's entry
     string answer = "none";
+    // set _confirm to yes so it won't restart the while loop
+    // if the ConfirmEntry part is skipped wtin "Don't ConfirmEntry
+    _confirm = "yes";
     // run this until they enter a number
-    while (!_isNumber || _number < 1)
+    while (!_isNumber || _number < 1 || _confirm != "yes")
     { 
       // add 1 to the cycle variable for every cycle
       cycle++;      
@@ -150,15 +153,23 @@ public class Validator
       // if the user entered a valid number
       else if (confirm == "Do ConfirmEntry")
       {
-        // CONFIRM THIS IS WHAT THE USER WANTS TO DO      
-        // create a validator object to run its method with and 
-        // pass the prompt question into the object and 
-        // the user's selection to be confirmed correct by the user 
-        Validator validator1 = new Validator(_number.ToString(), _inputDirection);    
-        // set the stringSelection equal to the string the ConfirmEntry method returns and
-        // set the method to not use the prompt the first time the method is used
-        // set a boolean with int.TryParse to catch user entering no and then entering an invalid response
-        _isNumber = int.TryParse(validator1.ConfirmEntry("No prompt"), out _number);             
+        // CONFIRM THIS IS WHAT THE USER WANTS TO DO 
+        // set _entry equal to _number converted to a string
+        _entry = _number.ToString();      
+        // add an empty line before the statement
+        Console.WriteLine();
+        // tell the user what they entered
+        Console.Write("You entered: ");
+        // change the color of the text to green
+        Console.ForegroundColor = ConsoleColor.Green;
+        // show the user's entry
+        Console.WriteLine($"{_entry}");
+        // reset the text color to the original settings
+        Console.ResetColor();
+        // tell the user how to confirm or reject their entry
+        Console.Write("Is this what you want to enter (yes or no)? ");
+        // record their answer to stop or continue running the while loop
+        _confirm = Console.ReadLine();                      
       }      
     }
     // returns user's answer to direction variable
