@@ -27,13 +27,13 @@ public class Menu
     // show the user how many points they have
     _goal.DisplayPoints();       
     // save the menu and directions to be passed into the method for use    
-    string mainMenuPrompt = "Select your goal type by entering its number:\n 1 - Create a new goal\n 2 - List your goals\n 3 - Save your goals\n 4 - Load your goals\n 5 - Record goal completion\n 6 - Quit\nSelection: ";      
+    string mainMenuPrompt = "Select your goal type by entering its number:\n 1 - Create a new goal\n 2 - List your goals\n 3 - Save your goals\n 4 - Load your goals\n 5 - Record goal completion\n 6 - Delete goal file\n 7 - Quit\nSelection: ";      
     // create a validator object to run its method with and 
     // pass the prompt question into the object  & for the user's 
     // entry value put 'Use prompt' since user will change value after the prompt
     Validator validator = new Validator("Use prompt", mainMenuPrompt);    
     // using the SelectionCheck method get an entry that is confirmed and valid      
-    selection = validator.SelectionCheck(6);    
+    selection = validator.SelectionCheck(7);    
     // return the user's selection
     return selection;
   }
@@ -109,7 +109,7 @@ public class Menu
   public void RunMainChoices()
   {
     // run this until the user chooses to quit
-    while (_choice != "6")
+    while (_choice != "7")
     {      
       // use the PresentMainMenu method to display menu options and return
       // the user's choice - then store it in the while loop variable
@@ -166,7 +166,13 @@ public class Menu
           // save the _completedBox string and _completedGoal bool values to a textfile
           _goal.SaveGoals();
         }
-      }     
+      } 
+       // if they chose to delete a goal file
+      if (_choice == "6")
+      {
+        // give the user the option to delete a file
+        _goal.DeleteFile();           
+      }         
     }
   }
 } 
