@@ -170,12 +170,13 @@ public class Validator
   // method to validate a number entered to 
   // select an option from a list of choices
   public string SelectionCheck(int upperLimit)
-  {    // create a variable to hold the user's option selection as a string
+  {  
+    // create a variable to hold the user's option selection as a string
     string stringSelection = "";   
     // set numberSelection to run the while loop
     int numberSelection = upperLimit + 1; 
     // while user has not entered a number that corresponds to an available option
-    while(numberSelection < 1 || numberSelection > upperLimit)
+    while(numberSelection > upperLimit || _confirm != "yes")
     {       
       // display the prompt to the user
       Console.Write(_inputDirection);      
@@ -228,23 +229,28 @@ public class Validator
       // if the user entered a valid and available option
       else
       {
-        // CONFIRM THIS IS WHAT THE USER WANTS TO DO      
-        // create a validator object to run its method with and 
-        // pass the prompt question into the object and 
-        // the user's selection to be confirmed correct by the user 
-        Validator validator1 = new Validator(stringSelection, _inputDirection);    
-        // set the stringSelection equal to the string the ConfirmEntry method returns and
-        // set the method to not use the prompt the first time the method is used
-        // set a boolean with int.TryParse to catch user entering no and then entering an invalid response
-        bool usable = int.TryParse(validator1.ConfirmEntry("No prompt"), out numberSelection);
-        // if the user entered an invalid response
-        if (!usable || numberSelection < 1 || numberSelection > upperLimit)
+        // CONFIRM THIS IS WHAT THE USER WANTS TO DO 
+        // set _entry equal to numberSelection converted to a string
+        _entry = numberSelection.ToString();      
+        // add an empty line before the statement
+        Console.WriteLine();
+        // tell the user what they entered
+        Console.Write("You entered: ");
+        // change the color of the text to green
+        Console.ForegroundColor = ConsoleColor.Green;
+        // show the user's entry
+        Console.WriteLine($"{_entry}");
+        // reset the text color to the original settings
+        Console.ResetColor();
+        // tell the user how to confirm or reject their entry
+        Console.Write("Is this what you want to enter (yes or no)? ");
+        // record their answer to stop or continue running the while loop
+        _confirm = Console.ReadLine(); 
+        if (_confirm != "yes")
         {
-          // set the numberSelection to run the while loop
-          numberSelection = upperLimit + 1;
           // enter an empty line before showing the prompt to the user again
           Console.WriteLine();
-        }        
+        }             
       }      
     }    
     return numberSelection.ToString();
