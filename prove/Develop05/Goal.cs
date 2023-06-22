@@ -597,7 +597,7 @@ public class Goal
     string goalSelection = "";
     // only do if there is something listed to check off as done
     if (upperLimit > 0)
-  {
+    {
       // create prompt asking the user which goal they want to check off
       // store prompt in a variable to pass into a Validator method
       string goalSelectionPrompt = "Select the goal to note its accomplishment by entering its number:\nSelection: ";
@@ -623,5 +623,80 @@ public class Goal
         }
       }   
     }
-  }  
+  }
+
+  // method to delete a saved goal file
+  public void DeleteFile()
+  {
+    // CLEARLY EXPLAIN THE CONSEQUENCES TO THE USER
+    // change the color of the text to yellow to alert the user
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("\nYou have chosen to ");
+    // change the background color for the text to red to further alert the user
+    Console.BackgroundColor = ConsoleColor.DarkRed;
+    Console.Write("permanently delete a goal file");
+    // reset the text color to the original settings
+    Console.ResetColor();
+    // change the color of the text to yellow to alert the user
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine(", which is irreversible.");
+    // change the color of the text to red to alert the user
+    Console.ForegroundColor = ConsoleColor.Red;        
+    Console.WriteLine("Once this is completed all saved goals in that file will be irretrievable.");
+    // reset the text color to the original settings
+    Console.ResetColor();
+    // set a prompt to use in the ConfirmEntry method
+    string confirmDeletionPrompt = "Enter 'quit' to stop deletion of the file or 'Delete goal file!' to continue: ";
+    // set the _choice to pass into the ConfirmEntry method
+    string choice = "Delete goal file!";       
+    // DOUBLE CHECK THIS IS WHAT THE USER WANTS TO DO
+    // create a validator object to run its method with and
+    // pass the prompt question into the object  & for the user's 
+    // entry value put 'No prompt' since the user's choice is being passed in
+    Validator validator1 = new Validator(choice, confirmDeletionPrompt);    
+    // set a variable equal to the string the ConfirmEntry method returns with .txt on the end 
+    // and with "Use prompt" set the method to to use the prompt the first time the method is used
+    choice = validator1.ConfirmEntry("No prompt");
+    if (choice == "Delete goal file!")
+    {    
+      // set the filenamePrompt variable to pass into the Validator method
+      string filenamePrompt = "What is the name of the file you want to delete? ";       
+      // create a validator object to run its method with and
+      // pass the prompt question into the object  & for the user's 
+      // entry value put 'Use prompt' since user will change value after the prompt
+      Validator validator2 = new Validator("Use prompt", filenamePrompt);    
+      // set a variable equal to the string the ConfirmEntry method returns with .txt on the end 
+      // and with "Use prompt" set the method to to use the prompt the first time the method is used
+      string filename = $"{validator2.ConfirmEntry("Use prompt")}.txt";
+      // if the file exists
+      if (File.Exists(filename))
+      {
+        // delete the file
+        File.Delete(filename);
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // tell the user what happened
+        Console.WriteLine($"\nThe {filename} goals file has been deleted.");
+        // reset the text color to the original settings
+        Console.ResetColor();
+      }
+      // if the file doesn't exist
+      else
+      {
+        // change the color of the text to red to alert the user
+        Console.ForegroundColor = ConsoleColor.Red;
+        // let the user know that no file exists with this name
+        Console.Write($"\nSorry, no file with the name ");
+        // change the color of the text to green so the user's input is typed in green
+        Console.ForegroundColor = ConsoleColor.Green;      
+        Console.Write(filename);
+        // change the color of the text to red to alert the user
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(" exists.");
+        // reset the text color to the original settings
+        Console.ResetColor();
+        Console.WriteLine($"Please check the existence or spelling of your filename and try again.");
+      }
+    }
+  } 
 }
