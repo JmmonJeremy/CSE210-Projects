@@ -34,11 +34,14 @@ public class AccrualGoal : Goal
   {        
     // create user prompt for setting the accrual number associated with this goal & save it in a variable
     string accrualNumberPrompt = "Please enter the number of times the goal needs to be done to reach the goal: ";
-    // create a validator object to run its method with
-    // and pass the prompt question into the object
-    Validator validator = new Validator(accrualNumberPrompt);    
-    // set the _accrualNumber equal to the int number the StringNumberCheck method returns
-    _accrualNumber = validator.StringNumberCheck();   
+    // create a validator object to run its method with and
+    // pass the prompt question into the object  & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", accrualNumberPrompt);    
+    // set the _accrualNumber equal to the int number the StringNumberCheck method returns and    
+    // and set the method to use the prompt the first time the method is used with "Use Prompt"
+    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
+    _accrualNumber = validator.StringNumberCheck("Use prompt", "Do ConfirmEntry");   
   }
 
   // method to get the _accrualNumber
@@ -52,11 +55,14 @@ public class AccrualGoal : Goal
   {       
     // create user prompt for setting the bonus points associated with this goal & save it in a variable
     string bonusPointsPrompt = "What is the bonus point amount for reaching the goal: ";
-    // create a validator object to run its method with
-    // and pass the prompt question into the object
-    Validator validator = new Validator(bonusPointsPrompt);    
-    // set the _bonusPoints equal to the int number the StringNumberCheck method returns
-    _bonusPoints = validator.StringNumberCheck();       
+    // create a validator object to run its method with and
+    // pass the prompt question into the object  & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", bonusPointsPrompt);    
+    // set the _bonusPoints equal to the int number the StringNumberCheck method returns and
+    // and set the method to use the prompt the first time the method is used with "Use Prompt"
+    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
+    _bonusPoints = validator.StringNumberCheck("Use prompt", "Do ConfirmEntry");       
   }
 
   // method to get the _bonusPoints
