@@ -49,7 +49,9 @@ public class HabitGoal : Goal
     SetPoints(int.Parse(attributes[3]));
     // reference source: https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
     // fill the _goalCompleted boolean with the last string from the split converted to a bool
-    SetGoalCompleted(bool.Parse(attributes[4])); 
+    SetGoalCompleted(bool.Parse(attributes[4]));
+    // fill the _filename with the last string from the split
+    SetFilename(attributes[5]); 
   }
 
   // method to make changes when recording goal completion
