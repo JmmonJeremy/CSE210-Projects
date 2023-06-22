@@ -76,7 +76,9 @@ public class Menu
       // create a OneOffGoal object
       OneOffGoal oneOff = new OneOffGoal(_goal.GetGoalTitle(), _goal.GetDescription());
       // load the goal into the list
-      _goal.SetGoalList(oneOff);                    
+      _goal.SetGoalList(oneOff); 
+      // communicate the creation of the goal to the user
+      _goal.CommunicateGoalCreation();                       
     } 
     // if the goal type is a habit
     if (goalType == "2")
@@ -87,7 +89,9 @@ public class Menu
       // create a HabitGoal object
       HabitGoal habit = new HabitGoal(_goal.GetGoalTitle(), _goal.GetDescription());
       // load the goal into the list
-      _goal.SetGoalList(habit); 
+      _goal.SetGoalList(habit);
+      // communicate the creation of the goal to the user
+      _goal.CommunicateGoalCreation();  
     }
     // if the goal type is a accrual
     if (goalType == "3")
@@ -101,7 +105,9 @@ public class Menu
       accrual.SetAccrualNumber();
       accrual.SetBonusPoints();
       // load the goal into the list
-      _goal.SetGoalList(accrual); 
+      _goal.SetGoalList(accrual);
+      // communicate the creation of the goal to the user
+      _goal.CommunicateGoalCreation();  
     }    
   }
 
@@ -119,7 +125,7 @@ public class Menu
       if (_choice == "1")
       {  
         // present the user with the goal type choices
-        RunGoalTypeChoices();
+        RunGoalTypeChoices();        
       }   
       
        // if they chose to list their goals
