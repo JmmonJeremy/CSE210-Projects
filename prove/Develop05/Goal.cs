@@ -63,6 +63,37 @@ public class Goal
   }
 
 // ### METHODS ############################################## //
+  // method to communicate goal creation to the user
+  public void CommunicateGoalCreation()
+  {
+    // COMMUNICATE IN COLOR TO THE USER THE CREATION OF A GOAL
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // let the user know their goal has been created
+    Console.Write("\nThe ");
+    // change the color of the text to purple so the word goal stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    // let the user know their goal has been created
+    Console.Write("goal ");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // let the user know their goal has been created
+    Console.Write("entitled ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write(GetGoalTitle());
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine(" has been created for you."); 
+    // reset the text color to the original settings
+    Console.ResetColor();   
+  } 
   // method to display the points a user has earned
   public void DisplayPoints()
   { 
