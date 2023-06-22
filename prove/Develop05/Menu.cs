@@ -22,41 +22,18 @@ public class Menu
   // this also allow the method to present the user's earned points with the object
   public string PresentMainMenu()
   {     
-    // create a string to hold the user's selection 
-    // and to keep the while loop running until there's a valid entry
-    string selection = "No selection made.";   
-    // create a loop to run until a valid choice is entered
-    while (selection != "1" && selection != "2" && selection != "3" && selection != "4" && selection != "5" && selection != "6")
-    {
-      // show the user how many points they have
-      _goal.DisplayPoints();
-      // display the menu and directions
-      Console.WriteLine("Select an option by entering its number:");
-      Console.WriteLine(" 1 - Create a new goal");
-      Console.WriteLine(" 2 - List your goals");
-      Console.WriteLine(" 3 - Save your goals");
-      Console.WriteLine(" 4 - Load your goals");
-      Console.WriteLine(" 5 - Record goal completion");
-      Console.WriteLine(" 6 - Quit");
-      // show the user where to make their entry
-      Console.Write("Selection: ");
-      // change the color of the text to green
-      Console.ForegroundColor = ConsoleColor.Green;
-      // store the entry in the selection variable
-      selection = Console.ReadLine();
-      // reset the background color to original settings
-      Console.ResetColor();
-      // add a space after the menu
-      Console.WriteLine();
-      // if the user didn't enter a valid choice
-      if (selection != "1" && selection != "2" && selection != "3" && selection != "4" && selection != "5" && selection != "6")
-      {
-        // inform the user their entry was invalid, tell them what is valid, and to try again.
-        Console.WriteLine($"You entered '{selection}', which is not recognized as a valid choice.");
-        Console.WriteLine("Your entry must be a 1, 2, 3, 4, 5 or 6 to be a valid choice.");
-        Console.WriteLine("Please try again.\n");
-      }   
-    }
+    // create a string to hold the user's selection     
+    string selection = "No selection made.";
+    // show the user how many points they have
+    _goal.DisplayPoints();       
+    // save the menu and directions to be passed into the method for use    
+    string mainMenuPrompt = "Select your goal type by entering its number:\n 1 - Create a new goal\n 2 - List your goals\n 3 - Save your goals\n 4 - Load your goals\n 5 - Record goal completion\n 6 - Quit\nSelection: ";      
+    // create a validator object to run its method with and 
+    // pass the prompt question into the object  & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", mainMenuPrompt);    
+    // using the SelectionCheck method get an entry that is confirmed and valid      
+    selection = validator.SelectionCheck(6);    
     // return the user's selection
     return selection;
   }
@@ -64,37 +41,23 @@ public class Menu
   // menu for the user to select the type of goal
   public string PresentGoalTypeMenu()
   {
-    Console.WriteLine("There are three types of goals you may create.");
-    Console.WriteLine("Please select the type of goal you are creating from the list below.\n");
+    // change the color of the text to blue to have it stand out
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // inform the user with an empty space before and after
+    Console.WriteLine("\nThere are three types of goals you may create.\n");
+    // reset the text color to the original settings
+    Console.ResetColor();
     // create a string to hold the user's selection 
     // and to keep the while loop running until there's a valid entry
-    string selection = "No selection made.";   
-    // create a loop to run until a valid choice is entered
-    while (selection != "1" && selection != "2" && selection != "3")
-    { 
-      Console.WriteLine("Select your goal type by entering its number:");
-      Console.WriteLine(" 1 - One-off goal");
-      Console.WriteLine(" 2 - Habit goal");
-      Console.WriteLine(" 3 - Accrual goal");
-      // show the user where to make their entry
-      Console.Write("Selection: ");
-      // change the color of the text to green
-      Console.ForegroundColor = ConsoleColor.Green;
-      // store the entry in the selection variable
-      selection = Console.ReadLine();
-      // reset the background color to original settings
-      Console.ResetColor();
-      // add a space after the menu
-      Console.WriteLine();
-      // if the user didn't enter a valid choice
-      if (selection != "1" && selection != "2" && selection != "3")
-      {
-        // inform the user their entry was invalid, tell them what is valid, and to try again.
-        Console.WriteLine($"You entered '{selection}', which is not recognized as a valid choice.");
-        Console.WriteLine("Your entry must be a 1, 2 or 3 to be a valid choice.");
-        Console.WriteLine("Please try again.\n");
-      }
-    }
+    string selection = "No selection made.";    
+    // goal type menu prompt
+    string goalMenuPrompt = "Select your goal type by entering its number:\n 1 - One-off goal\n 2 - Habit goal\n 3 - Accrual goal\nSelection: ";
+    // create a validator object to run its method with and 
+    // pass the prompt question into the object  & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", goalMenuPrompt);    
+    // using the SelectionCheck method get an entry that is confirmed and valid      
+    selection = validator.SelectionCheck(3);      
     // return the user's selection
     return selection; 
   }
@@ -194,7 +157,7 @@ public class Menu
         int availableGoals = _goal.ListUnfinishedGoals();
         if (availableGoals > 0)
         {
-          _goal.NoteAccomplishment();
+          _goal.NoteAccomplishment(availableGoals);
           // save the _completedBox string and _completedGoal bool values to a textfile
           _goal.SaveGoals();
         }
