@@ -48,7 +48,9 @@ public class OneOffGoal : Goal
     // fill the _points variable with the next string from the split converted to an int
     SetPoints(int.Parse(attributes[3]));
     // reference source: https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
-    // fill the _goalCompleted boolean with the last string from the split converted to a bool
-    SetGoalCompleted(bool.Parse(attributes[4]));        
+    // fill the _goalCompleted boolean with the next string from the split converted to a bool
+    SetGoalCompleted(bool.Parse(attributes[4])); 
+    // fill the _filename with the last string from the split
+    SetFilename(attributes[5]);       
   }
 }
