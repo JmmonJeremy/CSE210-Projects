@@ -162,7 +162,9 @@ public class Menu
         // set the _filename from the Goal class
         _goal.SetFilename(_filenamePrompt);        
         // load the specified textfile as Goal objects into the _goalList
-        _goal.LoadGoalList();            
+        _goal.LoadGoalList();
+        // communicate the goals loaded and from what filename to user 
+        _goal.CommunicateGoalsLoaded();           
       } 
       // if they chose to record their completion of a goal
       if (_choice == "5")
