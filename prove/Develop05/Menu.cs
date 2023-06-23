@@ -78,7 +78,7 @@ public class Menu
       // load the goal into the list
       _goal.SetGoalList(oneOff); 
       // communicate the creation of the goal to the user
-      _goal.CommunicateGoalCreation();                       
+      oneOff.CommunicateGoalCreation();                       
     } 
     // if the goal type is a habit
     if (goalType == "2")
@@ -91,7 +91,7 @@ public class Menu
       // load the goal into the list
       _goal.SetGoalList(habit);
       // communicate the creation of the goal to the user
-      _goal.CommunicateGoalCreation();  
+      habit.CommunicateGoalCreation();  
     }
     // if the goal type is a accrual
     if (goalType == "3")
@@ -107,7 +107,7 @@ public class Menu
       // load the goal into the list
       _goal.SetGoalList(accrual);
       // communicate the creation of the goal to the user
-      _goal.CommunicateGoalCreation();  
+      accrual.CommunicateGoalCreation();  
     }    
   }
 
@@ -174,7 +174,7 @@ public class Menu
         {
           _goal.NoteAccomplishment(availableGoals);
           // save the _completedBox string and _completedGoal bool values to a textfile
-          _goal.SaveGoals();
+          _goal.SaveGoals();          
         }
       } 
        // if they chose to delete a goal file
