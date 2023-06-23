@@ -27,13 +27,13 @@ public class Menu
     // show the user how many points they have
     _goal.DisplayPoints();       
     // save the menu and directions to be passed into the method for use    
-    string mainMenuPrompt = "Select your goal type by entering its number:\n 1 - Create a new goal\n 2 - List your goals\n 3 - Save your goals\n 4 - Load your goals\n 5 - Record goal completion\n 6 - Delete goal file\n 7 - Quit\nSelection: ";      
+    string mainMenuPrompt = "Select your goal type by entering its number:\n 1 - Create a new goal\n 2 - List your goals\n 3 - Save your goals\n 4 - Load your goals\n 5 - Record goal completion\n 6 - Change goals' filename\n 7 - Delete goal file\n 8 - Quit\nSelection: ";      
     // create a validator object to run its method with and 
     // pass the prompt question into the object  & for the user's 
     // entry value put 'Use prompt' since user will change value after the prompt
     Validator validator = new Validator("Use prompt", mainMenuPrompt);    
     // using the SelectionCheck method get an entry that is confirmed and valid      
-    selection = validator.SelectionCheck(7);    
+    selection = validator.SelectionCheck(8);    
     // return the user's selection
     return selection;
   }
@@ -115,7 +115,7 @@ public class Menu
   public void RunMainChoices()
   {
     // run this until the user chooses to quit
-    while (_choice != "7")
+    while (_choice != "8")
     {      
       // use the PresentMainMenu method to display menu options and return
       // the user's choice - then store it in the while loop variable
@@ -158,7 +158,7 @@ public class Menu
         // also save the _completedBox string and _completedGoal bool values to a textfile
         _goal.SaveGoals();
         // communicate goals saved and filename used to user
-        _goal.CommunicateGoalsSaved();
+        _goal.CommunicateGoalsSaved("New filename");
       }
       // if they chose to load their goals
       if (_choice == "4")
@@ -184,8 +184,44 @@ public class Menu
           _goal.SaveGoals();          
         }
       } 
-       // if they chose to delete a goal file
+      // if they chose to change the filename of saved goals
       if (_choice == "6")
+      {
+        // set the _filenamePrompt to pass into the SetFileName method
+        _filenamePrompt = "What is the current filename of the saved goals you would like to change the filename for? ";  
+        // set the _filename from the Goal class
+        _goal.SetFilename(_filenamePrompt); 
+        // save the filename to be changed to a string
+        string oldFilename = _goal.GetFilename();  
+        // load the specified textfile as Goal objects into the _goalList
+        // don't allow another list to be combined to the filename
+        _goal.LoadGoalList("Don't combine");
+        // determine if the a file exists to be loaded
+        if (File.Exists(_goal.GetFilename()))
+        {   
+          // set the _filenamePrompt to pass into the SetFileName method
+          _filenamePrompt = "Please enter the new filename you would like for these saved goals: ";
+          // set the _filename from the Goal class
+          _goal.SetFilename(_filenamePrompt);         
+          // after the _filename is set load any previous Goal objects saved under this filename
+          // don't allow another list to be combined to the filename
+          _goal.LoadGoalList("Don't combine");         
+          // attach filename to each goal object to avoid combining different files together
+          foreach (Goal goal in _goal.GetGoalList())
+          {
+            goal.SetFilename(_goal.GetFilename());
+          }        
+          // save the _earnedPoints and _goalList to a textfile if the user completed any goals
+          // also save the _completedBox string and _completedGoal bool values to a textfile with this name
+          _goal.SaveGoals();          
+          // delete the old file
+          File.Delete(oldFilename);
+          // communicate goals saved and to the new filename used to user
+          _goal.CommunicateGoalsSaved("Change filename"); 
+        }        
+      } 
+      // if they chose to delete a goal file
+      if (_choice == "7")
       {
         // give the user the option to delete a file
         _goal.DeleteFile();           
