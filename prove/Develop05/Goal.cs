@@ -64,7 +64,7 @@ public class Goal
 
 // ### METHODS ############################################## //
   // method to communicate goal creation to the user
-  public void CommunicateGoalCreation()
+  public virtual void CommunicateGoalCreation()
   {
     // COMMUNICATE IN COLOR TO THE USER THE CREATION OF A GOAL
     // change the color of the text to blue
@@ -73,8 +73,11 @@ public class Goal
     Console.Write("\nThe ");
     // change the color of the text to purple so the word goal stands out
     Console.ForegroundColor = ConsoleColor.Magenta;
+    // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
+    // save goal type into a string variable
+    string goalType = GetGoalType().Substring(0, GetGoalType().Length - 4).ToLower();
     // let the user know their goal has been created
-    Console.Write("goal ");
+    Console.Write($"{goalType} goal ");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
     // let the user know their goal has been created
@@ -90,10 +93,35 @@ public class Goal
     Console.Write("'");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine(" has been created for you."); 
+    Console.Write(" has been ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so created stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write("created");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'"); 
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(" for you with the continuing point value of ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so the point total stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"{GetPoints()} points");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine(".");
     // reset the text color to the original settings
     Console.ResetColor();   
   } 
+
   // method to display the points a user has earned
   public void DisplayPoints()
   { 
@@ -488,11 +516,33 @@ public class Goal
     }
     // change the color of the text to blue for main statement parts
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(" have been saved to the ");
+    Console.Write(" have been ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;       
+    Console.Write("'");
+    // change the color of the text to purple so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write("saved");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue for main statement parts
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(" to the ");
     // change the color of the text to purple so the name of the filename stands out
     Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.Write($"filename of {_filename.Substring(0, _filename.Length - 4)}");
+    // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
+    Console.Write($"filename of ");
     // change the color of the text to blue for main statement parts
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;       
+    Console.Write("'");
+    // change the color of the text to purple so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"{_filename.Substring(0, _filename.Length - 4)}");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine(".");
     // reset the text color to original settings
@@ -634,14 +684,36 @@ public class Goal
         // add a comma the word and and a space
         Console.Write(", and ");
       }
-    }
+    }    
     // change the color of the text to blue for main statement parts
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(" have been loaded from a file with the ");
+    Console.Write(" have been ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;       
+    Console.Write("'");
+    // change the color of the text to purple so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write("loaded");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue for main statement parts
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(" to the ");
     // change the color of the text to purple so the name of the filename stands out
     Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.Write($"filename of {_filename.Substring(0, _filename.Length - 4)}");
+    // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
+    Console.Write($"filename of ");
     // change the color of the text to blue for main statement parts
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;       
+    Console.Write("'");
+    // change the color of the text to purple so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"{_filename.Substring(0, _filename.Length - 4)}");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine(".");
     // reset the text color to original settings
@@ -773,9 +845,70 @@ public class Goal
           // set the _unfinishedGoalNumber associated with the user's
           // selection to 0 so it won't accidentally be used again
           goal.SetUnfinishedGoalNumber(0);
+          // communicate to user what happened with the goal completion recording
+          goal.CommunicateCompletionRecording(); 
         }
       }   
     }
+  }
+
+  // method to communicate completion recording to user
+  public virtual void CommunicateCompletionRecording()
+  {
+    // COMMUNICATE IN COLOR TO THE USER THE COMPLETION OF A GOAL
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // let the user know their goal has been created
+    Console.Write("\nFor the ");
+    // change the color of the text to purple so the word goal stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
+    // save goal type into a string variable
+    string goalType = GetGoalType().Substring(0, GetGoalType().Length - 4).ToLower();    
+    // let the user know their goal has been created
+    Console.Write($"{goalType} goal ");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // let the user know their goal has been created
+    Console.Write("entitled: ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write(GetGoalTitle());
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write($", {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} your current recording of completion has ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so the goal notation stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write("been noted");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(", earning you ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so the points earned stand out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"{GetPoints()} points total");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine("!");
+    // reset the text color to the original settings
+    Console.ResetColor();  
   }
 
   // method to delete a saved goal file
@@ -820,18 +953,16 @@ public class Goal
       Validator validator2 = new Validator("Use prompt", filenamePrompt);    
       // set a variable equal to the string the ConfirmEntry method returns with .txt on the end 
       // and with "Use prompt" set the method to to use the prompt the first time the method is used
-      string filename = $"{validator2.ConfirmEntry("Use prompt")}.txt";
+      string filename = validator2.ConfirmEntry("Use prompt");
+      string fullFilename = $"{filename}.txt";
       // if the file exists
-      if (File.Exists(filename))
+      if (File.Exists(fullFilename))
       {
+        // reference source: https://www.educative.io/answers/how-to-delete-a-file-in-c-sharp
         // delete the file
-        File.Delete(filename);
-        // change the color of the text to blue
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        // tell the user what happened
-        Console.WriteLine($"\nThe {filename} goals file has been deleted.");
-        // reset the text color to the original settings
-        Console.ResetColor();
+        File.Delete(fullFilename);
+        // communicate to the user that the file has been deleted
+        CommunicateFileDeletion(filename);
       }
       // if the file doesn't exist
       else
@@ -851,5 +982,42 @@ public class Goal
         Console.WriteLine($"Please check the existence or spelling of your filename and try again.");
       }
     }
+  }
+
+  // method to communicate the deletion of a file to the user
+  public void CommunicateFileDeletion(string filename)
+  {
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // tell the user what happened
+    Console.Write("\nThe file entitled: ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so the points earned stand out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write(filename);
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // tell the user what happened
+    Console.Write(", that was storing your goals has been ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to purple so the points earned stand out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write("deleted");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // tell the user what happened
+    Console.WriteLine(".");
+    // reset the text color to the original settings
+    Console.ResetColor();
   } 
 }
