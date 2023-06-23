@@ -1,0 +1,5 @@
+Goal:~|~150
+HabitGoal:[ ]~|~memorize scripture~|~memorize 1 scripture a month~|~150~|~False~|~mygoals.txt
+AccrualGoal:[ ]~|~list calories~|~record calories after a meal~|~100~|~300~|~4~|~0~|~False~|~mygoals.txt
+AccrualGoal:[ ]~|~attend Temple~|~attend the temple 2 times in a month~|~50~|~200~|~2~|~0~|~False~|~mygoals.txt
+OneOffGoal:[ ]~|~run~|~run at least 5 miles at once without stopping~|~500~|~False~|~mygoals.txt
