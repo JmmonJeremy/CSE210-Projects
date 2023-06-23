@@ -141,12 +141,18 @@ public class Menu
         _filenamePrompt = "Please enter a filename to save the goals under: ";
         // set the _filename from the Goal class
         _goal.SetFilename(_filenamePrompt);
-        // after the _filename is set load any previous Goal objects saved under this filename
-        _goal.LoadGoalList(); 
-        // attach filename to each goal object to avoid combining different files together
-        foreach (Goal goal in _goal.GetGoalList())
+        // determine if the a file exists to be loaded
+        if (File.Exists(_goal.GetFilename()))
         {
-          goal.SetFilename(_goal.GetFilename());
+          // after the _filename is set load any previous Goal objects saved under this filename
+          // don't allow another list to be combined to the filename
+          _goal.LoadGoalList("Don't combine"); 
+        
+          // attach filename to each goal object to avoid combining different files together
+          foreach (Goal goal in _goal.GetGoalList())
+          {
+            goal.SetFilename(_goal.GetFilename());
+          }
         }
         // save the _earnedPoints and _goalList to a textfile if the user completed any goals
         // also save the _completedBox string and _completedGoal bool values to a textfile
@@ -162,7 +168,8 @@ public class Menu
         // set the _filename from the Goal class
         _goal.SetFilename(_filenamePrompt);        
         // load the specified textfile as Goal objects into the _goalList
-        _goal.LoadGoalList();
+        // don't allow another list to be combined to the filename
+        _goal.LoadGoalList("Don't combine");
         // communicate the goals loaded and from what filename to user 
         _goal.CommunicateGoalsLoaded();           
       } 
