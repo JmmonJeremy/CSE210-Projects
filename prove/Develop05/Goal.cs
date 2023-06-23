@@ -482,7 +482,7 @@ public class Goal
   }  
 
   // method to display to the user the goals saved and filename used
-  public void CommunicateGoalsSaved()
+  public void CommunicateGoalsSaved(string nameChange)
   {
     // if there are goals to be saved in the _goalList
     if (_goalList.Count > 0)
@@ -547,10 +547,16 @@ public class Goal
       // change the color of the text to blue for main statement parts
       Console.ForegroundColor = ConsoleColor.Cyan;
       Console.Write(" to the ");
+      // create a variable to change what is displayed if the filename is being changed
+      string filename = "filename";
+      if (nameChange == "Change filename")
+      {
+        filename = "new filename";
+      }
       // change the color of the text to purple so the name of the filename stands out
       Console.ForegroundColor = ConsoleColor.Magenta;
       // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
-      Console.Write($"filename of ");    
+      Console.Write($"{filename} of ");    
       // change the color of the text to yellow for the single quote mark
       Console.ForegroundColor = ConsoleColor.Yellow;       
       Console.Write("'");
@@ -622,6 +628,8 @@ public class Goal
     SetRetrievedOjects();      
     // // debugging code for finding duplicates of goals when loading the list multiple time
     // Console.WriteLine($"The GoalList count in LoadGoalList before adding Goal object types to the GoalList is: {GetGoalList().Count}");
+    // // debugging code for saving to a new filename or combining files
+    // Console.WriteLine($"The _retrieved objects list count is: {GetRetrievedObjects().Count})");
     // cycle through the _retrievedObjects list
     foreach (Goal type in GetRetrievedObjects())
     {
@@ -635,8 +643,7 @@ public class Goal
       // // debugging code to figure out how to pass on the __earnedPoints value
       // Console.WriteLine($"#1 The type in _divided attributes _earned points is: {type._earnedPoints}");
       // Console.WriteLine($"#2 The _earnedpoints is: {_earnedPoints}");
-      // Console.WriteLine($"#3 The GetRetrievedObjects()[0] _earnedpoints is: {GetRetrievedObjects()[0]._earnedPoints}
-      Console.WriteLine($"The _retrieved objects list count is: {GetRetrievedObjects().Count})");
+      // Console.WriteLine($"#3 The GetRetrievedObjects()[0] _earnedpoints is: {GetRetrievedObjects()[0]._earnedPoints}  
       // if the Goal object has a _goalTitle
       if (!string.IsNullOrEmpty(type.GetGoalTitle()))
       {          
@@ -688,8 +695,9 @@ public class Goal
     // cycle through the _goalList 
     foreach (Goal goal in _goalList) 
     { 
-    // if the filename in list doesn't match the loaded filename
-    if (goal.GetFilename() != _filename && combine != "combine") 
+    // if the filename in list doesn't match the loaded filename, the retrieved files are 
+    // for than the Goal class with the score && "combine" is not passed in as a parameter
+    if (goal.GetFilename() != _filename && GetRetrievedObjects().Count > 1 && combine != "combine") 
       {  
         // add that goal object to a list so it will be removed
         wrongList.Add(goal);
