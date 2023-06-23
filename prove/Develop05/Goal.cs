@@ -538,21 +538,34 @@ public class Goal
       // change the color of the text to yellow for the single quote mark
       Console.ForegroundColor = ConsoleColor.Yellow;       
       Console.Write("'");
+      // CHANGES FROM "nameChange" PARAMETER
+      // create a variable to change what is displayed if combining instead of saving
+      string saved = "saved";
+      string savedStatement = " to the ";
+      // do this if the user is combining goal files
+      if (nameChange == "Combined files")
+      {
+        // change from what it originally said
+        saved = "combined";
+        savedStatement = " within the file that has the ";
+      }
       // change the color of the text to purple so the goal title stands out
       Console.ForegroundColor = ConsoleColor.Magenta;
-      Console.Write("saved");
+      Console.Write($"{saved}");
       // change the color of the text to yellow for the single quote mark
       Console.ForegroundColor = ConsoleColor.Yellow;
       Console.Write("'");
       // change the color of the text to blue for main statement parts
       Console.ForegroundColor = ConsoleColor.Cyan;
-      Console.Write(" to the ");
+      Console.Write($"{savedStatement}");
+      // CHANGES FROM "nameChange" PARAMETER
       // create a variable to change what is displayed if the filename is being changed
       string filename = "filename";
-      if (nameChange == "Change filename")
+      // do this if the user is changing the filename
+      if (nameChange == "Changed filename")
       {
         filename = "new filename";
-      }
+      }      
       // change the color of the text to purple so the name of the filename stands out
       Console.ForegroundColor = ConsoleColor.Magenta;
       // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
@@ -622,6 +635,10 @@ public class Goal
   // method to load _goalList with Goals from textfile
   public void LoadGoalList(string combine)
   {
+    // debugging code for combining two files and their scores
+    // Console.WriteLine($"The available score is: {_earnedPoints}");
+    // created int variable to hold the points when combining two saved goal files
+    int otherFilesPoints = _earnedPoints;
     // create a boolean to prevent loading the same goal multiple times
     bool duplicate = false;
     // retrieve goals objects from textfile
@@ -632,7 +649,7 @@ public class Goal
     // Console.WriteLine($"The _retrieved objects list count is: {GetRetrievedObjects().Count})");
     // cycle through the _retrievedObjects list
     foreach (Goal type in GetRetrievedObjects())
-    {
+    {      
       // set duplicate to false to start each comparison
       duplicate = false;  
       // fill the goal object attributes and put in #1 Goal objects _earnedPoints & #2 _goalList
@@ -640,6 +657,11 @@ public class Goal
       // pass on the _earnedPoints value from the saved textfile 
       // to the current Goal objects's _earnedPoints variable
       _earnedPoints = GetRetrievedObjects()[0]._earnedPoints;
+      // if the string "Combine" for combining files was entered
+      if (combine == "Combine")
+      {
+        _earnedPoints += otherFilesPoints;
+      }
       // // debugging code to figure out how to pass on the __earnedPoints value
       // Console.WriteLine($"#1 The type in _divided attributes _earned points is: {type._earnedPoints}");
       // Console.WriteLine($"#2 The _earnedpoints is: {_earnedPoints}");
@@ -697,7 +719,7 @@ public class Goal
     { 
     // if the filename in list doesn't match the loaded filename, the retrieved files are 
     // for than the Goal class with the score && "combine" is not passed in as a parameter
-    if (goal.GetFilename() != _filename && GetRetrievedObjects().Count > 1 && combine != "combine") 
+    if (goal.GetFilename() != _filename && GetRetrievedObjects().Count > 1 && combine != "Combine") 
       {  
         // add that goal object to a list so it will be removed
         wrongList.Add(goal);
