@@ -151,6 +151,8 @@ public class Menu
         // save the _earnedPoints and _goalList to a textfile if the user completed any goals
         // also save the _completedBox string and _completedGoal bool values to a textfile
         _goal.SaveGoals();
+        // communicate goals saved and filename used to user
+        _goal.CommunicateGoalsSaved();
       }
       // if they chose to load their goals
       if (_choice == "4")
