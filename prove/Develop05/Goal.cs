@@ -441,7 +441,7 @@ public class Goal
   // method to display to the user the goals saved and filename used
   public void CommunicateGoalsSaved()
   {
-    // COMMUNICATE IN COLOR TO THE USER THE GOALS SAVED
+    // COMMUNICATE IN COLOR TO THE USER THE GOALS SAVED & THE FILENAME USED
     // change the color of the text to blue for main statement parts
     Console.ForegroundColor = ConsoleColor.Cyan;
     // let the user know what goals have been saved to a file with what filename
@@ -585,6 +585,67 @@ public class Goal
     } 
     // remove the goal objects with the wrong filename
     _goalList.RemoveAll(wrongList.Contains);
+  }
+
+  // method to display to the user the goals saved and filename used
+  public void CommunicateGoalsLoaded()
+  {
+    // COMMUNICATE IN COLOR TO THE USER THE GOALS LOADED & FROM WHAT FILENAME
+    // change the color of the text to blue for main statement parts
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // let the user know what goals have been loaded and from what filename
+    Console.Write("\nThe ");
+    // change the color of the text to purple so the word goals stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;    
+    Console.Write("goals");
+    // change the color of the text to blue for main statement parts
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write($" entitled: ");
+    // create int variable to hold the rotation number for the foreach loop
+    int rotation = 0;
+    // iterate through the goals in the _goalList
+    foreach (Goal goal in _goalList)
+    {
+      // advance rotation number by one for each loop
+      rotation++;
+      // change the color of the text to yellow for the # sign 
+      // and goal number of the goal and the single quote mark
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.Write($"#{rotation} ");      
+      Console.Write("'");
+      // change the color of the text to purple so the goal title stands out
+      Console.ForegroundColor = ConsoleColor.Magenta;
+      Console.Write($"{goal.GetGoalTitle()}");
+      // change the color of the text to yellow for the single quote mark
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.Write("'");
+      // if it is not the last or second to last goal
+      if (rotation != _goalList.Count && rotation != _goalList.Count-1)
+      {
+        // change the color of the text to blue for main statement parts
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // add a comma and a space
+        Console.Write(", ");
+      }  
+      else if (rotation == _goalList.Count-1) 
+      {
+        // change the color of the text to blue for main statement parts
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // add a comma the word and and a space
+        Console.Write(", and ");
+      }
+    }
+    // change the color of the text to blue for main statement parts
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(" have been loaded from a file with the ");
+    // change the color of the text to purple so the name of the filename stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"filename of {_filename.Substring(0, _filename.Length - 4)}");
+    // change the color of the text to blue for main statement parts
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine(".");
+    // reset the text color to original settings
+    Console.ResetColor();
   }
 
   // method to break up retrieved attribute into the different variables
