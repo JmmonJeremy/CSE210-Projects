@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Collections.ObjectModel;
 
 // ### CLASS ################################################ //
 // base class for goals
