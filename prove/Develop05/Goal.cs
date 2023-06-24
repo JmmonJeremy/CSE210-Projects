@@ -919,13 +919,13 @@ public class Goal
       // change the color of the text to red to alert the user
       Console.ForegroundColor = ConsoleColor.Red;
       // let the user know there are no goals available to mark as complete add blank spaces to erase title
-      Console.WriteLine("\nSorry, there are no goals for you to record as complete.       ");
+      Console.WriteLine("\nSorry, there are no goals for you to record actions for.       ");
       // reset the text color to the original settings
       Console.ResetColor();
       // let the user know all goals they've entered are already completed
       Console.WriteLine("All of the goals you have entered are already marked as complete.");
       // let the user know what they need to do before they can record any goals as complete
-      Console.WriteLine("You must create a new goal before you can record a goal as complete.");
+      Console.WriteLine("You must create a new goal before you can record any action for a goal.");
       // end the menu option to it doesn't perform the other methods by returning 0
       return count;
       }
@@ -936,13 +936,13 @@ public class Goal
       // change the color of the text to red to alert the user
       Console.ForegroundColor = ConsoleColor.Red;
       // let the user know there are no goals available to mark as complete
-      Console.WriteLine("Sorry, there are no goals for you to record as complete.");
+      Console.WriteLine("\nSorry, there are no goals for you to record actions for.");
       // reset the text color to the original settings
       Console.ResetColor();
       // let the user know the program shows no goals for them
       Console.WriteLine("You have no goals loaded into the program at this time.");
       // let the user know what they need to do before they can record any goals as complete
-      Console.WriteLine("You must create a goal or load saved goals before you can record a goal as complete.");
+      Console.WriteLine("Before recording a goal action, 1st create or load a goal.");
       // end the menu option to it doesn't perform the other methods by returning 0
       return count;
     }
@@ -960,7 +960,7 @@ public class Goal
   }
 
   // method to show when part or all of a goal has been completed
-  public void NoteAccomplishment(int upperLimit)
+  public void NoteAccomplishment(int upperLimit, bool did)
   {      
     // create a variable to hold the user's goal selection
     string goalSelection = "";
@@ -969,7 +969,7 @@ public class Goal
     {
       // create prompt asking the user which goal they want to check off
       // store prompt in a variable to pass into a Validator method
-      string goalSelectionPrompt = "Select the goal to note its accomplishment by entering its number.\nSelection: ";
+      string goalSelectionPrompt = "Select the goal to note its goal action by entering its number.\nSelection: ";
       // create a validator object to run its method with and
       // pass the prompt question into the object & for the user's 
       // entry value put 'Use prompt' since user will change value after the prompt
@@ -978,28 +978,49 @@ public class Goal
       goalSelection = validator.SelectionCheck(upperLimit);      
       // cycle through each goal object in the list
       foreach (Goal goal in _goalList)
-      {
+      {        
         // if the goal Selection matches a goal listed
         if (int.Parse(goalSelection) == goal.GetUnfinishedGoalNumber())
         {
-          // mark the goal complete as appropriate for the goal object
-          goal.MarkComplete();
-          // add the _point value for this goal to the _earnedPoints value
-          _earnedPoints += goal.GetPoints();
-          // set the _unfinishedGoalNumber associated with the user's
-          // selection to 0 so it won't accidentally be used again
-          goal.SetUnfinishedGoalNumber(0);
-          // communicate to user what happened with the goal completion recording
-          goal.CommunicateCompletionRecording(); 
+          // if user accomplished the goal
+          if (did)
+          {
+            // mark the goal complete as appropriate for the goal object
+            goal.MarkComplete();
+            // add the _point value for this goal to the _earnedPoints value
+            _earnedPoints += goal.GetPoints();
+            // set the _unfinishedGoalNumber associated with the user's
+            // selection to 0 so it won't accidentally be used again
+            goal.SetUnfinishedGoalNumber(0);
+            // communicate to user what happened with the goal completion recording
+            goal.CommunicateGoalRecording(true); 
+          }
+          // if user is recording they didn't accomplish the goal
+          else
+          {
+            // take points away from the _earnedPoints
+            _earnedPoints -= goal.GetPoints();
+            // communicate to user what happened with the goal noncompletion recording
+            goal.CommunicateGoalRecording(false); 
+          }
         }
       }   
     }
   }
 
-  // method to communicate completion recording to user
-  public virtual void CommunicateCompletionRecording()
+  // method to communicate goal recording to user
+  public virtual void CommunicateGoalRecording(bool did)
   {
-    // COMMUNICATE IN COLOR TO THE USER THE COMPLETION OF A GOAL
+    // create variable inserts for incompletion of goal
+    string recording = "recording of completion";
+    string earning = "earning you ";
+    // change the string values if the did bool is false
+    if (!did)
+    {
+      recording = "noncompletion report";
+      earning = "causing a deduction for you of ";
+    }
+    // COMMUNICATE IN COLOR TO THE USER THE COMPLETION or NONCOMPLETION OF A GOAL
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
     // let the user know their goal has been created
@@ -1026,7 +1047,7 @@ public class Goal
     Console.Write("'");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write($", {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} your current recording of completion has ");
+    Console.Write($", {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} your current {recording} has ");
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
@@ -1038,7 +1059,7 @@ public class Goal
     Console.Write("'");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(", earning you ");
+    Console.Write($", {earning}");
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
