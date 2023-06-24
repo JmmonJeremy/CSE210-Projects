@@ -19,8 +19,10 @@ public class Goal
   private bool _goalCompleted;
   // variable to hold the check off box for a listed goal
   private string _completedBox;
+  // variable to hold the level earned for the user
+  private double _level;
   // variable to hold the value in earned points for the user
-  private int _earnedPoints;
+  private int _earnedPoints;  
   // variable to hold a list of goals
   private List<Goal> _goalList = new List<Goal>();
   // varialbe to hold the filename for saving goals to a textfile
@@ -60,6 +62,8 @@ public class Goal
     _completedBox = "[ ]";
     // set _earnedPoints as 0
     _earnedPoints = 0;
+    // set _level as 0
+    _level = 0;
   }
 
 // ### METHODS ############################################## //
@@ -122,13 +126,75 @@ public class Goal
     Console.ResetColor();   
   } 
 
+  // method to create and display a display box top
+  public void DisplayBoxTop()
+  {
+    // change the color of the text to red for the top box outline
+    Console.ForegroundColor = ConsoleColor.Red;
+    // create a top border
+    Console.WriteLine("\n ________________________#_#_#________________________ ");
+    Console.WriteLine("|                         \\|/                         |");
+    // reset the text color to original settings
+    Console.ResetColor(); 
+  }
+
+  // method to create and display a display box top
+  public void DisplayBoxBottom()
+  {
+    // change the color of the text to red for the bottom box outline
+    Console.ForegroundColor = ConsoleColor.Red;    
+    // create a bottom border    
+    Console.WriteLine("|_________________________/|\\_________________________|");
+    Console.WriteLine($"{Convert.ToChar(186)}\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304*\u0304*\u0304*\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304{Convert.ToChar(186)}"); 
+    // reset the text color to original settings
+    Console.ResetColor();
+    // add a new line and an empty space after the statement
+    Console.WriteLine(); 
+  }
+
+  // method to determine and display the user's 'Level'
+  public void DisplayLevel()
+  {  
+    // DETERMINE THE LEVEL  
+    // put value in a decimal variable
+    double unroundedLevel = _earnedPoints / 1000.0;
+    // debugging code to get the level to display correctly
+    // Console.WriteLine($"The score is {_earnedPoints} the unroundedLevel is {unroundedLevel}");    
+    // determine the user's level
+    _level = Math.Ceiling(unroundedLevel);
+    // DISPLAY THE LEVEL TO THE USER IN COLOR
+    // change the color of the text to yellow
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    // display the level
+    Console.Write("     Level:");   
+    // change the color of the text to dark blue
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+    // display special characters before the point total
+    Console.Write($" {Convert.ToChar(183)}:{Convert.ToChar(183)}  ");
+    // change the text color back to the original settings
+    Console.ResetColor();
+    // change the background color for the space showing the amount of points
+    Console.BackgroundColor = ConsoleColor.DarkMagenta;
+    // display points
+    Console.Write($" {_level} ");
+    // reset the background color to original settings
+    Console.ResetColor();
+    // set text color to dark blue to put in the symbols
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+    // display special characters after the point total
+    Console.Write($"  {Convert.ToChar(183)}:{Convert.ToChar(183)}    ");      
+    // reset the text color to original settings
+    Console.ResetColor();
+  }
+
   // method to display the points a user has earned
   public void DisplayPoints()
-  { 
+  {   
+    // DISPLAY THE SCORE TO THE USER IN COLOR  
     // change the color of the text to yellow
     Console.ForegroundColor = ConsoleColor.Yellow;
     // give the user a lead in statement for how many points they have with empty line before
-    Console.Write("\nYour earned points score is:");
+    Console.Write(" Score:");
     // change the color of the text to dark blue
     Console.ForegroundColor = ConsoleColor.DarkBlue;
     // display special characters before the point total
@@ -144,11 +210,9 @@ public class Goal
     // set text color to dark blue to put in the symbols
     Console.ForegroundColor = ConsoleColor.DarkBlue;
     // display special characters after the point total
-    Console.Write($"  {Convert.ToChar(183)}:{Convert.ToChar(183)}");
+    Console.WriteLine($"  {Convert.ToChar(183)}:{Convert.ToChar(183)}  ");    
     // reset the text color to original settings
-    Console.ResetColor();
-    // add a new line and an empty space after the statement
-    Console.WriteLine("\n"); 
+    Console.ResetColor();    
   }
 
   // method to set the goal title
