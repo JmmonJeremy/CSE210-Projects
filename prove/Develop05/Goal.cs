@@ -1169,83 +1169,107 @@ public class Goal
   // in the goal list and saves the changes to be permanent
   public void MoveGoal()
   {
-    // change the color of the text to blue
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    // Let the user know what the list is
-    Console.WriteLine("Here is your list of goals by their title:");
-    // create variable to number the goals
-    int count = 0;
-    // create variables to hold the users number selections
-    string startNumber = "none";
-    string endNumber = "none";
-    // create a variables to hold the index number of the goal to move
-    int startIndex = 0;
-    int endIndex = 0;
-    // show the user the list of goal titles
-    foreach (Goal goal in _goalList)
+    // if there are goals available in the list
+    if (_goalList.Count > 0)
     {
-      // increase count by 1 each time
-      count++;      
-      // list the goal title by number with their goal type and title
-      goal.CreateGoalTitleListing(count);  
+      // change the color of the text to blue
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      // Let the user know what the list is
+      Console.WriteLine("\nHere is your list of goals by their title:");
+      // create variable to number the goals
+      int count = 0;
+      // create variables to hold the users number selections
+      string startNumber = "none";
+      string endNumber = "none";
+      // create a variables to hold the index number of the goal to move
+      int startIndex = 0;
+      int endIndex = 0;
+      // show the user the list of goal titles
+      foreach (Goal goal in _goalList)
+      {
+        // increase count by 1 each time
+        count++;      
+        // list the goal title by number with their goal type and title
+        goal.CreateGoalTitleListing(count);  
+      }
+      // HAVE THE USER PICK WHICH GOAL TO MOVE
+      // tell the user what to do to select the goal to move
+      // store prompt in a variable to pass into a Validator method
+      string goalSelectionPrompt = "Select the goal you wish to move by its number.\nSelection: ";     
+      // create a validator object to run its method with and
+      // pass the prompt question into the object & for the user's 
+      // entry value put 'Use prompt' since user will change value after the prompt
+      Validator validator1 = new Validator("Use prompt", goalSelectionPrompt);    
+      // using the SelectionCheck method get an entry that is confirmed and valid 
+      // change it to an int and subtract 1 from it to match it to the list index number
+      startNumber = validator1.SelectionCheck(_goalList.Count); 
+      startIndex = int.Parse(startNumber)-1; 
+      // HAVE THE USER PICK WHERE TO PUT THE GOAL
+      // tell the user what to do to select where to move the goal to
+      // store prompt in a variable to pass into a Validator method
+      string placeSelectionPrompt = "\nSelect the spot where you wish to move the goal to by the place of the number.\nSelection: ";     
+      // create a validator object to run its method with and
+      // pass the prompt question into the object & for the user's 
+      // entry value put 'Use prompt' since user will change value after the prompt
+      Validator validator2 = new Validator("Use prompt", placeSelectionPrompt);    
+      // using the SelectionCheck method get an entry that is confirmed and valid 
+      // change it to an int & subtract 1 from it to match it to the list index number
+      endNumber = validator2.SelectionCheck(_goalList.Count); 
+      endIndex = int.Parse(endNumber)-1;   
+      // save the goal object being moved to a varaible
+      Goal movingGoal = _goalList[startIndex];
+      // remove the goal object being moved from the list
+      _goalList.Remove(_goalList[startIndex]);
+      // insert the goal object into the place chosen
+      _goalList.Insert(endIndex, movingGoal);
+      // change the color of the text to blue
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      // COMMUNICATE TO THE USER WHAT WAS DONE
+      Console.Write("\nThe ");
+      // change the color of the text to purple
+      Console.ForegroundColor = ConsoleColor.Magenta;
+      Console.Write($"({_goalList[endIndex].ConvertGoalType()} goal) ");
+      // change the color of the text to yellow for the single quote mark
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.Write($"'{_goalList[endIndex].GetGoalTitle()}'");
+      // change the color of the text to blue
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      Console.Write(" in position ");
+      // change the color of the text to yellow for the single quote mark
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.Write($"'#{startNumber}'");
+      // change the color of the text to blue
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      Console.Write(" has been moved to position ");
+      // change the color of the text to yellow for the single quote mark
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.Write($"'#{endNumber}'");
+      // change the color of the text to blue
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      Console.WriteLine(" in the goal list.");
+      // reset the text color to the original settings
+      Console.ResetColor();
     }
-    // HAVE THE USER PICK WHICH GOAL TO MOVE
-    // tell the user what to do to select the goal to move
-    // store prompt in a variable to pass into a Validator method
-    string goalSelectionPrompt = "Select the goal you wish to move by its number.\nSelection: ";     
-    // create a validator object to run its method with and
-    // pass the prompt question into the object & for the user's 
-    // entry value put 'Use prompt' since user will change value after the prompt
-    Validator validator1 = new Validator("Use prompt", goalSelectionPrompt);    
-    // using the SelectionCheck method get an entry that is confirmed and valid 
-    // change it to an int and subtract 1 from it to match it to the list index number
-    startNumber = validator1.SelectionCheck(_goalList.Count); 
-    startIndex = int.Parse(startNumber)-1; 
-    // HAVE THE USER PICK WHERE TO PUT THE GOAL
-    // tell the user what to do to select where to move the goal to
-    // store prompt in a variable to pass into a Validator method
-    string placeSelectionPrompt = "\nSelect the spot where you wish to move the goal to by the place of the number.\nSelection: ";     
-    // create a validator object to run its method with and
-    // pass the prompt question into the object & for the user's 
-    // entry value put 'Use prompt' since user will change value after the prompt
-    Validator validator2 = new Validator("Use prompt", placeSelectionPrompt);    
-    // using the SelectionCheck method get an entry that is confirmed and valid 
-    // change it to an int & subtract 1 from it to match it to the list index number
-    endNumber = validator2.SelectionCheck(_goalList.Count); 
-    endIndex = int.Parse(endNumber)-1;   
-    // save the goal object being moved to a varaible
-    Goal movingGoal = _goalList[startIndex];
-    // remove the goal object being moved from the list
-    _goalList.Remove(_goalList[startIndex]);
-    // insert the goal object into the place chosen
-    _goalList.Insert(endIndex, movingGoal);
-    // change the color of the text to blue
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    // COMMUNICATE TO THE USER WHAT WAS DONE
-    Console.Write("\nThe ");
-    // change the color of the text to purple
-    Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.Write($"({_goalList[endIndex].ConvertGoalType()} goal) ");
-    // change the color of the text to yellow for the single quote mark
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.Write($"'{_goalList[endIndex].GetGoalTitle()}'");
-    // change the color of the text to blue
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(" in position ");
-    // change the color of the text to yellow for the single quote mark
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.Write($"'#{startNumber}'");
-    // change the color of the text to blue
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(" has been moved to position ");
-    // change the color of the text to yellow for the single quote mark
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.Write($"'#{endNumber}'");
-    // change the color of the text to blue
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine(" in the goal list.");
-    // reset the text color to the original settings
-    Console.ResetColor();
+    // if there are no goals in the list
+    else
+    {
+      // change the color of the text to blue
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      // let the user know there are no goals to reposition
+      Console.Write("\nCurrently ");
+      // change the color of the text to red to indicate repositoining
+      Console.ForegroundColor = ConsoleColor.Magenta;
+      Console.Write("repostioning");
+      // change the color of the text to blue
+      Console.ForegroundColor = ConsoleColor.Cyan;      
+      Console.Write(" a goal is not possible as there are ");
+      // change the color of the text to red to indicate repositioning
+      Console.ForegroundColor = ConsoleColor.Magenta;
+      Console.WriteLine("no goals available to repostion.");
+      // reset the text color to the original settings
+      Console.ResetColor();
+      Console.WriteLine("You must first create or load your goals before you will be able to reposition any goals.");
+    }
   }
 
   // method to turn the goal type into a string with
@@ -1258,4 +1282,122 @@ public class Goal
     // return the string
     return goalType;   
   }
+
+  // method that allows user to delete a goal
+  // in the goal list and saves the changes to be permanent
+  public void DeleteGoal()
+  {
+    // CLEARLY EXPLAIN THE CONSEQUENCES TO THE USER
+    // change the color of the text to yellow to alert the user
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write("\nYou have chosen to ");
+    // change the background color for the text to red to further alert the user
+    Console.BackgroundColor = ConsoleColor.DarkRed;
+    Console.Write("permanently delete a goal");
+    // reset the text color to the original settings
+    Console.ResetColor();
+    // change the color of the text to yellow to alert the user
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine(", which is irreversible.");
+    // change the color of the text to red to alert the user
+    Console.ForegroundColor = ConsoleColor.Red;        
+    Console.WriteLine("Once this is completed, your goal will no longer be available to you.\n");
+    // reset the text color to the original settings
+    Console.ResetColor();
+    // give the user another chance to change their mind
+    Console.WriteLine("If you are sure you would like to proceed with deleting your goal enter");
+    Console.Write("'delete', otherwise enter 'cancel' to exit this option:     ");
+    // record the users response in a variable
+    string proceed = Console.ReadLine();
+    // require the user to type in delete to proceed 
+    if (proceed == "delete")
+    {
+      // if there are goals available in the list
+      if (_goalList.Count > 0)
+      {
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // Let the user know what the list is
+        Console.WriteLine("\nHere is your list of goals by their title:");
+        // create variable to number the goals
+        int count = 0;
+        // create variables to hold the users number selection
+        string deleteNumber = "none";    
+        // create a variables to hold the index number of the goal to delete
+        int deleteIndex = 0;   
+        // show the user the list of goal titles
+        foreach (Goal goal in _goalList)
+        {
+          // increase count by 1 each time
+          count++;      
+          // list the goal title by number with their goal type and title
+          goal.CreateGoalTitleListing(count);  
+        }
+        // HAVE THE USER PICK WHICH GOAL TO DELETE
+        // tell the user what to do to select the goal to move
+        // store prompt in a variable to pass into a Validator method
+        string goalSelectionPrompt = "Select the goal you wish to delete by its number.\nSelection: ";     
+        // create a validator object to run its method with and
+        // pass the prompt question into the object & for the user's 
+        // entry value put 'Use prompt' since user will change value after the prompt
+        Validator validator = new Validator("Use prompt", goalSelectionPrompt);    
+        // using the SelectionCheck method get an entry that is confirmed and valid 
+        // change it to an int and subtract 1 from it to match it to the list index number
+        deleteNumber = validator.SelectionCheck(_goalList.Count); 
+        deleteIndex = int.Parse(deleteNumber)-1;        
+        // save the goal type string and title of the goal object being deleted to a varaible
+        string deletedGoalType = $"({_goalList[deleteIndex].ConvertGoalType()} goal) ";
+        string deletedGoalTitle = $"'{_goalList[deleteIndex].GetGoalTitle()}'";
+        // remove the goal object being deleted from the list
+        _goalList.Remove(_goalList[deleteIndex]);    
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // COMMUNICATE TO THE USER WHAT WAS DONE
+        Console.Write("\nThe ");
+        // change the color of the text to purple
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.Write(deletedGoalType);
+        // change the color of the text to yellow for the single quote mark
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write(deletedGoalTitle);
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write(" in position ");
+        // change the color of the text to yellow for the single quote mark
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write($"'#{deleteNumber}'");
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write(" has been ");
+        // change the color of the text to red to indicate deletion
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("deleted");
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine(" from the goal list.");
+        // reset the text color to the original settings
+        Console.ResetColor();
+      }
+      // if there are no goals in the list
+      else
+      {
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // let the user know there are no goals to delete
+        Console.Write("\nCurrently ");
+        // change the color of the text to red to indicate deletion
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("deleting");
+        // change the color of the text to blue
+        Console.ForegroundColor = ConsoleColor.Cyan;      
+        Console.Write(" a goal is not possible as there are ");
+        // change the color of the text to red to indicate deletion
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("no goals available to delete.");
+        // reset the text color to the original settings
+        Console.ResetColor();
+        Console.WriteLine("You must first create or load your goals before you will be able to delete any goals.");
+      }
+    }
+  }  
 }
