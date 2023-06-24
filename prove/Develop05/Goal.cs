@@ -175,6 +175,12 @@ public class Goal
     // Console.WriteLine($"The score is {_earnedPoints} the unroundedLevel is {unroundedLevel}");    
     // determine the user's level
     _level = Math.Ceiling(unroundedLevel);
+    // prevent _level from displaying -0
+    if (_level == -0)
+    {
+      // just show as 0
+      _level = 0;
+    }
     // DISPLAY THE LEVEL TO THE USER IN COLOR
     // change the color of the text to yellow
     Console.ForegroundColor = ConsoleColor.Yellow;
