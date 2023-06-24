@@ -116,10 +116,21 @@ public class OneOffGoal : Goal
     SetFilename(attributes[5]);       
   }
 
-  // method to communicate completion recording to user
-  public override void CommunicateCompletionRecording()
+  // method to communicate goal recording to user
+  public override void CommunicateGoalRecording(bool did)
   {
-    // COMMUNICATE IN COLOR TO THE USER THE COMPLETION OF A GOAL
+    // create variable inserts for incompletion of goal
+    string complete = "been marked as complete ";
+    string earning = " for you, earning you ";
+    string completionBox = "[X]";
+    // change the string values if the did bool is false
+    if (!did)
+    {
+      complete = "accounted for your noncompletion report ";
+      earning = " causing a deduction for you of ";
+      completionBox = "[ ]";
+    }
+    // COMMUNICATE IN COLOR TO THE USER THE COMPLETION or NONCOMPLETION OF A GOAL
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
     // let the user know their goal has been created
@@ -149,19 +160,19 @@ public class OneOffGoal : Goal
     Console.Write("'");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write($", {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} has been marked as complete ");
+    Console.Write($", {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} has {complete}");
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
     // change the color of the text to purple so the completion mark stand out
     Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.Write("[X]");
+    Console.Write($"{completionBox}");
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(" for you, earning you ");
+    Console.Write(earning);
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
