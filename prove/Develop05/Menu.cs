@@ -27,13 +27,13 @@ public class Menu
     // show the user how many points they have
     _goal.DisplayPoints();       
     // save the menu and directions to be passed into the method for use    
-    string mainMenuPrompt = "Select your goal type by entering its number:\n  1 - Create a new goal\n  2 - List your goals\n  3 - Save your goals\n  4 - Load your goals\n  5 - Record goal completion\n  6 - Reposition a goal\n  7 - Delete a goal\n  8 - Change goals' filename\n  9 - Combine goals' files\n 10 - Delete goal file\n 11 - Quit\nSelection: ";      
+    string mainMenuPrompt = "Select your goal type by entering its number:\n  1 - Create a new goal\n  2 - List your goals\n  3 - Save your goals\n  4 - Load your goals\n  5 - Record goal completion\n  6 - Record missed goal\n  7 - Reposition a goal\n  8 - Delete a goal\n  9 - Change goals' filename\n 10 - Combine goals' files\n 11 - Delete goal file\n 12 - Quit\nSelection: ";      
     // create a validator object to run its method with and 
     // pass the prompt question into the object  & for the user's 
     // entry value put 'Use prompt' since user will change value after the prompt
     Validator validator = new Validator("Use prompt", mainMenuPrompt);    
     // using the SelectionCheck method get an entry that is confirmed and valid      
-    selection = validator.SelectionCheck(11);    
+    selection = validator.SelectionCheck(12);    
     // return the user's selection
     return selection;
   }
@@ -115,7 +115,7 @@ public class Menu
   public void RunMainChoices()
   {
     // run this until the user chooses to quit
-    while (_choice != "11")
+    while (_choice != "12")
     {      
       // use the PresentMainMenu method to display menu options and return
       // the user's choice - then store it in the while loop variable
@@ -176,16 +176,33 @@ public class Menu
       // if they chose to record their completion of a goal
       if (_choice == "5")
       {
+        // ListUnfinishedGoals returns the number of unfinished goals available
         int availableGoals = _goal.ListUnfinishedGoals();
+        // if there are available goals
         if (availableGoals > 0)
         {
-          _goal.NoteAccomplishment(availableGoals);
+          // NoteAccomplishment is set to add points and mark accomplishment
+          _goal.NoteAccomplishment(availableGoals, true);
+          // save the _completedBox string and _completedGoal bool values to a textfile
+          _goal.SaveGoals();          
+        }
+      }
+      // if they chose to record missing a goal
+      if (_choice == "6")
+      {
+        // ListUnfinishedGoals returns the number of unfinished goals available
+        int availableGoals = _goal.ListUnfinishedGoals();
+        // if there are available goals
+        if (availableGoals > 0)
+        {
+          // NoteAccomplishment is set to add points and mark accomplishment
+          _goal.NoteAccomplishment(availableGoals, false);
           // save the _completedBox string and _completedGoal bool values to a textfile
           _goal.SaveGoals();          
         }
       }
       // if they chose to repostion a goal
-      if (_choice == "6")
+      if (_choice == "7")
       {
         // move the goal to where the user specifies
         _goal.MoveGoal();
@@ -198,7 +215,7 @@ public class Menu
         }       
       }
       // if they chose to delete a goal
-      if (_choice == "7")
+      if (_choice == "8")
       {
         // delete the goal the user specifies
         _goal.DeleteGoal();
@@ -211,7 +228,7 @@ public class Menu
         }          
       }    
       // if they chose to change the filename of saved goals
-      if (_choice == "8")
+      if (_choice == "9")
       {
         // set the _filenamePrompt to pass into the SetFileName method
         _filenamePrompt = "What is the current filename of the saved goals you would like to change the filename for? ";  
@@ -247,7 +264,7 @@ public class Menu
         }        
       } 
       // if they chose to combine goals' files
-      if (_choice == "9")
+      if (_choice == "10")
       {
         // set the _filenamePrompt to pass into the SetFileName method
         _filenamePrompt = "What is the filename of saved goals you would like to combine with another file of goals? ";  
@@ -279,7 +296,7 @@ public class Menu
         }                  
       } 
       // if they chose to delete a goal file
-      if (_choice == "10")
+      if (_choice == "11")
       {
         // give the user the option to delete a file
         _goal.DeleteFile();           
