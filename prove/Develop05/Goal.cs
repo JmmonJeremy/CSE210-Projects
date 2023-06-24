@@ -126,6 +126,19 @@ public class Goal
     Console.ResetColor();   
   } 
 
+  // method to display a scoreboard
+  public void DisplayScoreBoard()
+  {
+    // put a box for a scoreboard around the level and score
+    DisplayBoxTop();
+    // show the user what level they are at
+    DisplayLevel();
+    // show the user how many points they have
+    DisplayPoints(); 
+    // put a box for a scoreboard around the level and score
+    DisplayBoxBottom(); 
+  }
+
   // method to create and display a display box top
   public void DisplayBoxTop()
   {
