@@ -155,7 +155,9 @@ public class Goal
   public void DisplayBoxBottom()
   {
     // change the color of the text to red for the bottom box outline
-    Console.ForegroundColor = ConsoleColor.Red;    
+    Console.ForegroundColor = ConsoleColor.Red; 
+    // reference source: https://stackoverflow.com/questions/26661670/overline-in-console-programming 
+    // & https://en.wikipedia.org/wiki/Overline  
     // create a bottom border    
     Console.WriteLine("|_________________________/|\\_________________________|");
     Console.WriteLine($"{Convert.ToChar(186)}\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304*\u0304*\u0304*\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304{Convert.ToChar(186)}"); 
@@ -172,7 +174,9 @@ public class Goal
     // put value in a decimal variable
     double unroundedLevel = _earnedPoints / 1000.0;
     // debugging code to get the level to display correctly
-    // Console.WriteLine($"The score is {_earnedPoints} the unroundedLevel is {unroundedLevel}");    
+    // Console.WriteLine($"The score is {_earnedPoints} the unroundedLevel is {unroundedLevel}"); 
+    // reference source: https://stackoverflow.com/questions/5613444/how-to-round-up-in-c-sharp 
+    // & https://learn.microsoft.com/en-us/dotnet/api/system.math.ceiling?redirectedfrom=MSDN&view=net-7.0#System_Math_Ceiling_System_Double_
     // determine the user's level
     _level = Math.Ceiling(unroundedLevel);
     // prevent _level from displaying -0
