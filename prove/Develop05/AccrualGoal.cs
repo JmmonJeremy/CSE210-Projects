@@ -406,4 +406,30 @@ public class AccrualGoal : Goal
     // reset the text color to the original settings
     Console.ResetColor();  
   }
+
+    // method to create listing for unfinished goals
+  public override void CreateGoalTitleListing(int count)
+  {
+    // use this variable to space listings 1-9 different from 10 or greater
+    string space = "  ";
+    if (count > 9)
+    {
+      space = " ";
+    } 
+    // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
+    // save goal type into a string variable
+    string goalType = GetGoalType().Substring(0, GetGoalType().Length - 4).ToLower(); 
+    // change the color of the text to blue so the goal type stands out
+    Console.ForegroundColor = ConsoleColor.Yellow;  
+    // list the goal with the _unfinishedNumber next to it
+    Console.Write($"{count}){space}"); 
+    // change the color of the text to purple so the goal type stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"({goalType} goal) ");
+    // change the color of the text to yellow so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine($"{GetGoalTitle()}");
+    // reset the text color to original settings
+    Console.ResetColor();
+  } 
 }
