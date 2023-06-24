@@ -249,10 +249,25 @@ public class AccrualGoal : Goal
     }  
   }
 
-  // method to communicate completion recording to user
-  public override void CommunicateCompletionRecording()
+  // method to communicate goal recording to user
+  public override void CommunicateGoalRecording(bool did)
   {
-    // COMMUNICATE IN COLOR TO THE USER THE COMPLETION OF A GOAL
+    // create variable inserts for incompletion of goal
+    string your = "your ";
+    string recording = " recording";
+    string completion = "completion of the ";
+    string report = "";
+    string giving = "giving you ";
+    // change the string values if the did bool is false
+    if (!did)
+    {
+      your = "while currently in your ";
+      recording = "";
+      completion = "";
+      report = " your noncompletion report";
+      giving = "causing a deduction for you of ";
+    }
+    // COMMUNICATE IN COLOR TO THE USER THE COMPLETION or NONCOMPLETION OF A GOAL
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
     // let the user know their goal has been created
@@ -280,7 +295,12 @@ public class AccrualGoal : Goal
     // create a string variable to hold the suffix for inserted number
     string suffix = "";
     // determine what to insert for number: 1st, 2nd, 3rd, etc
-    if (_completedCount == 1)
+    if (_completedCount == 0)
+    {
+      suffix = "";
+      your = "while currently at ";
+    }
+    else if (_completedCount == 1)
     {
       suffix = "st";
     }
@@ -298,19 +318,19 @@ public class AccrualGoal : Goal
     }    
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;    
-    Console.Write($", {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} your ");
+    Console.Write($", {Convert.ToChar(22)}{Convert.ToChar(16)}{Convert.ToChar(26)} {your}");
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
     // change the color of the text to purple so the recording number stands out
     Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.Write($"{_completedCount}{suffix} recording");
+    Console.Write($"{_completedCount}{suffix}{recording}");
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(" of completion of the ");
+    Console.Write($" of {completion}");
     // change the color of the text to yellow for the single quote mark
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write("'");
@@ -322,7 +342,7 @@ public class AccrualGoal : Goal
     Console.Write("'");
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.Write(" to finish the goal, has been noted, ");
+    Console.Write($" to finish the goal,{report} has been noted, ");
     // create a variables for displaying the goals points earned, etc    
     string pointsStatement1 = "";
     string singleQuote = "";
@@ -350,7 +370,7 @@ public class AccrualGoal : Goal
     // if the last goal completion is not done 
     else 
     {
-      pointsStatement2 = "giving you ";
+      pointsStatement2 = $"{giving}";
     } 
     // change the color of the text to blue
     Console.ForegroundColor = ConsoleColor.Cyan;
