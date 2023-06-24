@@ -24,14 +24,8 @@ public class Menu
   {     
     // create a string to hold the user's selection     
     string selection = "No selection made.";
-    // put a box for a scoreboard around the level and score
-    _goal.DisplayBoxTop();
-    // show the user what level they are at
-    _goal.DisplayLevel();
-    // show the user how many points they have
-    _goal.DisplayPoints(); 
-    // put a box for a scoreboard around the level and score
-    _goal.DisplayBoxBottom(); 
+    // display the goal scoreboard showing the level and points above the menu
+    _goal.DisplayScoreBoard();    
     // save the menu and directions to be passed into the method for use    
     string mainMenuPrompt = "     Select your goal type by entering its number:\n       1 - Create a new goal\n       2 - List your goals\n       3 - Save your goals\n       4 - Load your goals\n       5 - Record goal completion\n       6 - Record missed goal\n       7 - Reposition a goal\n       8 - Delete a goal\n       9 - Change goals' filename\n      10 - Combine goals' files\n      11 - Delete goal file\n      12 - Quit\n     Selection: ";      
     // create a validator object to run its method with and 
