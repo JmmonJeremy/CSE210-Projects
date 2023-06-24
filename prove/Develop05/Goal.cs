@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 // ### CLASS ################################################ //
 // base class for goals
@@ -854,7 +855,33 @@ public class Goal
     _earnedPoints = int.Parse(attributes[1]); 
     // //debugging code to find why _earned point value wasn't being passed on
     // Console.WriteLine($"#0 The _earnedPoint value in DivideAttributes is: {_earnedPoints}"); 
-  }  
+  }
+
+  // method to create listing for unfinished goals
+  public virtual void CreateGoalTitleListing(int count)
+  {
+    // use this variable to space listings 1-9 different from 10 or greater
+    string space = "  ";
+    if (count > 9)
+    {
+      space = " ";
+    } 
+    // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
+    // save goal type into a string variable
+    string goalType = GetGoalType().Substring(0, GetGoalType().Length - 4).ToLower(); 
+    // change the color of the text to blue so the goal type stands out
+    Console.ForegroundColor = ConsoleColor.Yellow;  
+    // list the goal with the _unfinishedNumber next to it
+    Console.Write($"{count}){space}"); 
+    // change the color of the text to purple so the goal type stands out
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"({goalType}   goal) ");
+    // change the color of the text to yellow so the goal title stands out
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine($"{GetGoalTitle()}");
+    // reset the text color to original settings
+    Console.ResetColor();
+  } 
 
   // method to list goals available to be marked as fully or partially completed
   public int ListUnfinishedGoals()
@@ -881,14 +908,8 @@ public class Goal
           // set the _unfinishedGoalNumber so to this number
           // so what the user enters will pick that goal
           goal.SetUnfinishedGoalNumber(count);
-          // use this variable to space listings 1-9 different from 10 or greater
-          string space = "  ";
-          if (count > 9)
-          {
-            space = " ";
-          }    
-          // list the goal with the _unfinishedNumber next to it
-          Console.WriteLine($"{goal.GetUnfinishedGoalNumber()}){space}{goal.GetGoalTitle()}");          
+          // list the goal title by number with their goal type and title
+          goal.CreateGoalTitleListing(count);                 
         }       
       }
       // if no goals in the list were uncompleted
@@ -899,7 +920,7 @@ public class Goal
       // change the color of the text to red to alert the user
       Console.ForegroundColor = ConsoleColor.Red;
       // let the user know there are no goals available to mark as complete add blank spaces to erase title
-      Console.WriteLine("Sorry, there are no goals for you to record as complete.       ");
+      Console.WriteLine("\nSorry, there are no goals for you to record as complete.       ");
       // reset the text color to the original settings
       Console.ResetColor();
       // let the user know all goals they've entered are already completed
@@ -949,7 +970,7 @@ public class Goal
     {
       // create prompt asking the user which goal they want to check off
       // store prompt in a variable to pass into a Validator method
-      string goalSelectionPrompt = "Select the goal to note its accomplishment by entering its number:\nSelection: ";
+      string goalSelectionPrompt = "Select the goal to note its accomplishment by entering its number.\nSelection: ";
       // create a validator object to run its method with and
       // pass the prompt question into the object & for the user's 
       // entry value put 'Use prompt' since user will change value after the prompt
@@ -1143,5 +1164,99 @@ public class Goal
     Console.WriteLine(".");
     // reset the text color to the original settings
     Console.ResetColor();
-  } 
+  }
+
+  // method that allows user to move the position of a goal
+  // in the goal list and saves the changes to be permanent
+  public void MoveGoal()
+  {
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // Let the user know what the list is
+    Console.WriteLine("Here is your list of goals by their title:");
+    // create variable to number the goals
+    int count = 0;
+    // create variables to hold the users number selections
+    string startNumber = "none";
+    string endNumber = "none";
+    // create a variables to hold the index number of the goal to move
+    int startIndex = 0;
+    int endIndex = 0;
+    // show the user the list of goal titles
+    foreach (Goal goal in _goalList)
+    {
+      // increase count by 1 each time
+      count++;      
+      // list the goal title by number with their goal type and title
+      goal.CreateGoalTitleListing(count);  
+    }
+    // HAVE THE USER PICK WHICH GOAL TO MOVE
+    // tell the user what to do to select the goal to move
+    // store prompt in a variable to pass into a Validator method
+    string goalSelectionPrompt = "Select the goal you wish to move by its number.\nSelection: ";     
+    // create a validator object to run its method with and
+    // pass the prompt question into the object & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator1 = new Validator("Use prompt", goalSelectionPrompt);    
+    // using the SelectionCheck method get an entry that is confirmed and valid 
+    // change it to an int and subtract 1 from it to match it to the list index number
+    startNumber = validator1.SelectionCheck(_goalList.Count); 
+    startIndex = int.Parse(startNumber)-1; 
+    // HAVE THE USER PICK WHERE TO PUT THE GOAL
+    // tell the user what to do to select where to move the goal to
+    // store prompt in a variable to pass into a Validator method
+    string placeSelectionPrompt = "\nSelect the spot where you wish to move the goal to by the place of the number.\nSelection: ";     
+    // create a validator object to run its method with and
+    // pass the prompt question into the object & for the user's 
+    // entry value put 'Use prompt' since user will change value after the prompt
+    Validator validator2 = new Validator("Use prompt", placeSelectionPrompt);    
+    // using the SelectionCheck method get an entry that is confirmed and valid 
+    // change it to an int & subtract 1 from it to match it to the list index number
+    endNumber = validator2.SelectionCheck(_goalList.Count); 
+    endIndex = int.Parse(endNumber)-1;   
+    // save the goal object being moved to a varaible
+    Goal movingGoal = _goalList[startIndex];
+    // remove the goal object being moved from the list
+    _goalList.Remove(_goalList[startIndex]);
+    // insert the goal object into the place chosen
+    _goalList.Insert(endIndex, movingGoal);
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    // COMMUNICATE TO THE USER WHAT WAS DONE
+    Console.Write("\nThe ");
+    // change the color of the text to purple
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.Write($"({_goalList[endIndex].ConvertGoalType()} goal) ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write($"'{_goalList[endIndex].GetGoalTitle()}'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(" in position ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write($"'#{startNumber}'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(" has been moved to position ");
+    // change the color of the text to yellow for the single quote mark
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write($"'#{endNumber}'");
+    // change the color of the text to blue
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine(" in the goal list.");
+    // reset the text color to the original settings
+    Console.ResetColor();
+  }
+
+  // method to turn the goal type into a string with
+  // lower case letters that can be used in a sentence 
+  public virtual string ConvertGoalType()
+  {
+    // reference source: https://www.techiedelight.com/remove-n-characters-from-end-string-csharp/
+    // save goal type into a string variable
+    string goalType = GetGoalType().Substring(0, GetGoalType().Length - 4).ToLower(); 
+    // return the string
+    return goalType;   
+  }
 }
