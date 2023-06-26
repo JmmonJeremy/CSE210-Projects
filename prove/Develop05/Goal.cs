@@ -506,7 +506,7 @@ public class Goal
     // change the color of the text to yellow
     Console.ForegroundColor = ConsoleColor.Yellow;
     // give an introductory statement
-    Console.WriteLine("The goals you have set for yourself are:");    
+    Console.WriteLine("\nThe goals you have set for yourself are:");    
     // create a variable to number the goals that are set 
     int count = 0;
     // // debuggin code - found that the object creation had to be outside the while loop
