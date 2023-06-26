@@ -6,10 +6,6 @@ using System.IO;
 public class ReflectionActivity : Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // variable to hold the activity name
-  private string _reflectionName = "Reflection Activity";
-  // variable to hold the activity description
-  private string _reflectionDescription = "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life."; 
   // variable to hold the file for the _promptList storage
   private string _promptsFile = "promptList.txt";
   // variable to hold the file for the _usedPrompts storage
@@ -62,13 +58,13 @@ public class ReflectionActivity : Activity
 
 // ### CONSTRUCTORS ######################################### //
   // constructor to be able to use the RunAllReflection method
-  public ReflectionActivity()
-  {
-    // nothing needed in here    
-  }
+  // public ReflectionActivity()
+  // {
+  //   // nothing needed in here    
+  // }
   
   // constructor to set up for the Reflectoin Activity
-  public ReflectionActivity(string activityName, string description) : base (activityName, description)
+  public ReflectionActivity() : base ("Reflection Activity", "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life.")
   {
     // base variables are all done in the Activity base class      
   }
@@ -224,7 +220,7 @@ public class ReflectionActivity : Activity
     FileListRelationship convert = new FileListRelationship();
     // create reflection object so the correct activity name and description are passed in
     // as well as all of the other things for the intro and the boolean
-    ReflectionActivity reflection = new ReflectionActivity(_reflectionName, _reflectionDescription);
+    ReflectionActivity reflection = new ReflectionActivity();
     // run the opening with the correct activity name & descriptiorn from using
     // the object while running this inherited method from the Activity class
     reflection.Opening();
