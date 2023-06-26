@@ -54,11 +54,9 @@ public class Activity
   // constructor to set up the activity
   public Activity(string activityName, string activityDescription) 
   {  
-    // reset the value of the _activityName to what is passed in here, so I don't have to
-    // use the get methods for the activity name and then pass it in as a variable value to 
-    // use for inserting the activity name in the PrepareActivity and the Closing methods
+    // reset the value of the _activityName to what is passed in here
     _activityName = activityName;    
-    // set the value of the _activityDescription
+    // set the value of the _activityDescription to what is passed in here
     _activityDescription = activityDescription;   
     // set the value of the _sessionLengthPrompt
     _sessionLengthPrompt = "How long, in seconds, would you like for your activity session? "; 

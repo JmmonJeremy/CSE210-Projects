@@ -11,13 +11,7 @@ public class BreathingActivity : Activity
   // variable to hold the out breath time in seconds
   private int _exhaleTime; 
 
-// ### CONSTRUCTORS ######################################### //
-  // // constructor to be able to use the RunAllBreathing method
-  // public BreathingActivity()
-  // {
-  //   // nothing needed in here    
-  // }
-  
+// ### CONSTRUCTORS ######################################### //  
   // constructor to set up for the Breathing Activity
   public BreathingActivity() : base ("Breathing Activity", "relax by guiding you through sets of timed in breaths and out breaths.")
     {

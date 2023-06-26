@@ -56,13 +56,7 @@ public class ReflectionActivity : Activity
   // list to hold the used reflection questions
   private List<string> _usedQuestions = new List<string>();
 
-// ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use the RunAllReflection method
-  // public ReflectionActivity()
-  // {
-  //   // nothing needed in here    
-  // }
-  
+// ### CONSTRUCTORS ######################################### //   
   // constructor to set up for the Reflectoin Activity
   public ReflectionActivity() : base ("Reflection Activity", "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life.")
   {

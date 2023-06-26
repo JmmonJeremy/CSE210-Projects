@@ -45,13 +45,7 @@ public class ListingActivity : Activity
   // variable to hold the number of entries in response to a subject
   private int _responseCount;
 
-  // ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use the RunAllListing method
-  // public ListingActivity()
-  // {
-  //   // nothing needed in here    
-  // }
-  
+// ### CONSTRUCTORS ######################################### //  
   // constructor to set up for the Listing Activity
   public ListingActivity() : base ("Listing Activity", "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can.")
   {
