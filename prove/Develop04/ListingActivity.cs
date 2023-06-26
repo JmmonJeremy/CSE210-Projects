@@ -144,24 +144,21 @@ public class ListingActivity : Activity
   public string RunAllListing()
   {  
     // create object of FileListRelationship class to run its methods
-    FileListRelationship convert = new FileListRelationship();  
-    // create listing object so the correct activity name and description are passed in
-    // as well as all of the other things for the intro and the boolean
-    ListingActivity listing = new ListingActivity();
+    FileListRelationship convert = new FileListRelationship();      
     // run the opening with the correct activity name & descriptiorn from using
     // the object while running this inherited method from the Activity class
-    listing.Opening();
+    Opening();
     // convert the _subjectsFile & _usedSubjectsFile to their matching lists
     convert.FileToList(_subjectsFile, _subjectList); 
     convert.FileToList(_usedSubjectsFile, _usedSubjects);
     // run prepare with the correct activity name from using the object 
     // while running this inherited method from the Activity class
-    listing.PrepareActivity(); 
+    PrepareActivity(); 
     // run this class specific PrepareListing method
     PrepareListing();
     // run the central part of the Listing Activity with the object while running this inherited method 
     // from the Activity class so it works properly by including the boolean and _sessionLength values   
-    listing.RunActivity(ListingExercises);
+    RunActivity(ListingExercises);
     // run this class specific DisplayCount method
     DisplayCount();
     // save the _subjectList & _usedSubjects to a file to recover with next start up    
@@ -171,7 +168,7 @@ public class ListingActivity : Activity
     EndActivity();
     // run the closing with the correct activity name with the object while running this inherited
     // method from the Activity class then save the choice of the user in the choice variable  
-    string choice = listing.Closing();
+    string choice = Closing();
     // return the user's choice
     return choice;
   }
