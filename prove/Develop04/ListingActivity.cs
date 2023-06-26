@@ -51,13 +51,13 @@ public class ListingActivity : Activity
 
   // ### CONSTRUCTORS ######################################### //
   // constructor to be able to use the RunAllListing method
-  public ListingActivity()
-  {
-    // nothing needed in here    
-  }
+  // public ListingActivity()
+  // {
+  //   // nothing needed in here    
+  // }
   
   // constructor to set up for the Listing Activity
-  public ListingActivity(string activityName, string description) : base (activityName, description)
+  public ListingActivity() : base ("Listing Activity", "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can.")
   {
     // base variables are all done in the Activity base class      
   }
@@ -157,7 +157,7 @@ public class ListingActivity : Activity
     FileListRelationship convert = new FileListRelationship();  
     // create listing object so the correct activity name and description are passed in
     // as well as all of the other things for the intro and the boolean
-    ListingActivity listing = new ListingActivity(_listingName, _listingDescription);
+    ListingActivity listing = new ListingActivity();
     // run the opening with the correct activity name & descriptiorn from using
     // the object while running this inherited method from the Activity class
     listing.Opening();
