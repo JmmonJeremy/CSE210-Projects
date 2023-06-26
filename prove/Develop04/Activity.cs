@@ -56,7 +56,7 @@ public class Activity
   }
   
   // constructor to set up the activity
-  public Activity(string activityName, string description) 
+  public Activity(string activityName, string activityDescription) 
   {  
     // reset the value of the _activityName to what is passed in here, so I don't have to
     // use the get methods for the activity name and then pass it in as a variable value to 
@@ -65,7 +65,7 @@ public class Activity
     // set the value of the _activityIntro 
     _activityIntro = $"Welcome to your {activityName}.";
     // set the value of the _descriptionIntro
-    _descriptionIntro = $"This activity will help you {description}";
+    _descriptionIntro = $"This activity will help you {activityDescription}";
     // set the value of the _sessionLengthPrompt
     _sessionLengthPrompt = "How long, in seconds, would you like for your activity session? "; 
     // set the value of the boolen to run the while loop
