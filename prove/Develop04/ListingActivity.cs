@@ -5,11 +5,7 @@ using System.IO;
 // class to run the listing activity
 public class ListingActivity : Activity
 {
-// ### VARIABLE ATTRIBUTES ################################## // 
-  // variable to hold the activity name
-  private string _listingName = "Listing Activity";
-  // variable to hold the activity description
-  private string _listingDescription = "remember the good characteristics, desires, people, events, accomplishments, and circumstances in your life by having you list as many things about a referenced subject as you can."; 
+// ### VARIABLE ATTRIBUTES ################################## //  
   // variable to hold the file for the _subjectList storage
   private string _subjectsFile = "subjectList.txt";
   // variable to hold the file for the _usedSubjects storage
