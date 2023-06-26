@@ -11,11 +11,7 @@ public class Activity
   // variable to hold a generic activity name
   private string _activityName = "activity";
   // variable to hold the generic activity description
-  private string _activityDescription = "by setting a timer for you to keep track of your activity with.";
-  // variable to hold the activity's name  
-  private string _activityIntro;
-  // variable to hold the activity's description
-  private string _descriptionIntro;
+  private string _activityDescription = "by setting a timer for you to keep track of your activity with.";  
   // variable to hold the session length in seconds  
   private int _sessionLength;
   // varialbe to hold the session length prompt
@@ -61,11 +57,9 @@ public class Activity
     // reset the value of the _activityName to what is passed in here, so I don't have to
     // use the get methods for the activity name and then pass it in as a variable value to 
     // use for inserting the activity name in the PrepareActivity and the Closing methods
-    _activityName = activityName;
-    // set the value of the _activityIntro 
-    _activityIntro = $"Welcome to your {activityName}.";
-    // set the value of the _descriptionIntro
-    _descriptionIntro = $"This activity will help you {activityDescription}";
+    _activityName = activityName;    
+    // set the value of the _activityDescription
+    _activityDescription = activityDescription;   
     // set the value of the _sessionLengthPrompt
     _sessionLengthPrompt = "How long, in seconds, would you like for your activity session? "; 
     // set the value of the boolen to run the while loop
@@ -99,8 +93,8 @@ public class Activity
     // clear the console screen
     Console.Clear();
     // welcome the user and explain what will happen
-    Console.WriteLine($"{_activityIntro}\n");
-    Console.WriteLine($"{_descriptionIntro}\n");   
+    Console.WriteLine($"Welcome to your {_activityName}.\n");
+    Console.WriteLine($"This activity will help you {_activityDescription}\n");   
     // create a validator object to run its method with
     // and pass the prompt question into the object
     Validator validator = new Validator(_sessionLengthPrompt);
