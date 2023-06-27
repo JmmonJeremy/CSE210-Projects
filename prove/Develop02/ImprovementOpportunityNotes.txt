@@ -1,0 +1,5 @@
+#1 Add a pop open method when the alarm goes off that pops the terminal window open on the screen
+#2 Make underline for every Operating System - not just for Windows so it won't crash on other systems
+#3 Change prompts to every hour
+#4 Make it into a thankful Journal prompter
+#5 Add methods to be able to add a prompt, change a prompt, and delete a prompt
