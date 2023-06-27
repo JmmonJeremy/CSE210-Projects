@@ -1,0 +1,11 @@
+#1 After showing loaded from do:
+Did this load the scripture you want?
+if noDo you want to:
+ 1 - Try again
+ 2 - Manually enter the Scripture listed
+ 3 - Manually enter a different item to memorize
+ #2 Highlight word to be hidden
+ #3 Be able to unhide any word
+ #4 Have words hide in order from beginning to end
+ #5 Add a congratulations at the end
+ 
