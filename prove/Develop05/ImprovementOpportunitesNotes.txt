@@ -1,0 +1,40 @@
+#1 Can move the  _goal.SetGoalTitle("userSets") & _goal.SetDescription("userSets") in the Menu class RunGoalTypeChoices() method inside the constructor
+for the Goal class and use the "userSets" pattern for the constructor to differentiate it from a plain constructor of for example OneOffGoal().
+#2 Can move the accrual.SetAccrualNumber() & accrual.SetBonusPoints() in the Menu class RunGoalTypeChoices() method inside the constructor for the 
+AccrualGoal class. The question will be put after what the base constructor questions ask.
+#3 Create a class to deal with the lists of different goals and to hold the _earnedPoints from all of the different goals.
+#4 Consolidate comment notes and put color changes and text on same line.
+
+class GoalsGroup
+{
+    private List<Goal> _goals;
+    private int _earnedPoints;
+
+    public void LoadGoals(string filename)
+    {
+
+    }
+    public void SaveGoals(string filename) 
+    {
+        // create a StreamWriter object to be able to write a textfile
+        using (StreamWriter outputFile = new StreamWriter(filename))
+        {  
+        // save this information to the textfile Goal class and points earned
+        outputFile.WriteLine($"Goal:~|~{_earnedPoints}");
+        foreach (Goal goal in _goals)
+        {        
+            outputFile.WriteLine($"{goal.CreateGoalText()}");        
+        }    
+
+        }
+    }
+}
+
+// Use create instance but provide parameters to the constructor:
+// All subsequent inputs after the first one get passed as input parameters to the constructor (I think)
+Goal goal = (Goal)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);
+// To use this, add a constructor to each class that takes in a string with attributes and parses it appropriately
+
+Name of book on the Factory Pattern: "Design Patterns: Elements of Reusable Object-Oriented Software"
+Can by found at free at BYUI Online Library:  https://library.byui.edu/
+BYUI class on the Factory Pattern: CSE331 Design Patterns & maybe in CSE212 Data Structure
