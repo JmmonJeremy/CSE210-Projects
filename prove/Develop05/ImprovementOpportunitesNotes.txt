@@ -1,9 +1,10 @@
 #1 Can move the  _goal.SetGoalTitle("userSets") & _goal.SetDescription("userSets") in the Menu class RunGoalTypeChoices() method inside the constructor
 for the Goal class and use the "userSets" pattern for the constructor to differentiate it from a plain constructor of for example OneOffGoal().
-#2 Can move the accrual.SetAccrualNumber() & accrual.SetBonusPoints() in the Menu class RunGoalTypeChoices() method inside the constructor for the 
-AccrualGoal class. The question will be put after what the base constructor questions ask.
-#3 Create a class to deal with the lists of different goals and to hold the _earnedPoints from all of the different goals.
-#4 Consolidate comment notes and put color changes and text on same line.
+#2 Can move the accrual.SetAccrualNumber() & accrual.SetBonusPoints() in the Menu class RunGoalTypeChoices() method inside the constructor for the AccrualGoal class. The question will be put after what the base constructor questions ask.
+#3 Consolidate comment notes and put color changes and text on same line.
+#4 Change base class attributes to protected that the derived classes need access to to elliminate the Getters & Setters
+#5 Create a class to deal with the lists of different goals and to hold the _earnedPoints from all of the different goals.
+
 
 class GoalsGroup
 {
