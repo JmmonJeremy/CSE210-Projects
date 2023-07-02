@@ -1,0 +1,6 @@
+Meal:2023~|~6~|~30~|~breakfast~|~pizza
+Meal:2023~|~6~|~30~|~breakfast~|~soup
+Meal:2023~|~7~|~1~|~breakfast~|~meatloaf~|~apple~|~peas
+Meal:2023~|~7~|~1~|~breakfast~|~cereal
+Meal:2023~|~7~|~1~|~breakfast~|~sandwhich
+Meal:2023~|~7~|~1~|~breakfast~|~chips~|~salsa~|~burrito
