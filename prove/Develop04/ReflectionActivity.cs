@@ -6,10 +6,6 @@ using System.IO;
 public class ReflectionActivity : Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // variable to hold the activity name
-  private string _reflectionName = "Reflection Activity";
-  // variable to hold the activity description
-  private string _reflectionDescription = "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life."; 
   // variable to hold the file for the _promptList storage
   private string _promptsFile = "promptList.txt";
   // variable to hold the file for the _usedPrompts storage
@@ -60,15 +56,9 @@ public class ReflectionActivity : Activity
   // list to hold the used reflection questions
   private List<string> _usedQuestions = new List<string>();
 
-// ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use the RunAllReflection method
-  public ReflectionActivity()
-  {
-    // nothing needed in here    
-  }
-  
+// ### CONSTRUCTORS ######################################### //   
   // constructor to set up for the Reflectoin Activity
-  public ReflectionActivity(string activityName, string description) : base (activityName, description)
+  public ReflectionActivity() : base ("Reflection Activity", "reflect on times in your life when you have been true to the good that is within you and acted in ways that align with that vision of yourself. This will help you to love yourself, to recognize your goodness, and to reinforce good acts in your life.")
   {
     // base variables are all done in the Activity base class      
   }
@@ -221,13 +211,10 @@ public class ReflectionActivity : Activity
   public string RunAllReflection()
   {    
     // create object of FileListRelationship class to run its methods
-    FileListRelationship convert = new FileListRelationship();
-    // create reflection object so the correct activity name and description are passed in
-    // as well as all of the other things for the intro and the boolean
-    ReflectionActivity reflection = new ReflectionActivity(_reflectionName, _reflectionDescription);
+    FileListRelationship convert = new FileListRelationship();    
     // run the opening with the correct activity name & descriptiorn from using
     // the object while running this inherited method from the Activity class
-    reflection.Opening();
+    Opening();
     // convert the _promptsFile, _usedPromptsFile, _questionsFile, & usedQuestonsFile to their matching lists
     convert.FileToList(_promptsFile, _promptList); 
     convert.FileToList(_usedPromptsFile, _usedPrompts);
@@ -235,12 +222,12 @@ public class ReflectionActivity : Activity
     convert.FileToList(_usedQuestionsFile, _usedQuestions);
     // run prepare with the correct activity name from using the object 
     // while running this inherited method from the Activity class
-    reflection.PrepareActivity(); 
+    PrepareActivity(); 
     // run this class specific PrepareReflection method
     PrepareReflection();
     // run the central part of the Reflection Activity with the object while running this inherited method 
     // from the Activity class so it works properly by including the boolean and _sessionLength values   
-    reflection.RunActivity(ReflectionExercises);
+    RunActivity(ReflectionExercises);
     // save the _promptList, _usedPrompts, _questionList, & usedQuestons lists to a file to recover with next start up    
     convert.ListToFile(_promptList, _promptsFile); 
     convert.ListToFile(_usedPrompts, _usedPromptsFile);
@@ -250,7 +237,7 @@ public class ReflectionActivity : Activity
     EndActivity();
     // run the closing with the correct activity name with the object while running this inherited
     // method from the Activity class then save the choice of the user in the choice variable  
-    string choice = reflection.Closing();
+    string choice = Closing();
     // return the user's choice
     return choice;
   }

@@ -6,24 +6,14 @@ using System.IO;
 public class BreathingActivity : Activity
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  // variable to hold the activity name
-  private string _breathingName = "Breathing Activity";
-  // variable to hold the activity description
-  private string _breathingDescription = "relax by guiding you through sets of timed in breaths and out breaths.";
   // variable to hold the in breath time in seconds
   private int _inhaleTime;
   // variable to hold the out breath time in seconds
   private int _exhaleTime; 
 
-// ### CONSTRUCTORS ######################################### //
-  // constructor to be able to use the RunAllBreathing method
-  public BreathingActivity()
-  {
-    // nothing needed in here    
-  }
-  
+// ### CONSTRUCTORS ######################################### //  
   // constructor to set up for the Breathing Activity
-  public BreathingActivity(string activityName, string description) : base (activityName, description)
+  public BreathingActivity() : base ("Breathing Activity", "relax by guiding you through sets of timed in breaths and out breaths.")
     {
       // base variables are all done in the Activity base class      
     }
@@ -89,28 +79,25 @@ public class BreathingActivity : Activity
 
   // method to run everyting for the Breathing Activity
   public string RunAllBreathing()
-  {    
-    // create breathing object so the correct activity name and description are passed in
-    // as well as all of the other things for the intro and the boolean
-    BreathingActivity breathing = new BreathingActivity(_breathingName, _breathingDescription);
+  {      
     // run the opening with the correct activity name & descriptiorn from using
     // the object while running this inherited method from the Activity class
-    breathing.Opening();
+    Opening();
     // run the class specific set inhale time method
     SetInhaleTime();
     // run the class specific set exhale time method
     SetExhaleTime();
     // run prepare with the correct activity name from using the object 
     // while running this inherited method from the Activity class
-    breathing.PrepareActivity();    
+    PrepareActivity();    
     // run the central part of the Breathing Activity with the object while running this inherited method 
     // from the Activity class so it works properly by including the boolean and _sessionLength values   
-    breathing.RunActivity(BreathingExercises);   
+    RunActivity(BreathingExercises);   
     // run end activity message in this inherited method from the Activity class
     EndActivity();
     // run the closing with the correct activity name with the object while running this inherited
     // method from the Activity class then save the choice of the user in the choice variable  
-    string choice = breathing.Closing();
+    string choice = Closing();
     // return the user's choice
     return choice;
   }
