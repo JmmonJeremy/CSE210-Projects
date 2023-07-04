@@ -8,7 +8,6 @@ for the Goal class and use the "userSets" pattern for the constructor to differe
 #7 Prevent empty textfiles from showing their list as what was previously loaded before loading the empty textfile. (It is not actually in the textfile,
 but if you save it will save what is shown in the list).
 
-
 class GoalsGroup
 {
     private List<Goal> _goals;
