@@ -346,6 +346,13 @@ public class Goal
     return _completedBox;    
   }
 
+  // !!!!!!!!!!!! CORRECTION !!!!!!!!!!! ADDED THIS TO BETTER CONTROL WHAT GOALS WERE SAVED WITH NEW GOALS
+  // method to clear the _goalList * created so only new goals created can be in the list
+  public void EmptyGoalList()
+  {
+    _goalList.Clear();
+  }
+
   // method to add a goal to the list
   public void SetGoalList(Goal goal)
   {
@@ -804,16 +811,21 @@ public class Goal
     List<Goal> wrongList = new List<Goal>();
     // cycle through the _goalList     
     foreach (Goal goal in _goalList) 
-    {     
-    // if the filename in list doesn't match the loaded filename, the retrieved files are   took out :  && combine != "Combine"
-    // more than the Goal class with just the score as the first entry && "combine" is not passed in as a parameter
-    if (goal.GetFilename() != _filename && GetRetrievedObjects().Count > 1) 
-      {         
-        // add that goal object to a list so it will be removed
-        wrongList.Add(goal);
-        // // debugging code for figuring out how to remove goal objects with different filenames
-        // Console.WriteLine($"The _goalList filename is: {goal.GetFilename()}");
-        // Console.WriteLine($"The loaded filename is: {_filename}");
+    {
+      // !!!!!!!!!!!! CORRECTION !!!!!!!!!!! ADDED THIS TO BETTER CONTROL WHAT GOALS WERE SAVED WITH NEW GOALS
+      // this will allow goal files to be combined by skipping if statement inside it
+      if (combine != "Combine") 
+      {    
+      // if the filename in list doesn't match the loaded filename and  the retrieved
+      // files are more than the Goal class with just the score as the first entry
+      if (goal.GetFilename() != _filename && GetRetrievedObjects().Count > 1) 
+        {         
+          // add that goal object to a list so it will be removed
+          wrongList.Add(goal);
+          // // debugging code for figuring out how to remove goal objects with different filenames
+          // Console.WriteLine($"The _goalList filename is: {goal.GetFilename()}");
+          // Console.WriteLine($"The loaded filename is: {_filename}");
+        }
       }
     } 
     // remove the goal objects with the wrong filename

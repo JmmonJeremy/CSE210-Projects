@@ -123,11 +123,29 @@ public class Menu
       // run the options the user chose
       // if they chose a to create a new goal
       if (_choice == "1")
-      {  
+      { 
+        // !!!!!!!!!!!! CORRECTION !!!!!!!!!!! ADDED THIS TO BETTER CONTROL WHAT GOALS WERE SAVED WITH NEW GOALS
+        // clear the _goalList so only the goals created and not saved to a filename are in it
+        if (_goal.GetFilename() != "newGoals.txt")
+        {
+          _goal.EmptyGoalList(); 
+        }
+        // !!!!!!!!!!!! CORRECTION !!!!!!!!!!! ADDED THIS TO BETTER CONTROL WHAT GOALS WERE SAVED WITH NEW GOALS
+        _goal.SetFilename("newGoals.txt");
+        // // debugging code for correcting what new goals are saved with
+        // foreach (Goal goal in _goal.GetGoalList())
+        // {
+        //   Console.WriteLine($"Goal in _goalList: {goal.GetGoalTitle()}");
+        // }      
         // present the user with the goal type choices
-        RunGoalTypeChoices();        
-      }   
-      
+        RunGoalTypeChoices(); 
+        Console.WriteLine($"The filename is {_goal.GetFilename()}"); 
+        // // debugging code for correcting what new goals are saved with
+        //  foreach (Goal goal in _goal.GetGoalList())
+        // {
+        //   Console.WriteLine($"Goal in _goalList: {goal.GetGoalTitle()}");
+        // }     
+      }       
        // if they chose to list their goals
       if (_choice == "2")
       {        
@@ -187,7 +205,8 @@ public class Menu
         {  
           // NOT SURE THIS IS NEEDED
           _goal.SetFilename(backUpFilename);
-          Console.WriteLine($"Warning filename was reset to {_goal.GetFilename()}!!!");
+          // // debugging code for when a new file is created
+          // Console.WriteLine($"Warning filename was reset to {_goal.GetFilename()}!!!");
         }         
       } 
       // if they chose to record their completion of a goal
