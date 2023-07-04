@@ -234,15 +234,11 @@ public class Menu
       // if they chose to delete a goal
       if (_choice == "8")
       {
-        // delete the goal the user specifies
-        _goal.DeleteGoal();
-         // only do this if there are goals in the list (avoiding an error)
-        if (_goal.GetGoalList().Count > 0)
-        {
-          // save the _earnedPoints and _goalList to a textfile if the user completed any goals
-          // also save the _completedBox string and _completedGoal bool values to a textfile
-          _goal.SaveGoals(); 
-        }          
+        // delete the goal the user specifies from list
+        _goal.DeleteGoal();       
+        // transfer deletion to textfile
+        _goal.SaveGoals(); 
+              
       }    
       // if they chose to change the filename of saved goals
       if (_choice == "9")
