@@ -161,7 +161,7 @@ public class Menu
         _goal.SetFilename(_filenamePrompt);
         // // debugging code for existing files verses new file creation
         // Console.WriteLine($"The filename is set as: {_goal.GetFilename()}");
-        // !!!!!!!!!! CORRECTION !!!!!!!!!!!!!! MOVED THIS OUTSIDE OF THE IF STATEMENT ABOVE SO NEW FILES WORK NOW
+        // !!!!!!!!!! CORRECTION !!!!!!!!!!!!!! MOVED THIS OUTSIDE OF THE IF STATEMENT BELOW SO NEW FILES WORK NOW
         // attach filename to each goal object to avoid combining different files together
           foreach (Goal goal in _goal.GetGoalList())
           {
