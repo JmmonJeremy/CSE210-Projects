@@ -44,8 +44,8 @@ public class HealthStatus
   // reference source: https://health.clevelandclinic.org/how-many-calories-a-day-should-i-eat/#
   private string _calorieStandard = "Between 1600 - 3000";
   private int _calorieGoal;
-  private int _caloriesTotal;
-  // reference source: https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/water/art-20044256#
+  private int _calorieTotal;
+  // reference source: mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/water/art-20044256
   private string _liquidIntakeStandard = "Between 11.5 - 15.5 Cups";
   private float _liquidIntake;
   
