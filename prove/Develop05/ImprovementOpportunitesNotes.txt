@@ -4,6 +4,9 @@ for the Goal class and use the "userSets" pattern for the constructor to differe
 #3 Consolidate comment notes and put color changes and text on same line.
 #4 Change base class attributes to protected that the derived classes need access to to elliminate the Getters & Setters
 #5 Create a class to deal with the lists of different goals and to hold the _earnedPoints from all of the different goals.
+#6 Add prevention for user to warn or prevent newly created goal that isn't saved from being lost when a goal textfile is loaded.
+#7 Prevent empty textfiles from showing their list as what was previously loaded before loading the empty textfile. (It is not actually in the textfile,
+but if you save it will save what is shown in the list).
 
 
 class GoalsGroup
