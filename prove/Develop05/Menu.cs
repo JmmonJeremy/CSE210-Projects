@@ -141,19 +141,23 @@ public class Menu
         _filenamePrompt = "Please enter a filename to save the goals under: ";
         // set the _filename from the Goal class
         _goal.SetFilename(_filenamePrompt);
-        // determine if the a file exists to be loaded
-        if (File.Exists(_goal.GetFilename()))
-        {
-          // after the _filename is set load any previous Goal objects saved under this filename
-          // don't allow another list to be combined to the filename
-          _goal.LoadGoalList("Don't combine"); 
-        
-          // attach filename to each goal object to avoid combining different files together
+        // // debugging code for existing files verses new file creation
+        // Console.WriteLine($"The filename is set as: {_goal.GetFilename()}");
+        // !!!!!!!!!! CORRECTION !!!!!!!!!!!!!! MOVED THIS OUTSIDE OF THE IF STATEMENT ABOVE SO NEW FILES WORK NOW
+        // attach filename to each goal object to avoid combining different files together
           foreach (Goal goal in _goal.GetGoalList())
           {
             goal.SetFilename(_goal.GetFilename());
           }
-        }
+        // determine if the a file exists to be loaded
+        if (File.Exists(_goal.GetFilename()))
+        {  
+        // // debugging code for existing files verses new file creation
+        // Console.WriteLine("This is running LoadGoalList!");       
+        // after the _filename is set load any previous Goal objects saved under this filename
+        // don't allow another list to be combined to the filename
+        _goal.LoadGoalList("Don't combine");          
+        }       
         // save the _earnedPoints and _goalList to a textfile if the user completed any goals
         // also save the _completedBox string and _completedGoal bool values to a textfile
         _goal.SaveGoals();
@@ -162,16 +166,29 @@ public class Menu
       }
       // if they chose to load their goals
       if (_choice == "4")
-      {        
+      { 
+        // !!!!!!!!! NOT SURE THIS IS NEEDED
+        string backUpFilename = _goal.GetFilename();       
         // set the _filenamePrompt to pass into the SetFileName method
-        _filenamePrompt = "What is the filename for the goals you would like to load? ";       
+        _filenamePrompt = "What is the filename for the goals you would like to load? ";         
         // set the _filename from the Goal class
         _goal.SetFilename(_filenamePrompt);        
         // load the specified textfile as Goal objects into the _goalList
         // don't allow another list to be combined to the filename
         _goal.LoadGoalList("Don't combine");
-        // communicate the goals loaded and from what filename to user 
-        _goal.CommunicateGoalsLoaded();           
+        // !!!!!!!!!!! CORRECTION !!!!!!!!!!! ADDED TO PREVENT SAYING IT WAS LOADED WHEN IT DOESN'T EXIST
+        // determine if the a file exists to be loaded
+        if (File.Exists(_goal.GetFilename()))
+        {      
+          // communicate the goals loaded and from what filename to user 
+          _goal.CommunicateGoalsLoaded(); 
+        } 
+        else
+        {  
+          // NOT SURE THIS IS NEEDED
+          _goal.SetFilename(backUpFilename);
+          Console.WriteLine($"Warning filename was reset to {_goal.GetFilename()}!!!");
+        }         
       } 
       // if they chose to record their completion of a goal
       if (_choice == "5")
