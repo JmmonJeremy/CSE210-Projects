@@ -67,17 +67,10 @@ public class Food
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
-  // method to turn the class name to a string
-  public virtual string ClassToString()
-  {    
-    Food food = new Food("Set up empty");    
-    return food.GetType().ToString();
-  }
-
   // method to create & return a food text string
-  public virtual string CreateFoodString()
-  {      
-    string foodString = $"{ClassToString()}:{_foodName}~|~{_portion}~|~{_calories}";    
+  public virtual string CreateFoodString(Object type)
+  {         
+    string foodString = $"{type.GetType()}:{_foodName}~|~{_portion}~|~{_calories}";    
     return foodString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES

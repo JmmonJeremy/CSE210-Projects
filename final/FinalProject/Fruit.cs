@@ -23,14 +23,7 @@ public class Fruit : Food
     // divides single string of attributes from a textfile into assigned individual attributes    
   }
 
-// ### METHODS ############################################## //
-  // method to turn the class name to a string
-  public override string ClassToString()
-  {     
-    Fruit fruit = new Fruit("Set up empty");    
-    return fruit.GetType().ToString();
-  }
-  
+// ### METHODS ############################################## //  
   // method to figure out portion value of the food
   public override void DeterminePortionValue()
   {
