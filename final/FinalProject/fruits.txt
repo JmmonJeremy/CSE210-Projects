@@ -1,4 +1,0 @@
-Fruit:apple~|~1~|~15
-Fruit:orange~|~2~|~18
-Fruit:banana~|~2~|~12
-Fruit:peach~|~3~|~30

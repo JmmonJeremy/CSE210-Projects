@@ -1,0 +1,7 @@
+Food:fruit~|~1~|~123~|~orange
+Food:vegetable~|~1~|~12~|~cucumber
+Food:grain food~|~1~|~200~|~bread
+Food:dairy food~|~1~|~250~|~cheese
+Food:protein food~|~1~|~120~|~peanuts
+Food:oil or fat~|~1~|~300~|~bacon greese
+Food:liquid or drink~|~1~|~90~|~milk
