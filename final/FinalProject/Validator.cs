@@ -29,7 +29,7 @@ public class Validator
   {      
     int cycle = 0; // shows if the while loop has cycled    
     string entry = "none"; // holds and returns the user's entry   
-    while (_confirm != "yes") 
+    while (_confirm != "") 
     {      
       cycle++;       
       if (usePrompt != "No prompt" || cycle > 1) // determine wether to prompt the user for input
@@ -44,7 +44,13 @@ public class Validator
       }      
                                                     Console.Write("\nYou entered: ");      
       Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{entry}");      
-      Console.ResetColor();                         Console.Write("Is this what you want to enter (yes or no)? ");      
+      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("Press ");
+      Console.ForegroundColor = ConsoleColor.Green; Console.Write("'Enter' ");
+      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue ");    
+      Console.ResetColor();                         Console.Write("or enter ");
+      Console.ForegroundColor = ConsoleColor.Red;   Console.Write("'no' "); 
+      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to start over: ");
+      Console.ResetColor();      
       _confirm = Console.ReadLine(); // stops or continues running the while loop      
     }
     return entry; // returns answer user wants
@@ -55,8 +61,8 @@ public class Validator
   {    
     int cycle = 0; // shows if the while loop has cycled   
     string entry = "none";  // holds and returns the user's entry     
-    _confirm = "yes"; // set so it won't restart the while loop if confirm != "Do ConfirmEntry"   
-    while (!_isNumber || _number < 1 || _confirm != "yes")
+    _confirm = ""; // set so it won't restart the while loop if confirm != "Do ConfirmEntry"   
+    while (!_isNumber || _number < 1 || _confirm != "")
     {       
       cycle++;      
       // DETERMINE WETHER TO PROMPT USER FOR INPUT
@@ -88,8 +94,14 @@ public class Validator
       {         
         _entry = _number.ToString();         
         Console.Write("\nYou entered: ");        
-        Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{_entry}");        
-        Console.ResetColor();                         Console.Write("Is this what you want to enter (yes or no)? ");     
+        Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{_entry}");
+        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("Press ");
+        Console.ForegroundColor = ConsoleColor.Green; Console.Write("'Enter' ");
+        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue ");    
+        Console.ResetColor();                         Console.Write("or enter ");
+        Console.ForegroundColor = ConsoleColor.Red;   Console.Write("'no' "); 
+        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to start over: ");
+        Console.ResetColor(); 
         _confirm = Console.ReadLine();                      
       }      
     }
@@ -99,12 +111,13 @@ public class Validator
   }
 
   // method to validate a number entered to select an option from a list of choices
-  public string SelectionCheck(int upperLimit)
-  {      
+  public string SelectionCheck(int upperLimit, string runConfirm)
+  {  
+    // string runConfirm = "Do ConfirmEntry";      
     string stringSelection = "";  // holds the user's option selection as a string    
     int numberSelection = upperLimit + 1; // set to run the while loop
     // while user has not entered a number that corresponds to an available option
-    while(numberSelection > upperLimit || _confirm != "yes")
+    while(numberSelection > upperLimit || _confirm != "")
     {        
       Console.Write(_inputDirection); // displays menu options       
       Console.ForegroundColor = ConsoleColor.Green; stringSelection = Console.ReadLine();     
@@ -131,18 +144,31 @@ public class Validator
         Console.ForegroundColor = ConsoleColor.DarkYellow; Console.WriteLine("one of the numbers next to a selection.\n");        
         Console.ResetColor();
       }      
-      else // if the user entered a valid and available option
-      {
-        // CONFIRM THIS IS WHAT THE USER WANTS TO DO        
-        _entry = numberSelection.ToString();        
-                                                      Console.Write("\nYou entered: ");    
-        Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{_entry}");        
-        Console.ResetColor();                         Console.Write("Is this what you want to enter (yes or no)? ");     
-        _confirm = Console.ReadLine(); 
-        if (_confirm != "yes") // if this is not what the user wants
-        {          
-          Console.WriteLine(); // enter an empty line before showing the prompt to the user again
-        }             
+      else // if the user entered a valid and available option 
+      { 
+        if (runConfirm == "Do Confirm") // you want to confirm
+        {       
+          // CONFIRM THIS IS WHAT THE USER WANTS TO DO        
+          _entry = numberSelection.ToString();        
+                                                        Console.Write("\nYou entered: ");    
+          Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{_entry}");
+          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("Press ");
+          Console.ForegroundColor = ConsoleColor.Green; Console.Write("'Enter' ");
+          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue ");    
+          Console.ResetColor();                         Console.Write("or enter ");
+          Console.ForegroundColor = ConsoleColor.Red;   Console.Write("'no' "); 
+          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to start over: ");
+          Console.ResetColor(); 
+          _confirm = Console.ReadLine(); 
+          if (_confirm != "") // if this is not what the user wants
+          {          
+            Console.WriteLine(); // enter an empty line before showing the prompt to the user again
+          } 
+        }
+        else
+        {
+          _confirm = "";
+        }            
       }      
     }    
     return numberSelection.ToString(); // return the users menu option selection
