@@ -228,31 +228,61 @@ public class Menu
     switch (choice)
     {
       // RUN OPTION USER CHOSE
-      case "1": // if they chose "Add Fruit"     
-        Fruit fruit = new Fruit();
-        FruitTracker fruitTracker = new FruitTracker();
+      case "1": // if they chose "Add Fruit" 
+        Food fruit = new Food("fruit", "cups");        
+        FoodTracker fruitTracker = new FoodTracker();
         fruitTracker.LoadItem(fruit);
-        fruitTracker.ObjectsToTextFile("fruits.txt");
-        fruitTracker.TextfileToOjects("fruits.txt");
+        fruitTracker.ObjectsToTextFile("foods.txt");
+        fruitTracker.TextfileToOjects("foods.txt");
         fruitTracker.DisplayObject();        
         break;
       case "2": // if they chose "Add Vegetable"
-        // method
-        break;
+        Food veggie = new Food("vegetable", "cups");        
+        FoodTracker veggieTracker = new FoodTracker();
+        veggieTracker.LoadItem(veggie);
+        veggieTracker.ObjectsToTextFile("foods.txt");
+        veggieTracker.TextfileToOjects("foods.txt");
+        veggieTracker.DisplayObject();        
+        break;        
       case "3": // if they chose "Add Grain Food"
-        // method
+        Food grain = new Food("grain food", "cups");        
+        FoodTracker grainTracker = new FoodTracker();
+        grainTracker.LoadItem(grain);
+        grainTracker.ObjectsToTextFile("foods.txt");
+        grainTracker.TextfileToOjects("foods.txt");
+        grainTracker.DisplayObject(); 
         break;
       case "4": // if they chose "Add Dairy Food"
-        // method
+        Food dairy = new Food("dairy food", "cups");        
+        FoodTracker dairyTracker = new FoodTracker();
+        dairyTracker.LoadItem(dairy);
+        dairyTracker.ObjectsToTextFile("foods.txt");
+        dairyTracker.TextfileToOjects("foods.txt");
+        dairyTracker.DisplayObject();
         break;
       case "5": // if they chose "Add Protein Food"
-        // method
-        break;  
+        Food protein = new Food("protein food", "cups");        
+        FoodTracker proteinTracker = new FoodTracker();
+        proteinTracker.LoadItem(protein);
+        proteinTracker.ObjectsToTextFile("foods.txt");
+        proteinTracker.TextfileToOjects("foods.txt");
+        proteinTracker.DisplayObject();
+        break;         
       case "6": // if they chose "Add Oil or Fat"
-        // method
+        Food oil = new Food("oil or fat", "cups");        
+        FoodTracker oilTracker = new FoodTracker();
+        oilTracker.LoadItem(oil);
+        oilTracker.ObjectsToTextFile("foods.txt");
+        oilTracker.TextfileToOjects("foods.txt");
+        oilTracker.DisplayObject();
         break;
       case "7": // if they chose "Add Liquid"
-        // method
+        Food liquid = new Food("liquid or drink", "cups");        
+        FoodTracker liquidTracker = new FoodTracker();
+        liquidTracker.LoadItem(liquid);
+        liquidTracker.ObjectsToTextFile("foods.txt");
+        liquidTracker.TextfileToOjects("foods.txt");
+        liquidTracker.DisplayObject();
         break;      
       default: // if they chose "Return to Main Menu"        
         break; // do nothing to end this menu & return user to the main menu

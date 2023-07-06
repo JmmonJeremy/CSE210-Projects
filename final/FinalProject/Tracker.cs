@@ -38,7 +38,7 @@ public class Tracker
       foreach (Object item in _items)
       {
         Food food = (Food)item; // cast item object as a Food to use its method
-        outputFile.WriteLine($"{food.CreateFoodString(food)}");
+        outputFile.WriteLine($"{food.CreateTrackedString(food)}");
       }
     }
   }
@@ -99,7 +99,7 @@ public class Tracker
     foreach (Object item in _items)
     {
       Food food = (Food)item; // cast item object as a Food to use its method
-      Console.WriteLine(food.CreateFoodString(food));
+      Console.WriteLine(food.CreateTrackedString(food));
     }
   }
 }

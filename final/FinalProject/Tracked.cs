@@ -7,13 +7,21 @@ using System.Reflection;
 public class Tracked
 {
 // ### VARIABLE ATTRIBUTES ################################## //   
-  private string _trackedName;  
-  private int _portion;   
-  private int _calories; 
+  protected string _category;  
+  protected string _measurement;
+  protected int _portion;    
+  protected int _calories; 
   private string _attributes; 
   
 // ### CONSTRUCTORS ######################################### //
-  // constructor for converting textfile to object in Tracker Class & for the ClassToString method in derived classes
+  // default constructor to set up a Tracked object
+  public Tracked(string category, string measurement)
+  { 
+    _category = category;
+    _measurement = measurement;
+  }
+
+  // constructor for converting textfile to object in Tracker Class & for the derived classes for other constructors
   public Tracked(string stringAttributes)
   {
     if (stringAttributes == "Set up empty")
@@ -32,17 +40,17 @@ public class Tracked
   // method to create & return a text string of something being tracked
   public virtual string CreateTrackedString(Object type)
   {      
-    string trackedString = $"{type.GetType()}:{_trackedName}~|~{_portion}~|~{_calories}";    
+    string trackedString = $"{type.GetType()}:{_category}~|~{_portion}~|~{_calories}";    
     return trackedString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
 // START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
-  private void DivideAttributes(string stringAttributes)
+  public virtual void DivideAttributes(string stringAttributes)
   {       
     string[] attributes = stringAttributes.Split("~|~");    
-    _trackedName = attributes[0];     
+    _category = attributes[0];     
     _portion = Convert.ToInt32(attributes[1]);
     _calories = int.Parse(attributes[2]);
   }
