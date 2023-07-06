@@ -3,13 +3,13 @@ using System.IO;
 using System.Reflection;
 
 // ### CLASS ################################################ //
-// class for tracking calories
-public class BreakfastTracker : Tracker
+// class for tracking meals and their calories and portions
+public class MealTracker : Tracker
 {
 // ### VARIABLE ATTRIBUTES ################################## //   
   
 // ### CONSTRUCTORS ######################################### //  
-  public BreakfastTracker()
+  public MealTracker()
   {
     // nothing needed in here 
   }
@@ -35,7 +35,7 @@ public class BreakfastTracker : Tracker
       foreach (Object item in _items)
       {
         Meal meal = (Meal)item; // cast item object as a Meal to use its method
-        outputFile.WriteLine($"{meal.CreateMealString()}");
+        outputFile.WriteLine($"{meal.CreateTrackedString(meal)}");
       }
     }
   }
@@ -96,7 +96,7 @@ public class BreakfastTracker : Tracker
     foreach (Object item in _items)
     {
       Meal meal = (Meal)item; // cast item object as a Meal to use its method
-      Console.WriteLine(meal.CreateMealString());
+      Console.WriteLine(meal.CreateTrackedString(meal));
     }
   }
 }
