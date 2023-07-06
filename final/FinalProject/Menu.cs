@@ -88,7 +88,7 @@ public class Menu
       // RUN OPTION USER CHOSE
       case "1": // if they chose "Breakfast Input"
         Meal meal = new Meal("breakfast", "breakfast food");
-        BreakfastTracker breakfastTracker = new BreakfastTracker();
+        MealTracker breakfastTracker = new MealTracker();
         breakfastTracker.LoadItem(meal);
         breakfastTracker.ObjectsToTextFile("breakfasts.txt");
         breakfastTracker.TextfileToOjects("breakfasts.txt");
