@@ -44,7 +44,7 @@ public class Food : Tracked
     _calories = validator2.StringNumberCheck("Use prompt", "Do ConfirmEntry");
   }  
 
-  // constructor for converting textfile to Food object in Tracker Class & for the ClassToString method in derived classes
+  // constructor for converting textfile to Food object in Tracker Class
   public Food(string stringAttributes) :base (stringAttributes)
   {
     // For textfile to Food object uses DivideAttributes(stringAttributes) method, which
