@@ -36,7 +36,7 @@ public class HealthStatusTracker : Tracker
       foreach (Object item in _items)
       {
         Meal meal = (Meal)item; // cast item object as a Meal to use its method
-        outputFile.WriteLine($"{meal.CreateMealString()}");
+        outputFile.WriteLine($"{meal.CreateTrackedString(meal)}");
       }
     }
   }
@@ -97,7 +97,7 @@ public class HealthStatusTracker : Tracker
     foreach (Object item in _items)
     {
       Meal meal = (Meal)item; // cast item object as a Meal to use its method
-      Console.WriteLine(meal.CreateMealString());
+      Console.WriteLine(meal.CreateTrackedString(meal));
     }
   }
 }
