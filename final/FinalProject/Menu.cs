@@ -24,7 +24,7 @@ public class Menu
     // pass the mainMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", mainMenuPrompt);      
-    selection = validator.SelectionCheck(8); // get an entry that is valid & confirmed as the user's choice   
+    selection = validator.SelectionCheck(8, "Don't Confirm"); // get an entry that is valid & confirmed as the user's choice   
     return selection; // return the user's selection
   }
 
@@ -75,7 +75,7 @@ public class Menu
     // pass the recordMealMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", recordMealMenuPrompt);          
-    selection = validator.SelectionCheck(10); // get an entry that is valid & confirmed as the user's choice   
+    selection = validator.SelectionCheck(10, "Do Confirm"); // get an entry that is valid & confirmed as the user's choice   
     return selection; // return the user's selection
   }
 
@@ -132,7 +132,7 @@ public class Menu
     // pass the recordExerciseMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", recordExerciseMenuPrompt);          
-    selection = validator.SelectionCheck(9); // get an entry that is valid & confirmed as the user's choice   
+    selection = validator.SelectionCheck(9, "Do Confirm"); // get an entry that is valid & confirmed as the user's choice   
     return selection; // return the user's selection
   }
 
@@ -180,7 +180,7 @@ public class Menu
     // pass the recordHealthMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", recordHealthMenuPrompt);          
-    selection = validator.SelectionCheck(5); // get an entry that is valid & confirmed as the user's choice   
+    selection = validator.SelectionCheck(5, "Do Confirm"); // get an entry that is valid & confirmed as the user's choice   
     return selection; // return the user's selection
   }
 
@@ -217,7 +217,7 @@ public class Menu
     // pass the addFoodMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", addFoodMenuPrompt);          
-    selection = validator.SelectionCheck(8); // get an entry that is valid & confirmed as the user's choice   
+    selection = validator.SelectionCheck(8, "Do Confirm"); // get an entry that is valid & confirmed as the user's choice   
     return selection; // return the user's selection
   }
 
@@ -298,7 +298,7 @@ public class Menu
     // pass the RemoveFoodMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", RemoveFoodMenuPrompt);          
-    selection = validator.SelectionCheck(8); // get an entry that is valid & confirmed as the user's choice   
+    selection = validator.SelectionCheck(8, "Do Confirm"); // get an entry that is valid & confirmed as the user's choice   
     return selection; // return the user's selection
   }
 
