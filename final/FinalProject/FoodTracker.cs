@@ -3,13 +3,13 @@ using System.IO;
 using System.Reflection;
 
 // ### CLASS ################################################ //
-// class for tracking the amount of fruit eaten
-public class FruitTracker : Tracker
+// class for tracking the different categories of foods & their calories and portions
+public class FoodTracker : Tracker
 {
 // ### VARIABLE ATTRIBUTES ################################## //  
-  // private List<Fruit> _fruits = new List<Fruit>();
+  
 // ### CONSTRUCTORS ######################################### //  
-  public FruitTracker()
+  public FoodTracker() : base()
   {
     // nothing needed in here 
   }
