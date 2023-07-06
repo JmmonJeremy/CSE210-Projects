@@ -7,7 +7,7 @@ using System.Reflection;
 public class Tracker
 {
 // ### VARIABLE ATTRIBUTES ################################## //   
-  private string _itemName; // variable to hold the name of item being tracked
+  private string _itemCategory; // variable to hold the category heading of item being tracked
   private int _amount;
   private int _streak; 
   protected List<Object> _items = new List<Object>();
@@ -94,12 +94,15 @@ public class Tracker
 // END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
 
   // method to display the item object in the _items list
-  public virtual void DisplayObject()
+  public virtual void DisplayObject(string category)
   {
-    foreach (Object item in _items)
-    {
-      Food food = (Food)item; // cast item object as a Food to use its method
-      Console.WriteLine(food.CreateTrackedString(food));
+    foreach (Tracked item in _items)
+    {     
+      if (item.GetCategory() == category)
+      {
+      }
+      Food meal = (Food)item; // cast item object as a Food to use its method
+      Console.WriteLine(meal.CreateTrackedString(meal));
     }
   }
 }

@@ -91,7 +91,7 @@ public class MealTracker : Tracker
 // END OF GROUPING OF 1 METHOD THAT USES MEAL CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
 
   // method to display the item objects in the _items list
-  public override void DisplayObject()
+  public override void DisplayObject(string category)
   {
     foreach (Object item in _items)
     {

@@ -15,7 +15,7 @@ public class Food : Tracked
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Food object with the user's inputs used in Menu class
-  public Food(string category, string measurement) :base (category, measurement)
+  public Food(string category, string unit) :base (category, unit)
   { 
     // _foodType = foodType;
     // _portionScale = portionScale;
@@ -27,7 +27,7 @@ public class Food : Tracked
     // with "Use prompt" set the method to to use the prompt the first time the method is used
     _foodName = validator.ConfirmEntry("Use prompt");
     // #2 USER SETS _portion ***************************************************
-    string portionPrompt = $"How many {_measurement} is the {_category} you are adding? ";    
+    string portionPrompt = $"How many {_unit} is the {_category} you are adding? ";    
     // pass the portionPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator1 = new Validator("Use prompt", portionPrompt);    

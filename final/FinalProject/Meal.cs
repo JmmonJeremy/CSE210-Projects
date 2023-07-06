@@ -16,7 +16,7 @@ public class Meal : Tracked
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Meal object with the user's inputs used in Menu class
-  public Meal(string category, string measurement) :base (category, measurement)
+  public Meal(string category, string unit) :base (category, unit)
   {     
     // #1 ASSIGN TODAY'S DATE TO _date *****************************************
     // reference source: https://zetcode.com/csharp/dateonly/
@@ -48,6 +48,27 @@ public class Meal : Tracked
   }
 
 // ### METHODS ############################################## // 
+  // method to show food categories to add to the meal & return the choice
+  public string PresentMealCategoryMenu()
+  {
+    string selection = "No selection made.";
+    Console.WriteLine($"\nWhich category of food are you adding to your {_category}?");
+    string MealCategoryMenuPrompt = "Make your selection by entering a number:\n  1 - Fruit\n  2 - Vegetable\n  3 - Grain Food\n  4 - Dairy Food\n  5 - Protein Food\n  6 - Oil or Fat\n  7 - Liquid or Drink\n  8 - The meal is complete\nSelection: ";
+    // pass the RemoveFoodMenuPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", MealCategoryMenuPrompt);          
+    selection = validator.SelectionCheck(8, "Don't Confirm"); // get an entry that is valid   
+    return selection; // return the user's selection
+  }
+
+  // method to list the foods in the category and have the user add the object to the meal
+  public void AddToMeal()
+  {    
+    FoodTracker foods = new FoodTracker();
+    foods.TextfileToOjects("foods.txt");
+    foods.DisplayObject("fruit");
+  }
+
   // method to figure out cup value of the meal
   public virtual void DeterminePortionValue()
   {
