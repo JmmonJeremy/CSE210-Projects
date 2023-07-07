@@ -1,6 +1,9 @@
-Meal:2023~|~6~|~30~|~breakfast~|~pizza
-Meal:2023~|~6~|~30~|~breakfast~|~soup
-Meal:2023~|~7~|~1~|~breakfast~|~meatloaf~|~apple~|~peas
-Meal:2023~|~7~|~1~|~breakfast~|~cereal
-Meal:2023~|~7~|~1~|~breakfast~|~sandwhich
-Meal:2023~|~7~|~1~|~breakfast~|~chips~|~salsa~|~burrito
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:fruit~|~1~|~cup~|~123~|~orange*~*Food:fruit~|~1~|~cup~|~123~|~orange
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:fruit~|~1~|~cup~|~123~|~orange
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:fruit~|~1~|~cup~|~123~|~orange
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:|:fruit~|~1~|~cup~|~123~|~orange
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:|:fruit~|~1~|~cup~|~123~|~orange
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:|:fruit~|~1~|~cup~|~123~|~orange
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:grain food~|~1~|~cup~|~200~|~bread
+Meal:||:2023-|-7-|-7-|-breakfast-|-#~#Food:|:fruit~|~1~|~cup~|~123~|~orange
