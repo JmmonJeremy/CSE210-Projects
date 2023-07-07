@@ -10,7 +10,7 @@ public class Tracker
   private string _itemCategory; // variable to hold the category heading of item being tracked
   private int _amount;
   private int _streak; 
-  protected List<Object> _items = new List<Object>();
+  protected List<Tracked> _items = new List<Tracked>();
 // ### CONSTRUCTORS ######################################### //  
   public Tracker()
   {
@@ -24,21 +24,21 @@ public class Tracker
   }
 
   // method to put the item objects into a list
-  public virtual void LoadItem(Object item)
+  public void LoadItem(Tracked item)
   {
-    _items.Add((Food)item); // cast item object as a Food
+    _items.Add(item);
   }
 
 // START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN MENU CLASS
   // method to save list objects to a text file
-  public virtual void ObjectsToTextFile(string filename) 
+  public void ObjectsToTextFile(string filename) 
   {      
     using (StreamWriter outputFile = new StreamWriter(filename, true))
     {        
-      foreach (Object item in _items)
+      foreach (Tracked item in _items)
       {
-        Food food = (Food)item; // cast item object as a Food to use its method
-        outputFile.WriteLine($"{food.CreateTrackedString(food)}");
+        // Food food = (Food)item; // cast item object as a Food to use its method
+        outputFile.WriteLine($"{item.CreateTrackedString(item)}");
       }
     }
   }
@@ -46,7 +46,7 @@ public class Tracker
 
 // START OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
   // method to create objects from text file strings
-  public virtual void TextfileToOjects(string filename)
+  public void TextfileToOjects(string filename)
   {  
     _items.Clear(); // empties the _items object list to prevent duplicating    
     if (File.Exists(filename))
@@ -57,8 +57,8 @@ public class Tracker
         // seperate the string into the object and its attributes using the colon
         string[] segments = item.Split(":");  
         // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
-        // create a Goal object or instance from the string of the Goal base class or Goal derived classes
-        Food food = (Food)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
+        // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
+        Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
         _items.Add(food);            
       }     
     }
@@ -94,7 +94,7 @@ public class Tracker
 // END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
 
   // method to display the desired item objects in the _items list
-  public virtual void DisplayObjects()
+  public void DisplayObjects()
   {    
     foreach (Tracked item in _items)
     {       
@@ -136,9 +136,9 @@ public class Tracker
   }
 
   // method to return the selected object from the list
-  public virtual Object ReturnObject(int indexNumber)
+  public Tracked ReturnObject(int indexNumber)
   {
-    Object selection = _items[indexNumber];    
+    Tracked selection = (Tracked)_items[indexNumber];    
     return selection;  
   }
 }
