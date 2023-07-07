@@ -54,7 +54,7 @@ public class Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a text string of something being tracked
-  public virtual string CreateTrackedString(Object type)
+  public virtual string CreateTrackedString(Tracked type)
   {  
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
     _unit = _unit.TrimEnd('s'); // change from plural to singular    
