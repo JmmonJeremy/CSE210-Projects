@@ -46,7 +46,7 @@ public class Tracker
 
 // START OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
   // method to create objects from text file strings
-  public void TextfileToOjects(string filename)
+  public void TextfileToOjects(string filename, string divider)
   {  
     _items.Clear(); // empties the _items object list to prevent duplicating    
     if (File.Exists(filename))
@@ -55,7 +55,7 @@ public class Tracker
       foreach (string item in items)
       {
         // seperate the string into the object and its attributes using the colon
-        string[] segments = item.Split(":");  
+        string[] segments = item.Split(divider);  
         // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
         // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
         Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
@@ -94,7 +94,7 @@ public class Tracker
 // END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
 
   // method to display the desired item objects in the _items list
-  public void DisplayObjects()
+  public virtual void DisplayObjects()
   {    
     foreach (Tracked item in _items)
     {       
