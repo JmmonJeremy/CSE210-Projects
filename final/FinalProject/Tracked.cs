@@ -45,6 +45,9 @@ public class Tracked
   // method to create a user selection string
   public virtual string CreateSelectionString(Tracked type)
   {
+    if (_portion == 1)
+    // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
+    _unit = _unit.TrimEnd('s'); // change from plural to singular
     string selectionString = $"{_category}, {_portion} {_unit}, {_calories} calories";    
     return selectionString;
   }
@@ -52,7 +55,9 @@ public class Tracked
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a text string of something being tracked
   public virtual string CreateTrackedString(Object type)
-  {      
+  {  
+    // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
+    _unit = _unit.TrimEnd('s'); // change from plural to singular    
     string trackedString = $"{type.GetType()}:{_category}~|~{_portion}~|~{_unit}~|~{_calories}";    
     return trackedString; 
   }
