@@ -12,7 +12,7 @@ public class Meal : Tracked
   private string _mealType; 
   private string _mealFood; 
   private List<string> _mealList = new List<string>(); // change this to a food object list
-  private List<Food> _meal = new List<Food>(); // holds a saved list of foods for a meal
+  private List<Tracked> _meal = new List<Tracked>(); // holds a saved list of foods for a meal
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Meal object with the user's inputs used in Menu class
@@ -93,7 +93,7 @@ public class Meal : Tracked
     }
     else
     {
-      Food food = foods.ReturnObject(selection);
+      Tracked food = foods.ReturnObject(selection);
       _meal.Add(food);
     }
   }
