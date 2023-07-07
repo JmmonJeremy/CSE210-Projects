@@ -58,7 +58,7 @@ public class Tracked
   {  
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
     _unit = _unit.TrimEnd('s'); // change from plural to singular    
-    string trackedString = $"{type.GetType()}:{_category}~|~{_portion}~|~{_unit}~|~{_calories}";    
+    string trackedString = $"{type.GetType()}:|:{_category}~|~{_portion}~|~{_unit}~|~{_calories}";    
     return trackedString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
