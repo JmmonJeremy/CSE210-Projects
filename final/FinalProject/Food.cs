@@ -58,6 +58,14 @@ public class Food : Tracked
     
   }
 
+  // method to create a user selection string
+  public override string CreateSelectionString(Tracked type)
+  {
+    string selectionString = $"{_foodName}, ";  
+    selectionString += base.CreateSelectionString(type);      
+    return selectionString;
+  }
+
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
   public override string CreateTrackedString(Object type)
@@ -75,7 +83,7 @@ public class Food : Tracked
     // reference source: https://stackoverflow.com/questions/36911460/adding-to-virtual-function-in-derived-class
     base.DivideAttributes(stringAttributes); 
     string[] attributes = stringAttributes.Split("~|~");
-    _foodName = attributes[3];     
+    _foodName = attributes[4];     
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 }

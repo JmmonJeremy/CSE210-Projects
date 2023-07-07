@@ -93,16 +93,52 @@ public class Tracker
   }
 // END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
 
-  // method to display the item object in the _items list
-  public virtual void DisplayObjects(string category)
-  {
+  // method to display the desired item objects in the _items list
+  public virtual void DisplayObjects()
+  {    
     foreach (Tracked item in _items)
-    {     
-      if (item.GetCategory() == category)
-      {
-      }
-      Food meal = (Food)item; // cast item object as a Food to use its method
-      Console.WriteLine(meal.CreateTrackedString(meal));
-    }
+    {       
+      Console.WriteLine(item.CreateTrackedString(item));
+    }    
+  }
+
+  // method to select the desired object in the list
+    public int SelectObject(string date, string subCategory, string category)
+  {
+    // #1 USER SELECTS OJECT FROM LIST **************************************************
+    int indexNumber = 0; // for returning the index of the object desired
+    int selectionNumber = 0; // for numbering the selection options
+    int needsAddedNumber = 0; // for identifying when a user selects the needs to be added option
+    // put together a string of objects to select from in a menu prompt to pass into the Validator object 
+    string objectSelectionPrompt = $"\nBelow is a list of all the {subCategory} options available to add to your {category} for today, {date}.\nMake your selection by entering its number:\n";     
+    foreach (Tracked item in _items)
+    {              
+      if (item.GetCategory() == subCategory)
+      { 
+        ++ needsAddedNumber;
+        ++ selectionNumber;        
+        objectSelectionPrompt += $"  {selectionNumber} - {item.CreateSelectionString(item)}\n";
+      }           
+    }    
+    ++ selectionNumber; // add one for the last added option
+    objectSelectionPrompt += $"  {selectionNumber} - The {subCategory} option needs to be added.\nSelection: ";       
+    // pass the objectSelectionPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator1 = new Validator("Use prompt", objectSelectionPrompt);    
+    // set the method to use the prompt the first time the method is used with "Use Prompt"
+    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"    
+    indexNumber = validator1.StringNumberCheck("Use prompt", "Do ConfirmEntry") -1;       
+    if (indexNumber == needsAddedNumber) 
+    {
+      indexNumber = -1; // if the item user wants isn't in the list return a -1 to indicate that
+    }   
+    return indexNumber;
+  }
+
+  // method to return the selected object from the list
+  public virtual Object ReturnObject(int indexNumber)
+  {
+    Object selection = _items[indexNumber];    
+    return selection;  
   }
 }

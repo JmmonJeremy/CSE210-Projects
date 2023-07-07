@@ -43,17 +43,17 @@ public class Tracked
   }
 
   // method to create a user selection string
-  public virtual string CreateSelectionString(Object type)
+  public virtual string CreateSelectionString(Tracked type)
   {
-    string trackedString = $"{_category}, {_portion} {_unit}, {_calories} calories";    
-    return trackedString;
+    string selectionString = $"{_category}, {_portion} {_unit}, {_calories} calories";    
+    return selectionString;
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a text string of something being tracked
   public virtual string CreateTrackedString(Object type)
   {      
-    string trackedString = $"{type.GetType()}:{_category}~|~{_portion}~|~{_calories}";    
+    string trackedString = $"{type.GetType()}:{_category}~|~{_portion}~|~{_unit}~|~{_calories}";    
     return trackedString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -65,7 +65,8 @@ public class Tracked
     string[] attributes = stringAttributes.Split("~|~");    
     _category = attributes[0];     
     _portion = Convert.ToInt32(attributes[1]);
-    _calories = int.Parse(attributes[2]);
+    _unit = attributes[2];
+    _calories = int.Parse(attributes[3]);
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 }
