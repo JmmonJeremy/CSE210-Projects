@@ -66,7 +66,7 @@ public class Meal : Tracked
   {    
     FoodTracker foods = new FoodTracker();
     foods.TextfileToOjects("foods.txt");
-    foods.DisplayObject("fruit");
+    foods.DisplayObjects("fruit");
   }
 
   // method to figure out cup value of the meal

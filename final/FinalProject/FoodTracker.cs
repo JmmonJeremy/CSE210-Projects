@@ -15,7 +15,7 @@ public class FoodTracker : Tracker
   }
 // ### METHODS ############################################## //
   // method to display the desired item objects in the _items list
-  public override void DisplayObject(string category)
+  public override void DisplayObjects(string category)
   { 
     Console.WriteLine($"\nBelow is a list of all the {category} options available to add to your meal.");
     Console.WriteLine($"Make your selection by entering its number:");   
@@ -30,6 +30,7 @@ public class FoodTracker : Tracker
     }
     ++ selectionNumber;
     Console.WriteLine($"  {selectionNumber} - The {category} option needs to be added."); 
+    
   }
 
   // method to figure out the total for the tracked value

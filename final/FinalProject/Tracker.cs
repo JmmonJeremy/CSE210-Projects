@@ -94,7 +94,7 @@ public class Tracker
 // END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
 
   // method to display the item object in the _items list
-  public virtual void DisplayObject(string category)
+  public virtual void DisplayObjects(string category)
   {
     foreach (Tracked item in _items)
     {     
