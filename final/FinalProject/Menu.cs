@@ -90,8 +90,11 @@ public class Menu
         Meal meal = new Meal("breakfast", "food");
         MealTracker breakfastTracker = new MealTracker();
         breakfastTracker.LoadItem(meal);
-        breakfastTracker.ObjectsToTextFile("breakfasts.txt");
-        breakfastTracker.TextfileToOjects("breakfasts.txt");
+        breakfastTracker.ObjectsToTextFile("breakfasts.txt");        
+        // List<string[]> stringObjects = meal.CreateStringObjects("breakfasts.txt");
+        // string mealStartingAttributes = meal.CreateMealStartingString(stringObjects);
+        // breakfastTracker.StringObjectToOject(meal.CreateStringObjects("breakfasts.txt"));
+        breakfastTracker.TextfileToOjects("breakfasts.txt", ":||:");
         breakfastTracker.DisplayObjects(); 
         break;
       case "2": // if they chose "Lunch Input"
@@ -235,7 +238,7 @@ public class Menu
         FoodTracker fruitTracker = new FoodTracker();
         fruitTracker.LoadItem(fruit);
         fruitTracker.ObjectsToTextFile("foods.txt");
-        fruitTracker.TextfileToOjects("foods.txt");
+        fruitTracker.TextfileToOjects("foods.txt", ":|:");
         fruitTracker.DisplayObjects();        
         break;
       case "2": // if they chose "Add Vegetable"
@@ -243,7 +246,7 @@ public class Menu
         FoodTracker veggieTracker = new FoodTracker();
         veggieTracker.LoadItem(veggie);
         veggieTracker.ObjectsToTextFile("foods.txt");
-        veggieTracker.TextfileToOjects("foods.txt");
+        veggieTracker.TextfileToOjects("foods.txt", ":|:");
         veggieTracker.DisplayObjects();        
         break;        
       case "3": // if they chose "Add Grain Food"
@@ -251,7 +254,7 @@ public class Menu
         FoodTracker grainTracker = new FoodTracker();
         grainTracker.LoadItem(grain);
         grainTracker.ObjectsToTextFile("foods.txt");
-        grainTracker.TextfileToOjects("foods.txt");
+        grainTracker.TextfileToOjects("foods.txt", ":|:");
         grainTracker.DisplayObjects(); 
         break;
       case "4": // if they chose "Add Dairy Food"
@@ -259,7 +262,7 @@ public class Menu
         FoodTracker dairyTracker = new FoodTracker();
         dairyTracker.LoadItem(dairy);
         dairyTracker.ObjectsToTextFile("foods.txt");
-        dairyTracker.TextfileToOjects("foods.txt");
+        dairyTracker.TextfileToOjects("foods.txt", ":|:");
         dairyTracker.DisplayObjects();
         break;
       case "5": // if they chose "Add Protein Food"
@@ -267,7 +270,7 @@ public class Menu
         FoodTracker proteinTracker = new FoodTracker();
         proteinTracker.LoadItem(protein);
         proteinTracker.ObjectsToTextFile("foods.txt");
-        proteinTracker.TextfileToOjects("foods.txt");
+        proteinTracker.TextfileToOjects("foods.txt", ":|:");
         proteinTracker.DisplayObjects();
         break;         
       case "6": // if they chose "Add Oil or Fat"
@@ -275,7 +278,7 @@ public class Menu
         FoodTracker oilTracker = new FoodTracker();
         oilTracker.LoadItem(oil);
         oilTracker.ObjectsToTextFile("foods.txt");
-        oilTracker.TextfileToOjects("foods.txt");
+        oilTracker.TextfileToOjects("foods.txt", ":|:");
         oilTracker.DisplayObjects();
         break;
       case "7": // if they chose "Add Liquid"
@@ -283,7 +286,7 @@ public class Menu
         FoodTracker liquidTracker = new FoodTracker();
         liquidTracker.LoadItem(liquid);
         liquidTracker.ObjectsToTextFile("foods.txt");
-        liquidTracker.TextfileToOjects("foods.txt");
+        liquidTracker.TextfileToOjects("foods.txt", ":|:");
         liquidTracker.DisplayObjects();
         break;      
       default: // if they chose "Return to Main Menu"        
