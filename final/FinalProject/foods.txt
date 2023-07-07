@@ -9,3 +9,4 @@ Food:fruit~|~2~|~cup~|~130~|~mango
 Food:vegetable~|~3~|~cup~|~55~|~carrot
 Food:fruit~|~4~|~cup~|~120~|~peach
 Food:dairy food~|~2~|~cup~|~240~|~cottage cheese
+Food:protein food~|~2~|~cup~|~300~|~chicken
