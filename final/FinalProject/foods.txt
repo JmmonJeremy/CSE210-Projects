@@ -5,3 +5,7 @@ Food:dairy food~|~1~|~cup~|~250~|~cheese
 Food:protein food~|~1~|~cup~|~120~|~peanuts
 Food:oil or fat~|~1~|~cup~|~300~|~bacon greese
 Food:liquid or drink~|~1~|~cup~|~90~|~milk
+Food:fruit~|~2~|~cup~|~130~|~mango
+Food:vegetable~|~3~|~cup~|~55~|~carrot
+Food:fruit~|~4~|~cup~|~120~|~peach
+Food:dairy food~|~2~|~cup~|~240~|~cottage cheese
