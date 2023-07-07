@@ -8,10 +8,9 @@ public class Meal : Tracked
 {
 // ### VARIABLE ATTRIBUTES ################################## //
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
-  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);   
-  private string _mealType; 
-  private string _mealFood; 
-  private List<string> _mealList = new List<string>(); // change this to a food object list
+  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now); 
+  private string _mealFoodStrings;
+  public List<string[]> _mealList = new List<string[]>(); // change this to a food object list
   private List<Tracked> _meal = new List<Tracked>(); // holds a saved list of foods for a meal
   
 // ### CONSTRUCTORS ######################################### //
@@ -84,7 +83,7 @@ public class Meal : Tracked
   {    
     string mealItem = NumberToCategory(PresentMealCategoryMenu(date));     
     FoodTracker foods = new FoodTracker();
-    foods.TextfileToOjects("foods.txt"); // load the list with the saved food in textfile
+    foods.TextfileToOjects("foods.txt", ":|:"); // load the list with the saved food in textfile
     int selection = foods.SelectObject(date, mealItem, meal);
     if (selection == -1) // if the user chose the food needs to be added
     {
@@ -125,26 +124,86 @@ public class Meal : Tracked
   public override string CreateTrackedString(Tracked type)
   {    
     string mealList = ""; 
-    foreach (string mealFood in _mealList)
+    string divider = "";
+    int cycle = 0;
+    foreach (Tracked mealFood in _meal)
     {
-      mealList += $"~|~{mealFood}";
+      ++cycle;
+      if (cycle > 1)
+      {
+        divider = "*~*";
+      }
+      mealList += $"{divider}{mealFood.CreateTrackedString(mealFood)}";
     } 
-    string mealString = $"{type.GetType()}:{_date.Year}~|~{_date.Month}~|~{_date.Day}~|~{_mealType}{mealList}";    
+    string mealString = $"{type.GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-#~#{mealList}";    
+    return mealString; 
+  }
+
+    public  string CreateScreenString(Tracked type)
+  {     
+    
+    string mealString = $"{type.GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{_mealFoodStrings}";    
     return mealString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
 // START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+  // method to divide _attributes into strings of objects
+  public List<string[]> CreateStringObjects(string filename)
+  { 
+    _mealList.Clear(); // empties the _mealList of strings to prevent duplicating           
+    if (File.Exists(filename))
+    {        
+      string[] items = System.IO.File.ReadAllLines(filename); 
+      foreach (string item in items)
+      {
+        // seperate the string into the object and its attributes using the colon
+        string[] stringObjects = item.Split("*~*");                    
+      }
+    } 
+    return _mealList; 
+  }
+
+
+
+// START OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
+  // method to create objects from text file strings
+  public List<Tracked> StringObjectToTracked(List<string[]> stringObjectList)
+  {            
+    foreach (string[] stringObject in stringObjectList)
+    if (stringObjectList[0] != stringObject) 
+    {  
+      foreach (string item in stringObject)
+      {      
+        // seperate the string into the object and its attributes using the colon
+        string[] segments = item.Split(":");  
+        // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
+        // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
+        Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
+        _meal.Add(food);            
+      }
+    }   
+    return _meal;
+  }
+
+  // method to convert string[] to string of non Food object string
+  public string CreateMealStartingString(List<string[]> stringObjectList)
+  {
+    string mealStartAttributes = string.Join("", stringObjectList[0]);
+    _mealFoodStrings = mealStartAttributes;
+    return mealStartAttributes;
+  }
+
+
+// END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
+
   // method to divide the string attributes stirng into their object's variable attributes  
   public override void DivideAttributes(string stringAttributes)
-  {       
-    string[] attributes = stringAttributes.Split("~|~");    
+  {  
+    string[] attributes = stringAttributes.Split("-|-");    
     _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
-    _mealType = attributes[3];  
-    for (int i = 4; i < attributes.Count(); i++) 
-    {          
-      _mealList.Add(attributes[i]); // add remaining items to the list        
-    }    
+    _category = attributes[3];
+    _mealFoodStrings = attributes[4];
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 }
