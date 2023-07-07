@@ -44,12 +44,12 @@ public class Validator
       }      
                                                     Console.Write("\nYou entered: ");      
       Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{entry}");      
-      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("Press ");
-      Console.ForegroundColor = ConsoleColor.Green; Console.Write("'Enter' ");
-      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue ");    
-      Console.ResetColor();                         Console.Write("or enter ");
+      Console.ResetColor();                         Console.Write("Enter ");
       Console.ForegroundColor = ConsoleColor.Red;   Console.Write("'no' "); 
-      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to start over: ");
+      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to go back ");
+      Console.ResetColor();                         Console.Write("or ");
+      Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue "); 
+      Console.ForegroundColor = ConsoleColor.Green; Console.Write("press 'Enter': ");
       Console.ResetColor();      
       _confirm = Console.ReadLine(); // stops or continues running the while loop      
     }
@@ -95,12 +95,12 @@ public class Validator
         _entry = _number.ToString();         
         Console.Write("\nYou entered: ");        
         Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{_entry}");
-        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("Press ");
-        Console.ForegroundColor = ConsoleColor.Green; Console.Write("'Enter' ");
-        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue ");    
-        Console.ResetColor();                         Console.Write("or enter ");
+        Console.ResetColor();                         Console.Write("Enter ");
         Console.ForegroundColor = ConsoleColor.Red;   Console.Write("'no' "); 
-        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to start over: ");
+        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to go back ");
+        Console.ResetColor();                         Console.Write("or ");
+        Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue "); 
+        Console.ForegroundColor = ConsoleColor.Green; Console.Write("press 'Enter': ");
         Console.ResetColor(); 
         _confirm = Console.ReadLine();                      
       }      
@@ -152,12 +152,12 @@ public class Validator
           _entry = numberSelection.ToString();        
                                                         Console.Write("\nYou entered: ");    
           Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"{_entry}");
-          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("Press ");
-          Console.ForegroundColor = ConsoleColor.Green; Console.Write("'Enter' ");
-          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue ");    
-          Console.ResetColor();                         Console.Write("or enter ");
+          Console.ResetColor();                         Console.Write("Enter ");
           Console.ForegroundColor = ConsoleColor.Red;   Console.Write("'no' "); 
-          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to start over: ");
+          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to go back ");
+          Console.ResetColor();                         Console.Write("or ");
+          Console.ForegroundColor = ConsoleColor.Yellow;Console.Write("to continue "); 
+          Console.ForegroundColor = ConsoleColor.Green; Console.Write("press 'Enter': ");                    
           Console.ResetColor(); 
           _confirm = Console.ReadLine(); 
           if (_confirm != "") // if this is not what the user wants
