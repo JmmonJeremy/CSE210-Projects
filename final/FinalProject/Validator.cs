@@ -29,7 +29,7 @@ public class Validator
   {      
     int cycle = 0; // shows if the while loop has cycled    
     string entry = "none"; // holds and returns the user's entry   
-    while (_confirm != "") 
+    while (_confirm == "no") 
     {      
       cycle++;       
       if (usePrompt != "No prompt" || cycle > 1) // determine wether to prompt the user for input
@@ -62,7 +62,7 @@ public class Validator
     int cycle = 0; // shows if the while loop has cycled   
     string entry = "none";  // holds and returns the user's entry     
     _confirm = ""; // set so it won't restart the while loop if confirm != "Do ConfirmEntry"   
-    while (!_isNumber || _number < 1 || _confirm != "")
+    while (!_isNumber || _number < 1 || _confirm == "no")
     {       
       cycle++;      
       // DETERMINE WETHER TO PROMPT USER FOR INPUT
@@ -117,7 +117,7 @@ public class Validator
     string stringSelection = "";  // holds the user's option selection as a string    
     int numberSelection = upperLimit + 1; // set to run the while loop
     // while user has not entered a number that corresponds to an available option
-    while(numberSelection > upperLimit || _confirm != "")
+    while(numberSelection > upperLimit || _confirm == "no")
     {        
       Console.Write(_inputDirection); // displays menu options       
       Console.ForegroundColor = ConsoleColor.Green; stringSelection = Console.ReadLine();     
@@ -160,7 +160,7 @@ public class Validator
           Console.ForegroundColor = ConsoleColor.Green; Console.Write("press 'Enter': ");                    
           Console.ResetColor(); 
           _confirm = Console.ReadLine(); 
-          if (_confirm != "") // if this is not what the user wants
+          if (_confirm == "no") // if this is not what the user wants
           {          
             Console.WriteLine(); // enter an empty line before showing the prompt to the user again
           } 
