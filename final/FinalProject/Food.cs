@@ -59,10 +59,15 @@ public class Food : Tracked
   }
 
   // method to create a user selection string
-  public override string CreateSelectionString(Tracked type)
+  public override string CreateDisplayString(Tracked type, int count)
   {
-    string selectionString = $"{_foodName}, ";  
-    selectionString += base.CreateSelectionString(type);      
+    string space = "  ";
+    if (count > 9)
+    {
+      space = " ";
+    }
+    string selectionString = $"   {count}.{space}{_foodName} ";  
+    selectionString += base.CreateDisplayString(type, count);      
     return selectionString;
   }
 
