@@ -10,7 +10,7 @@ public class Tracker
   private string _itemCategory; // variable to hold the category heading of item being tracked
   private int _amount;
   private int _streak; 
-  protected List<Tracked> _items = new List<Tracked>();
+  private List<Tracked> _items = new List<Tracked>();
 // ### CONSTRUCTORS ######################################### //  
   public Tracker()
   {
@@ -95,10 +95,13 @@ public class Tracker
 
   // method to display the desired item objects in the _items list
   public virtual void DisplayObjects()
-  {    
+  {   
+    Console.WriteLine(); 
+    int count = 0;  
     foreach (Tracked item in _items)
-    {       
-      Console.WriteLine(item.CreateTrackedString(item));
+    {  
+      count ++;     
+      Console.WriteLine(item.CreateDisplayString(item, count));
     }    
   }
 
@@ -117,11 +120,16 @@ public class Tracker
       { 
         ++ needsAddedNumber;
         ++ selectionNumber;        
-        objectSelectionPrompt += $"  {selectionNumber} - {item.CreateSelectionString(item)}\n";
+        objectSelectionPrompt += $"{item.CreateDisplayString(item, selectionNumber)}\n";
       }           
     }    
     ++ selectionNumber; // add one for the last added option
-    objectSelectionPrompt += $"  {selectionNumber} - The {subCategory} option needs to be added.\nSelection: ";       
+    string space = "  ";
+    if (selectionNumber > 9)
+    {
+      space = " ";
+    }
+    objectSelectionPrompt += $"   {selectionNumber}.{space}The {subCategory} option needs to be added.\nSelection: ";       
     // pass the objectSelectionPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator1 = new Validator("Use prompt", objectSelectionPrompt);    
