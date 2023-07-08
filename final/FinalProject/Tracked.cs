@@ -43,12 +43,22 @@ public class Tracked
   }
 
   // method to create a user selection string
-  public virtual string CreateSelectionString(Tracked type)
+  public virtual string CreateDisplayString(Tracked type, int count)
   {
     if (_portion == 1)
+    {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
     _unit = _unit.TrimEnd('s'); // change from plural to singular
-    string selectionString = $"{_category}, {_portion} {_unit}, {_calories} calories";    
+    }
+    int lastLetter = _category.Count() - 1;
+    if (_category[lastLetter] == 'd')
+    {
+      // reference source: https://www.educative.io/answers/how-to-remove-characters-from-a-string-using-remove-in-c-sharp
+      _category = _category.Remove(_category.Length-4);
+      _category += "Food";
+    }
+    // source reference: https://www.educative.io/answers/how-to-capitalize-the-first-letter-of-a-string-in-c-sharp
+    string selectionString = $"({char.ToUpper(_category[0]) + _category.Substring(1)}): {_portion} {_unit} = {_calories} calories.";    
     return selectionString;
   }
 
@@ -56,8 +66,11 @@ public class Tracked
   // method to create & return a text string of something being tracked
   public virtual string CreateTrackedString(Tracked type)
   {  
+    if (_portion == 1)
+    {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
-    _unit = _unit.TrimEnd('s'); // change from plural to singular    
+    _unit = _unit.TrimEnd('s'); // change from plural to singular 
+    }   
     string trackedString = $"{type.GetType()}:|:{_category}~|~{_portion}~|~{_unit}~|~{_calories}";    
     return trackedString; 
   }
