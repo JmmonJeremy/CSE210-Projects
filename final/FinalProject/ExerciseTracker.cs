@@ -3,14 +3,14 @@ using System.IO;
 using System.Reflection;
 
 // ### CLASS ################################################ //
-// class for tracking all health categories
-public class HealthStatusTracker : Tracker
+// class for tracking the different categories of exercises/workouts & the calories they burn and minutes done
+public class ExerciseTracker : Tracker
 {
 // ### VARIABLE ATTRIBUTES ################################## //   
-  private string _statSet; // variable to hold the set being tracked
-
+  private string _exerciseSet; // variable to hold the set being tracked
+  
 // ### CONSTRUCTORS ######################################### //  
-  public HealthStatusTracker()
+  public ExerciseTracker()
   {
     // 1st use method to load the values into the variable attritutes
     // nothing needed in here 

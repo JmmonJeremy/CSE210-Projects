@@ -7,16 +7,24 @@ using System.Reflection;
 public class FoodTracker : Tracker
 {
 // ### VARIABLE ATTRIBUTES ################################## //  
-  
+  private string _foodSet; // variable to hold the set being tracked
+
 // ### CONSTRUCTORS ######################################### //  
   public FoodTracker() : base()
   {
     // nothing needed in here 
   }
+
 // ### METHODS ############################################## //
   // method to figure out the total for the tracked value
   public override void TotalTrackedValue()
   {
     
+  }
+
+  // method to remove a food from the list
+  public void RemoveFood()
+  {
+
   }
 }

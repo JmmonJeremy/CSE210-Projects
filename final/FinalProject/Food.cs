@@ -3,15 +3,11 @@ using System.IO;
 using System.Reflection;
 
 // ### CLASS ################################################ //
-// base class for foods
+// base class for tracking a food
 public class Food : Tracked
 {
-// ### VARIABLE ATTRIBUTES ################################## //
-  // private string _foodType;   
+// ### VARIABLE ATTRIBUTES ################################## //   
   private string _foodName;  
-  // private int _portion; 
-  // // private string _portionScale; 
-  // private int _calories;  
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Food object with the user's inputs used in Menu class
@@ -51,13 +47,7 @@ public class Food : Tracked
     // divides single string of attributes from a textfile into assigned individual attributes  
   }
 
-// ### METHODS ############################################## //  
-  // method to figure out cup value of the food
-  public virtual void DeterminePortionValue()
-  {
-    
-  }
-
+// ### METHODS ############################################## // 
   // method to create a user selection string
   public override string CreateDisplayString(Tracked type, int count)
   {
@@ -73,9 +63,9 @@ public class Food : Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
-  public override string CreateTrackedString(Tracked type)
+  public override string CreateObjectString(Tracked type)
   {     
-    string foodString = base.CreateTrackedString(type);     
+    string foodString = base.CreateObjectString(type);     
     foodString += $"~|~{_foodName}";        
     return foodString; 
   }

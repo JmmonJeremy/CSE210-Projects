@@ -1,48 +1,49 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 // ### CLASS ################################################ //
-// base class for tracking a meal
-public class Meal : Tracked
+// base class for tracking a recipe
+public class Recipe : Tracked
 {
 // ### VARIABLE ATTRIBUTES ################################## //
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
-  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now); 
-  private string _mealFoodStrings;
-  private List<string> _mealList = new List<string>(); // holds a list of the foods ina a meal as strings
-  private List<Tracked> _meal = new List<Tracked>(); // holds a saved list of Food objects for a meal
+  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);   
+  private string _recipeFoodStrings;
+  private List<string> _recipeList = new List<string>(); // holds a list of the foods ina a recipe as strings
+  private List<Tracked> _recipe = new List<Tracked>(); // holds a saved list of Food objects for a recipe
   
 // ### CONSTRUCTORS ######################################### //
-  // main constructor to set up a Meal object with the user's inputs used in Menu class
-  public Meal(string category, string unit) :base (category, unit)
+  // main constructor to set up a Recipe object with the user's inputs used in Menu class
+  public Recipe(string category, string unit) :base (category, unit)
   {   
     // Base assigns parameters passed in as values for _category and _unit
-    // TODAY'S DATE IS ASSIGNED TO MEAL OBJECT & USER ENTERS FOODS INTO ITS _mealList
-    FillMeal();     
+    // TODAY'S DATE IS ASSIGNED TO RECIPE OBJECT & USER ENTERS FOODS INTO ITS _recipeList
+    FillRecipe();     
   }  
 
-  // constructor for converting textfile to Meal object in Tracker Class
-  public Meal(string stringAttributes) : base (stringAttributes)
+  // constructor for converting textfile to Recipe object in Tracker Class
+  public Recipe(string stringAttributes) : base (stringAttributes)
   {
-    // #1 base does textfile to Meal object uses DivideAttributes(stringAttributes) method, which
+    // #1 base does textfile to Recipe object uses DivideAttributes(stringAttributes) method, which
     // divides single string of attributes from a textfile into assigned individual attributes 
-    // #2 takes in the last attribut of _mealFoodStrings and creates & loads Food objects into _meal list
-    StringObjectToObject(DivideStringOfObjects(_mealFoodStrings));
+    // #2 takes in the last attribut of _recipeFoodStrings and creates & loads Food objects into _recipe list
+    StringObjectToObject(DivideStringOfObjects(_recipeFoodStrings));
   }
 
 // ### METHODS ############################################## //
 
-  // method to show food categories to add to the meal & return the choice
-  private string PresentMealCategoryMenu(string date)
+  // method to show food categories to add to the recipe & return the choice
+  private string PresentRecipeCategoryMenu(string date)
   {
     string selection = "No selection made.";
     Console.WriteLine($"\nWhich category of food are you adding to your {_category} for today, {date}?");
-    string MealCategoryMenuPrompt = "Make your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Recipe\nSelection: ";
+    string RecipeCategoryMenuPrompt = "Make your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Oil or Fat\n   8)  Other Food\nSelection: ";
     // pass the PresentCategoryMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
-    Validator validator = new Validator("Use prompt", MealCategoryMenuPrompt);          
-    selection = validator.SelectionCheck(7, "Don't Confirm"); // get an entry that is valid   
+    Validator validator = new Validator("Use prompt", RecipeCategoryMenuPrompt);          
+    selection = validator.SelectionCheck(8, "Don't Confirm"); // get an entry that is valid   
     return selection; // return the user's selection
   }
 
@@ -67,24 +68,27 @@ public class Meal : Tracked
         break;
       case "5": // if they chose "Protein Food"
         choice = "protein food";
-        break;    
+        break;
       case "6": // if they chose "Liquid or Drink"
         choice = "liquid or drink";
-        break;
-      case "7": // if they chose "Recipe"
-        choice = "recipe";
+        break;  
+      case "7": // if they chose "Oil or Fat"
+        choice = "oil or fat";
+        break;   
+      case "8": // if they chose "Other Food"
+        choice = "other food";
         break;     
     } 
     return choice;
   }
 
-  // method to list the foods in the category and have the user add the object to the meal
-  private void AddToMeal(string meal, string date)
+  // method to list the foods in the category and have the user add the object to the recipe
+  private void AddToRecipe(string recipe, string date)
   {    
-    string mealItem = NumberToCategory(PresentMealCategoryMenu(date));     
+    string recipeItem = NumberToCategory(PresentRecipeCategoryMenu(date));     
     FoodTracker foods = new FoodTracker();
     foods.TextfileToOjects("foods.txt", ":|:"); // load the list with the saved food in textfile
-    int selection = foods.SelectObject(date, mealItem, meal);
+    int selection = foods.SelectObject(date, recipeItem, recipe);
     if (selection == -1) // if the user chose the food needs to be added
     {
       // do something to help the user be able to add the food item 
@@ -93,82 +97,82 @@ public class Meal : Tracked
     else
     {
       Tracked food = foods.ReturnObject(selection);
-      _meal.Add(food);
+      _recipe.Add(food);
     }
   }
   
-  // method to fill the meal the foods the user ate
-  private void FillMeal()
+  // method to fill the recipe the foods the user ate
+  private void FillRecipe()
   {
     // #1 ASSIGN TODAY'S DATE TO _date *******************************************
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString(); 
-    // #2 USER FILLS _mealList ***************************************************    
+    // #2 USER FILLS _recipeList ***************************************************    
     string done = "yes";
     while (done == "yes")
     {      
-      AddToMeal(_category, date);      
+      AddToRecipe(_category, date);      
       Console.Write($"\nDo you have another {_category} {_unit} to add to your {_category} for today, {date}? ");
       done = Console.ReadLine();
     }    
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
-  // method to create & return a meal text string
+  // method to create & return a recipe text string
   public override string CreateObjectString(Tracked type)
   {    
-    string mealList = ""; 
+    string recipeList = ""; 
     string divider = "";
     int cycle = 0;
-    foreach (Tracked mealFood in _meal)
+    foreach (Tracked recipeFood in _recipe)
     {
       ++cycle;
       if (cycle > 1)
       {
         divider = "*~*";
       }
-      mealList += $"{divider}{mealFood.CreateObjectString(mealFood)}";
+      recipeList += $"{divider}{recipeFood.CreateObjectString(recipeFood)}";
     } 
-    string mealString = $"{type.GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{mealList}";    
-    return mealString; 
+    string recipeString = $"{type.GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{recipeList}";    
+    return recipeString; 
   }
 
-  // method to create a string of the meal and its attributes for display
+  // method to create a string of the recipe and its attributes for display
   public override string CreateDisplayString(Tracked type, int count)
   {        
-    string mealString = $"{count}) {type.GetType()} of {_category} on {_date.ToLongDateString()}.";
+    string recipeString = $"{count}) {type.GetType()} of {_category} on {_date.ToLongDateString()}.";
     int subcount = 0;
-    foreach (Food food in _meal)
+    foreach (Food food in _recipe)
     {
       subcount++;
-      mealString += ($"\n{food.CreateDisplayString(food, subcount)}");
+      recipeString += ($"\n{food.CreateDisplayString(food, subcount)}");
     } 
-    return mealString; 
+    return recipeString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
 // START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide _attributes into strings of Food objects
-  private List<string> DivideStringOfObjects(string mealFoodsString)
+  private List<string> DivideStringOfObjects(string recipeFoodsString)
   {     
-    _mealList.Clear(); // empties the _mealList of strings to prevent duplicating  
+    _recipeList.Clear(); // empties the _recipeList of strings to prevent duplicating  
     // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
-    int count = mealFoodsString.Split("*~*").Count(); // count the number of splits    
-    string[] stringObjects = mealFoodsString.Split("*~*"); // seperate the string into strings of Food objects  
+    int count = recipeFoodsString.Split("*~*").Count(); // count the number of splits    
+    string[] stringObjects = recipeFoodsString.Split("*~*"); // seperate the string into strings of Food objects  
     for (int i = 0; i < count; i++)
     {
       string foodString = stringObjects[i];
       // Console.WriteLine(foodString);       
-      _mealList.Add(foodString); 
+      _recipeList.Add(foodString); 
     }  
-    return _mealList; 
+    return _recipeList; 
   }
   
 // START OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
   // method to create Tracked objects from text file strings
   private List<Tracked> StringObjectToObject(List<string> stringObjectList)
   {   
-    _meal.Clear(); // empties the _mealList of strings to prevent duplicating          
+    _recipe.Clear(); // empties the _recipeList of strings to prevent duplicating          
     foreach (string stringObject in stringObjectList)
     {       
       // seperate the string into the object and its attributes using the colon
@@ -176,9 +180,9 @@ public class Meal : Tracked
       // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
       // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
       Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
-      _meal.Add(food);      
+      _recipe.Add(food);      
     }    
-    return _meal;
+    return _recipe;
   }
 // END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
 
@@ -188,7 +192,7 @@ public class Meal : Tracked
     string[] attributes = stringAttributes.Split("-|-");    
     _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
     _category = attributes[3];
-    _mealFoodStrings = attributes[4];
+    _recipeFoodStrings = attributes[4];
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 }

@@ -12,3 +12,4 @@ Food:|:dairy food~|~2~|~cups~|~240~|~cottage cheese
 Food:|:protein food~|~2~|~cups~|~300~|~chicken
 Food:|:grain food~|~2~|~cups~|~123~|~spaghetti noodles
 Food:|:protein food~|~3~|~cups~|~350~|~pork
+Food:|:grain food~|~3~|~cups~|~135~|~lasagna noodles

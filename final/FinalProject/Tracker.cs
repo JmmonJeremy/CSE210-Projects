@@ -11,11 +11,13 @@ public class Tracker
   private int _amount;
   private int _streak; 
   private List<Tracked> _items = new List<Tracked>();
+  
 // ### CONSTRUCTORS ######################################### //  
   public Tracker()
   {
     // nothing needed in here 
   }
+
 // ### METHODS ############################################## //
   // method to figure out the total for the tracked value
   public virtual void TotalTrackedValue()
@@ -38,7 +40,7 @@ public class Tracker
       foreach (Tracked item in _items)
       {
         // Food food = (Food)item; // cast item object as a Food to use its method
-        outputFile.WriteLine($"{item.CreateTrackedString(item)}");
+        outputFile.WriteLine($"{item.CreateObjectString(item)}");
       }
     }
   }

@@ -10,8 +10,7 @@ public class Tracked
   protected string _category;  
   protected string _unit;
   protected int _portion;    
-  protected int _calories; 
-  private string _attributes; 
+  protected int _calories;  
   
 // ### CONSTRUCTORS ######################################### //
   // default constructor to set up a Tracked object
@@ -64,7 +63,7 @@ public class Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a text string of something being tracked
-  public virtual string CreateTrackedString(Tracked type)
+  public virtual string CreateObjectString(Tracked type)
   {  
     if (_portion == 1)
     {

@@ -85,35 +85,39 @@ public class HealthStatus
 
 // ### METHODS ############################################## //  
   // method to figure out cup value of the food
-  public virtual void DeterminePortionValue()
+  public void PortionTotal()
   {
     
   }
 
-// START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
-  // method to turn the class name to a string
-  public virtual string ClassToString()
-  {    
-    Food food = new Food("Set up empty");    
-    return food.GetType().ToString();
+  public void CalorieTotal()
+  {
+
   }
 
-  // method to create & return a food text string
-  public virtual string CreateFoodString()
-  {      
-    string foodString = $"{ClassToString()}:{_foodName}~|~{_portion}~|~{_calories}";    
-    return foodString; 
+  public string CreateHealthString()
+  {
+    string healthString = "";
+    return healthString;
   }
-// END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
-// START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
-  // method to divide the string attributes stirng into their object's variable attributes  
-  private void DivideAttributes(string stringAttributes)
-  {       
-    string[] attributes = stringAttributes.Split("~|~");    
-    _foodName = attributes[0];     
-    _portion = Convert.ToInt32(attributes[1]);
-    _calories = int.Parse(attributes[2]);
+  public void DivideAttributes(string stringAttributes)
+  {
+
   }
-// END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+
+  public void StatsToTextfile(string filename)
+  {
+
+  }
+
+  public void TextfileToAttributes(string filename)
+  {
+
+  }
+
+  public void DispalyDashboard()
+  {
+
+  }
 }

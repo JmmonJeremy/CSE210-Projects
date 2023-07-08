@@ -12,6 +12,7 @@ public class Menu
  
 // ### CONSTRUCTORS ######################################### //
   // no constructors needed
+  
 // ### METHODS ############################################## //
   // method to present the main menu to the user and to return the user's choice 
   public string PresentMainMenu()
@@ -233,11 +234,11 @@ public class Menu
   {    
     string selection = "No selection made."; 
     // save the menu to be passed into the validator method for use    
-    string addFoodMenuPrompt = "\nMake your selection by entering a number:\n  1 - Add Fruit (Current List of #)\n  2 - Add Vegetable (Current List of #)\n  3 - Add Grain Food (Current List of #)\n  4 - Add Dairy Food (Current List of #)\n  5 - Add Protein Food (Current List of #)\n  6 - Add Oil or Fat (Current List of #)\n  7 - Add Liquid (Current List of #)\n  8 - Return to Main Menu\nSelection: ";
+    string addFoodMenuPrompt = "\nMake your selection by entering a number:\n  1 - Add Fruit (Current List of #)\n  2 - Add Vegetable (Current List of #)\n  3 - Add Grain Food (Current List of #)\n  4 - Add Dairy Food (Current List of #)\n  5 - Add Protein Food (Current List of #)\n  6 - Add Liquid (Current List of #)\n  7 - Add Oil or Fat (Current List of #)\n  8 - Add Other Food (Current List of #)\n  9 - Return to Main Menu\nSelection: ";
     // pass the addFoodMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", addFoodMenuPrompt);          
-    selection = validator.SelectionCheck(8, "Do Confirm"); // get a valid entry & confirm as the user's choice   
+    selection = validator.SelectionCheck(9, "Do Confirm"); // get a valid entry & confirm as the user's choice   
     return selection; // return the user's selection
   }
 
@@ -287,23 +288,31 @@ public class Menu
         proteinTracker.ObjectsToTextFile("foods.txt");
         proteinTracker.TextfileToOjects("foods.txt", ":|:");
         proteinTracker.DisplayObjects();
-        break;         
-      case "6": // if they chose "Add Oil or Fat"
-        Food oil = new Food("oil or fat", "cups");        
-        FoodTracker oilTracker = new FoodTracker();
-        oilTracker.LoadItem(oil);
-        oilTracker.ObjectsToTextFile("foods.txt");
-        oilTracker.TextfileToOjects("foods.txt", ":|:");
-        oilTracker.DisplayObjects();
         break;
-      case "7": // if they chose "Add Liquid"
+      case "6": // if they chose "Add Liquid"
         Food liquid = new Food("liquid or drink", "cups");        
         FoodTracker liquidTracker = new FoodTracker();
         liquidTracker.LoadItem(liquid);
         liquidTracker.ObjectsToTextFile("foods.txt");
         liquidTracker.TextfileToOjects("foods.txt", ":|:");
         liquidTracker.DisplayObjects();
-        break;      
+        break;         
+      case "7": // if they chose "Add Oil or Fat"
+        Food oil = new Food("oil or fat", "cups");        
+        FoodTracker oilTracker = new FoodTracker();
+        oilTracker.LoadItem(oil);
+        oilTracker.ObjectsToTextFile("foods.txt");
+        oilTracker.TextfileToOjects("foods.txt", ":|:");
+        oilTracker.DisplayObjects();
+        break;     
+      case "8": // if they chose "Add Other Food"
+        Food other = new Food("other food", "cups");        
+        FoodTracker otherTracker = new FoodTracker();
+        otherTracker.LoadItem(other);
+        otherTracker.ObjectsToTextFile("foods.txt");
+        otherTracker.TextfileToOjects("foods.txt", ":|:");
+        otherTracker.DisplayObjects();
+        break;        
       default: // if they chose "Return to Main Menu"        
         break; // do nothing to end this menu & return user to the main menu
     }  
