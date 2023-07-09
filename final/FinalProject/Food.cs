@@ -49,7 +49,7 @@ public class Food : Tracked
 
 // ### METHODS ############################################## // 
   // method to create a user selection string
-  public override string CreateDisplayString(Tracked type, int count)
+  public override string CreateDisplayString(int count)
   {
     string space = "  ";
     if (count > 9)
@@ -57,15 +57,15 @@ public class Food : Tracked
       space = " ";
     }
     string selectionString = $"   {count}.{space}{_foodName} ";  
-    selectionString += base.CreateDisplayString(type, count);      
+    selectionString += base.CreateDisplayString(count);      
     return selectionString;
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
-  public override string CreateObjectString(Tracked type)
+  public override string CreateObjectString()
   {     
-    string foodString = base.CreateObjectString(type);     
+    string foodString = base.CreateObjectString();     
     foodString += $"~|~{_foodName}";        
     return foodString; 
   }
