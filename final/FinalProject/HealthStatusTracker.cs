@@ -27,4 +27,9 @@ public class HealthStatusTracker : Tracker
   {
     base.DisplayObjects();
   }
+
+  public override void RemoveObject()
+  {
+    base.RemoveObject();
+  }
 }
