@@ -13,3 +13,7 @@ Food:|:protein food~|~2~|~cups~|~300~|~chicken
 Food:|:grain food~|~2~|~cups~|~123~|~spaghetti noodles
 Food:|:protein food~|~3~|~cups~|~350~|~pork
 Food:|:grain food~|~3~|~cups~|~135~|~lasagna noodles
+Food:|:fruit~|~2~|~cups~|~75~|~apple
+Food:|:liquid or drink~|~1~|~cup~|~125~|~orange juice
+Food:|:liquid or drink~|~1~|~cup~|~111~|~apple juice
+Food:|:liquid or drink~|~2~|~cups~|~350~|~hot chocolate
