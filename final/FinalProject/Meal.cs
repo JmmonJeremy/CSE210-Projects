@@ -32,7 +32,83 @@ public class Meal : Tracked
   }
 
 // ### METHODS ############################################## //
+// START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
+  // method to create & return a meal text string
+  public override string CreateObjectString()
+  {    
+    string mealList = ""; 
+    string divider = "";
+    int cycle = 0;
+    foreach (Tracked mealFood in _meal)
+    {
+      ++cycle;
+      if (cycle > 1)
+      {
+        divider = "*~*";
+      }
+      mealList += $"{divider}{mealFood.CreateObjectString()}";
+    } 
+    string mealString = $"{GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{mealList}";    
+    return mealString; 
+  }
 
+  // method to create a string of the meal and its attributes for display
+  public override string CreateDisplayString(int count)
+  {        
+    string mealString = $"{count}) {GetType()} of {_category} on {_date.ToLongDateString()}.";
+    int subcount = 0;
+    foreach (Tracked food in _meal)
+    {
+      subcount++;
+      mealString += ($"\n{food.CreateDisplayString(subcount)}");
+    } 
+    return mealString; 
+  }
+// END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
+
+// END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
+  // method to divide the string attributes stirng into their object's variable attributes  
+  public override void DivideAttributes(string stringAttributes)
+  {  
+    string[] attributes = stringAttributes.Split("-|-");    
+    _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
+    _category = attributes[3];
+    _mealFoodStrings = attributes[4];
+  }
+// END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+
+  // method to divide _attributes into strings of Food objects
+  private List<string> DivideStringOfObjects(string mealFoodsString)
+  {     
+    _mealList.Clear(); // empties the _mealList of strings to prevent duplicating  
+    // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
+    int count = mealFoodsString.Split("*~*").Count(); // count the number of splits    
+    string[] stringObjects = mealFoodsString.Split("*~*"); // seperate the string into strings of Food objects  
+    for (int i = 0; i < count; i++)
+    {
+      string foodString = stringObjects[i];
+      // Console.WriteLine(foodString);       
+      _mealList.Add(foodString); 
+    }  
+    return _mealList; 
+  }  
+
+  // method to create Tracked objects from text file strings
+  private List<Tracked> StringObjectToObject(List<string> stringObjectList)
+  {   
+    _meal.Clear(); // empties the _mealList of strings to prevent duplicating          
+    foreach (string stringObject in stringObjectList)
+    {       
+      // seperate the string into the object and its attributes using the colon
+      string[] segments = stringObject.Split(":|:");  
+      // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
+      // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
+      Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
+      _meal.Add(food);      
+    }    
+    return _meal;
+  }
+  
   // method to show food categories to add to the meal & return the choice
   private string PresentMealCategoryMenu(string date)
   {
@@ -92,7 +168,7 @@ public class Meal : Tracked
     }
     else
     {
-      Tracked food = foods.ReturnObject(selection);
+      Tracked food = foods.ReturnObject(selection);      
       _meal.Add(food);
     }
   }
@@ -112,83 +188,4 @@ public class Meal : Tracked
       done = Console.ReadLine();
     }    
   }
-
-// START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
-  // method to create & return a meal text string
-  public override string CreateObjectString(Tracked type)
-  {    
-    string mealList = ""; 
-    string divider = "";
-    int cycle = 0;
-    foreach (Tracked mealFood in _meal)
-    {
-      ++cycle;
-      if (cycle > 1)
-      {
-        divider = "*~*";
-      }
-      mealList += $"{divider}{mealFood.CreateObjectString(mealFood)}";
-    } 
-    string mealString = $"{type.GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{mealList}";    
-    return mealString; 
-  }
-
-  // method to create a string of the meal and its attributes for display
-  public override string CreateDisplayString(Tracked type, int count)
-  {        
-    string mealString = $"{count}) {type.GetType()} of {_category} on {_date.ToLongDateString()}.";
-    int subcount = 0;
-    foreach (Food food in _meal)
-    {
-      subcount++;
-      mealString += ($"\n{food.CreateDisplayString(food, subcount)}");
-    } 
-    return mealString; 
-  }
-// END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
-
-// START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
-  // method to divide _attributes into strings of Food objects
-  private List<string> DivideStringOfObjects(string mealFoodsString)
-  {     
-    _mealList.Clear(); // empties the _mealList of strings to prevent duplicating  
-    // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
-    int count = mealFoodsString.Split("*~*").Count(); // count the number of splits    
-    string[] stringObjects = mealFoodsString.Split("*~*"); // seperate the string into strings of Food objects  
-    for (int i = 0; i < count; i++)
-    {
-      string foodString = stringObjects[i];
-      // Console.WriteLine(foodString);       
-      _mealList.Add(foodString); 
-    }  
-    return _mealList; 
-  }
-  
-// START OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
-  // method to create Tracked objects from text file strings
-  private List<Tracked> StringObjectToObject(List<string> stringObjectList)
-  {   
-    _meal.Clear(); // empties the _mealList of strings to prevent duplicating          
-    foreach (string stringObject in stringObjectList)
-    {       
-      // seperate the string into the object and its attributes using the colon
-      string[] segments = stringObject.Split(":|:");  
-      // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
-      // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
-      Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
-      _meal.Add(food);      
-    }    
-    return _meal;
-  }
-// END OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
-
-  // method to divide the string attributes stirng into their object's variable attributes  
-  public override void DivideAttributes(string stringAttributes)
-  {  
-    string[] attributes = stringAttributes.Split("-|-");    
-    _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
-    _category = attributes[3];
-    _mealFoodStrings = attributes[4];
-  }
-// END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 }
