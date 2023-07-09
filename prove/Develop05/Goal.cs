@@ -346,6 +346,13 @@ public class Goal
     return _completedBox;    
   }
 
+  // !!!!!!!!!!!! CORRECTION !!!!!!!!!!! ADDED THIS TO BETTER CONTROL WHAT GOALS WERE SAVED WITH NEW GOALS
+  // method to clear the _goalList * created so only new goals created can be in the list
+  public void EmptyGoalList()
+  {
+    _goalList.Clear();
+  }
+
   // method to add a goal to the list
   public void SetGoalList(Goal goal)
   {
@@ -364,7 +371,7 @@ public class Goal
 
   // setter method for the _filename variable
   public void SetFilename(string filenamePrompt)
-  {  
+  {      
     // reference source: https://www.tutorialspoint.com/how-to-get-last-4-characters-from-string-in-chash
     // if the 'filenamePrompt' passed in doesn't end with .txt
     if (filenamePrompt.Substring(filenamePrompt.Length - 4) != ".txt") 
@@ -729,14 +736,16 @@ public class Goal
     // create a boolean to prevent loading the same goal multiple times
     bool duplicate = false;
     // retrieve goals objects from textfile
-    SetRetrievedOjects();      
+    SetRetrievedOjects();       
     // // debugging code for finding duplicates of goals when loading the list multiple time
     // Console.WriteLine($"The GoalList count in LoadGoalList before adding Goal object types to the GoalList is: {GetGoalList().Count}");
     // // debugging code for saving to a new filename or combining files
     // Console.WriteLine($"The _retrieved objects list count is: {GetRetrievedObjects().Count})");
     // cycle through the _retrievedObjects list
     foreach (Goal type in GetRetrievedObjects())
-    {      
+    { 
+      // // debugging code for saving a goal to a file
+      // Console.WriteLine($"The retrieved list has : {type}{type.GetAttributes()}");   
       // set duplicate to false to start each comparison
       duplicate = false;  
       // fill the goal object attributes and put in #1 Goal objects _earnedPoints & #2 _goalList
@@ -753,12 +762,14 @@ public class Goal
       // Console.WriteLine($"#1 The type in _divided attributes _earned points is: {type._earnedPoints}");
       // Console.WriteLine($"#2 The _earnedpoints is: {_earnedPoints}");
       // Console.WriteLine($"#3 The GetRetrievedObjects()[0] _earnedpoints is: {GetRetrievedObjects()[0]._earnedPoints}  
-      // if the Goal object has a _goalTitle
+      // if the Goal object has a _goalTitle     
       if (!string.IsNullOrEmpty(type.GetGoalTitle()))
       {          
         // cycle through the _goalList 
         foreach (Goal goal in _goalList) 
-        {                           
+        {  
+          // // debugging code for saving a new text file of goals and saving a goal to a file
+          // Console.WriteLine($"The goal list has a {goal} of {goal.GetGoalTitle()} with the filename of {goal.GetFilename()}");                       
           // if the type & goal objects have matching _goalTitle and _description 
           if (goal.GetGoalTitle() == type.GetGoalTitle() && goal.GetDescription() == type.GetDescription())
           {
@@ -774,7 +785,7 @@ public class Goal
               // // debugging code to figure out how to pass on the _completeionBox & _goalCompleted values
               // Console.WriteLine($"The goal in _goalList completed box is: {goal.GetCompletedBox()}");
               // Console.WriteLine($"The type in _divided attributes completed box is: {type.GetCompletedBox()}");
-              // debugging code to figure out how to pass on the __earnedPoints value
+              // // debugging code to figure out how to pass on the __earnedPoints value
               // Console.WriteLine($"#3 The goal in _goalListearned points is: {goal._earnedPoints}");
               // Console.WriteLine($"#4 The type in _divided attributes _earned points is: {type._earnedPoints}");
             }            
@@ -794,29 +805,34 @@ public class Goal
       }        
     }
     // // debugging code for finding duplicates of goals when loading the list multiple time
-    // Console.WriteLine($"The GoalList count in LoadGoalList after adding Goal object types to the GoalList is: {GetGoalList().Count}");
-    
-    // empty the _retrievedObjects list so it is empty if another list is loaded
-    _retrievedObjects.Clear();
+    // Console.WriteLine($"The GoalList count in LoadGoalList after adding Goal object types to the GoalList is: {GetGoalList().Count}");    
     // reference source: https://www.techiedelight.com/remove-elements-from-list-while-iterating-csharp/
     // create a list to remove goal objects with the wrong filename
     List<Goal> wrongList = new List<Goal>();
-    // cycle through the _goalList 
+    // cycle through the _goalList     
     foreach (Goal goal in _goalList) 
-    { 
-    // if the filename in list doesn't match the loaded filename, the retrieved files are 
-    // for than the Goal class with the score && "combine" is not passed in as a parameter
-    if (goal.GetFilename() != _filename && GetRetrievedObjects().Count > 1 && combine != "Combine") 
-      {  
-        // add that goal object to a list so it will be removed
-        wrongList.Add(goal);
-        // // debugging code for figuring out how to remove goal objects with different filenames
-        // Console.WriteLine($"The _goalList filename is: {goal.GetFilename()}");
-        // Console.WriteLine($"The loaded filename is: {_filename}");
+    {
+      // !!!!!!!!!!!! CORRECTION !!!!!!!!!!! ADDED THIS TO BETTER CONTROL WHAT GOALS WERE SAVED WITH NEW GOALS
+      // this will allow goal files to be combined by skipping if statement inside it
+      if (combine != "Combine") 
+      {    
+      // if the filename in list doesn't match the loaded filename and  the retrieved
+      // files are more than the Goal class with just the score as the first entry
+      if (goal.GetFilename() != _filename && GetRetrievedObjects().Count > 1) 
+        {         
+          // add that goal object to a list so it will be removed
+          wrongList.Add(goal);
+          // // debugging code for figuring out how to remove goal objects with different filenames
+          // Console.WriteLine($"The _goalList filename is: {goal.GetFilename()}");
+          // Console.WriteLine($"The loaded filename is: {_filename}");
+        }
       }
     } 
     // remove the goal objects with the wrong filename
     _goalList.RemoveAll(wrongList.Contains);
+    // !!!!!!!!!!!! CORRECTION !!!!!!!!!!! MOVED THIS BELOW THE IF STATEMENT SO DIFFERENT GOAL LISTS DON'T COMBINE WHEN NOT INTENDED
+    // empty the _retrievedObjects list so it is empty if another list is loaded
+    _retrievedObjects.Clear();
   }
 
   // method to display to the user the goals saved and filename used
@@ -925,7 +941,10 @@ public class Goal
       Console.Write("'");
       // change the color of the text to red for main statement parts
       Console.ForegroundColor = ConsoleColor.Red;
-      Console.WriteLine(" available to be loaded.");
+      Console.WriteLine(" available to be loaded or your file to be loaded was blocked");
+      Console.WriteLine("because you attempted to load a duplicate file under a different filename while the original file was loaded.");
+      Console.ForegroundColor = ConsoleColor.Green;
+      Console.WriteLine("If blocked due to being a duplicate, trying again will load the file, otherwise the file exists but is empty.");
       // reset the text color to original settings
       Console.ResetColor();
     }

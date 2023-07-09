@@ -1,0 +1,3 @@
+Goal:~|~0
+HabitGoal:[ ]~|~read~|~read scriptures~|~12~|~False~|~buzz2.txt
+OneOffGoal:[ ]~|~run~|~run 5 miles~|~100~|~False~|~buzz2.txt
