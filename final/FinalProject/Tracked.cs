@@ -42,7 +42,7 @@ public class Tracked
   }
 
   // method to create a user selection string
-  public virtual string CreateDisplayString(Tracked type, int count)
+  public virtual string CreateDisplayString(int count)
   {
     if (_portion == 1)
     {
@@ -50,11 +50,16 @@ public class Tracked
     _unit = _unit.TrimEnd('s'); // change from plural to singular
     }
     int lastLetter = _category.Count() - 1;
-    if (_category[lastLetter] == 'd')
+    if (_category[lastLetter] == 'd') // capitalize food
     {
       // reference source: https://www.educative.io/answers/how-to-remove-characters-from-a-string-using-remove-in-c-sharp
       _category = _category.Remove(_category.Length-4);
       _category += "Food";
+    }
+    if (_category[lastLetter] == 'k') // capitilize drink
+    {
+      _category = _category.Remove(_category.Length-5);
+      _category += "Drink";
     }
     // source reference: https://www.educative.io/answers/how-to-capitalize-the-first-letter-of-a-string-in-c-sharp
     string selectionString = $"({char.ToUpper(_category[0]) + _category.Substring(1)}): {_portion} {_unit} = {_calories} calories.";    
@@ -63,14 +68,14 @@ public class Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a text string of something being tracked
-  public virtual string CreateObjectString(Tracked type)
+  public virtual string CreateObjectString()
   {  
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
     _unit = _unit.TrimEnd('s'); // change from plural to singular 
     }   
-    string trackedString = $"{type.GetType()}:|:{_category}~|~{_portion}~|~{_unit}~|~{_calories}";    
+    string trackedString = $"{GetType()}:|:{_category}~|~{_portion}~|~{_unit}~|~{_calories}";    
     return trackedString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
