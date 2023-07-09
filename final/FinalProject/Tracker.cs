@@ -10,8 +10,9 @@ public class Tracker
   private string _itemCategory; // variable to hold the category heading of item being tracked
   private int _amount;
   private int _streak; 
+  private List<Tracked> _group = new List<Tracked>();
   private List<Tracked> _items = new List<Tracked>();
-  
+
 // ### CONSTRUCTORS ######################################### //  
   public Tracker()
   {
@@ -20,9 +21,10 @@ public class Tracker
 
 // ### METHODS ############################################## //
   // method to figure out the total for the tracked value
-  public virtual void TotalTrackedValue()
+  public virtual float TotalTrackedValue()
   {
-
+    float number = 0;
+    return number;
   }
 
   // method to put the item objects into a list
@@ -40,7 +42,7 @@ public class Tracker
       foreach (Tracked item in _items)
       {
         // Food food = (Food)item; // cast item object as a Food to use its method
-        outputFile.WriteLine($"{item.CreateObjectString(item)}");
+        outputFile.WriteLine($"{item.CreateObjectString()}");
       }
     }
   }
@@ -103,7 +105,7 @@ public class Tracker
     foreach (Tracked item in _items)
     {  
       count ++;     
-      Console.WriteLine(item.CreateDisplayString(item, count));
+      Console.WriteLine(item.CreateDisplayString(count));
     }    
   }
 
@@ -122,7 +124,8 @@ public class Tracker
       { 
         ++ needsAddedNumber;
         ++ selectionNumber;        
-        objectSelectionPrompt += $"{item.CreateDisplayString(item, selectionNumber)}\n";
+        objectSelectionPrompt += $"{item.CreateDisplayString(selectionNumber)}\n";
+        _group.Add(item);
       }           
     }    
     ++ selectionNumber; // add one for the last added option
@@ -147,8 +150,10 @@ public class Tracker
 
   // method to return the selected object from the list
   public Tracked ReturnObject(int indexNumber)
-  {
-    Tracked selection = (Tracked)_items[indexNumber];    
+  {   
+    Tracked selection = _group[indexNumber]; 
+    // // debugging code for selection picking the wrong food item
+    // Console.WriteLine($"The indexNumber is {indexNumber} and the selection is {selection.CreateDisplayString(indexNumber+1)}.");   
     return selection;  
   }
 }
