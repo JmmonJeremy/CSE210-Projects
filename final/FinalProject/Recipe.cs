@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 // ### CLASS ################################################ //
 // base class for tracking a recipe
-public class Recipe : Tracked
+public class Recipe : Meal
 {
 // ### VARIABLE ATTRIBUTES ################################## //
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
