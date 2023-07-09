@@ -18,8 +18,13 @@ public class HealthStatusTracker : Tracker
 
 // ### METHODS ############################################## //
   // method to figure out the total for the tracked value
-  public override void TotalTrackedValue()
+  public override float TotalTrackedValue()
   {
+    return base.TotalTrackedValue();
+  }
 
+  public override void DisplayObjects()
+  {
+    base.DisplayObjects();
   }
 }

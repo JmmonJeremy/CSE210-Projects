@@ -156,4 +156,9 @@ public class Tracker
     // Console.WriteLine($"The indexNumber is {indexNumber} and the selection is {selection.CreateDisplayString(indexNumber+1)}.");   
     return selection;  
   }
+
+  public virtual void RemoveObject()
+  {
+
+  }
 }

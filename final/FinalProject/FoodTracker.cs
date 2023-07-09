@@ -19,13 +19,13 @@ public class FoodTracker : Tracker
   // method to figure out the total for the tracked value
   public override float TotalTrackedValue()
   {
-    float number = 0;
-    return number;
+    
+    return base.TotalTrackedValue();
   }
 
   // method to remove a food from the list
-  public void RemoveFood()
+  public override void RemoveObject()
   {
-
+    base.RemoveObject();
   }
 }
