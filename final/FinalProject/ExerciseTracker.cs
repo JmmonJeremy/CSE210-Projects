@@ -18,8 +18,9 @@ public class ExerciseTracker : Tracker
 
 // ### METHODS ############################################## //
   // method to figure out the total for the tracked value
-  public override void TotalTrackedValue()
+  public override float TotalTrackedValue()
   {
-
+    float number = 0;
+    return number;
   }
 }

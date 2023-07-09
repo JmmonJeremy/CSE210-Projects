@@ -119,7 +119,7 @@ public class Recipe : Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a recipe text string
-  public override string CreateObjectString(Tracked type)
+  public override string CreateObjectString()
   {    
     string recipeList = ""; 
     string divider = "";
@@ -131,21 +131,21 @@ public class Recipe : Tracked
       {
         divider = "*~*";
       }
-      recipeList += $"{divider}{recipeFood.CreateObjectString(recipeFood)}";
+      recipeList += $"{divider}{recipeFood.CreateObjectString()}";
     } 
-    string recipeString = $"{type.GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{recipeList}";    
+    string recipeString = $"{GetType()}:||:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{recipeList}";    
     return recipeString; 
   }
 
   // method to create a string of the recipe and its attributes for display
-  public override string CreateDisplayString(Tracked type, int count)
+  public override string CreateDisplayString(int count)
   {        
-    string recipeString = $"{count}) {type.GetType()} of {_category} on {_date.ToLongDateString()}.";
+    string recipeString = $"{count}) {GetType()} of {_category} on {_date.ToLongDateString()}.";
     int subcount = 0;
     foreach (Food food in _recipe)
     {
       subcount++;
-      recipeString += ($"\n{food.CreateDisplayString(food, subcount)}");
+      recipeString += ($"\n{food.CreateDisplayString(subcount)}");
     } 
     return recipeString; 
   }

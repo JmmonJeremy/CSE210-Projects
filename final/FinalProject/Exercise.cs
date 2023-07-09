@@ -26,7 +26,7 @@ public class Exercise : Tracked
 
 // ### METHODS ############################################## //  
   // method to create a user selection string
-  public override string CreateDisplayString(Tracked type, int count)
+  public override string CreateDisplayString(int count)
   {
     string space = "  ";
     if (count > 9)
@@ -34,15 +34,15 @@ public class Exercise : Tracked
       space = " ";
     }
     string selectionString = $"   {count}.{space}{_exerciseName} ";  
-    selectionString += base.CreateDisplayString(type, count);      
+    selectionString += base.CreateDisplayString(count);      
     return selectionString;
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a exercise text string
-  public override string CreateObjectString(Tracked type)
+  public override string CreateObjectString()
   {     
-    string exerciseString = base.CreateObjectString(type);     
+    string exerciseString = base.CreateObjectString();     
     exerciseString += $"~|~{_exerciseName}";        
     return exerciseString; 
   }
