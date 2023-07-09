@@ -20,7 +20,11 @@ public class ExerciseTracker : Tracker
   // method to figure out the total for the tracked value
   public override float TotalTrackedValue()
   {
-    float number = 0;
-    return number;
+    return base.TotalTrackedValue();
+  }
+
+  public override void RemoveObject()
+  {
+    base.DisplayObjects();
   }
 }
