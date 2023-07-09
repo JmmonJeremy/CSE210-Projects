@@ -56,7 +56,14 @@ public class Validator
     return entry; // returns answer user wants
   }
 
-  // method to insure the input was a number
+  // method to ensure the input was an acceptable decimal
+  public float stringDecimalCheck(string usePrompt, string confirm)
+  {
+    float number = 0;
+    return number;
+  }
+
+  // method to insure the input was an acceptable number
   public int StringNumberCheck(string usePrompt, string confirm)
   {    
     int cycle = 0; // shows if the while loop has cycled   
