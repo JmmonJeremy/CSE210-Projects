@@ -10,7 +10,7 @@ public class ExerciseTracker : Tracker
   private string _exerciseSet; // variable to hold the set being tracked
   
 // ### CONSTRUCTORS ######################################### //  
-  public ExerciseTracker()
+  public ExerciseTracker() : base()
   {
     // 1st use method to load the values into the variable attritutes
     // nothing needed in here 

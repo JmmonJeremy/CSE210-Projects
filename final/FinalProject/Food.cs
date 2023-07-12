@@ -29,7 +29,7 @@ public class Food : Tracked
     Validator validator1 = new Validator("Use prompt", portionPrompt);    
     // set the method to use the prompt the first time the method is used with "Use Prompt"
     // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
-    _portion = validator1.StringNumberCheck("Use prompt", "Do ConfirmEntry");
+    _portion = validator1.PosStringDecimalCheck("Use prompt", "Do ConfirmEntry");
     // #3 USER SETS _calories ***************************************************
     string caloriesPrompt = $"How many calories is the {_category} you are adding? ";    
     // pass the caloriesPrompt into the object & for the user's 
@@ -37,7 +37,7 @@ public class Food : Tracked
     Validator validator2 = new Validator("Use prompt", caloriesPrompt);    
     // set the method to use the prompt the first time the method is used with "Use Prompt"
     // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
-    _calories = validator2.StringNumberCheck("Use prompt", "Do ConfirmEntry");
+    _calories = validator2.PosStringNumberCheck("Use prompt", "Do ConfirmEntry", 0);
   }  
 
   // constructor for converting textfile to Food object in Tracker Class
@@ -49,15 +49,15 @@ public class Food : Tracked
 
 // ### METHODS ############################################## // 
   // method to create a user selection string
-  public override string CreateDisplayString(int count)
+  public override string CreateDisplayString(int count, string numberMarker)
   {
     string space = "  ";
     if (count > 9)
     {
       space = " ";
     }
-    string selectionString = $"   {count}.{space}{_foodName} ";  
-    selectionString += base.CreateDisplayString(count);      
+    string selectionString = $"{count}{numberMarker}{space}{_foodName} ";  
+    selectionString += base.CreateDisplayString(count, "");      
     return selectionString;
   }
 
@@ -66,7 +66,7 @@ public class Food : Tracked
   public override string CreateObjectString()
   {     
     string foodString = base.CreateObjectString();     
-    foodString += $"~|~{_foodName}";        
+    foodString += $"~|~{_foodName}#|#:|:";        
     return foodString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES

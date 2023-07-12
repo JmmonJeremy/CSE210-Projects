@@ -17,3 +17,7 @@ Food:|:fruit~|~2~|~cups~|~75~|~apple
 Food:|:liquid or drink~|~1~|~cup~|~125~|~orange juice
 Food:|:liquid or drink~|~1~|~cup~|~111~|~apple juice
 Food:|:liquid or drink~|~2~|~cups~|~350~|~hot chocolate
+Food:|:liquid or drink~|~1.5~|~cups~|~0~|~water
+Food:|:liquid or drink~|~2.25~|~cups~|~0~|~water
+Recipe:|:fruit salad-|-0-|-%-|-0*~*Food:|:fruit~|~1~|~cup~|~123~|~orange#|#:|:*~*Food:|:fruit~|~2~|~cups~|~130~|~mango#|#:|:*~*Food:|:fruit~|~4~|~cups~|~120~|~peach#|#:|:*~*Food:|:fruit~|~2~|~cups~|~75~|~apple#|#:|:
+Recipe:|:lasagna-|-0-|-%-|-0*~*Food:|:grain Food~|~3~|~cups~|~135~|~lasagna noodles#|#:|:*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese#|#:|:

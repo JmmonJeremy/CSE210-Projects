@@ -1,11 +1,15 @@
-Meal:||:2023-|-7-|-7-|-breakfast-|-Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:fruit~|~1~|~cup~|~123~|~orange
-Meal:||:2023-|-7-|-7-|-breakfast-|-Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:fruit~|~1~|~cup~|~123~|~orange
-Meal:||:2023-|-7-|-7-|-breakfast-|-Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber
-Meal:||:2023-|-7-|-7-|-breakfast-|-Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:grain food~|~1~|~cup~|~200~|~bread
-Meal:||:2023-|-7-|-7-|-snack-|-Food:|:fruit~|~1~|~cup~|~123~|~orange
-Meal:||:2023-|-7-|-8-|-breakfast-|-Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:dairy Food~|~1~|~cup~|~250~|~cheese*~*Food:|:protein Food~|~1~|~cup~|~120~|~peanuts*~*Food:|:liquid or drink~|~1~|~cup~|~90~|~milk
-Meal:||:2023-|-7-|-8-|-lunch-|-Food:|:fruit~|~2~|~cups~|~130~|~mango*~*Food:|:vegetable~|~3~|~cups~|~55~|~carrot*~*Food:|:grain Food~|~2~|~cups~|~123~|~spaghetti noodles*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese*~*Food:|:protein Food~|~2~|~cups~|~300~|~chicken*~*Food:|:liquid or drink~|~1~|~cup~|~90~|~milk
-Meal:||:2023-|-7-|-8-|-dinner-|-Food:|:fruit~|~4~|~cups~|~120~|~peach*~*Food:|:grain Food~|~3~|~cups~|~135~|~lasagna noodles*~*Food:|:protein Food~|~3~|~cups~|~350~|~pork
-Meal:||:2023-|-7-|-8-|-snack-|-Food:|:fruit~|~4~|~cups~|~120~|~peach
-Meal:||:2023-|-7-|-8-|-snack-|-Food:|:fruit~|~1~|~cup~|~123~|~orange
-Meal:||:2023-|-7-|-8-|-snack-|-Food:|:dairy Food~|~1~|~cup~|~250~|~cheese
+Meal:|:2023-|-7-|-7-|-breakfast-|-0-|-%-|-300*~*Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:fruit~|~1~|~cup~|~123~|~orange
+Meal:|:2023-|-7-|-7-|-breakfast-|-0-|-%-|-300*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:fruit~|~1~|~cup~|~123~|~orange
+Meal:|:2023-|-7-|-7-|-breakfast-|-0-|-%-|-300*~*Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber
+Meal:|:2023-|-7-|-7-|-breakfast-|-0-|-%-|-300*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:grain food~|~1~|~cup~|~200~|~bread
+Meal:|:2023-|-7-|-7-|-snack-|-0-|-%-|-300*~*Food:|:fruit~|~1~|~cup~|~123~|~orange
+Meal:|:2023-|-7-|-8-|-breakfast-|-0-|-%-|-300*~*Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:dairy Food~|~1~|~cup~|~250~|~cheese*~*Food:|:protein Food~|~1~|~cup~|~120~|~peanuts*~*Food:|:liquid or drink~|~1~|~cup~|~90~|~milk
+Meal:|:2023-|-7-|-8-|-lunch-|-0-|-%-|-300*~*Food:|:fruit~|~2~|~cups~|~130~|~mango*~*Food:|:vegetable~|~3~|~cups~|~55~|~carrot*~*Food:|:grain Food~|~2~|~cups~|~123~|~spaghetti noodles*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese*~*Food:|:protein Food~|~2~|~cups~|~300~|~chicken*~*Food:|:liquid or drink~|~1~|~cup~|~90~|~milk
+Meal:|:2023-|-7-|-8-|-dinner-|-0-|-%-|-300*~*Food:|:fruit~|~4~|~cups~|~120~|~peach*~*Food:|:grain Food~|~3~|~cups~|~135~|~lasagna noodles*~*Food:|:protein Food~|~3~|~cups~|~350~|~pork
+Meal:|:2023-|-7-|-8-|-snack-|-0-|-%-|-300*~*Food:|:fruit~|~4~|~cups~|~120~|~peach
+Meal:|:2023-|-7-|-8-|-snack-|-0-|-%-|-300*~*Food:|:fruit~|~1~|~cup~|~123~|~orange
+Meal:|:2023-|-7-|-8-|-snack-|-0-|-%-|-300*~*Food:|:dairy Food~|~1~|~cup~|~250~|~cheese
+Meal:|:2023-|-7-|-10-|-breakfast-|-0-|-%-|-300*~*Food:|:liquid or Drink~|~1~|~cup~|~125~|~orange juice*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese*~*Food:|:fruit~|~4~|~cups~|~120~|~peach
+Meal:|:2023-|-7-|-10-|-lunch-|-0-|-%-|-300*~*Food:|:fruit~|~2~|~cups~|~75~|~apple*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:protein Food~|~2~|~cups~|~300~|~chicken
+Meal:|:2023-|-7-|-10-|-snack-|-0-|-%-|-120*~*Food:|:fruit~|~4~|~cups~|~120~|~peach
+Meal:|:2023-|-7-|-10-|-snack-|-12.5-|-%-|-250*~*Food:|:dairy Food~|~1~|~cup~|~250~|~cheese

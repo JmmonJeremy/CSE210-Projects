@@ -26,15 +26,15 @@ public class Exercise : Tracked
 
 // ### METHODS ############################################## //  
   // method to create a user selection string
-  public override string CreateDisplayString(int count)
+  public override string CreateDisplayString(int count, string numberMarker)
   {
     string space = "  ";
     if (count > 9)
     {
       space = " ";
     }
-    string selectionString = $"   {count}.{space}{_exerciseName} ";  
-    selectionString += base.CreateDisplayString(count);      
+    string selectionString = $"   {count}{numberMarker}{space}{_exerciseName} ";  
+    selectionString += base.CreateDisplayString(count, ".");      
     return selectionString;
   }
 

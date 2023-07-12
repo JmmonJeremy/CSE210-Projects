@@ -10,7 +10,7 @@ public class HealthStatusTracker : Tracker
   private string _statSet; // variable to hold the set being tracked
 
 // ### CONSTRUCTORS ######################################### //  
-  public HealthStatusTracker()
+  public HealthStatusTracker() : base()
   {
     // 1st use method to load the values into the variable attritutes
     // nothing needed in here 
