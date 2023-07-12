@@ -178,7 +178,7 @@ public class Recipe : Tracked
     if (selection == -1) // if the user chose the food needs to be added
     {
       // do something to help the user be able to add the food item 
-      Console.WriteLine("\nTo add the needed food item select '5' when you return to the Main Menu.");     
+      Console.WriteLine("\nTo add the needed food item select '4' when you return to the Main Menu.");     
     }
     else
     {
@@ -189,9 +189,7 @@ public class Recipe : Tracked
   
   // method to fill the recipe the foods the user ate
   private void FillFoodObjectsList() // virtual
-  {   
-    Console.Write("\nWhat is the name of the recipe you are entering? ");
-    _category = Console.ReadLine();
+  {      
     // USER FILLS _foodObjectsList ***************************************************    
     string done = "yes";
     while (done == "yes")

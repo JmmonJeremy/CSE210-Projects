@@ -21,7 +21,7 @@ public class Menu
     // _tracker.DisplayHealthDashboard(); // display the Health Recordings verses the Good Health Standards
    
     // save the menu to be passed into the validator method for use    
-    string mainMenuPrompt = "\n     Make your selection by entering a number:\n       1 - Record Meal (Last done – Date & Meal)\n       2 - Record Exercise (Last done – Date)\n       3 - Record Health Statistic (Last done – Date)\n       4 - Add Recipe (Current List of #)\n       5 - Add Food (Current List of #)\n       6 - Add Exercise (Current List of #)\n       7 - Display Statistics (Last viewed Date)\n       8 - Close Program\n     Selection: ";    
+    string mainMenuPrompt = "\n     Make your selection by entering a number:\n       1 - Record Meal (Last done – Date & Meal)\n       2 - Record Exercise (Last done – Date)\n       3 - Record Health Statistic (Last done – Date)\n       4 - Add Food (Current List of #)\n       5 - Add Recipe (Current List of #)\n       6 - Add Exercise (Current List of #)\n       7 - Display Statistics (Last viewed Date)\n       8 - Close Program\n     Selection: ";    
     // pass the mainMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", mainMenuPrompt);      
@@ -48,18 +48,13 @@ public class Menu
       {
         RunRecordHealthChoices(); // present the user the menu to "Record Health Statistic"    
       }     
-      if (_choice == "4") // if they chose "Add Recipe"
-      {        
-        Recipe recipe = new Recipe("recipe", "%");
-        FoodComboTracker recipeTracker = new FoodComboTracker();
-        recipeTracker.LoadItem(recipe);
-        recipeTracker.ObjectsToTextFile("foods.txt");        
-        recipeTracker.TextfileToOjects("foods.txt");
-        recipeTracker.DisplayObjects();          
+      if (_choice == "4") // if they chose "Add Food"
+      {   
+        RunAddFoodChoices(); // present the user the menu to "Add Food"                
       }       
-      if (_choice == "5") // if they chose "Add Food"
+      if (_choice == "5") // if they chose "Add Recipe"
       {
-        RunAddFoodChoices(); // present the user the menu to "Add Food"
+        RunAddRecipeChoices(); // present the user the menu to "Add Recipe" 
       }      
       if (_choice == "6") // if they chose "Add Exercise"
       {
@@ -136,12 +131,7 @@ public class Menu
         RunAddFoodChoices(); // present the user the menu to "Add Food"
         break;
       case "7": // if they chose "Add Recipe"
-        Recipe recipe = new Recipe("recipe", "%");
-        FoodComboTracker recipeTracker = new FoodComboTracker();
-        recipeTracker.LoadItem(recipe);
-        recipeTracker.ObjectsToTextFile("foods.txt");        
-        recipeTracker.TextfileToOjects("foods.txt");
-        recipeTracker.DisplayObjects();
+        RunAddRecipeChoices();
         break;
       case "8": // if they chose "Remove Food"
         RunRemoveFoodChoices();
@@ -369,6 +359,103 @@ public class Menu
       case "7": // if they chose "Remove Liquid"
         // method
         break;      
+      default: // if they chose "Return to Main Menu"        
+        break; // do nothing to end this menu & return user to the main menu
+    }  
+  } 
+
+   // menu for the user to add recipes
+  public string PresentAddRecipeMenu()
+  {    
+    string selection = "No selection made."; 
+    // save the menu to be passed into the validator method for use    
+    string addRecipeMenuPrompt = "\nMake your selection by entering a number:\n  1 - Add Breakfast Recipe (Current List of #)\n  2 - Add Soup or Stew Recipe (Current List of #)\n  3 - Add Salad Recipe (Current List of #)\n  4 - Add Bread or Muffin Recipe (Current List of #)\n  5 - Add Sandwich, Wrap, or Taco Recipe (Current List of #)\n  6 - Add Meat Recipe (Current List of #)\n  7 - Add Seafood Recipe (Current List of #)\n  8 - Add Vegetarian Recipe (Current List of #)\n  9 - Add Dessert Recipe (Current List of #)\n 10 - Return to Main Menu\nSelection: ";
+    // pass the addRecipMenuPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", addRecipeMenuPrompt);          
+    selection = validator.SelectionCheck(9, "Do Confirm"); // get a valid entry & confirm as the user's choice   
+    return selection; // return the user's selection
+  }
+
+  // method to run the user's choice for the "Add Recipe Menu" 
+  public void RunAddRecipeChoices()
+  {     
+    string choice = PresentAddRecipeMenu(); // display menu options and return user's choice
+    switch (choice)
+    {
+      // RUN OPTION USER CHOSE
+      case "1": // if they chose "Add Breakfast Recipe" 
+        Recipe breakfast = new Recipe("breakfast", "%");
+        FoodComboTracker breakfastTracker = new FoodComboTracker();
+        breakfastTracker.LoadItem(breakfast);
+        breakfastTracker.ObjectsToTextFile("foods.txt");        
+        breakfastTracker.TextfileToOjects("foods.txt");
+        breakfastTracker.DisplayObjects();
+        break;
+      case "2": // if they chose "Add Soup or Stew Recipe"
+        Recipe soup = new Recipe("soup or stew", "%");
+        FoodComboTracker soupTracker = new FoodComboTracker();
+        soupTracker.LoadItem(soup);
+        soupTracker.ObjectsToTextFile("foods.txt");        
+        soupTracker.TextfileToOjects("foods.txt");
+        soupTracker.DisplayObjects();
+        break;       
+      case "3": // if they chose "Add Salad Recipe"
+        Recipe salad = new Recipe("salad", "%");
+        FoodComboTracker saladTracker = new FoodComboTracker();
+        saladTracker.LoadItem(salad);
+        saladTracker.ObjectsToTextFile("foods.txt");        
+        saladTracker.TextfileToOjects("foods.txt");
+        saladTracker.DisplayObjects(); 
+        break;
+      case "4": // if they chose "Add Bread or Muffin Recipe"
+        Recipe bread = new Recipe("bread or muffin", "%");
+        FoodComboTracker breadTracker = new FoodComboTracker();
+        breadTracker.LoadItem(bread);
+        breadTracker.ObjectsToTextFile("foods.txt");        
+        breadTracker.TextfileToOjects("foods.txt");
+        breadTracker.DisplayObjects();
+        break;
+      case "5": // if they chose "Add Sandwich, Wrap, or Taco Recipe"
+        Recipe wrap = new Recipe("sandwich, wrap, or taco", "%");
+        FoodComboTracker wrapTracker = new FoodComboTracker();
+        wrapTracker.LoadItem(wrap);
+        wrapTracker.ObjectsToTextFile("foods.txt");        
+        wrapTracker.TextfileToOjects("foods.txt");
+        wrapTracker.DisplayObjects();
+        break;
+      case "6": // if they chose "Add Meat Recipe"
+        Recipe meat = new Recipe("meat", "%");
+        FoodComboTracker meatTracker = new FoodComboTracker();
+        meatTracker.LoadItem(meat);
+        meatTracker.ObjectsToTextFile("foods.txt");        
+        meatTracker.TextfileToOjects("foods.txt");
+        meatTracker.DisplayObjects();
+        break;        
+      case "7": // if they chose "Add Seafood Recipe"
+        Recipe seafood = new Recipe("seafood", "%");
+        FoodComboTracker seafoodTracker = new FoodComboTracker();
+        seafoodTracker.LoadItem(seafood);
+        seafoodTracker.ObjectsToTextFile("foods.txt");        
+        seafoodTracker.TextfileToOjects("foods.txt");
+        seafoodTracker.DisplayObjects();
+        break;     
+      case "8": // if they chose "Add Vegetarian Recipe"
+        Recipe vegetarian = new Recipe("vegetarian", "%");
+        FoodComboTracker vegetarianTracker = new FoodComboTracker();
+        vegetarianTracker.LoadItem(vegetarian);
+        vegetarianTracker.ObjectsToTextFile("foods.txt");        
+        vegetarianTracker.TextfileToOjects("foods.txt");
+        vegetarianTracker.DisplayObjects();
+        break; 
+      case "9": // if they chose "Add Dessert Recipe"
+        Recipe dessert = new Recipe("dessert", "%");
+        FoodComboTracker dessertTracker = new FoodComboTracker();
+        dessertTracker.LoadItem(dessert);
+        dessertTracker.ObjectsToTextFile("foods.txt");        
+        dessertTracker.TextfileToOjects("foods.txt");
+        dessertTracker.DisplayObjects();
+        break;         
       default: // if they chose "Return to Main Menu"        
         break; // do nothing to end this menu & return user to the main menu
     }  
