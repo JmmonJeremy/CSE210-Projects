@@ -369,7 +369,7 @@ public class Menu
   {    
     string selection = "No selection made."; 
     // save the menu to be passed into the validator method for use    
-    string addRecipeMenuPrompt = "\nMake your selection by entering a number:\n  1 - Add Breakfast Recipe (Current List of #)\n  2 - Add Soup or Stew Recipe (Current List of #)\n  3 - Add Salad Recipe (Current List of #)\n  4 - Add Bread or Muffin Recipe (Current List of #)\n  5 - Add Sandwich, Wrap, or Taco Recipe (Current List of #)\n  6 - Add Meat Recipe (Current List of #)\n  7 - Add Seafood Recipe (Current List of #)\n  8 - Add Vegetarian Recipe (Current List of #)\n  9 - Add Dessert Recipe (Current List of #)\n 10 - Return to Main Menu\nSelection: ";
+    string addRecipeMenuPrompt = "\nMake your selection by entering a number:\n  1 - Add Dish Recipe (Current List of #)\n  2 - Add Soup or Stew Recipe (Current List of #)\n  3 - Add Salad Recipe (Current List of #)\n  4 - Add Bread or Muffin Recipe (Current List of #)\n  5 - Add Sandwich, Wrap, or Taco Recipe (Current List of #)\n  6 - Add Meat Recipe (Current List of #)\n  7 - Add Seafood Recipe (Current List of #)\n  8 - Add Vegetarian Recipe (Current List of #)\n  9 - Add Dessert Recipe (Current List of #)\n 10 - Return to Main Menu\nSelection: ";
     // pass the addRecipMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", addRecipeMenuPrompt);          
@@ -384,13 +384,13 @@ public class Menu
     switch (choice)
     {
       // RUN OPTION USER CHOSE
-      case "1": // if they chose "Add Breakfast Recipe" 
-        Recipe breakfast = new Recipe("breakfast", "%");
-        FoodComboTracker breakfastTracker = new FoodComboTracker();
-        breakfastTracker.LoadItem(breakfast);
-        breakfastTracker.ObjectsToTextFile("foods.txt");        
-        breakfastTracker.TextfileToOjects("foods.txt");
-        breakfastTracker.DisplayObjects();
+      case "1": // if they chose "Add Dish Recipe" 
+        // Recipe dish = new Recipe("dish", "%");
+        FoodComboTracker dishTracker = new FoodComboTracker();
+        // dishTracker.LoadItem(dish);
+        // dishTracker.ObjectsToTextFile("foods.txt");        
+        dishTracker.TextfileToOjects("foods.txt");
+        dishTracker.DisplayObjects();
         break;
       case "2": // if they chose "Add Soup or Stew Recipe"
         Recipe soup = new Recipe("soup or stew", "%");

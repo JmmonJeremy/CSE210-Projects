@@ -66,7 +66,7 @@ public class Food : Tracked
   public override string CreateObjectString()
   {     
     string foodString = base.CreateObjectString();     
-    foodString += $"~|~{_foodName}#|#:|:";        
+    foodString += $"~|~{_foodName}";        
     return foodString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
