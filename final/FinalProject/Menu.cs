@@ -385,7 +385,7 @@ public class Menu
     {
       // RUN OPTION USER CHOSE
       case "1": // if they chose "Add Dish Recipe" 
-        // Recipe dish = new Recipe("dish", "%");
+        // Recipe dish = new Recipe("dish", "cups");
         FoodComboTracker dishTracker = new FoodComboTracker();
         // dishTracker.LoadItem(dish);
         // dishTracker.ObjectsToTextFile("foods.txt");        
@@ -393,7 +393,7 @@ public class Menu
         dishTracker.DisplayObjects();
         break;
       case "2": // if they chose "Add Soup or Stew Recipe"
-        Recipe soup = new Recipe("soup or stew", "%");
+        Recipe soup = new Recipe("soup or stew", "cups");
         FoodComboTracker soupTracker = new FoodComboTracker();
         soupTracker.LoadItem(soup);
         soupTracker.ObjectsToTextFile("foods.txt");        
@@ -401,7 +401,7 @@ public class Menu
         soupTracker.DisplayObjects();
         break;       
       case "3": // if they chose "Add Salad Recipe"
-        Recipe salad = new Recipe("salad", "%");
+        Recipe salad = new Recipe("salad", "cups");
         FoodComboTracker saladTracker = new FoodComboTracker();
         saladTracker.LoadItem(salad);
         saladTracker.ObjectsToTextFile("foods.txt");        
@@ -409,7 +409,7 @@ public class Menu
         saladTracker.DisplayObjects(); 
         break;
       case "4": // if they chose "Add Bread or Muffin Recipe"
-        Recipe bread = new Recipe("bread or muffin", "%");
+        Recipe bread = new Recipe("bread or muffin", "pieces");
         FoodComboTracker breadTracker = new FoodComboTracker();
         breadTracker.LoadItem(bread);
         breadTracker.ObjectsToTextFile("foods.txt");        
@@ -417,7 +417,7 @@ public class Menu
         breadTracker.DisplayObjects();
         break;
       case "5": // if they chose "Add Sandwich, Wrap, or Taco Recipe"
-        Recipe wrap = new Recipe("sandwich, wrap, or taco", "%");
+        Recipe wrap = new Recipe("sandwich, wrap, or taco", "servings");
         FoodComboTracker wrapTracker = new FoodComboTracker();
         wrapTracker.LoadItem(wrap);
         wrapTracker.ObjectsToTextFile("foods.txt");        
@@ -425,7 +425,7 @@ public class Menu
         wrapTracker.DisplayObjects();
         break;
       case "6": // if they chose "Add Meat Recipe"
-        Recipe meat = new Recipe("meat", "%");
+        Recipe meat = new Recipe("meat", "cups");
         FoodComboTracker meatTracker = new FoodComboTracker();
         meatTracker.LoadItem(meat);
         meatTracker.ObjectsToTextFile("foods.txt");        
@@ -433,7 +433,7 @@ public class Menu
         meatTracker.DisplayObjects();
         break;        
       case "7": // if they chose "Add Seafood Recipe"
-        Recipe seafood = new Recipe("seafood", "%");
+        Recipe seafood = new Recipe("seafood", "cups");
         FoodComboTracker seafoodTracker = new FoodComboTracker();
         seafoodTracker.LoadItem(seafood);
         seafoodTracker.ObjectsToTextFile("foods.txt");        
@@ -441,7 +441,7 @@ public class Menu
         seafoodTracker.DisplayObjects();
         break;     
       case "8": // if they chose "Add Vegetarian Recipe"
-        Recipe vegetarian = new Recipe("vegetarian", "%");
+        Recipe vegetarian = new Recipe("vegetarian", "cups");
         FoodComboTracker vegetarianTracker = new FoodComboTracker();
         vegetarianTracker.LoadItem(vegetarian);
         vegetarianTracker.ObjectsToTextFile("foods.txt");        
@@ -449,7 +449,7 @@ public class Menu
         vegetarianTracker.DisplayObjects();
         break; 
       case "9": // if they chose "Add Dessert Recipe"
-        Recipe dessert = new Recipe("dessert", "%");
+        Recipe dessert = new Recipe("dessert", "cups");
         FoodComboTracker dessertTracker = new FoodComboTracker();
         dessertTracker.LoadItem(dessert);
         dessertTracker.ObjectsToTextFile("foods.txt");        

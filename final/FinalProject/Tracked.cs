@@ -35,29 +35,16 @@ public class Tracked
   }
 
 // ### METHODS ############################################## //
-  // method to create a user selection string
+  // method to create a user display string
   public virtual string CreateDisplayString(int count, string numberMarker)
   {
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
     _unit = _unit.TrimEnd('s'); // change from plural to singular
-    }
-    int lastLetter = _category.Count() - 1;
-    if (_category[lastLetter] == 'd') // capitalize food
-    {
-      // reference source: https://www.educative.io/answers/how-to-remove-characters-from-a-string-using-remove-in-c-sharp
-      _category = _category.Remove(_category.Length-4);
-      _category += "Food";
-    }
-    if (_category[lastLetter] == 'k') // capitilize drink
-    {
-      _category = _category.Remove(_category.Length-5);
-      _category += "Drink";
-    }
-    // source reference: https://www.educative.io/answers/how-to-capitalize-the-first-letter-of-a-string-in-c-sharp
-    string selectionString = $"({char.ToUpper(_category[0]) + _category.Substring(1)}): {_portion} {_unit} = {_calories} calories.";    
-    return selectionString;
+    }   
+    string displayString = $"{_portion} {_unit} = {_calories} calories";    
+    return displayString;
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES

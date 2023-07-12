@@ -5,12 +5,11 @@ using System.Text.RegularExpressions;
 
 // ### CLASS ################################################ //
 // base class for tracking a recipe
-public class Recipe : Tracked
+public class Recipe : Food
 {
 // ### VARIABLE ATTRIBUTES ################################## //
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
-  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);
-  private string _recipeName; 
+  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);  
   private string _foodCategoryMenuPrompt;
   private string _fillListPrompt;  
   private string _combinedFoodStrings;
@@ -22,9 +21,17 @@ public class Recipe : Tracked
   public Recipe(string category, string unit) :base (category, unit)
   {   
 
-    // Base assigns parameters passed in as values for _category and _unit
-    // TODAY'S DATE IS ASSIGNED TO RECIPE OBJECT & USER ENTERS FOODS INTO ITS _foodObjectsList
-    FillFoodObjectsList();     
+    // #1 Base assigns parameters passed in as values for _category and _unit
+    // #2 Base uses FillValues which is overridden to have user assign values to _name & _portion
+    // #3 FillFoodObjectsList fills the recipe with the food objects kept in the _foodObjectsList
+    FillFoodObjectsList();  
+    // #3 Figure out and assign _calories    
+    int mealCalories = 0;
+    foreach (Tracked food in _foodObjectsList)
+    {
+      mealCalories += food.GetCalories();
+    }
+    _calories = mealCalories;    
   }  
 
   // constructor for converting textfile to Recipe object in Tracker Class
@@ -39,8 +46,18 @@ public class Recipe : Tracked
 // ### METHODS ############################################## //
   // method to create a string of the recipe and its attributes for display
   public override string CreateDisplayString(int count, string numberMarker)
-  {        
-    string recipeString = $"{count}{numberMarker} {GetType()} of {_category} on {_date.ToLongDateString()}.";
+  { 
+    if (_portion == 1)
+    {
+    // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
+    _unit = _unit.TrimEnd('s'); // change from plural to singular
+    }   
+    string space = "  ";
+    if (count > 9)
+    {
+      space = " ";
+    }      
+    string recipeString = $"{count}{numberMarker}{space}{_name} ({char.ToUpper(_category[0]) + _category.Substring(1)} {GetType()}): {_portion} {_unit} = {_calories} calories";        
     int subcount = 0;
     foreach (Food food in _foodObjectsList)
     {
@@ -54,7 +71,11 @@ public class Recipe : Tracked
   // method to create & return a recipe text string
   public override string CreateObjectString()
   {   
-
+    if (_portion == 1)
+    {
+    // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
+    _unit = _unit.TrimEnd('s'); // change from plural to singular
+    }  
     string _combinedFoodStrings = ""; 
     string divider = "";
     int cycle = 0;
@@ -67,7 +88,7 @@ public class Recipe : Tracked
       }
       _combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
     } 
-    string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}*~*{_combinedFoodStrings}";    
+    string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}";    
     return recipeString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -81,7 +102,8 @@ public class Recipe : Tracked
     _portion = float.Parse(attributes[1]);
     _unit = attributes[2];
     _calories = int.Parse(attributes[3]);
-    _combinedFoodStrings = attributes[4];
+    _name = attributes[4];
+    _combinedFoodStrings = attributes[5];
   }
 
   // method to divide _attributes into strings of Food objects
@@ -186,16 +208,35 @@ public class Recipe : Tracked
       _foodObjectsList.Add(food);
     }
   }
+
+  public override void FillValues()
+  {
+    // #1 USER ASSIGNS THE _name ***************************************************      
+    string recipeNamePrompt = $"What is the name of the recipe you are entering? ";    
+    // pass the recipeNamePrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", recipeNamePrompt);    
+    // with "Use prompt" set the method to to use the prompt the first time the method is used
+    _name = validator.ConfirmEntry("Use prompt");
+    // #2 USER SETS _portion ***************************************************
+    string portionPrompt = $"How many {_unit} is the {_category} recipe you are adding? ";    
+    // pass the portionPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator1 = new Validator("Use prompt", portionPrompt);    
+    // set the method to use the prompt the first time the method is used with "Use Prompt"
+    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
+    _portion = validator1.PosStringDecimalCheck("Use prompt", "Do ConfirmEntry");
+  }
   
   // method to fill the recipe the foods the user ate
   private void FillFoodObjectsList() // virtual
-  {      
-    // USER FILLS _foodObjectsList ***************************************************    
+  {     
+    // USER FILLS _foodObjectsList   
     string done = "yes";
     while (done == "yes")
     {      
       AddToFoodObjectsList();      
-      Console.Write($"\nDo you have another {_category} food to add to your {_category}? ");
+      Console.Write($"\nDo you have another ingredient to add to your {_name}? ");
       done = Console.ReadLine();
     }    
   }

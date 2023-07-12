@@ -19,6 +19,11 @@ Food:|:liquid or drink~|~1~|~cup~|~111~|~apple juice
 Food:|:liquid or drink~|~2~|~cups~|~350~|~hot chocolate
 Food:|:liquid or drink~|~1.5~|~cups~|~0~|~water
 Food:|:liquid or drink~|~2.25~|~cups~|~0~|~water
-Recipe:|:salad-|-0-|-%-|-0*~*Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:fruit~|~2~|~cups~|~130~|~mango*~*Food:|:fruit~|~4~|~cups~|~120~|~peach*~*Food:|:fruit~|~2~|~cups~|~75~|~apple
-Recipe:|:dish-|-0-|-%-|-0*~*Food:|:grain Food~|~3~|~cups~|~135~|~lasagna noodles*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese
-Recipe:|:sandwich, wrap, or taco-|-0-|-%-|-0*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:protein Food~|~2~|~cups~|~300~|~chicken
+Recipe:|:salad-|-0.5-|-cups-|-67-|-plain salad*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:vegetable~|~3~|~cups~|~55~|~carrot
+Recipe:|:salad-|-1.5-|-cups-|-448-|-fruit salad*~*Food:|:fruit~|~1~|~cup~|~123~|~orange*~*Food:|:fruit~|~2~|~cups~|~130~|~mango*~*Food:|:fruit~|~4~|~cups~|~120~|~peach*~*Food:|:fruit~|~2~|~cups~|~75~|~apple
+Recipe:|:dish-|-1-|-cups-|-375-|-lasagna*~*Food:|:grain Food~|~3~|~cups~|~135~|~lasagna noodles*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese
+Recipe:|:sandwich, wrap, or taco-|-1-|-servings-|-500-|-chicken sandwhich*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:protein Food~|~2~|~cups~|~300~|~chicken
+Food:|:protein food~|~0.5~|~cups~|~150~|~peanut butter
+Recipe:|:sandwich, wrap, or taco-|-1-|-servings-|-350-|-peanut butter sandwich*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:protein Food~|~0.5~|~cups~|~150~|~peanut butter
+Food:|:fruit~|~1.25~|~cups~|~135~|~banana
+Recipe:|:salad-|-1-|-cups-|-210-|-banana apple salad*~*Food:|:fruit~|~1.25~|~cups~|~135~|~banana*~*Food:|:fruit~|~2~|~cups~|~75~|~apple

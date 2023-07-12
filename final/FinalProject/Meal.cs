@@ -27,7 +27,7 @@ public class Meal : Tracked
     int mealCalories = 0;
     foreach (Tracked food in _foodObjectsList)
     {
-      mealCalories =+ food.GetCalories();
+      mealCalories += food.GetCalories();
     }
     _calories = mealCalories;   
     _portion = (float)_calories/neededCalories *100;    
