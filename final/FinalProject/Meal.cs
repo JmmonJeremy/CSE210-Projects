@@ -9,6 +9,7 @@ public class Meal : Recipe
 // ### VARIABLE ATTRIBUTES ################################## //
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
   private DateOnly _date = DateOnly.FromDateTime(DateTime.Now); 
+  private string _recipeCategoryMenuPrompt;
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Meal object with the user's inputs used in Menu class
@@ -45,6 +46,7 @@ public class Meal : Recipe
     int subcount = 0;
     foreach (Tracked food in _foodObjectsList)
     {
+      // if (food.GetType().ToString() == )
       subcount++;
       mealString += ($"\n    {food.CreateDisplayString(subcount, ".")}");
     } 
@@ -67,7 +69,7 @@ public class Meal : Recipe
       }
       combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
     } 
-    string mealString = $"{GetType()}:|:{_date.Year}-|-{_date.Month}-|-{_date.Day}-|-{_category}-|-{_portion}-|-{_unit}-|-{_calories}*~*{combinedFoodStrings}";    
+    string mealString = $"{GetType()}:|:{_date.Year}+|+{_date.Month}+|+{_date.Day}+|+{_category}+|+{_portion}+|+{_unit}+|+{_calories}*~*{combinedFoodStrings}";    
     return mealString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -76,22 +78,32 @@ public class Meal : Recipe
   // method to divide the string attributes stirng into their object's variable attributes  
   protected override void DivideAttributes(string stringAttributes)
   {  
-    string[] attributes = stringAttributes.Split("-|-"); // does "-|-" need to change to differ from recipe? 
+    string[] attributes = stringAttributes.Split("+|+"); // "-|-" need to change to differ from Recipe 
+    if (attributes.Count() > 1)
+    {
     _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
     _category = attributes[3];
     _portion = float.Parse(attributes[4]);
     _unit = attributes[5];
     _calories = int.Parse(attributes[6]);
     _combinedFoodStrings = attributes[7];
+    }
+    else
+    {
+      // Console.WriteLine($"Meal's DivideAttributes attributes[0] = {attributes[0]}");
+      _combinedFoodStrings = attributes[0];
+    }
   }
 // END OF GROUPING OF 1 OVERRIDDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
   protected override void SetPrompts()
   {    
+    _menuLength = 7;
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString(); 
     _foodCategoryMenuPrompt = $"\nWhich category of food are you adding to your {_category} for today, {date}?\nMake your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Recipe\nSelection: ";
+    _recipeCategoryMenuPrompt = $"\nWhich category of recipe are you adding to your {_category} for today, {date}?\nMake your selection by entering a number:\n   1)  Dish Recipe\n   2)  Soup or Stew Recipe\n   3)  Salad Recipe\n   4)  Bread or Muffin Recipe\n   5)  Sandwich, Wrap, or Taco Recipe\n   6)  Meat Recipe\n   7)  Seafood Recipe\n   8)  Vegetarian Recipe\n   9)  Dessert Recipe\nSelection: ";
     _foodSelectionPrompt = $"\nBelow is a list of all the {_menuChoice} options available to add to your {_category} for today, {date}.\nMake your selection by entering its number:\n";
     _addFoodPrompt = "\nTo add the needed food item select '4 or 5' when you return to the Main Menu.";
     _fillListPrompt = $"\nDo you have another {_category} food to add to your {_category} for today, {date}? ";     
@@ -123,15 +135,65 @@ public class Meal : Recipe
         choice = "liquid or drink";
         break;
       case "7": // if they chose "Recipe"
-        choice = "recipe";
+        choice = RecipeNumberToCategory(PresentRecipeCategoriesMenu());
         break;     
     } 
     _menuChoice = choice;
   }
 
+  // method overriden to set the value for the _name
   protected override void FillValues()
   {
     // #1 ASSIGN _date & _category AS THE MEAL _name *************************************************** 
     _name = $"{_date} {_category}";
+  }
+
+  // method to show recip categories to add to the menu & return the choice
+  private string PresentRecipeCategoriesMenu()
+  {
+    string selection = "No selection made.";
+    // pass the PresentCategoryMenuPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", _recipeCategoryMenuPrompt);          
+    selection = validator.SelectionCheck(9, "Don't Confirm"); // get an entry that is valid   
+    return selection; // return the user's selection
+  }
+
+   // method to translate menu number selection into the recipe category
+  private string RecipeNumberToCategory(string menuOption)
+  {
+    string choice = menuOption;
+      switch (choice)
+    {
+      // RUN OPTION USER CHOSE
+      case "1": // if they chose "Dish Recipe"
+        choice = "dish";
+        break;
+      case "2": // if they chose "Soup or Stew Recipe"
+        choice = "soup or stew";
+        break;
+      case "3": // if they chose "Salad Recipe"
+        choice = "salad";
+        break;
+      case "4": // if they chose "Bread or Muffin Recipe"
+        choice = "bread or muffin";
+        break;
+      case "5": // if they chose "Sandwich, Wrap, or Taco Recipe"
+        choice = "sandwich, wrap, or taco";
+        break;
+      case "6": // if they chose "Meat Recipe"
+        choice = "meat";
+        break;  
+      case "7": // if they chose "Seafood Recipe"
+        choice = "seafood";
+        break;   
+      case "8": // if they chose "Vegetarian Recipe"
+        choice = "vegetarian";
+        break; 
+      case "9": // if they chose "Dessert Recipe"
+        choice = "dessert";
+        break;    
+    } 
+    return choice;
   }
 }

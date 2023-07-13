@@ -1,0 +1,1 @@
+Meal:|:2023+|+7+|+12+|+snack+|+20.25+|+%+|+405*~*Recipe:|:sandwich, wrap, or taco-|-1-|-serving-|-350-|-peanut butter sandwich*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:protein Food~|~0.5~|~cups~|~150~|~peanut butter*~*Food:|:liquid or Drink~|~2.25~|~cups~|~0~|~water*~*Food:|:vegetable~|~3~|~cups~|~55~|~carrot

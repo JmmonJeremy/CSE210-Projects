@@ -12,9 +12,10 @@ public class Recipe : Food
   protected string _foodSelectionPrompt;
   protected string _addFoodPrompt;
   protected string _fillListPrompt;
-  protected string _menuChoice;  
-  protected string _combinedFoodStrings;
-  private List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a recipe as strings
+  protected string _menuChoice;
+  protected int _menuLength;  
+  protected string _combinedFoodStrings = "";
+  protected List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a recipe as strings
   protected List<Tracked> _foodObjectsList = new List<Tracked>(); // holds a saved list of Food objects for a recipe
   
 // ### CONSTRUCTORS ######################################### //
@@ -43,7 +44,7 @@ public class Recipe : Food
     // #1 base does textfile to Recipe object uses DivideAttributes(stringAttributes) method, which
     // divides single string of attributes from a textfile into assigned individual attributes 
     // #2 takes in the last attribute of _combinedFoodStrings and creates & loads Food objects into _foodObjectsList list
-    StringObjectToObject(DivideStringOfObjects());;
+    StringObjectToObject(DivideStringOfObjects());
   }
 
 // ### METHODS ############################################## //
@@ -63,7 +64,7 @@ public class Recipe : Food
     string recipeString = $"{count}{numberMarker}{space}{_name} ({char.ToUpper(_category[0]) + _category.Substring(1)} {GetType()}): {_portion} {_unit} = {_calories} calories";        
     int subcount = 0;
     foreach (Food food in _foodObjectsList)
-    {
+    {      
       subcount++;
       recipeString += ($"\n    {food.CreateDisplayString(subcount, ".")}");
     } 
@@ -99,21 +100,25 @@ public class Recipe : Food
 // START OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
   protected override void DivideAttributes(string stringAttributes)
-  {  
+  {      
     string[] attributes = stringAttributes.Split("-|-");     
     _category = attributes[0];
     _portion = float.Parse(attributes[1]);
     _unit = attributes[2];
     _calories = int.Parse(attributes[3]);
     _name = attributes[4];
+    if (attributes.Count() > 5)
+    {
     _combinedFoodStrings = attributes[5];
+    }
   }
 
   // method to divide _attributes into strings of Food objects
-  protected List<string> DivideStringOfObjects()
+  protected virtual List<string> DivideStringOfObjects()
   {     
     _foodStringsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating  
-    // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
+    // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char
+    // Console.WriteLine($"The _combinedFoodStrings = {_combinedFoodStrings}"); 
     int count = _combinedFoodStrings.Split("*~*").Count(); // count the number of splits    
     string[] stringObjects = _combinedFoodStrings.Split("*~*"); // seperate the string into strings of Food objects  
     for (int i = 0; i < count; i++)
@@ -121,7 +126,7 @@ public class Recipe : Food
       string foodString = stringObjects[i];
       // Console.WriteLine(foodString);       
       _foodStringsList.Add(foodString); 
-    }  
+    }     
     return _foodStringsList; 
   } 
 // END OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
@@ -134,19 +139,25 @@ public class Recipe : Food
     foreach (string stringObject in stringObjectList)
     {       
       // seperate the string into the object and its attributes using the colon
-      string[] segments = stringObject.Split(":|:");  
-      // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
+      string[] segments = stringObject.Split(":|:");
+      if (segments.Count() > 1)
+      { 
+      // Console.WriteLine($"segments[0] = {segments[0]} & segments[1] = {segments[1]}");
+     
+      // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())      
       // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
       Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
-      _foodObjectsList.Add(food);      
+      _foodObjectsList.Add(food);       
+      }          
     }    
     return _foodObjectsList;
-  }
+  }  
 // END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
   protected virtual void SetPrompts()
   {    
+    _menuLength = 8;
     _foodCategoryMenuPrompt = $"\nWhich category of food are you adding to your {_category}?\nMake your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Oil or Fat\n   8)  Other Food\nSelection: ";
     _foodSelectionPrompt = $"\nBelow is a list of all the {_menuChoice} options available to add to your {_category}.\nMake your selection by entering its number:\n";
     _addFoodPrompt = "\nTo add the needed food item select '4' when you return to the Main Menu.";
@@ -160,12 +171,12 @@ public class Recipe : Food
     // pass the PresentCategoryMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", _foodCategoryMenuPrompt);          
-    selection = validator.SelectionCheck(8, "Don't Confirm"); // get an entry that is valid   
+    selection = validator.SelectionCheck(_menuLength, "Don't Confirm"); // get an entry that is valid   
     return selection; // return the user's selection
   }
 
   // method to translate menu number selection into the food category
-  protected virtual void NumberToCategory(string menuOption) // virtual
+  protected virtual void NumberToCategory(string menuOption)
   {
     string choice = menuOption;
       switch (choice)
@@ -218,6 +229,7 @@ public class Recipe : Food
     }
   }
 
+  // method overriden to set the value for the _name & _portion
   protected override void FillValues()
   {
     // #1 USER ASSIGNS THE RECIPE _name ***************************************************      
@@ -238,7 +250,7 @@ public class Recipe : Food
   }
   
   // method to fill the recipe the foods the user ate
-  protected void FillFoodObjectsList() // virtual
+  protected void FillFoodObjectsList()
   {     
     // USER FILLS _foodObjectsList   
     string done = "yes";

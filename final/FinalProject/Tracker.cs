@@ -55,7 +55,7 @@ public class Tracker
 
 // START OF GROUPING OF 1 METHOD THAT USES FOOD CONSTRUCTOR TO CONVERT TEXT STRING TO OBJECT USED IN MENU CLASS
   // method to create objects from text file strings
-  public void TextfileToOjects(string filename)
+  public virtual void TextfileToOjects(string filename)
   {  
     int cycle = 0;  
     int count = 0;                                                                  

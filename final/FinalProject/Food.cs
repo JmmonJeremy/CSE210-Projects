@@ -78,7 +78,7 @@ public class Food : Tracked
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 
-  // method to set the value for the food calories
+  // method to set the value for the _name, _portion, & _calories
   protected virtual void FillValues()
   {
     // #1 USER SETS FOOD _name **************************************************
