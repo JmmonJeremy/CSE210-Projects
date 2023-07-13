@@ -81,14 +81,14 @@ public class Food : Tracked
   // method to set the value for the food calories
   public virtual void FillValues()
   {
-    // #1 USER SETS _name **************************************************
+    // #1 USER SETS FOOD _name **************************************************
     string namePrompt = $"What is the name of the {_category}? ";    
     // pass the namePrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", namePrompt);    
     // with "Use prompt" set the method to to use the prompt the first time the method is used
     _name = validator.ConfirmEntry("Use prompt");
-    // #2 USER SETS _portion ***************************************************
+    // #2 USER SETS FOOD _portion ***************************************************
     string portionPrompt = $"How many {_unit} is the {_category} you are adding? ";    
     // pass the portionPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
@@ -96,7 +96,7 @@ public class Food : Tracked
     // set the method to use the prompt the first time the method is used with "Use Prompt"
     // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
     _portion = validator1.PosStringDecimalCheck("Use prompt", "Do ConfirmEntry");
-    // #3 USER SETS _calories ***************************************************
+    // #3 USER SETS FOOD _calories ***************************************************
     string caloriesPrompt = $"How many calories is the {_category} you are adding? ";    
     // pass the caloriesPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
