@@ -385,10 +385,10 @@ public class Menu
     {
       // RUN OPTION USER CHOSE
       case "1": // if they chose "Add Dish Recipe" 
-        // Recipe dish = new Recipe("dish", "cups");
+        Recipe dish = new Recipe("dish", "cups");
         FoodComboTracker dishTracker = new FoodComboTracker();
-        // dishTracker.LoadItem(dish);
-        // dishTracker.ObjectsToTextFile("foods.txt");        
+        dishTracker.LoadItem(dish);
+        dishTracker.ObjectsToTextFile("foods.txt");        
         dishTracker.TextfileToOjects("foods.txt");
         dishTracker.DisplayObjects();
         break;
