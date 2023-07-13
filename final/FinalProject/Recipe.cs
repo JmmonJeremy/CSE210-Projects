@@ -13,7 +13,7 @@ public class Recipe : Food
   private string _foodCategoryMenuPrompt;
   private string _fillListPrompt;  
   protected string _combinedFoodStrings;
-  protected List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a recipe as strings
+  private List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a recipe as strings
   protected List<Tracked> _foodObjectsList = new List<Tracked>(); // holds a saved list of Food objects for a recipe
   
 // ### CONSTRUCTORS ######################################### //
@@ -107,7 +107,7 @@ public class Recipe : Food
   }
 
   // method to divide _attributes into strings of Food objects
-  public virtual List<string> DivideStringOfObjects()
+  protected List<string> DivideStringOfObjects()
   {     
     _foodStringsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating  
     // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
