@@ -8,8 +8,11 @@ using System.Text.RegularExpressions;
 public class Recipe : Food
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
-  private string _foodCategoryMenuPrompt;
-  private string _fillListPrompt;  
+  protected string _foodCategoryMenuPrompt;
+  protected string _foodSelectionPrompt;
+  protected string _addFoodPrompt;
+  protected string _fillListPrompt;
+  protected string _menuChoice;  
   protected string _combinedFoodStrings;
   private List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a recipe as strings
   protected List<Tracked> _foodObjectsList = new List<Tracked>(); // holds a saved list of Food objects for a recipe
@@ -21,7 +24,9 @@ public class Recipe : Food
 
     // #1 Base assigns parameters passed in as values for _category and _unit
     // #2 Base uses FillValues which is overridden to have user assign values to _name & _portion
-    // #3 FillFoodObjectsList fills the recipe with the food objects kept in the _foodObjectsList
+    // #3 sets prompts to be passed into methods to save repeating code by preventing having to rewrite code with override in derived classes
+    SetPrompts();
+    // #3 fills the recipe with the food objects kept in the _foodObjectsList
     FillFoodObjectsList();  
     // #3 Figure out and assign _calories    
     int mealCalories = 0;
@@ -37,7 +42,7 @@ public class Recipe : Food
   {
     // #1 base does textfile to Recipe object uses DivideAttributes(stringAttributes) method, which
     // divides single string of attributes from a textfile into assigned individual attributes 
-    // #2 takes in the last attribut of _combinedFoodStrings and creates & loads Food objects into _foodObjectsList list
+    // #2 takes in the last attribute of _combinedFoodStrings and creates & loads Food objects into _foodObjectsList list
     StringObjectToObject(DivideStringOfObjects());;
   }
 
@@ -139,12 +144,19 @@ public class Recipe : Food
   }
 // END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
 
+  // method to set prompts to pass into metods so repeated code doesn't need to be reentered
+  protected virtual void SetPrompts()
+  {    
+    _foodCategoryMenuPrompt = $"\nWhich category of food are you adding to your {_category}?\nMake your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Oil or Fat\n   8)  Other Food\nSelection: ";
+    _foodSelectionPrompt = $"\nBelow is a list of all the {_menuChoice} options available to add to your {_category}.\nMake your selection by entering its number:\n";
+    _addFoodPrompt = "\nTo add the needed food item select '4' when you return to the Main Menu.";
+    _fillListPrompt = $"\nDo you have another ingredient to add to your {_name}? ";    
+  }
+
   // method to show food categories to add to the recipe & return the choice
-  protected virtual string PresentFoodCategoriesMenu()
+  protected string PresentFoodCategoriesMenu()
   {
     string selection = "No selection made.";
-   
-    string _foodCategoryMenuPrompt = $"\nWhich category of food are you adding to your {_category}?\nMake your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Oil or Fat\n   8)  Other Food\nSelection: ";
     // pass the PresentCategoryMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", _foodCategoryMenuPrompt);          
@@ -153,7 +165,7 @@ public class Recipe : Food
   }
 
   // method to translate menu number selection into the food category
-  protected virtual string NumberToCategory(string menuOption) // virtual
+  protected virtual void NumberToCategory(string menuOption) // virtual
   {
     string choice = menuOption;
       switch (choice)
@@ -184,21 +196,20 @@ public class Recipe : Food
         choice = "other food";
         break;     
     } 
-    return choice;
+    _menuChoice = choice;
   }
 
   // method to list the foods in the category and have the user add the Food object to the recipe or _foodObjectsList
-  protected virtual void AddToFoodObjectsList()
+  protected void AddToFoodObjectsList()
   {    
-    string recipeItem = NumberToCategory(PresentFoodCategoriesMenu());
-    string foodSelectionPrompt = $"\nBelow is a list of all the {recipeItem} options available to add to your {_category}.\nMake your selection by entering its number:\n";     
+    NumberToCategory(PresentFoodCategoriesMenu());       
     FoodComboTracker foods = new FoodComboTracker();
-    foods.TextfileToOjects("foods.txt"); // load the list with the saved food in textfile ":|:"
-    int selection = foods.SelectObject(foodSelectionPrompt, recipeItem);
+    foods.TextfileToOjects("foods.txt"); // load the list with the saved food in textfile
+    int selection = foods.SelectObject(_foodSelectionPrompt, _menuChoice);
     if (selection == -1) // if the user chose the food needs to be added
     {
       // do something to help the user be able to add the food item 
-      Console.WriteLine("\nTo add the needed food item select '4' when you return to the Main Menu.");     
+      Console.WriteLine(_addFoodPrompt);     
     }
     else
     {
@@ -227,22 +238,15 @@ public class Recipe : Food
   }
   
   // method to fill the recipe the foods the user ate
-  protected virtual void FillFoodObjectsList() // virtual
+  protected void FillFoodObjectsList() // virtual
   {     
     // USER FILLS _foodObjectsList   
     string done = "yes";
     while (done == "yes")
     {      
       AddToFoodObjectsList();      
-      Console.Write($"\nDo you have another ingredient to add to your {_name}? ");
+      Console.Write(_fillListPrompt);
       done = Console.ReadLine();
     }    
   }
-
-
-
-
-
-
-
 }

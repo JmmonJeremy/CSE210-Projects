@@ -8,9 +8,7 @@ public class Meal : Recipe
 {
 // ### VARIABLE ATTRIBUTES ################################## //
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
-  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);
-  private string _foodCategoryMenuPrompt;
-  private string _fillListPrompt;
+  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now); 
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Meal object with the user's inputs used in Menu class
@@ -88,24 +86,21 @@ public class Meal : Recipe
   }
 // END OF GROUPING OF 1 OVERRIDDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
-  // method to show food categories to add to the meal & return the choice
-  protected override string PresentFoodCategoriesMenu()
+  // method to set prompts to pass into metods so repeated code doesn't need to be reentered
+  protected override void SetPrompts()
   {    
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString(); 
-    string selection = "No selection made."; 
-    _foodCategoryMenuPrompt = $"\nWhich category of food are you adding to your {_category} for today, {date}?\nMake your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Recipe\nSelection: ";    
-    // pass the PresentCategoryMenuPrompt into the object & for the user's 
-    // entry value put "Use prompt" since user will change value after the prompt
-    Validator validator = new Validator("Use prompt", _foodCategoryMenuPrompt);          
-    selection = validator.SelectionCheck(7, "Don't Confirm"); // get an entry that is valid   
-    return selection; // return the user's selection
-  }
+    _foodCategoryMenuPrompt = $"\nWhich category of food are you adding to your {_category} for today, {date}?\nMake your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Recipe\nSelection: ";
+    _foodSelectionPrompt = $"\nBelow is a list of all the {_menuChoice} options available to add to your {_category} for today, {date}.\nMake your selection by entering its number:\n";
+    _addFoodPrompt = "\nTo add the needed food item select '4 or 5' when you return to the Main Menu.";
+    _fillListPrompt = $"\nDo you have another {_category} food to add to your {_category} for today, {date}? ";     
+  } 
 
   // method to translate menu number selection into the food category
-  protected override string NumberToCategory(string menuOption)
+  protected override void NumberToCategory(string menuChoice)
   {
-    string choice = menuOption;
+    string choice = menuChoice;
       switch (choice)
     {
       // RUN OPTION USER CHOSE
@@ -131,51 +126,12 @@ public class Meal : Recipe
         choice = "recipe";
         break;     
     } 
-    return choice;
-  }
-
-  // method to list the foods in the category and have the user add the object to the meal
-  protected override void AddToFoodObjectsList()
-  {     
-    // reference source: https://zetcode.com/csharp/dateonly/
-    string date = _date.ToLongDateString();  
-    string mealItem = NumberToCategory(PresentFoodCategoriesMenu()); 
-    string foodSelectionPrompt = $"\nBelow is a list of all the {mealItem} options available to add to your {_category} for today, {date}.\nMake your selection by entering its number:\n";     
-    FoodComboTracker foods = new FoodComboTracker();
-    foods.TextfileToOjects("foods.txt"); // load the list with the saved objects food from the textfile ":|:"
-    int selection = foods.SelectObject(foodSelectionPrompt, mealItem);
-    if (selection == -1) // if the user chose the food needs to be added
-    {
-      // do something to help the user be able to add the food item 
-      Console.WriteLine("\nTo add the needed food item select '5' when you return to the Main Menu.");     
-    }
-    else // if food object was available to add
-    {
-      Tracked food = foods.ReturnObject(selection);      
-      _foodObjectsList.Add(food);
-    }
+    _menuChoice = choice;
   }
 
   protected override void FillValues()
   {
     // #1 ASSIGN _date & _category AS THE MEAL _name *************************************************** 
     _name = $"{_date} {_category}";
-  }
-  
-  // method to fill the _foodObjectsList with the foods the user ate
-  protected override void FillFoodObjectsList()
-  {   
-    // reference source: https://zetcode.com/csharp/dateonly/
-    string date = _date.ToLongDateString();  
-    _fillListPrompt = $"\nDo you have another {_category} food to add to your {_category} for today, {date}? "; 
-     
-    // #1 USER FILLS _foodObjectsList ***************************************************    
-    string done = "yes";
-    while (done == "yes")
-    {      
-      AddToFoodObjectsList();      
-      Console.Write(_fillListPrompt);
-      done = Console.ReadLine();
-    }    
   }
 }
