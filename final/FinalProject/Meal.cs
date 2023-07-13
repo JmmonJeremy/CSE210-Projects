@@ -4,32 +4,24 @@ using System.Reflection;
 
 // ### CLASS ################################################ //
 // base class for tracking a meal
-public class Meal : Tracked
+public class Meal : Recipe
 {
 // ### VARIABLE ATTRIBUTES ################################## //
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
   private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);
   private string _foodCategoryMenuPrompt;
-  private string _fillListPrompt;  
-  private string _combinedFoodStrings;
-  private List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a meal as strings
-  private List<Tracked> _foodObjectsList = new List<Tracked>(); // holds a saved list of Food objects for a meal
+  private string _fillListPrompt;
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Meal object with the user's inputs used in Menu class
   public Meal(string category, string unit) :base (category, unit)
   {   
     // #1 Base assigns parameters passed in as values for _category and _unit
-    // #2 TODAY'S DATE IS ASSIGNED TO MEAL OBJECT & USER ENTERS FOODS INTO ITS _foodObjectsList 
-    FillFoodObjectsList();
-    // #3 Figure out and assign _calories and _portion values
-    int neededCalories = 2000;
-    int mealCalories = 0;
-    foreach (Tracked food in _foodObjectsList)
-    {
-      mealCalories += food.GetCalories();
-    }
-    _calories = mealCalories;   
+    // #2 Base uses FillValues which is overridden to have user assign values to _name & _portion
+    // #3 Base uses FillFoodObjectsList which is overridden to use the date to identify the meal as well as have user fill _foodObjectsList     
+    // #4 Base figures out and assign _calories
+    // #5 Figure out and assign _portion
+    int neededCalories = 2000;      
     _portion = (float)_calories/neededCalories *100;    
   }  
 
@@ -82,11 +74,11 @@ public class Meal : Tracked
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
-// START OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+// START OF GROUPING OF 1 OVERRIDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
   public override void DivideAttributes(string stringAttributes)
   {  
-    string[] attributes = stringAttributes.Split("-|-");    
+    string[] attributes = stringAttributes.Split("-|-"); // does "-|-" need to change to differ from recipe? 
     _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
     _category = attributes[3];
     _portion = float.Parse(attributes[4]);
@@ -94,44 +86,10 @@ public class Meal : Tracked
     _calories = int.Parse(attributes[6]);
     _combinedFoodStrings = attributes[7];
   }
-
-  // method to divide _attributes into strings of Food objects
-  private List<string> DivideStringOfObjects()
-  {     
-    _foodStringsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating  
-    // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
-    int count = _combinedFoodStrings.Split("*~*").Count(); // count the number of splits    
-    string[] stringObjects = _combinedFoodStrings.Split("*~*"); // seperate the string into strings of Food objects  
-    for (int i = 0; i < count; i++)
-    {
-      string foodString = stringObjects[i];
-      // Console.WriteLine(foodString);       
-      _foodStringsList.Add(foodString); 
-    }  
-    return _foodStringsList; 
-  } 
-// END OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR    
-
-// START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
-  // method to create Tracked objects from text file strings
-  private List<Tracked> StringObjectToObject(List<string> stringObjectList)
-  {   
-    _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
-    foreach (string stringObject in stringObjectList)
-    {       
-      // seperate the string into the object and its attributes using the colon
-      string[] segments = stringObject.Split(":|:");  
-      // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
-      // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
-      Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
-      _foodObjectsList.Add(food);      
-    }    
-    return _foodObjectsList;
-  }
-// END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
+// END OF GROUPING OF 1 OVERRIDDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to show food categories to add to the meal & return the choice
-  private string PresentMealCategoryMenu()
+  public override string PresentFoodCategoriesMenu()
   {    
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString(); 
@@ -145,7 +103,7 @@ public class Meal : Tracked
   }
 
   // method to translate menu number selection into the food category
-  private string NumberToCategory(string menuOption)
+  public override string NumberToCategory(string menuOption)
   {
     string choice = menuOption;
       switch (choice)
@@ -177,11 +135,11 @@ public class Meal : Tracked
   }
 
   // method to list the foods in the category and have the user add the object to the meal
-  private void AddToFoodObjectsList()
+  public override void AddToFoodObjectsList()
   {     
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString();  
-    string mealItem = NumberToCategory(PresentMealCategoryMenu()); 
+    string mealItem = NumberToCategory(PresentFoodCategoriesMenu()); 
     string foodSelectionPrompt = $"\nBelow is a list of all the {mealItem} options available to add to your {_category} for today, {date}.\nMake your selection by entering its number:\n";     
     FoodComboTracker foods = new FoodComboTracker();
     foods.TextfileToOjects("foods.txt"); // load the list with the saved objects food from the textfile ":|:"
@@ -197,9 +155,15 @@ public class Meal : Tracked
       _foodObjectsList.Add(food);
     }
   }
+
+   public override void FillValues()
+  {
+    // #1 ASSIGN _date & _category AS THE MEAL _name *************************************************** 
+    _name = $"{_date} {_category}";
+  }
   
   // method to fill the _foodObjectsList with the foods the user ate
-  private void FillFoodObjectsList()
+  public override void FillFoodObjectsList()
   {   
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString();  

@@ -12,9 +12,9 @@ public class Recipe : Food
   private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);  
   private string _foodCategoryMenuPrompt;
   private string _fillListPrompt;  
-  private string _combinedFoodStrings;
-  private List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a recipe as strings
-  private List<Tracked> _foodObjectsList = new List<Tracked>(); // holds a saved list of Food objects for a recipe
+  protected string _combinedFoodStrings;
+  protected List<string> _foodStringsList = new List<string>(); // holds a list of the foods in a recipe as strings
+  protected List<Tracked> _foodObjectsList = new List<Tracked>(); // holds a saved list of Food objects for a recipe
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Recipe object with the user's inputs used in Menu class
@@ -107,7 +107,7 @@ public class Recipe : Food
   }
 
   // method to divide _attributes into strings of Food objects
-  private List<string> DivideStringOfObjects()
+  public virtual List<string> DivideStringOfObjects()
   {     
     _foodStringsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating  
     // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
@@ -125,7 +125,7 @@ public class Recipe : Food
 
 // START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
   // method to create Tracked objects from text file strings
-  private List<Tracked> StringObjectToObject(List<string> stringObjectList)
+  public List<Tracked> StringObjectToObject(List<string> stringObjectList)
   {   
     _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
     foreach (string stringObject in stringObjectList)
@@ -142,7 +142,7 @@ public class Recipe : Food
 // END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
 
   // method to show food categories to add to the recipe & return the choice
-  private string PresentFoodCategoriesMenu()
+  public virtual string PresentFoodCategoriesMenu()
   {
     string selection = "No selection made.";
    
@@ -155,7 +155,7 @@ public class Recipe : Food
   }
 
   // method to translate menu number selection into the food category
-  private string NumberToCategory(string menuOption) // virtual
+  public virtual string NumberToCategory(string menuOption) // virtual
   {
     string choice = menuOption;
       switch (choice)
@@ -190,7 +190,7 @@ public class Recipe : Food
   }
 
   // method to list the foods in the category and have the user add the Food object to the recipe or _foodObjectsList
-  private void AddToFoodObjectsList()
+  public virtual void AddToFoodObjectsList()
   {    
     string recipeItem = NumberToCategory(PresentFoodCategoriesMenu());
     string foodSelectionPrompt = $"\nBelow is a list of all the {recipeItem} options available to add to your {_category}.\nMake your selection by entering its number:\n";     
@@ -211,14 +211,14 @@ public class Recipe : Food
 
   public override void FillValues()
   {
-    // #1 USER ASSIGNS THE _name ***************************************************      
+    // #1 USER ASSIGNS THE RECIPE _name ***************************************************      
     string recipeNamePrompt = $"What is the name of the recipe you are entering? ";    
     // pass the recipeNamePrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", recipeNamePrompt);    
     // with "Use prompt" set the method to to use the prompt the first time the method is used
     _name = validator.ConfirmEntry("Use prompt");
-    // #2 USER SETS _portion ***************************************************
+    // #2 USER SETS RECIPE _portion ***************************************************
     string portionPrompt = $"How many {_unit} is the {_category} recipe you are adding? ";    
     // pass the portionPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
@@ -229,7 +229,7 @@ public class Recipe : Food
   }
   
   // method to fill the recipe the foods the user ate
-  private void FillFoodObjectsList() // virtual
+  public virtual void FillFoodObjectsList() // virtual
   {     
     // USER FILLS _foodObjectsList   
     string done = "yes";
