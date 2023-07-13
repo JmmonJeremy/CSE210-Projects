@@ -83,14 +83,22 @@ public class FoodComboTracker : Tracker
       string[] items = System.IO.File.ReadAllLines(filename);                       
       foreach (string item in items)                                                  
       {
-        // string[] mealParts = item.Split("#|#");
+        // string[] mealParts = item.Split(":|:", 2);
+        // // string[] mealParts = item.Split("#|#");
+        // if (mealParts[0] == "Meal")
+        // {        
         // string mealClass = mealParts[0];
-        // string mealAtts = mealParts[1];    
+        // string mealAtts = mealParts[1];
+        // Console.WriteLine($"mealParts[0] = {mealParts[0]} &&& mealParts[1] = {mealParts[1]}"); 
+        // Tracked myMeal = (Tracked)Activator.CreateInstance(Type.GetType(mealParts[0]), mealParts[1]);               
+        // _items.Add(myMeal);
+        // }     
         bool split = false;                                                                                    
         cycle++;
         // Console.WriteLine($"THIS IS THE CYCLE '{cycle}' OF THE LOOP DONE FOR EACH LINE IN THE TEXTFILE!!!                         CYCLE '{cycle}'");
         // Console.WriteLine($"Tracking textfile cycle: '{cycle}'!!!");                                   
         count = 0;
+        // Console.WriteLine($"mealParts[0] = {mealParts[0]} &&& mealParts[1] = {mealParts[1]}"); 
         // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
         count = item.Split("*~*").Count(); // count the number of splits                 
         string[] stringObjects = item.Split("*~*"); // seperate the string into strings of Food objects 
@@ -178,7 +186,10 @@ public class FoodComboTracker : Tracker
             // Console.WriteLine($"count = {count} and the object is: {cappedObjectString} and the attributes are: {objectString}");
             Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(cappedObjectString), objectString);               
             _items.Add(food); 
-         
+            foreach (Tracked thing in _items)
+            {
+              Console.WriteLine($"");
+            }
         }
         else
         {

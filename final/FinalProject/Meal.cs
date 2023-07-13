@@ -21,7 +21,7 @@ public class Meal : Recipe
     // #4 Base figures out and assign _calories
     // #5 Figure out and assign _portion
     int neededCalories = 2000;      
-    _portion = (float)_calories/neededCalories *100;    
+    _portion = (float)_calories/neededCalories *100;       
   }  
 
   // constructor for converting textfile to Meal object in Tracker Class
@@ -30,7 +30,7 @@ public class Meal : Recipe
     // #1 base does textfile to Meal object uses DivideAttributes(stringAttributes) method, which
     // divides single string of attributes from a textfile into assigned individual attributes 
     // #2 takes in the last attribute of _combinedFoodStrings and creates & loads Food objects into _foodObjectsList    
-    StringObjectToObject(DivideStringOfObjects());
+    StringObjectToObject(DivideStringOfObjects());   
   }
 
 // ### METHODS ############################################## //
@@ -50,6 +50,24 @@ public class Meal : Recipe
       subcount++;
       mealString += ($"\n    {food.CreateDisplayString(subcount, ".")}");
     } 
+    // // #######################################
+    // int mealCalories = 0; 
+    // int county = 0;
+    // foreach (Recipe food in _foodObjectsList)
+    // { 
+    //   county++;
+    //   Console.WriteLine($"{county}. Class: {food.GetType()} Name: {food.GetCategory()}");
+    //   if (food.GetType().ToString() == "Recipe")
+    //   {        
+    //     foreach (Recipe foody in _foodObjectsList)
+    //     { 
+    //       mealCalories += foody.GetCalories();
+    //       Console.WriteLine($"{county}) Class: {foody.GetType()} Name: {foody._name}");
+    //     }
+    //   }
+      
+    // }
+    // Console.WriteLine($"Recipe calories = {mealCalories}");
     return mealString; 
   }
 
@@ -69,7 +87,7 @@ public class Meal : Recipe
       }
       combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
     } 
-    string mealString = $"{GetType()}:|:{_date.Year}+|+{_date.Month}+|+{_date.Day}+|+{_category}+|+{_portion}+|+{_unit}+|+{_calories}*~*{combinedFoodStrings}";    
+    string mealString = $"{GetType()}:|:{_date.Year}+|+{_date.Month}+|+{_date.Day}+|+{_category}+|+{_portion}+|+{_unit}+|+{_calories}*~*{combinedFoodStrings}";           
     return mealString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES

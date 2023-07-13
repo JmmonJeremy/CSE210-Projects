@@ -75,6 +75,7 @@ public class Recipe : Food
   // method to create & return a recipe text string
   public override string CreateObjectString()
   {   
+    // string alternate = "meal";
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
@@ -91,7 +92,11 @@ public class Recipe : Food
         divider = "*~*";
       }
       _combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
-    } 
+    }
+    // if (alternate == "meal") 
+    // {
+    //   _combinedFoodStrings = "";
+    // }
     string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}";    
     return recipeString; 
   }
