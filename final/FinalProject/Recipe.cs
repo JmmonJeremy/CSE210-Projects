@@ -73,9 +73,8 @@ public class Recipe : Food
 
 // START OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a recipe text string
-  public override string CreateObjectString()
-  {   
-    // string alternate = "meal";
+  public override string CreateObjectString(string alternate)
+  {    
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
@@ -91,12 +90,12 @@ public class Recipe : Food
       {
         divider = "*~*";
       }
-      _combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
+      _combinedFoodStrings += $"{divider}{food.CreateObjectString("normal")}";
     }
-    // if (alternate == "meal") 
-    // {
-    //   _combinedFoodStrings = "";
-    // }
+    if (alternate == "alter") 
+    {
+      _combinedFoodStrings = "";
+    }
     string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}";    
     return recipeString; 
   }
@@ -238,7 +237,7 @@ public class Recipe : Food
   protected override void FillValues()
   {
     // #1 USER ASSIGNS THE RECIPE _name ***************************************************      
-    string recipeNamePrompt = $"What is the name of the recipe you are entering? ";    
+    string recipeNamePrompt = $"What is the name of the {_category} recipe you are entering? ";    
     // pass the recipeNamePrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", recipeNamePrompt);    

@@ -14,3 +14,4 @@ Meal:|:2023+|+7+|+10+|+lunch+|+0+|+%+|+300*~*Food:|:fruit~|~2~|~cups~|~75~|~appl
 Meal:|:2023+|+7+|+10+|+snack+|+0+|+%+|+120*~*Food:|:fruit~|~4~|~cups~|~120~|~peach
 Meal:|:2023+|+7+|+10+|+snack+|+12.5+|+%+|+250*~*Food:|:dairy Food~|~1~|~cup~|~250~|~cheese
 Meal:|:2023+|+7+|+13+|+dinner+|+18.5+|+%+|+370*~*Food:|:fruit~|~2~|~cups~|~130~|~mango*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese
+Meal:|:2023+|+7+|+13+|+snack+|+10.450001+|+%+|+209*~*Food:|:fruit~|~4~|~cups~|~120~|~peach*~*Recipe:|:salad-|-1.5-|-cups-|-89-|-vegetable salad*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:vegetable~|~3~|~cups~|~55~|~carrot*~*Food:|:vegetable~|~0.5~|~cups~|~22~|~celery

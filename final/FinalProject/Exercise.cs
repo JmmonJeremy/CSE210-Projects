@@ -40,10 +40,15 @@ public class Exercise : Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a exercise text string
-  public override string CreateObjectString()
-  {     
-    string exerciseString = base.CreateObjectString();     
-    exerciseString += $"~|~{_exerciseName}";        
+  public override string CreateObjectString(string alternate)
+  {   
+    string alter = "";
+    if (alternate == "alter")
+    {
+      alter = "#|#";
+    }  
+    string exerciseString = base.CreateObjectString("normal");     
+    exerciseString += $"~|~{_exerciseName}{alter}";        
     return exerciseString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES

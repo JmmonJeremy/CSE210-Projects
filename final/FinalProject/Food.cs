@@ -59,9 +59,14 @@ public class Food : Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
-  public override string CreateObjectString()
+  public override string CreateObjectString(string alternate)
   {     
-    string foodString = base.CreateObjectString();     
+    // string alter = "";
+    // if (alternate == "alter")
+    // {
+    //   alter = "#|#";
+    // }
+    string foodString = base.CreateObjectString("normal");     
     foodString += $"~|~{_name}";        
     return foodString; 
   }
