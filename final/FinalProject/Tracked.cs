@@ -63,25 +63,13 @@ public class Tracked
 
 // START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECTs & ATTRIBUTES USED IN CONSTRUCTOR & TRACKER CLASS
   // method to divide the string attributes stirng into their object's variable attributes - used in constructor 
-  public virtual void DivideAttributes(string stringAttributes)
+  protected virtual void DivideAttributes(string stringAttributes)
   {       
     string[] attributes = stringAttributes.Split("~|~");    
     _category = attributes[0];     
     _portion = float.Parse(attributes[1]);
     _unit = attributes[2];
     _calories = int.Parse(attributes[3]);
-  }
-
-  // method to divide string into object and long attribute string
-  public Tracked TextStringToObject(string item)
-  {
-    string divider = "";
-     // seperate the string into the object and its attributes using the divider
-        string[] segments = item.Split(divider);  
-        // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
-        // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
-        Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);
-        return food;         
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 

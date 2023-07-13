@@ -69,7 +69,7 @@ public class Food : Tracked
 
 // START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
-  public override void DivideAttributes(string stringAttributes)
+  protected override void DivideAttributes(string stringAttributes)
   {   
     // reference source: https://stackoverflow.com/questions/36911460/adding-to-virtual-function-in-derived-class
     base.DivideAttributes(stringAttributes); 
@@ -79,7 +79,7 @@ public class Food : Tracked
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 
   // method to set the value for the food calories
-  public virtual void FillValues()
+  protected virtual void FillValues()
   {
     // #1 USER SETS FOOD _name **************************************************
     string namePrompt = $"What is the name of the {_category}? ";    

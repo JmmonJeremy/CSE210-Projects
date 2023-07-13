@@ -7,9 +7,7 @@ using System.Text.RegularExpressions;
 // base class for tracking a recipe
 public class Recipe : Food
 {
-// ### VARIABLE ATTRIBUTES ################################## //
-  // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
-  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);  
+// ### VARIABLE ATTRIBUTES ################################## // 
   private string _foodCategoryMenuPrompt;
   private string _fillListPrompt;  
   protected string _combinedFoodStrings;
@@ -95,7 +93,7 @@ public class Recipe : Food
 
 // START OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
-  public override void DivideAttributes(string stringAttributes)
+  protected override void DivideAttributes(string stringAttributes)
   {  
     string[] attributes = stringAttributes.Split("-|-");     
     _category = attributes[0];
@@ -125,7 +123,7 @@ public class Recipe : Food
 
 // START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
   // method to create Tracked objects from text file strings
-  public List<Tracked> StringObjectToObject(List<string> stringObjectList)
+  protected List<Tracked> StringObjectToObject(List<string> stringObjectList)
   {   
     _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
     foreach (string stringObject in stringObjectList)
@@ -142,7 +140,7 @@ public class Recipe : Food
 // END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
 
   // method to show food categories to add to the recipe & return the choice
-  public virtual string PresentFoodCategoriesMenu()
+  protected virtual string PresentFoodCategoriesMenu()
   {
     string selection = "No selection made.";
    
@@ -155,7 +153,7 @@ public class Recipe : Food
   }
 
   // method to translate menu number selection into the food category
-  public virtual string NumberToCategory(string menuOption) // virtual
+  protected virtual string NumberToCategory(string menuOption) // virtual
   {
     string choice = menuOption;
       switch (choice)
@@ -190,7 +188,7 @@ public class Recipe : Food
   }
 
   // method to list the foods in the category and have the user add the Food object to the recipe or _foodObjectsList
-  public virtual void AddToFoodObjectsList()
+  protected virtual void AddToFoodObjectsList()
   {    
     string recipeItem = NumberToCategory(PresentFoodCategoriesMenu());
     string foodSelectionPrompt = $"\nBelow is a list of all the {recipeItem} options available to add to your {_category}.\nMake your selection by entering its number:\n";     
@@ -209,7 +207,7 @@ public class Recipe : Food
     }
   }
 
-  public override void FillValues()
+  protected override void FillValues()
   {
     // #1 USER ASSIGNS THE RECIPE _name ***************************************************      
     string recipeNamePrompt = $"What is the name of the recipe you are entering? ";    
@@ -229,7 +227,7 @@ public class Recipe : Food
   }
   
   // method to fill the recipe the foods the user ate
-  public virtual void FillFoodObjectsList() // virtual
+  protected virtual void FillFoodObjectsList() // virtual
   {     
     // USER FILLS _foodObjectsList   
     string done = "yes";

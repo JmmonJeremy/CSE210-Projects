@@ -50,7 +50,7 @@ public class Exercise : Tracked
 
 // START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
-  public override void DivideAttributes(string stringAttributes)
+  protected override void DivideAttributes(string stringAttributes)
   {   
     // reference source: https://stackoverflow.com/questions/36911460/adding-to-virtual-function-in-derived-class
     base.DivideAttributes(stringAttributes); 

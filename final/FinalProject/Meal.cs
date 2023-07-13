@@ -76,7 +76,7 @@ public class Meal : Recipe
 
 // START OF GROUPING OF 1 OVERRIDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
-  public override void DivideAttributes(string stringAttributes)
+  protected override void DivideAttributes(string stringAttributes)
   {  
     string[] attributes = stringAttributes.Split("-|-"); // does "-|-" need to change to differ from recipe? 
     _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
@@ -89,7 +89,7 @@ public class Meal : Recipe
 // END OF GROUPING OF 1 OVERRIDDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to show food categories to add to the meal & return the choice
-  public override string PresentFoodCategoriesMenu()
+  protected override string PresentFoodCategoriesMenu()
   {    
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString(); 
@@ -103,7 +103,7 @@ public class Meal : Recipe
   }
 
   // method to translate menu number selection into the food category
-  public override string NumberToCategory(string menuOption)
+  protected override string NumberToCategory(string menuOption)
   {
     string choice = menuOption;
       switch (choice)
@@ -135,7 +135,7 @@ public class Meal : Recipe
   }
 
   // method to list the foods in the category and have the user add the object to the meal
-  public override void AddToFoodObjectsList()
+  protected override void AddToFoodObjectsList()
   {     
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString();  
@@ -156,14 +156,14 @@ public class Meal : Recipe
     }
   }
 
-   public override void FillValues()
+  protected override void FillValues()
   {
     // #1 ASSIGN _date & _category AS THE MEAL _name *************************************************** 
     _name = $"{_date} {_category}";
   }
   
   // method to fill the _foodObjectsList with the foods the user ate
-  public override void FillFoodObjectsList()
+  protected override void FillFoodObjectsList()
   {   
     // reference source: https://zetcode.com/csharp/dateonly/
     string date = _date.ToLongDateString();  
