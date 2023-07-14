@@ -45,7 +45,7 @@ public class FoodComboTracker : Tracker
       {         
         ++ needsAddedNumber;
         ++ selectionNumber;        
-        foodSelectionPrompt += $"{item.CreateDisplayString(selectionNumber, ")")}\n";
+        foodSelectionPrompt += $"{item.CreateDisplayString(selectionNumber, ")", "normal")}\n";
         _group.Add(item);
       }           
     }    
@@ -183,7 +183,7 @@ public class FoodComboTracker : Tracker
         { 
             // Console.WriteLine($"cappedObjectString = {cappedObjectString}"); 
             // Console.WriteLine($"objectSting = {objectString}");
-            // Console.WriteLine($"count = {count} and the object is: {cappedObjectString} and the attributes are: {objectString}");
+            Console.WriteLine($"count = {count} and the object is: {cappedObjectString} and the attributes are: {objectString}");
             Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(cappedObjectString), objectString);               
             _items.Add(food); 
             foreach (Tracked thing in _items)

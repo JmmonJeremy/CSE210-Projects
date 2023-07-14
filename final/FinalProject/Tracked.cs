@@ -36,7 +36,7 @@ public class Tracked
 
 // ### METHODS ############################################## //
   // method to create a user display string
-  public virtual string CreateDisplayString(int count, string numberMarker)
+  public virtual string CreateDisplayString(int count, string numberMarker, string alternate)
   {
     if (_portion == 1)
     {

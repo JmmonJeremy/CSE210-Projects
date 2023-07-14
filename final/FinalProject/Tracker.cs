@@ -197,7 +197,7 @@ public class Tracker
     foreach (Tracked item in _items)
     {  
       count ++;     
-      Console.WriteLine(item.CreateDisplayString(count, ")"));
+      Console.WriteLine(item.CreateDisplayString(count, ")", "normal"));
     }    
   }
 

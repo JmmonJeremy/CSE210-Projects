@@ -49,7 +49,7 @@ public class Recipe : Food
 
 // ### METHODS ############################################## //
   // method to create a string of the recipe and its attributes for display
-  public override string CreateDisplayString(int count, string numberMarker)
+  public override string CreateDisplayString(int count, string numberMarker, string alternate)
   { 
     if (_portion == 1)
     {
@@ -66,7 +66,7 @@ public class Recipe : Food
     foreach (Food food in _foodObjectsList)
     {      
       subcount++;
-      recipeString += ($"\n    {food.CreateDisplayString(subcount, ".")}");
+      recipeString += ($"\n    {food.CreateDisplayString(subcount, ".", "alter")}");
     } 
     return recipeString; 
   }
@@ -75,6 +75,11 @@ public class Recipe : Food
   // method to create & return a recipe text string
   public override string CreateObjectString(string alternate)
   {    
+    string alter = ""; 
+    if (alternate == "alter")  
+    {
+      alter = "#|#@|@";
+    } 
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
@@ -91,12 +96,8 @@ public class Recipe : Food
         divider = "*~*";
       }
       _combinedFoodStrings += $"{divider}{food.CreateObjectString("normal")}";
-    }
-    if (alternate == "alter") 
-    {
-      _combinedFoodStrings = "";
-    }
-    string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}";    
+    }   
+    string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}{alter}";    
     return recipeString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -137,7 +138,7 @@ public class Recipe : Food
 
 // START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
   // method to create Tracked objects from text file strings
-  protected List<Tracked> StringObjectToObject(List<string> stringObjectList)
+  protected virtual List<Tracked> StringObjectToObject(List<string> stringObjectList)
   {   
     _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
     foreach (string stringObject in stringObjectList)

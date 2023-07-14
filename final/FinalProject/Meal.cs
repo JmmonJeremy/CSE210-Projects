@@ -35,7 +35,7 @@ public class Meal : Recipe
 
 // ### METHODS ############################################## //
   // method to create a string of the meal and its attributes for display
-  public override string CreateDisplayString(int count, string numberMarker)
+  public override string CreateDisplayString(int count, string numberMarker, string alternate)
   {
     string space = "  ";
     if (count > 9)
@@ -48,26 +48,8 @@ public class Meal : Recipe
     {
       // if (food.GetType().ToString() == )
       subcount++;
-      mealString += ($"\n    {food.CreateDisplayString(subcount, ".")}");
-    } 
-    // // #######################################
-    // int mealCalories = 0; 
-    // int county = 0;
-    // foreach (Recipe food in _foodObjectsList)
-    // { 
-    //   county++;
-    //   Console.WriteLine($"{county}. Class: {food.GetType()} Name: {food.GetCategory()}");
-    //   if (food.GetType().ToString() == "Recipe")
-    //   {        
-    //     foreach (Recipe foody in _foodObjectsList)
-    //     { 
-    //       mealCalories += foody.GetCalories();
-    //       Console.WriteLine($"{county}) Class: {foody.GetType()} Name: {foody._name}");
-    //     }
-    //   }
-      
-    // }
-    // Console.WriteLine($"Recipe calories = {mealCalories}");
+      mealString += ($"\n    {food.CreateDisplayString(subcount, ".", "normal")}");
+    }   
     return mealString; 
   }
 
@@ -117,6 +99,100 @@ public class Meal : Recipe
       _combinedFoodStrings = attributes[0];
     }
   }
+
+   // method to divide _attributes into strings of Food objects
+  protected override List<string> DivideStringOfObjects()
+  {   
+    _foodStringsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating   
+    int count1 = _combinedFoodStrings.Split("#|#").Count(); // count the number of splits 
+    Console.WriteLine($"The count is {count1}"); 
+    string[] seperateObjects = _combinedFoodStrings.Split("#|#"); // seperate the string into strings of Recipe & Food objects
+    for (int i = 0; i < count1; i++)
+    {
+      string foodString = seperateObjects[i];
+      Console.WriteLine($"#{i} -> {foodString}");       
+      _foodStringsList.Add(foodString); 
+    }
+    int roundCount = -1;
+    List<string> tempHolder = new List<string>(); 
+    tempHolder.Clear();
+    Console.WriteLine($"The starting tempList count is {tempHolder.Count()}");
+    foreach (string seperated in _foodStringsList)
+    {
+      roundCount++;
+      Console.WriteLine($"\nRound #{roundCount}: The list item is {seperated}");      
+      string[] clearPostRecipeDivider = seperated.Split("@|@*~*"); // clear divider left in front from after Recipe objects
+      int splitCount = clearPostRecipeDivider.Count();
+      Console.WriteLine($"Round #{roundCount}: The split count is {clearPostRecipeDivider.Count()}");
+      if (splitCount == 1)
+      {
+      Console.WriteLine($"#[0] -> {clearPostRecipeDivider[0]}"); 
+      tempHolder.Add(clearPostRecipeDivider[0]);     
+      }
+      if (splitCount == 2)
+      {
+      Console.WriteLine($"#[0] -> {clearPostRecipeDivider[0]}"); 
+      Console.WriteLine($"#[1] -> {clearPostRecipeDivider[1]}");      
+      tempHolder.Add(clearPostRecipeDivider[1]);
+      }
+      Console.WriteLine($"The endingtempList count is {tempHolder.Count()}");
+    }
+     Console.WriteLine($"The list count is {_foodStringsList.Count()}");
+     foreach(string thing in tempHolder)
+     {
+      Console.WriteLine(thing);
+     } 
+    _foodStringsList.Clear(); // empty the _foodStringsList to reload different values 
+    // reference source: https://www.c-sharpcorner.com/article/copy-items-from-one-list-to-another-list-in-c-sharp/
+    _foodStringsList.AddRange(tempHolder); // put the contents of tempHolder list into _foodStringsList    
+    return _foodStringsList; 
+  } 
+// END OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
+
+// START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
+  // method to create Tracked objects from text file strings
+  protected override List<Tracked> StringObjectToObject(List<string> stringObjectList)
+  {   
+    int count = 0;
+    string stringedObject= "";                                      
+    string stringedAttributes = ""; 
+    _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
+    foreach (string stringObject in stringObjectList)
+    {     
+      count = stringObject.Split("*~*").Count(); // count the number of splits 
+      Console.WriteLine($"count for Split '*~* -> {count}");
+      if (count == 1)                                                              
+      {      
+        string[] food = stringObject.Split(":|:"); // split the Food object lines that have no *~* seperators                           
+        stringedObject= food[0]; // assign Food
+        Console.WriteLine($"food[0] -> {food[0]}"); 
+        if (stringObject.Split(":|:").Count() > 1)   
+        {                                   
+        stringedAttributes = food[1]; // assign Food's attributes as 1 string
+        Console.WriteLine($"food[1] -> {food[1]}");
+        }                                                    
+      } 
+      if (count > 1)                                                              
+      { 
+        // reference source: https://stackoverflow.com/questions/21519548/split-string-based-on-the-first-occurrence-of-the-character &
+        // https://www.baeldung.com/java-split-string-first-delimiter
+        string[] flawedRecipe = stringObject.Split("*~*", 2); // split Recipe where the 1st Food is attached & stop       
+        string goodRecipeString = $"{flawedRecipe[0]}-|-{flawedRecipe[1]}"; // replace the *~* with -|- to add the foods as the last attribute string
+        string[] recipe = goodRecipeString.Split(":|:", 2); // split the Recipe from its attributes
+        stringedObject= recipe[0]; // assign Recipe
+        stringedAttributes = recipe[1];
+      }       
+      if (!string.IsNullOrEmpty(stringedObject)) // to avoid throwing an error by sending an empty string
+      {
+      // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())      
+      // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
+      Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(stringedObject), stringedAttributes);       
+      _foodObjectsList.Add(food);
+      }               
+    }    
+    return _foodObjectsList;
+  }  
+// END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
 // END OF GROUPING OF 1 OVERRIDDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
