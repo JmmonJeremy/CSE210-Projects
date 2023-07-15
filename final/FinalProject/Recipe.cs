@@ -112,7 +112,7 @@ public class Recipe : Food
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
-// START OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+// START OF GROUPING OF 3 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
   protected override void DivideAttributes(string stringAttributes)
   {      
@@ -138,15 +138,12 @@ public class Recipe : Food
     string[] stringObjects = _combinedFoodStrings.Split("*~*"); // seperate the string into strings of Food objects  
     for (int i = 0; i < count; i++)
     {
-      string foodString = stringObjects[i];
-      // Console.WriteLine(foodString);       
+      string foodString = stringObjects[i];         
       _foodStringsList.Add(foodString); 
     }     
     return _foodStringsList; 
-  } 
-// END OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
+  }
 
-// START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
   // method to create Tracked objects from text file strings
   protected virtual List<Tracked> StringObjectToObject(List<string> stringObjectList)
   {   
@@ -156,9 +153,7 @@ public class Recipe : Food
       // seperate the string into the object and its attributes using the colon
       string[] segments = stringObject.Split(":|:");
       if (segments.Count() > 1)
-      { 
-      // Console.WriteLine($"segments[0] = {segments[0]} & segments[1] = {segments[1]}");
-     
+      {     
       // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())      
       // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
       Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
@@ -167,7 +162,7 @@ public class Recipe : Food
     }    
     return _foodObjectsList;
   }  
-// END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
+// END OF GROUPING OF 3 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
   protected virtual void SetPrompts()
