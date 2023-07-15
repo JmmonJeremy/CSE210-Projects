@@ -30,8 +30,9 @@ public class Meal : Recipe
   {
     // #1 base does textfile to Meal object uses DivideAttributes(stringAttributes) method, which
     // divides single string of attributes from a textfile into assigned individual attributes 
-    // #2 base uses the DivideStringOfObjects StringObjectToObject methods to take in the last 
-    // attribute of _combinedFoodStrings and create & load Food objects into _foodObjectsList    
+    // #2 base uses the FillValues method to set _divider value and it uses the DivideStringOfObjects
+    // and StringObjectToObject methods to take in the last attribute of _combinedFoodStrings and 
+    // then create & load Food objects into _foodObjectsList    
   }
 
 // ### METHODS ############################################## //
@@ -55,7 +56,7 @@ public class Meal : Recipe
 
 // START OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a meal text string
-  public override string CreateObjectString(string alternate)
+  public override string CreateObjectString()
   {   
     string combinedFoodStrings = ""; 
     string divider = "";
@@ -65,70 +66,30 @@ public class Meal : Recipe
       ++cycle;
       if (cycle > 1)
       {
-        divider = "*~*";
+        divider = "*_*";
       }
-      combinedFoodStrings += $"{divider}{food.CreateObjectString("alter")}";
+      combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
     } 
-    string mealString = $"{GetType()}:|:{_date.Year}+|+{_date.Month}+|+{_date.Day}+|+{_category}+|+{_portion}+|+{_unit}+|+{_calories}*~*{combinedFoodStrings}";           
+    string mealString = $"{GetType()}:|:{_date.Year}+|+{_date.Month}+|+{_date.Day}+|+{_category}+|+{_portion}+|+{_unit}+|+{_calories}+|+{combinedFoodStrings}";           
     return mealString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
-// START OF GROUPING OF 2 OVERRIDEN METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+// START OF GROUPING OF 1 OVERRIDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
   protected override void DivideAttributes(string stringAttributes)
   { 
-    // reference source: https://www.baeldung.com/java-split-string-first-delimiter  
-    string[] attributes = stringAttributes.Split("+|+", 8); // used "-|-" to differ from Recipe    
+    // reference source: https://www.baeldung.com/java-split-string-first-delimiter 
+    // used "-|-" to differ from Recipe, harmless but unneccesary with limiting the Split quantity    
+    string[] attributes = stringAttributes.Split("+|+", 8); 
     _date = new DateOnly(int.Parse(attributes[0]), int.Parse(attributes[1]), int.Parse(attributes[2]));
     _category = attributes[3];
     _portion = float.Parse(attributes[4]);
     _unit = attributes[5];
     _calories = int.Parse(attributes[6]);
     _combinedFoodStrings = attributes[7];   
-  }
-
-   // method to divide _attributes into strings of Food objects
-  protected override void DivideStringOfObjects()
-  {   
-    _foodStringsList.Clear(); // empty the _foodStringsList of strings to prevent duplication   
-    int count = _combinedFoodStrings.Split("#|#").Count(); // count the number of splits   
-    // seperate the string into strings of Recipe & Food objects
-    string[] seperateObjects = _combinedFoodStrings.Split("#|#"); 
-    for (int i = 0; i < count; i++) // use split count to add the right # of items
-    {       
-      // don't add @|@ or an empty string to list if Recipe is last item in meal list
-      if (seperateObjects[i] != "@|@" && !string.IsNullOrEmpty(seperateObjects[i])) 
-      {       
-        _foodStringsList.Add(seperateObjects[i]); // load strings of Food & Recipe objects into list        
-      }
-    }    
-    List<string> tempHolder = new List<string>();     
-    foreach (string seperated in _foodStringsList)
-    {           
-      string[] checkString = seperated.Split(":", 2); // split off 1st class name (@|@*~*Food sometimes)      
-      if (checkString[0] == "Recipe") // identify Recipe strings
-      {     
-        tempHolder.Add(seperated); // add Recipe strings to temp list to preserve order of strings
-      }
-      if (checkString[0] == "Food" || checkString[0] == "@|@*~*Food") // identify as 1 or more Food strings
-      {
-        int countedSplits = seperated.Split("*~*").Count(); // count the number of splits 
-        string[] divideUPFood = seperated.Split("*~*"); // split "@|@" & Food from Food
-        for (int i = 0; i < countedSplits; i++) // use split count to add the right # of items
-        {       
-          if (divideUPFood[i] != "@|@") // clear divider left in front of combined string of 1 or more Food objects
-          {         
-            tempHolder.Add(divideUPFood[i]); // only add the Food strings to the temp list
-          } 
-        }  
-      }     
-    }   
-    _foodStringsList.Clear(); // empty the _foodStringsList to reload different values 
-    // reference source: https://www.c-sharpcorner.com/article/copy-items-from-one-list-to-another-list-in-c-sharp/
-    _foodStringsList.AddRange(tempHolder); // put the contents of tempHolder list into _foodStringsList       
   } 
-// END OF GROUPING OF 2 OVERRIDDEN METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
+// END OF GROUPING OF 1 OVERRIDDEN METHOD THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
   protected override void SetPrompts()
@@ -176,10 +137,17 @@ public class Meal : Recipe
   }
 
   // method overriden to set the value for the _name
-  protected override void FillValues()
+  protected override void FillValues(string option)
   {
-    // #1 ASSIGN _date & _category AS THE MEAL _name *************************************************** 
-    _name = $"{_date} {_category}";
+    if (option == "option 1")
+    {
+      // #1 ASSIGN _date & _category AS THE MEAL _name *************************************************** 
+      _name = $"{_date} {_category}";
+    }
+    else
+    {
+      _divider = "*_*";
+    }
   }
 
   // method to show recip categories to add to the menu & return the choice

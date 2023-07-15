@@ -49,7 +49,7 @@ public class Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a text string of something being tracked
-  public virtual string CreateObjectString(string alternate)
+  public virtual string CreateObjectString()
   {    
     if (_portion == 1)
     {

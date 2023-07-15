@@ -15,7 +15,7 @@ public class Food : Tracked
   { 
     // #1 Base assigns parameters passed in as values for _category and _unit
     // #2 Uses method to have user assign values to _name, _portion and _calories
-    FillValues();
+    FillValues("option 1");
   }  
 
   // constructor for converting textfile to Food object in Tracker Class
@@ -59,9 +59,9 @@ public class Food : Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
-  public override string CreateObjectString(string alternate)
+  public override string CreateObjectString()
   {     
-    string foodString = base.CreateObjectString("normal");     
+    string foodString = base.CreateObjectString();     
     foodString += $"~|~{_name}";        
     return foodString; 
   }
@@ -79,7 +79,7 @@ public class Food : Tracked
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 
   // method to set the value for the _name, _portion, & _calories
-  protected virtual void FillValues()
+  protected virtual void FillValues(string option)
   {
     // #1 USER SETS FOOD _name **************************************************
     string namePrompt = $"What is the name of the {_category}? ";    

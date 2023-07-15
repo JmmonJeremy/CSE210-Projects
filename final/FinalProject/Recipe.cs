@@ -7,7 +7,8 @@ using System.Text.RegularExpressions;
 // base class for tracking a recipe
 public class Recipe : Food
 {
-// ### VARIABLE ATTRIBUTES ################################## // 
+// ### VARIABLE ATTRIBUTES ################################## //
+  protected string _divider;
   protected string _foodCategoryMenuPrompt;
   protected string _foodSelectionPrompt;
   protected string _addFoodPrompt;
@@ -42,8 +43,10 @@ public class Recipe : Food
   public Recipe(string stringAttributes) : base (stringAttributes)
   {
     // #1 base does textfile to Recipe object uses DivideAttributes(stringAttributes) method, which
-    // divides single string of attributes from a textfile into assigned individual attributes 
-    // #2 takes in the last attribute of _combinedFoodStrings and creates & loads Food objects into _foodObjectsList list
+    // divides single string of attributes from a textfile into assigned individual attributes    
+    // #2 1st use FillValues method to set _divider value for DivideStringOfObjects method then the 
+    // following methods take in _combinedFoodStrings & loads Food objects into _foodObjectsList list
+    FillValues("option 2"); 
     DivideStringOfObjects();
     StringObjectToObject();
   }
@@ -81,15 +84,8 @@ public class Recipe : Food
 
 // START OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a recipe text string
-  public override string CreateObjectString(string alternate)
-  {    
-    string alter1 = "";
-    string alter2 = ""; 
-    if (alternate == "alter")  
-    {
-      alter1 = "@|@#|#";
-      alter2 = "#|#@|@";      
-    } 
+  public override string CreateObjectString()
+  {  
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
@@ -105,9 +101,9 @@ public class Recipe : Food
       {
         divider = "*~*";
       }
-      _combinedFoodStrings += $"{divider}{food.CreateObjectString("normal")}";
+      _combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
     }   
-    string recipeString = $"{alter1}{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}-|-{_combinedFoodStrings}{alter2}";    
+    string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}-|-{_combinedFoodStrings}";    
     return recipeString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -130,13 +126,13 @@ public class Recipe : Food
   }
 
   // method to divide _attributes into strings of Food objects
-  protected virtual void DivideStringOfObjects()
+  protected void DivideStringOfObjects()
   {     
     _foodStringsList.Clear(); // empty the _foodStringsList of strings to prevent duplication    
     // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char
     // Console.WriteLine($"The _combinedFoodStrings = {_combinedFoodStrings}"); 
-    int count = _combinedFoodStrings.Split("*~*").Count(); // count the number of splits    
-    string[] stringObjects = _combinedFoodStrings.Split("*~*"); // seperate into strings of Food objects  
+    int count = _combinedFoodStrings.Split(_divider).Count(); // count the number of splits    
+    string[] stringObjects = _combinedFoodStrings.Split(_divider); // seperate into strings of Food objects  
     for (int i = 0; i < count; i++)
     {
       string foodString = stringObjects[i];           
@@ -162,7 +158,8 @@ public class Recipe : Food
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
   protected virtual void SetPrompts()
-  {    
+  { 
+    _divider = "*~*";   
     _menuLength = 8;
     _foodCategoryMenuPrompt = $"\nWhich category of food are you adding to your {_category}?\nMake your selection by entering a number:\n   1)  Fruit\n   2)  Vegetable\n   3)  Grain Food\n   4)  Dairy Food\n   5)  Protein Food\n   6)  Liquid or Drink\n   7)  Oil or Fat\n   8)  Other Food\nSelection: ";
     _foodSelectionPrompt = $"\nBelow is a list of all the {_menuChoice} options available to add to your {_category}.\nMake your selection by entering its number:\n";
@@ -236,23 +233,30 @@ public class Recipe : Food
   }
 
   // method overriden to set the value for the _name & _portion
-  protected override void FillValues()
+  protected override void FillValues(string option)
   {
-    // #1 USER ASSIGNS THE RECIPE _name ***************************************************      
-    string recipeNamePrompt = $"What is the name of the {_category} recipe you are entering? ";    
-    // pass the recipeNamePrompt into the object & for the user's 
-    // entry value put "Use prompt" since user will change value after the prompt
-    Validator validator = new Validator("Use prompt", recipeNamePrompt);    
-    // with "Use prompt" set the method to to use the prompt the first time the method is used
-    _name = validator.ConfirmEntry("Use prompt");
-    // #2 USER SETS RECIPE _portion ***************************************************
-    string portionPrompt = $"How many {_unit} is the {_category} recipe you are adding? ";    
-    // pass the portionPrompt into the object & for the user's 
-    // entry value put "Use prompt" since user will change value after the prompt
-    Validator validator1 = new Validator("Use prompt", portionPrompt);    
-    // set the method to use the prompt the first time the method is used with "Use Prompt"
-    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
-    _portion = validator1.PosStringDecimalCheck("Use prompt", "Do ConfirmEntry");
+    if (option == "option 1")
+    {
+      // #1 USER ASSIGNS THE RECIPE _name ***************************************************      
+      string recipeNamePrompt = $"What is the name of the {_category} recipe you are entering? ";    
+      // pass the recipeNamePrompt into the object & for the user's 
+      // entry value put "Use prompt" since user will change value after the prompt
+      Validator validator = new Validator("Use prompt", recipeNamePrompt);    
+      // with "Use prompt" set the method to to use the prompt the first time the method is used
+      _name = validator.ConfirmEntry("Use prompt");
+      // #2 USER SETS RECIPE _portion ***************************************************
+      string portionPrompt = $"How many {_unit} is the {_category} recipe you are adding? ";    
+      // pass the portionPrompt into the object & for the user's 
+      // entry value put "Use prompt" since user will change value after the prompt
+      Validator validator1 = new Validator("Use prompt", portionPrompt);    
+      // set the method to use the prompt the first time the method is used with "Use Prompt"
+      // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
+      _portion = validator1.PosStringDecimalCheck("Use prompt", "Do ConfirmEntry");
+    }
+    else
+    {
+      _divider = "*~*";
+    }
   }
   
   // method to fill the recipe the foods the user ate
