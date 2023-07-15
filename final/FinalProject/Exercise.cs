@@ -26,7 +26,7 @@ public class Exercise : Tracked
 
 // ### METHODS ############################################## //  
   // method to create a user selection string
-  public override string CreateDisplayString(int count, string numberMarker)
+  public override string CreateDisplayString(int count, string numberMarker, string alternate)
   {
     string space = "  ";
     if (count > 9)
@@ -34,16 +34,21 @@ public class Exercise : Tracked
       space = " ";
     }
     string selectionString = $"   {count}{numberMarker}{space}{_exerciseName} ";  
-    selectionString += base.CreateDisplayString(count, ".");      
+    selectionString += base.CreateDisplayString(count, ".", "normal");      
     return selectionString;
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a exercise text string
-  public override string CreateObjectString()
-  {     
-    string exerciseString = base.CreateObjectString();     
-    exerciseString += $"~|~{_exerciseName}";        
+  public override string CreateObjectString(string alternate)
+  {   
+    string alter = "";
+    if (alternate == "alter")
+    {
+      alter = "#|#";
+    }  
+    string exerciseString = base.CreateObjectString("normal");     
+    exerciseString += $"~|~{_exerciseName}{alter}";        
     return exerciseString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES

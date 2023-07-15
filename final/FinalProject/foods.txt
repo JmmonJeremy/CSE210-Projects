@@ -27,3 +27,9 @@ Food:|:protein food~|~0.5~|~cups~|~150~|~peanut butter
 Recipe:|:sandwich, wrap, or taco-|-1-|-servings-|-350-|-peanut butter sandwich*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:protein Food~|~0.5~|~cups~|~150~|~peanut butter
 Food:|:fruit~|~1.25~|~cups~|~135~|~banana
 Recipe:|:salad-|-1-|-cups-|-210-|-banana apple salad*~*Food:|:fruit~|~1.25~|~cups~|~135~|~banana*~*Food:|:fruit~|~2~|~cups~|~75~|~apple
+Food:|:vegetable~|~0.5~|~cups~|~22~|~celery
+Recipe:|:salad-|-1.5-|-cups-|-89-|-vegetable salad*~*Food:|:vegetable~|~1~|~cup~|~12~|~cucumber*~*Food:|:vegetable~|~3~|~cups~|~55~|~carrot*~*Food:|:vegetable~|~0.5~|~cups~|~22~|~celery
+Food:|:vegetable~|~1~|~cup~|~50~|~lettuce
+Recipe:|:sandwich, wrap, or taco-|-1-|-serving-|-800-|-chicked burger*~*Food:|:grain Food~|~1~|~cup~|~200~|~bread*~*Food:|:vegetable~|~1~|~cup~|~50~|~lettuce*~*Food:|:protein Food~|~2~|~cups~|~300~|~chicken*~*Food:|:dairy Food~|~1~|~cup~|~250~|~cheese
+Food:|:grain food~|~1.5~|~cups~|~210~|~bran cereal
+Recipe:|:dish-|-2-|-cups-|-300-|-bran cereal in milk*~*Food:|:grain Food~|~1.5~|~cups~|~210~|~bran cereal*~*Food:|:liquid or Drink~|~1~|~cup~|~90~|~milk

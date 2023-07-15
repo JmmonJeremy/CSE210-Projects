@@ -7,7 +7,7 @@ using System.Reflection;
 public class Food : Tracked
 {
 // ### VARIABLE ATTRIBUTES ################################## //   
-  protected string _name;  
+  public string _name;  
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Food object with the user's inputs used in Menu class
@@ -27,8 +27,8 @@ public class Food : Tracked
 
 // ### METHODS ############################################## // 
   // method to create a user display string
-  public override string CreateDisplayString(int count, string numberMarker)
-  {
+  public override string CreateDisplayString(int count, string numberMarker, string alternate)
+  {       
     string space = "  ";
     if (count > 9)
     {
@@ -53,15 +53,15 @@ public class Food : Tracked
     }
     // source reference: https://www.educative.io/answers/how-to-capitalize-the-first-letter-of-a-string-in-c-sharp
     string displayString = $"{count}{numberMarker}{space}{_name} ({char.ToUpper(_category[0]) + _category.Substring(1)}): ";  
-    displayString += base.CreateDisplayString(count, "");      
+    displayString += base.CreateDisplayString(count, "", "normal");      
     return displayString;
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
-  public override string CreateObjectString()
+  public override string CreateObjectString(string alternate)
   {     
-    string foodString = base.CreateObjectString();     
+    string foodString = base.CreateObjectString("normal");     
     foodString += $"~|~{_name}";        
     return foodString; 
   }

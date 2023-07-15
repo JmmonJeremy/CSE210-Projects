@@ -93,7 +93,7 @@ public class Menu
         breakfastTracker.LoadItem(breakfast);
         breakfastTracker.ObjectsToTextFile("meals.txt");        
         breakfastTracker.TextfileToOjects("meals.txt");
-        breakfastTracker.DisplayObjects(); 
+        breakfastTracker.DisplayObjects();
         break;
       case "2": // if they chose "Lunch Input"
         Meal lunch = new Meal("lunch", "%");

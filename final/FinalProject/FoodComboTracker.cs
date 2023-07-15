@@ -45,7 +45,7 @@ public class FoodComboTracker : Tracker
       {         
         ++ needsAddedNumber;
         ++ selectionNumber;        
-        foodSelectionPrompt += $"{item.CreateDisplayString(selectionNumber, ")")}\n";
+        foodSelectionPrompt += $"{item.CreateDisplayString(selectionNumber, ")", "normal")}\n";
         _group.Add(item);
       }           
     }    
@@ -82,34 +82,24 @@ public class FoodComboTracker : Tracker
     {        
       string[] items = System.IO.File.ReadAllLines(filename);                       
       foreach (string item in items)                                                  
-      {
-        // string[] mealParts = item.Split("#|#");
-        // string mealClass = mealParts[0];
-        // string mealAtts = mealParts[1];    
+      {      
         bool split = false;                                                                                    
-        cycle++;
-        // Console.WriteLine($"THIS IS THE CYCLE '{cycle}' OF THE LOOP DONE FOR EACH LINE IN THE TEXTFILE!!!                         CYCLE '{cycle}'");
-        // Console.WriteLine($"Tracking textfile cycle: '{cycle}'!!!");                                   
-        count = 0;
+        cycle++;                                         
+        count = 0;       
         // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char 
         count = item.Split("*~*").Count(); // count the number of splits                 
         string[] stringObjects = item.Split("*~*"); // seperate the string into strings of Food objects 
         for (int i = 0; i < count; i++)                                                
         {                                                                              
-          string foodString = stringObjects[i];                                      
-          // Console.WriteLine(foodString);                                            
+          string foodString = stringObjects[i];                                               
           objectStringsList.Add(foodString);                                                                       
         } 
         int loop = 0;                                                                             
-        foreach (string stringObject in objectStringsList)  // !!!!!!!!! ForeachLoop for string list                   
+        foreach (string stringObject in objectStringsList) // !!!!! ForeachLoop for string list                   
         {  
-          loop++; 
-          // Console.WriteLine($"#1 count = {count}");  
-          // Console.WriteLine($"1ST CODE LOOP (pass #{loop}) THROUGH ALL TEXT LINES ADDED TO THE STRING FROM SPLITTIN *~* INSIDE TEXTFILE LOOP");                                                                     
-          // Console.WriteLine($"Tracking textfile cycle: '{cycle}'!!!");                           
+          loop++;                               
           if (count == 1)                                                              
-          {                                                                          
-            // Console.WriteLine($"I am doing the 1st conidition code of count ==1! (count = {count})");               
+          {                    
             // seperate the string into the object type and its attributes using the colon
             string[] segments = stringObject.Split(":|:");                            
             cappedObjectString = segments[0];                                      
@@ -117,8 +107,7 @@ public class FoodComboTracker : Tracker
             split = true;                                               
           }          
           if (count > 1)
-          {
-            // Console.WriteLine($"I am doing the 2nd conidition PART 1 code of count > 1! (count = {count})");          
+          {                
             // seperate the string into the object type and its attributes using the colon
             string[] segments = stringObject.Split(":|:");  
             cappedObjectString = segments[0];
@@ -134,67 +123,43 @@ public class FoodComboTracker : Tracker
             else
             {
               divider = "-|-";
-            }
-            // Console.WriteLine($"Code does: stringObject.Split(':|:') => cappedObjectString: {cappedObjectString} & objectString: {objectString}");  
-            // Console.WriteLine($"Code does a 'break' now which should STOP: 1ST CODE LOOP INSIDE TEXTFILE LOOP");     
+            }                
             break;          
           }       
         }
         if (count > 1 || split == true)
-        {
-          // Console.WriteLine($"I am doing the 2nd conidition PART 2 'OR' split == true  code of count > 1! (count = {count}), but OUTSIDE: 1ST CODE LOOP INSIDE TEXTFILE LOOP");
-          // Console.WriteLine($"!!!!!!!!!!!THIS REMOVED THE STRING IN objectStringsList[0]: {objectStringsList[0]}");
+        {       
           objectStringsList.RemoveAt(0);
         }
 
         if (count > 1)
-        {
-          // Console.WriteLine($"I am doing the 2nd conidition PART 3 code of count > 1! (count = {count}), but OUTSIDE: 1ST CODE LOOP INSIDE TEXTFILE LOOP");
+        {          
           int insideCycle = 0;
           foreach (string stringObject in objectStringsList) // !!!!!!!!! ForeachLoop for string list
-          {
-            // Console.WriteLine($"#2 count = {count}"); 
-            // Console.WriteLine($"2ND CODE LOOP THROUGH ALL TEXT LINES ADDED TO THE STRING FROM SPLITTIN *~* INSIDE TEXTFILE LOOP");  
+          {            
             insideCycle++;
             if (insideCycle == 1)
-            {   
-              // Console.WriteLine($"The divider is: {divider}");           
-              // Console.WriteLine("1st condition of being first loop inside 2ND CODE LOOP INSIDE TEXTFILE LOOP code = objectString += $'-|-{stringObject}'");  
-            objectString += $"{divider}{stringObject}";
-              // Console.WriteLine($"count = {count} and ~|~objectString = {objectString}");
+            {              
+            objectString += $"{divider}{stringObject}";       
             }
             else
-            {
-              // Console.WriteLine("2nd condition of not being first loop inside 2ND CODE LOOP INSIDE TEXTFILE LOOP code = objectString += $'*~*{stringObject}'");
-              objectString += $"*~*{stringObject}";
-              // Console.WriteLine($"count = {count} and *~*objectString = {objectString}");
+            {            
+              objectString += $"*~*{stringObject}";           
             }
           }          
         } 
         if(!string.IsNullOrEmpty(cappedObjectString))
-        { 
-            // Console.WriteLine($"cappedObjectString = {cappedObjectString}"); 
-            // Console.WriteLine($"objectSting = {objectString}");
-            // Console.WriteLine($"count = {count} and the object is: {cappedObjectString} and the attributes are: {objectString}");
+        {             
             Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(cappedObjectString), objectString);               
-            _items.Add(food); 
-         
-        }
-        else
-        {
-          // Console.WriteLine($"cappedObjectString = {cappedObjectString}"); 
-        }   
-         if (count > 1)
-        {
-          // Console.WriteLine($"THIS IS AFTER ADDING OBJECT TO LIST (count = {count}), but OUTSIDE: 1ST CODE LOOP INSIDE TEXTFILE LOOP");                  
-          int index = count - 2;
-          // Console.WriteLine($"!!!!!!!!!!!THIS REMOVED THE STRING IN objectStringsList[0 - {index}]:");          
+            _items.Add(food);          
+        }        
+        if (count > 1)
+        {                        
+          int index = count - 2;                   
           if (index >= 0)
           for (int i = index; i >= 0; i--)
-          {
-          // Console.WriteLine($"Deleting index # {i}: {objectStringsList[i]}");
-          objectStringsList.RemoveAt(i); 
-               
+          {          
+            objectStringsList.RemoveAt(i);               
           }         
         }
       } 
@@ -204,9 +169,7 @@ public class FoodComboTracker : Tracker
   // method to return the selected object from the list
   public Tracked ReturnObject(int indexNumber)
   {   
-    Tracked selection = _group[indexNumber]; 
-    // // debugging code for selection picking the wrong food item
-    // Console.WriteLine($"The indexNumber is {indexNumber} and the selection is {selection.CreateDisplayString(indexNumber+1)}.");   
+    Tracked selection = _group[indexNumber];   
     return selection;  
   }
 

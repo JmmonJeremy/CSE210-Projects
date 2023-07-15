@@ -36,7 +36,7 @@ public class Tracked
 
 // ### METHODS ############################################## //
   // method to create a user display string
-  public virtual string CreateDisplayString(int count, string numberMarker)
+  public virtual string CreateDisplayString(int count, string numberMarker, string alternate)
   {
     if (_portion == 1)
     {
@@ -49,8 +49,8 @@ public class Tracked
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a text string of something being tracked
-  public virtual string CreateObjectString()
-  {  
+  public virtual string CreateObjectString(string alternate)
+  {    
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string

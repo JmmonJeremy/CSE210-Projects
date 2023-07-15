@@ -49,8 +49,15 @@ public class Recipe : Food
 
 // ### METHODS ############################################## //
   // method to create a string of the recipe and its attributes for display
-  public override string CreateDisplayString(int count, string numberMarker)
-  { 
+  public override string CreateDisplayString(int count, string numberMarker, string alternate)
+  {   
+    string subNumberMarker = ".";    
+    string alter = ""; 
+    if (alternate == "alter")
+    {     
+      alter = "    #";
+      subNumberMarker = "-";
+    } 
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
@@ -66,15 +73,23 @@ public class Recipe : Food
     foreach (Food food in _foodObjectsList)
     {      
       subcount++;
-      recipeString += ($"\n    {food.CreateDisplayString(subcount, ".")}");
+      recipeString += ($"\n    {alter}{food.CreateDisplayString(subcount, subNumberMarker, "normal")}");
     } 
     return recipeString; 
   }
 
 // START OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a recipe text string
-  public override string CreateObjectString()
-  {   
+  public override string CreateObjectString(string alternate)
+  {    
+    string alter1 = "";
+    string alter2 = ""; 
+    if (alternate == "alter")  
+    {
+      alter1 = "@|@#|#";
+      alter2 = "#|#@|@";
+      
+    } 
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
@@ -90,14 +105,14 @@ public class Recipe : Food
       {
         divider = "*~*";
       }
-      _combinedFoodStrings += $"{divider}{food.CreateObjectString()}";
-    } 
-    string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}";    
+      _combinedFoodStrings += $"{divider}{food.CreateObjectString("normal")}";
+    }   
+    string recipeString = $"{alter1}{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}{alter2}";    
     return recipeString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
-// START OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+// START OF GROUPING OF 3 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
   protected override void DivideAttributes(string stringAttributes)
   {      
@@ -123,17 +138,14 @@ public class Recipe : Food
     string[] stringObjects = _combinedFoodStrings.Split("*~*"); // seperate the string into strings of Food objects  
     for (int i = 0; i < count; i++)
     {
-      string foodString = stringObjects[i];
-      // Console.WriteLine(foodString);       
+      string foodString = stringObjects[i];         
       _foodStringsList.Add(foodString); 
     }     
     return _foodStringsList; 
-  } 
-// END OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
+  }
 
-// START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
   // method to create Tracked objects from text file strings
-  protected List<Tracked> StringObjectToObject(List<string> stringObjectList)
+  protected virtual List<Tracked> StringObjectToObject(List<string> stringObjectList)
   {   
     _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
     foreach (string stringObject in stringObjectList)
@@ -141,9 +153,7 @@ public class Recipe : Food
       // seperate the string into the object and its attributes using the colon
       string[] segments = stringObject.Split(":|:");
       if (segments.Count() > 1)
-      { 
-      // Console.WriteLine($"segments[0] = {segments[0]} & segments[1] = {segments[1]}");
-     
+      {     
       // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())      
       // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
       Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
@@ -152,7 +162,7 @@ public class Recipe : Food
     }    
     return _foodObjectsList;
   }  
-// END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
+// END OF GROUPING OF 3 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
   protected virtual void SetPrompts()
@@ -233,7 +243,7 @@ public class Recipe : Food
   protected override void FillValues()
   {
     // #1 USER ASSIGNS THE RECIPE _name ***************************************************      
-    string recipeNamePrompt = $"What is the name of the recipe you are entering? ";    
+    string recipeNamePrompt = $"What is the name of the {_category} recipe you are entering? ";    
     // pass the recipeNamePrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", recipeNamePrompt);    
