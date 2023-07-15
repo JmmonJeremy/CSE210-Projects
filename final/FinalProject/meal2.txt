@@ -1,1 +1,0 @@
-Meal:|:2023+|+7+|+8+|+lunch+|+0+|+%+|+300*~*Food:|:fruit~|~2~|~cups~|~130~|~mango*~*Food:|:vegetable~|~3~|~cups~|~55~|~carrot*~*Food:|:grain Food~|~2~|~cups~|~123~|~spaghetti noodles*~*Food:|:dairy Food~|~2~|~cups~|~240~|~cottage cheese*~*Food:|:protein Food~|~2~|~cups~|~300~|~chicken*~*Food:|:liquid or drink~|~1~|~cup~|~90~|~milk

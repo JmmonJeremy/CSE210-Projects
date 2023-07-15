@@ -44,7 +44,8 @@ public class Recipe : Food
     // #1 base does textfile to Recipe object uses DivideAttributes(stringAttributes) method, which
     // divides single string of attributes from a textfile into assigned individual attributes 
     // #2 takes in the last attribute of _combinedFoodStrings and creates & loads Food objects into _foodObjectsList list
-    StringObjectToObject(DivideStringOfObjects());
+    DivideStringOfObjects();
+    StringObjectToObject();
   }
 
 // ### METHODS ############################################## //
@@ -87,8 +88,7 @@ public class Recipe : Food
     if (alternate == "alter")  
     {
       alter1 = "@|@#|#";
-      alter2 = "#|#@|@";
-      
+      alter2 = "#|#@|@";      
     } 
     if (_portion == 1)
     {
@@ -107,16 +107,17 @@ public class Recipe : Food
       }
       _combinedFoodStrings += $"{divider}{food.CreateObjectString("normal")}";
     }   
-    string recipeString = $"{alter1}{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}{alter2}";    
+    string recipeString = $"{alter1}{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}-|-{_combinedFoodStrings}{alter2}";    
     return recipeString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
 
-// START OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+// START OF GROUPING OF 3 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
   // method to divide the string attributes stirng into their object's variable attributes  
   protected override void DivideAttributes(string stringAttributes)
-  {      
-    string[] attributes = stringAttributes.Split("-|-");     
+  { 
+    // reference source: https://www.baeldung.com/java-split-string-first-delimiter     
+    string[] attributes = stringAttributes.Split("-|-", 6);     
     _category = attributes[0];
     _portion = float.Parse(attributes[1]);
     _unit = attributes[2];
@@ -129,45 +130,35 @@ public class Recipe : Food
   }
 
   // method to divide _attributes into strings of Food objects
-  protected virtual List<string> DivideStringOfObjects()
+  protected virtual void DivideStringOfObjects()
   {     
-    _foodStringsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating  
+    _foodStringsList.Clear(); // empty the _foodStringsList of strings to prevent duplication    
     // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char
     // Console.WriteLine($"The _combinedFoodStrings = {_combinedFoodStrings}"); 
     int count = _combinedFoodStrings.Split("*~*").Count(); // count the number of splits    
-    string[] stringObjects = _combinedFoodStrings.Split("*~*"); // seperate the string into strings of Food objects  
+    string[] stringObjects = _combinedFoodStrings.Split("*~*"); // seperate into strings of Food objects  
     for (int i = 0; i < count; i++)
     {
-      string foodString = stringObjects[i];
-      // Console.WriteLine(foodString);       
+      string foodString = stringObjects[i];           
       _foodStringsList.Add(foodString); 
-    }     
-    return _foodStringsList; 
+    }   
   } 
-// END OF GROUPING OF 2 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
-// START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
-  // method to create Tracked objects from text file strings
-  protected virtual List<Tracked> StringObjectToObject(List<string> stringObjectList)
+  // method to create Tracked derived objects from text file strings
+  protected void StringObjectToObject()
   {   
     _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
-    foreach (string stringObject in stringObjectList)
+    foreach (string stringObject in _foodStringsList)
     {       
       // seperate the string into the object and its attributes using the colon
-      string[] segments = stringObject.Split(":|:");
-      if (segments.Count() > 1)
-      { 
-      // Console.WriteLine($"segments[0] = {segments[0]} & segments[1] = {segments[1]}");
-     
+      string[] segments = stringObject.Split(":|:", 2);     
       // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())      
       // create a Tracked object or instance from the string of the Tracked base class or Tracked derived classes
       Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
-      _foodObjectsList.Add(food);       
-      }          
-    }    
-    return _foodObjectsList;
+      _foodObjectsList.Add(food);                
+    }     
   }  
-// END OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN CONSTRUCTOR
+// END OF GROUPING OF 3 METHODS THAT CONVERTS TEXT STRINGS TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR 
 
   // method to set prompts to pass into metods so repeated code doesn't need to be reentered
   protected virtual void SetPrompts()

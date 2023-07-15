@@ -28,12 +28,7 @@ public class Food : Tracked
 // ### METHODS ############################################## // 
   // method to create a user display string
   public override string CreateDisplayString(int count, string numberMarker, string alternate)
-  {
-    string alter = "";
-    // if (alternate == "alter")
-    // {
-    //   alter = "    #";
-    // }
+  {  
     string space = "  ";
     if (count > 9)
     {
@@ -57,7 +52,7 @@ public class Food : Tracked
       _category += "Drink";
     }
     // source reference: https://www.educative.io/answers/how-to-capitalize-the-first-letter-of-a-string-in-c-sharp
-    string displayString = $"{alter}{count}{numberMarker}{space}{_name} ({char.ToUpper(_category[0]) + _category.Substring(1)}): ";  
+    string displayString = $"{count}{numberMarker}{space}{_name} ({char.ToUpper(_category[0]) + _category.Substring(1)}): ";  
     displayString += base.CreateDisplayString(count, "", "normal");      
     return displayString;
   }
@@ -65,12 +60,7 @@ public class Food : Tracked
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
   public override string CreateObjectString(string alternate)
-  {     
-    // string alter = "";
-    // if (alternate == "alter")
-    // {
-    //   alter = "#|#";
-    // }
+  {   
     string foodString = base.CreateObjectString("normal");     
     foodString += $"~|~{_name}";        
     return foodString; 
