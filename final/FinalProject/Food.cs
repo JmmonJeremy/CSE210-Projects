@@ -30,10 +30,10 @@ public class Food : Tracked
   public override string CreateDisplayString(int count, string numberMarker, string alternate)
   {
     string alter = "";
-    if (alternate == "alter")
-    {
-      alter = "    ";
-    }
+    // if (alternate == "alter")
+    // {
+    //   alter = "    #";
+    // }
     string space = "  ";
     if (count > 9)
     {

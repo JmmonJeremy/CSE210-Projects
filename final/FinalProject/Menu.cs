@@ -88,43 +88,43 @@ public class Menu
     {
       // RUN OPTION USER CHOSE
       case "1": // if they chose "Breakfast Input"
-        // Meal breakfast = new Meal("breakfast", "%");
+        Meal breakfast = new Meal("breakfast", "%");
         FoodComboTracker breakfastTracker = new FoodComboTracker();
-        // breakfastTracker.LoadItem(breakfast);
-        // breakfastTracker.ObjectsToTextFile("meal2.txt");        
-        breakfastTracker.TextfileToOjects("meal2.txt");
+        breakfastTracker.LoadItem(breakfast);
+        breakfastTracker.ObjectsToTextFile("meals.txt");        
+        breakfastTracker.TextfileToOjects("meals.txt");
         breakfastTracker.DisplayObjects();
         break;
       case "2": // if they chose "Lunch Input"
         Meal lunch = new Meal("lunch", "%");
         FoodComboTracker lunchTracker = new FoodComboTracker();
         lunchTracker.LoadItem(lunch);
-        lunchTracker.ObjectsToTextFile("meal2.txt");        
-        lunchTracker.TextfileToOjects("meal2.txt");
+        lunchTracker.ObjectsToTextFile("meals.txt");        
+        lunchTracker.TextfileToOjects("meals.txt");
         lunchTracker.DisplayObjects(); 
         break;
       case "3": // if they chose "Dinner Input"
         Meal dinner = new Meal("dinner", "%");
         FoodComboTracker dinnerTracker = new FoodComboTracker();
         dinnerTracker.LoadItem(dinner);
-        dinnerTracker.ObjectsToTextFile("meal2.txt");        
-        dinnerTracker.TextfileToOjects("meal2.txt");
+        dinnerTracker.ObjectsToTextFile("meals.txt");        
+        dinnerTracker.TextfileToOjects("meals.txt");
         dinnerTracker.DisplayObjects();       
         break;
       case "4": // if they chose "Snack Input"
         Meal snack = new Meal("snack", "%");
         FoodComboTracker snackTracker = new FoodComboTracker();
         snackTracker.LoadItem(snack);
-        snackTracker.ObjectsToTextFile("meal2.txt");        
-        snackTracker.TextfileToOjects("meal2.txt");
+        snackTracker.ObjectsToTextFile("meals.txt");        
+        snackTracker.TextfileToOjects("meals.txt");
         snackTracker.DisplayObjects();   
         break;
       case "5": // if they chose "Liquid Input"
         Meal liquid = new Meal("liquid or drink", "%");
         FoodComboTracker liquidTracker = new FoodComboTracker();
         liquidTracker.LoadItem(liquid);
-        liquidTracker.ObjectsToTextFile("meal2.txt");        
-        liquidTracker.TextfileToOjects("meal2.txt");
+        liquidTracker.ObjectsToTextFile("meals.txt");        
+        liquidTracker.TextfileToOjects("meals.txt");
         liquidTracker.DisplayObjects();   
         break;  
       case "6": // if they chose "Add Food"
@@ -385,10 +385,10 @@ public class Menu
     {
       // RUN OPTION USER CHOSE
       case "1": // if they chose "Add Dish Recipe" 
-        // Recipe dish = new Recipe("dish", "cups");
+        Recipe dish = new Recipe("dish", "cups");
         FoodComboTracker dishTracker = new FoodComboTracker();
-        // dishTracker.LoadItem(dish);
-        // dishTracker.ObjectsToTextFile("foods.txt");        
+        dishTracker.LoadItem(dish);
+        dishTracker.ObjectsToTextFile("foods.txt");        
         dishTracker.TextfileToOjects("foods.txt");
         dishTracker.DisplayObjects();
         break;

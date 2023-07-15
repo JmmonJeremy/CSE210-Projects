@@ -50,7 +50,14 @@ public class Recipe : Food
 // ### METHODS ############################################## //
   // method to create a string of the recipe and its attributes for display
   public override string CreateDisplayString(int count, string numberMarker, string alternate)
-  { 
+  {   
+    string subNumberMarker = ".";    
+    string alter = ""; 
+    if (alternate == "alter")
+    {     
+      alter = "    #";
+      subNumberMarker = "-";
+    } 
     if (_portion == 1)
     {
     // reference source: https://stackoverflow.com/questions/3573284/trim-last-character-from-a-string
@@ -66,7 +73,7 @@ public class Recipe : Food
     foreach (Food food in _foodObjectsList)
     {      
       subcount++;
-      recipeString += ($"\n    {food.CreateDisplayString(subcount, ".", "alter")}");
+      recipeString += ($"\n    {alter}{food.CreateDisplayString(subcount, subNumberMarker, "normal")}");
     } 
     return recipeString; 
   }
@@ -75,10 +82,13 @@ public class Recipe : Food
   // method to create & return a recipe text string
   public override string CreateObjectString(string alternate)
   {    
-    string alter = ""; 
+    string alter1 = "";
+    string alter2 = ""; 
     if (alternate == "alter")  
     {
-      alter = "#|#@|@";
+      alter1 = "@|@#|#";
+      alter2 = "#|#@|@";
+      
     } 
     if (_portion == 1)
     {
@@ -97,7 +107,7 @@ public class Recipe : Food
       }
       _combinedFoodStrings += $"{divider}{food.CreateObjectString("normal")}";
     }   
-    string recipeString = $"{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}{alter}";    
+    string recipeString = $"{alter1}{GetType()}:|:{_category}-|-{_portion}-|-{_unit}-|-{_calories}-|-{_name}*~*{_combinedFoodStrings}{alter2}";    
     return recipeString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
