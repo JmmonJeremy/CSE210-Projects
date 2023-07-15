@@ -28,7 +28,7 @@ public class Food : Tracked
 // ### METHODS ############################################## // 
   // method to create a user display string
   public override string CreateDisplayString(int count, string numberMarker, string alternate)
-  {  
+  {       
     string space = "  ";
     if (count > 9)
     {
@@ -60,7 +60,7 @@ public class Food : Tracked
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
   public override string CreateObjectString(string alternate)
-  {   
+  {     
     string foodString = base.CreateObjectString("normal");     
     foodString += $"~|~{_name}";        
     return foodString; 

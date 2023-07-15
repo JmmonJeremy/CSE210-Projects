@@ -70,9 +70,7 @@ public class FoodComboTracker : Tracker
   // method to return the selected object from the list
   public Tracked ReturnObject(int indexNumber)
   {   
-    Tracked selection = _group[indexNumber]; 
-    // // debugging code for selection picking the wrong food item
-    // Console.WriteLine($"The indexNumber is {indexNumber} and the selection is {selection.CreateDisplayString(indexNumber+1)}.");   
+    Tracked selection = _group[indexNumber];   
     return selection;  
   }
 

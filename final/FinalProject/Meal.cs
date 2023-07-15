@@ -56,7 +56,7 @@ public class Meal : Recipe
 // START OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a meal text string
   public override string CreateObjectString(string alternate)
-  {      
+  {   
     string combinedFoodStrings = ""; 
     string divider = "";
     int cycle = 0;
@@ -69,7 +69,7 @@ public class Meal : Recipe
       }
       combinedFoodStrings += $"{divider}{food.CreateObjectString("alter")}";
     } 
-    string mealString = $"{GetType()}:|:{_date.Year}+|+{_date.Month}+|+{_date.Day}+|+{_category}+|+{_portion}+|+{_unit}+|+{_calories}+|+{combinedFoodStrings}";           
+    string mealString = $"{GetType()}:|:{_date.Year}+|+{_date.Month}+|+{_date.Day}+|+{_category}+|+{_portion}+|+{_unit}+|+{_calories}*~*{combinedFoodStrings}";           
     return mealString; 
   }
 // END OF GROUPING OF 1 METHOD THAT HELPS CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
