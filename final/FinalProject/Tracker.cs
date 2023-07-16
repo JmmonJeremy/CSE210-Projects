@@ -40,7 +40,7 @@ public class Tracker
 
 // START OF GROUPING OF 1 METHOD USING A FOOD METHOD THAT CONVERTS OBJECT TO A STRING USED IN MENU CLASS
   // method to save list objects to a text file
-  public void ObjectsToTextFile(string filename) 
+  public void ObjectsToTextfile(string filename) 
   {      
     using (StreamWriter outputFile = new StreamWriter(filename, true))
     {        
@@ -69,8 +69,8 @@ public class Tracker
         string[] segments = item.Split(":|:", 2);  
         // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
         // create a Goal object or instance from the string of the Goal base class or Goal derived classes
-        Tracked food = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
-        _items.Add(food);            
+        Tracked unit = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
+        _items.Add(unit);            
       } 
     }
   }
