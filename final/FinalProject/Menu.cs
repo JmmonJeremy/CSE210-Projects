@@ -6,12 +6,17 @@ using System.IO;
 // and to return the user's choice
 public class Menu
 {
-// ### VARIABLE ATTRIBUTES ################################## //   
-  private string _choice = "run program"; // used for user's choice and to run the while loop 
-  // private Tracker _tracker = new Tracker();// to have a Tracker object that can be used throughout all Menu methods
+// ### VARIABLE ATTRIBUTES ################################## // 
+  private string _textfileName;  
+  private string _choice = "run program"; // used for user's choice and to run the while loop   
  
 // ### CONSTRUCTORS ######################################### //
-  // no constructors needed
+  // main constructor to set up a Menu object with the username creating the _textfileName
+  public Menu()
+  {   
+    Login();   
+  }  
+
   
 // ### METHODS ############################################## //
   // method to present the main menu to the user and to return the user's choice 
@@ -91,40 +96,40 @@ public class Menu
         Meal breakfast = new Meal("breakfast", "%");
         FoodComboTracker breakfastTracker = new FoodComboTracker();
         breakfastTracker.LoadItem(breakfast);
-        breakfastTracker.ObjectsToTextFile("meals.txt");        
-        breakfastTracker.TextfileToOjects("meals.txt");
+        breakfastTracker.ObjectsToTextfile(_textfileName);        
+        breakfastTracker.TextfileToOjects(_textfileName);
         breakfastTracker.DisplayObjects();
         break;
       case "2": // if they chose "Lunch Input"
         Meal lunch = new Meal("lunch", "%");
         FoodComboTracker lunchTracker = new FoodComboTracker();
         lunchTracker.LoadItem(lunch);
-        lunchTracker.ObjectsToTextFile("meals.txt");        
-        lunchTracker.TextfileToOjects("meals.txt");
+        lunchTracker.ObjectsToTextfile(_textfileName);        
+        lunchTracker.TextfileToOjects(_textfileName);
         lunchTracker.DisplayObjects(); 
         break;
       case "3": // if they chose "Dinner Input"
         Meal dinner = new Meal("dinner", "%");
         FoodComboTracker dinnerTracker = new FoodComboTracker();
         dinnerTracker.LoadItem(dinner);
-        dinnerTracker.ObjectsToTextFile("meals.txt");        
-        dinnerTracker.TextfileToOjects("meals.txt");
+        dinnerTracker.ObjectsToTextfile(_textfileName);        
+        dinnerTracker.TextfileToOjects(_textfileName);
         dinnerTracker.DisplayObjects();       
         break;
       case "4": // if they chose "Snack Input"
         Meal snack = new Meal("snack", "%");
         FoodComboTracker snackTracker = new FoodComboTracker();
         snackTracker.LoadItem(snack);
-        snackTracker.ObjectsToTextFile("meals.txt");        
-        snackTracker.TextfileToOjects("meals.txt");
+        snackTracker.ObjectsToTextfile(_textfileName);        
+        snackTracker.TextfileToOjects(_textfileName);
         snackTracker.DisplayObjects();   
         break;
       case "5": // if they chose "Liquid Input"
         Meal liquid = new Meal("liquid or drink", "%");
         FoodComboTracker liquidTracker = new FoodComboTracker();
         liquidTracker.LoadItem(liquid);
-        liquidTracker.ObjectsToTextFile("meals.txt");        
-        liquidTracker.TextfileToOjects("meals.txt");
+        liquidTracker.ObjectsToTextfile(_textfileName);        
+        liquidTracker.TextfileToOjects(_textfileName);
         liquidTracker.DisplayObjects();   
         break;  
       case "6": // if they chose "Add Food"
@@ -253,7 +258,7 @@ public class Menu
         Food fruit = new Food("fruit", "cups");        
         FoodTracker fruitTracker = new FoodTracker();
         fruitTracker.LoadItem(fruit);
-        fruitTracker.ObjectsToTextFile("foods.txt");
+        fruitTracker.ObjectsToTextfile("foods.txt");
         fruitTracker.TextfileToOjects("foods.txt");
         fruitTracker.DisplayObjects();        
         break;
@@ -261,7 +266,7 @@ public class Menu
         Food veggie = new Food("vegetable", "cups");        
         FoodTracker veggieTracker = new FoodTracker();
         veggieTracker.LoadItem(veggie);
-        veggieTracker.ObjectsToTextFile("foods.txt");
+        veggieTracker.ObjectsToTextfile("foods.txt");
         veggieTracker.TextfileToOjects("foods.txt");
         veggieTracker.DisplayObjects();        
         break;        
@@ -269,7 +274,7 @@ public class Menu
         Food grain = new Food("grain food", "cups");        
         FoodTracker grainTracker = new FoodTracker();
         grainTracker.LoadItem(grain);
-        grainTracker.ObjectsToTextFile("foods.txt");
+        grainTracker.ObjectsToTextfile("foods.txt");
         grainTracker.TextfileToOjects("foods.txt");
         grainTracker.DisplayObjects(); 
         break;
@@ -277,7 +282,7 @@ public class Menu
         Food dairy = new Food("dairy food", "cups");        
         FoodTracker dairyTracker = new FoodTracker();
         dairyTracker.LoadItem(dairy);
-        dairyTracker.ObjectsToTextFile("foods.txt");
+        dairyTracker.ObjectsToTextfile("foods.txt");
         dairyTracker.TextfileToOjects("foods.txt");
         dairyTracker.DisplayObjects();
         break;
@@ -285,7 +290,7 @@ public class Menu
         Food protein = new Food("protein food", "cups");        
         FoodTracker proteinTracker = new FoodTracker();
         proteinTracker.LoadItem(protein);
-        proteinTracker.ObjectsToTextFile("foods.txt");
+        proteinTracker.ObjectsToTextfile("foods.txt");
         proteinTracker.TextfileToOjects("foods.txt");
         proteinTracker.DisplayObjects();
         break;
@@ -293,7 +298,7 @@ public class Menu
         Food liquid = new Food("liquid or drink", "cups");        
         FoodTracker liquidTracker = new FoodTracker();
         liquidTracker.LoadItem(liquid);
-        liquidTracker.ObjectsToTextFile("foods.txt");
+        liquidTracker.ObjectsToTextfile("foods.txt");
         liquidTracker.TextfileToOjects("foods.txt");
         liquidTracker.DisplayObjects();
         break;         
@@ -301,7 +306,7 @@ public class Menu
         Food oil = new Food("oil or fat", "cups");        
         FoodTracker oilTracker = new FoodTracker();
         oilTracker.LoadItem(oil);
-        oilTracker.ObjectsToTextFile("foods.txt");
+        oilTracker.ObjectsToTextfile("foods.txt");
         oilTracker.TextfileToOjects("foods.txt");
         oilTracker.DisplayObjects();
         break;     
@@ -309,7 +314,7 @@ public class Menu
         Food other = new Food("other food", "cups");        
         FoodTracker otherTracker = new FoodTracker();
         otherTracker.LoadItem(other);
-        otherTracker.ObjectsToTextFile("foods.txt");
+        otherTracker.ObjectsToTextfile("foods.txt");
         otherTracker.TextfileToOjects("foods.txt");
         otherTracker.DisplayObjects();
         break;        
@@ -364,7 +369,7 @@ public class Menu
     }  
   } 
 
-   // menu for the user to add recipes
+  // menu for the user to add recipes
   public string PresentAddRecipeMenu()
   {    
     string selection = "No selection made."; 
@@ -373,7 +378,7 @@ public class Menu
     // pass the addRecipMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", addRecipeMenuPrompt);          
-    selection = validator.SelectionCheck(9, "Do Confirm"); // get a valid entry & confirm as the user's choice   
+    selection = validator.SelectionCheck(10, "Do Confirm"); // get a valid entry & confirm as the user's choice   
     return selection; // return the user's selection
   }
 
@@ -388,7 +393,7 @@ public class Menu
         Recipe dish = new Recipe("dish", "cups");
         FoodComboTracker dishTracker = new FoodComboTracker();
         dishTracker.LoadItem(dish);
-        dishTracker.ObjectsToTextFile("foods.txt");        
+        dishTracker.ObjectsToTextfile("foods.txt");        
         dishTracker.TextfileToOjects("foods.txt");
         dishTracker.DisplayObjects();
         break;
@@ -396,7 +401,7 @@ public class Menu
         Recipe soup = new Recipe("soup or stew", "cups");
         FoodComboTracker soupTracker = new FoodComboTracker();
         soupTracker.LoadItem(soup);
-        soupTracker.ObjectsToTextFile("foods.txt");        
+        soupTracker.ObjectsToTextfile("foods.txt");        
         soupTracker.TextfileToOjects("foods.txt");
         soupTracker.DisplayObjects();
         break;       
@@ -404,7 +409,7 @@ public class Menu
         Recipe salad = new Recipe("salad", "cups");
         FoodComboTracker saladTracker = new FoodComboTracker();
         saladTracker.LoadItem(salad);
-        saladTracker.ObjectsToTextFile("foods.txt");        
+        saladTracker.ObjectsToTextfile("foods.txt");        
         saladTracker.TextfileToOjects("foods.txt");
         saladTracker.DisplayObjects(); 
         break;
@@ -412,7 +417,7 @@ public class Menu
         Recipe bread = new Recipe("bread or muffin", "pieces");
         FoodComboTracker breadTracker = new FoodComboTracker();
         breadTracker.LoadItem(bread);
-        breadTracker.ObjectsToTextFile("foods.txt");        
+        breadTracker.ObjectsToTextfile("foods.txt");        
         breadTracker.TextfileToOjects("foods.txt");
         breadTracker.DisplayObjects();
         break;
@@ -420,7 +425,7 @@ public class Menu
         Recipe wrap = new Recipe("sandwich, wrap, or taco", "servings");
         FoodComboTracker wrapTracker = new FoodComboTracker();
         wrapTracker.LoadItem(wrap);
-        wrapTracker.ObjectsToTextFile("foods.txt");        
+        wrapTracker.ObjectsToTextfile("foods.txt");        
         wrapTracker.TextfileToOjects("foods.txt");
         wrapTracker.DisplayObjects();
         break;
@@ -428,7 +433,7 @@ public class Menu
         Recipe meat = new Recipe("meat", "cups");
         FoodComboTracker meatTracker = new FoodComboTracker();
         meatTracker.LoadItem(meat);
-        meatTracker.ObjectsToTextFile("foods.txt");        
+        meatTracker.ObjectsToTextfile("foods.txt");        
         meatTracker.TextfileToOjects("foods.txt");
         meatTracker.DisplayObjects();
         break;        
@@ -436,7 +441,7 @@ public class Menu
         Recipe seafood = new Recipe("seafood", "cups");
         FoodComboTracker seafoodTracker = new FoodComboTracker();
         seafoodTracker.LoadItem(seafood);
-        seafoodTracker.ObjectsToTextFile("foods.txt");        
+        seafoodTracker.ObjectsToTextfile("foods.txt");        
         seafoodTracker.TextfileToOjects("foods.txt");
         seafoodTracker.DisplayObjects();
         break;     
@@ -444,7 +449,7 @@ public class Menu
         Recipe vegetarian = new Recipe("vegetarian", "cups");
         FoodComboTracker vegetarianTracker = new FoodComboTracker();
         vegetarianTracker.LoadItem(vegetarian);
-        vegetarianTracker.ObjectsToTextFile("foods.txt");        
+        vegetarianTracker.ObjectsToTextfile("foods.txt");        
         vegetarianTracker.TextfileToOjects("foods.txt");
         vegetarianTracker.DisplayObjects();
         break; 
@@ -452,12 +457,82 @@ public class Menu
         Recipe dessert = new Recipe("dessert", "cups");
         FoodComboTracker dessertTracker = new FoodComboTracker();
         dessertTracker.LoadItem(dessert);
-        dessertTracker.ObjectsToTextFile("foods.txt");        
+        dessertTracker.ObjectsToTextfile("foods.txt");        
         dessertTracker.TextfileToOjects("foods.txt");
         dessertTracker.DisplayObjects();
         break;         
       default: // if they chose "Return to Main Menu"        
         break; // do nothing to end this menu & return user to the main menu
     }  
+  }
+
+   // menu for the user to login or create username login
+   public string PresentHealthLoginMenu()
+  {    
+    // save the loginPrompt to be passed into the validator method for use    
+    string loginPrompt = "\nMake your selection by entering a number:\n  1 - Enter Health Tracker Login Username\n  2 - Create Health Tracker Login Username\nSelection: ";
+    // pass the loginPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", loginPrompt);          
+    string selection = validator.SelectionCheck(2, "Don't Confirm"); // get a valid entry  
+    return selection; // return the user's selection
+  }  
+
+  // method to so introduction welcome and welcome the user
+  public void Welcome(string connector, string who)
+  {    
+    Console.ForegroundColor = ConsoleColor.Yellow; Console.Write($"\nWelcome {connector}");
+    Console.ForegroundColor = ConsoleColor.Cyan;   Console.Write($"'{who}'");
+    Console.ForegroundColor = ConsoleColor.Yellow; Console.WriteLine(" !!!");
+    Console.ResetColor();
+  }
+
+  // method to perform actions based on user input and conditionally set _textfileName
+  public void TextfileNameIfAction(string choice, string selected, bool exists, string textfileName, string username, string created)
+  {
+    if (choice == selected)
+    {
+      if (File.Exists(textfileName) == exists)
+      {            
+        _textfileName = textfileName;
+        Welcome("",username);          
+      }
+      else
+      {
+                                                      Console.Write("\nThe username ");
+        Console.ForegroundColor = ConsoleColor.Green; Console.Write($"'{username}' ");
+        Console.ForegroundColor = ConsoleColor.Red;   Console.WriteLine($"{created}.");
+        Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("Please try again.");
+        Console.ResetColor();
+        _textfileName = "no";
+      }
+    }
+  }
+
+  // method to require user to enter username to start program
+  public void Login()
+  {
+    // #1 USER ASSIGNS THE MEAL _userName ****************************************************
+    _textfileName = "no";
+    string fillIn1 = "";    
+    Welcome("to the ","Health Tracker");   
+    while (_textfileName == "no")
+    {               
+      string choice = PresentHealthLoginMenu(); // get a valid entry
+      if(choice == "2")
+      {
+        fillIn1 = " desired";
+      }        
+      // save the usernamePrompt to be passed into the validator method for use      
+      string usernamePrompt = $"Please enter your{fillIn1} username: ";    
+      // pass the recipeNamePrompt into the object & for the user's 
+      // entry value put "Use prompt" since user will change value after the prompt
+      Validator validator = new Validator("Use prompt", usernamePrompt);    
+      // with "Use prompt" set the method to to use the prompt the first time the method is used
+      string username = validator.ConfirmEntry("Use prompt");
+      string textfileName = $"{username}_MealRecord.txt";       
+      TextfileNameIfAction(choice,"1", true, textfileName, username, "does not exist");       
+      TextfileNameIfAction(choice,"2", false, textfileName, username, "already exists");      
+    }
   } 
 } 
