@@ -6,7 +6,7 @@ using System.Reflection;
 // base class for tracking a meal
 public class Meal : Recipe
 {
-// ### VARIABLE ATTRIBUTES ################################## //
+// ### VARIABLE ATTRIBUTES ################################## //  
   // reference source: https://www.stevejgordon.co.uk/using-dateonly-and-timeonly-in-dotnet-6
   private DateOnly _date = DateOnly.FromDateTime(DateTime.Now); 
   private string _recipeCategoryMenuPrompt;
@@ -140,8 +140,8 @@ public class Meal : Recipe
   protected override void FillValues(string option)
   {
     if (option == "option 1")
-    {
-      // #1 ASSIGN _date & _category AS THE MEAL _name *************************************************** 
+    {     
+      // #1 ASSIGN _date & _category AS THE MEAL _name ************************* 
       _name = $"{_date} {_category}";
     }
     else
