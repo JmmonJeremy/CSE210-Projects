@@ -14,7 +14,7 @@ public class Menu
   // main constructor to set up a Menu object with the username creating the _textfileName
   public Menu()
   {   
-    Login();   
+    Login(); // have user login with a username  
   }  
 
   
@@ -23,10 +23,11 @@ public class Menu
   public string PresentMainMenu()
   {            
     string selection = "No selection made.";
-    // _tracker.DisplayHealthDashboard(); // display the Health Recordings verses the Good Health Standards
+    string space = new string(' ', 27);
+    // string space = "                           ";
    
     // save the menu to be passed into the validator method for use    
-    string mainMenuPrompt = "\n     Make your selection by entering a number:\n       1 - Record Meal (Last done – Date & Meal)\n       2 - Record Exercise (Last done – Date)\n       3 - Record Health Statistic (Last done – Date)\n       4 - Add Food (Current List of #)\n       5 - Add Recipe (Current List of #)\n       6 - Add Exercise (Current List of #)\n       7 - Display Statistics (Last viewed Date)\n       8 - Close Program\n     Selection: ";    
+    string mainMenuPrompt = $"\n{space}Make your selection by entering a number:\n{space}  1 - Record Meal (Last done – Date & Meal)\n{space}  2 - Record Exercise (Last done – Date)\n{space}  3 - Record Health Statistic (Last done – Date)\n{space}  4 - Add Food (Current List of #)\n{space}  5 - Add Recipe (Current List of #)\n{space}  6 - Add Exercise (Current List of #)\n{space}  7 - Display Statistics (Last viewed Date)\n{space}  8 - Close Program\n{space}Selection: ";    
     // pass the mainMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", mainMenuPrompt);      
@@ -38,35 +39,45 @@ public class Menu
   public void RunMainChoices()
   {    
     while (_choice != "8") // run this until the user chooses to "Close Program"
-    {          
+    {  
+      string topLine = new string('\u0304', 45);
+      HealthStatus health = new HealthStatus("Set up empty"); 
+      health.HealthDashboard();          
       _choice = PresentMainMenu(); // display menu options and return user's choice
       // RUN OPTION USER CHOSE      
       if (_choice == "1") // if they chose "Record Meal"
       {         
+        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu      
         RunRecordMealChoices(); // present the user the menu to "Record Meal"
       }        
       if (_choice == "2") // if they chose "Record Exercise"
-      {        
+      { 
+        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu         
         RunRecordExerciseChoices(); // present the user the menu to "Record Exercise"               
       }      
       if (_choice == "3") // if they chose "Record Health Statistic"
       {
+        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         RunRecordHealthChoices(); // present the user the menu to "Record Health Statistic"    
       }     
       if (_choice == "4") // if they chose "Add Food"
       {   
+        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         RunAddFoodChoices(); // present the user the menu to "Add Food"                
       }       
       if (_choice == "5") // if they chose "Add Recipe"
       {
+        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         RunAddRecipeChoices(); // present the user the menu to "Add Recipe" 
       }      
       if (_choice == "6") // if they chose "Add Exercise"
       {
+        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         // AddExercise Method
       }      
       if (_choice == "7") // if they chose "Display Statistics"
       {
+        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         // DisplayStatistics Method
       }                  
     }
@@ -384,7 +395,7 @@ public class Menu
 
   // method to run the user's choice for the "Add Recipe Menu" 
   public void RunAddRecipeChoices()
-  {     
+  {      
     string choice = PresentAddRecipeMenu(); // display menu options and return user's choice
     switch (choice)
     {

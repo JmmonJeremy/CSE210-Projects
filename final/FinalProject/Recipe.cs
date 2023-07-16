@@ -126,7 +126,7 @@ public class Recipe : Food
   }
 
   // method to divide _attributes into strings of Food objects
-  protected void DivideStringOfObjects()
+  private void DivideStringOfObjects()
   {     
     _foodStringsList.Clear(); // empty the _foodStringsList of strings to prevent duplication    
     // reference source: https://stackoverflow.com/questions/5340564/counting-how-many-times-a-certain-char-appears-in-a-string-before-any-other-char
@@ -141,7 +141,7 @@ public class Recipe : Food
   } 
 
   // method to create Tracked derived objects from text file strings
-  protected void StringObjectToObject()
+  private void StringObjectToObject()
   {   
     _foodObjectsList.Clear(); // empties the _foodStringsList of strings to prevent duplicating          
     foreach (string stringObject in _foodStringsList)
@@ -168,7 +168,7 @@ public class Recipe : Food
   }
 
   // method to show food categories to add to the recipe & return the choice
-  protected string PresentFoodCategoriesMenu()
+  private string PresentFoodCategoriesMenu()
   {
     string selection = "No selection made.";
     // pass the PresentCategoryMenuPrompt into the object & for the user's 
@@ -214,7 +214,7 @@ public class Recipe : Food
   }
 
   // method to list the foods in the category and have the user add the Food object to the recipe or _foodObjectsList
-  protected void AddToFoodObjectsList()
+  private void AddToFoodObjectsList()
   {    
     NumberToCategory(PresentFoodCategoriesMenu());       
     FoodComboTracker foods = new FoodComboTracker();
@@ -260,7 +260,7 @@ public class Recipe : Food
   }
   
   // method to fill the recipe the foods the user ate
-  protected void FillFoodObjectsList()
+  private void FillFoodObjectsList()
   {     
     // USER FILLS _foodObjectsList   
     string done = "yes";
