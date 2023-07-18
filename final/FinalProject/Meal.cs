@@ -198,4 +198,10 @@ public class Meal : Recipe
     } 
     return choice;
   }
+
+  // getter method for the _date
+  public DateOnly GetDateOnly()
+  {
+    return _date;
+  }
 }

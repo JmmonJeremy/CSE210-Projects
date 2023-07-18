@@ -14,7 +14,7 @@ public class Menu
   // main constructor to set up a Menu object with the username creating the _textfileName
   public Menu()
   {   
-    Login(); // have user login with a username  
+    // Login(); // have user login with a username  
   }  
 
   
@@ -23,9 +23,7 @@ public class Menu
   public string PresentMainMenu()
   {            
     string selection = "No selection made.";
-    string space = new string(' ', 27);
-    // string space = "                           ";
-   
+    string space = new string(' ', 39);   
     // save the menu to be passed into the validator method for use    
     string mainMenuPrompt = $"\n{space}Make your selection by entering a number:\n{space}  1 - Record Meal (Last done – Date & Meal)\n{space}  2 - Record Exercise (Last done – Date)\n{space}  3 - Record Health Statistic (Last done – Date)\n{space}  4 - Add Food (Current List of #)\n{space}  5 - Add Recipe (Current List of #)\n{space}  6 - Add Exercise (Current List of #)\n{space}  7 - Display Statistics (Last viewed Date)\n{space}  8 - Close Program\n{space}Selection: ";    
     // pass the mainMenuPrompt into the object & for the user's 
@@ -39,10 +37,13 @@ public class Menu
   public void RunMainChoices()
   {    
     while (_choice != "8") // run this until the user chooses to "Close Program"
-    {  
-      string topLine = new string('\u0304', 45);
+    { 
+      HealthStatus healthy = new HealthStatus("intake", "calories");
+      healthy.SaveToTextfile("healthTracker.txt");
+
       HealthStatus health = new HealthStatus("Set up empty"); 
-      health.HealthDashboard();          
+      health.HealthDashboard();      
+     
       _choice = PresentMainMenu(); // display menu options and return user's choice
       // RUN OPTION USER CHOSE      
       if (_choice == "1") // if they chose "Record Meal"
@@ -109,6 +110,12 @@ public class Menu
         breakfastTracker.LoadItem(breakfast);
         breakfastTracker.ObjectsToTextfile(_textfileName);        
         breakfastTracker.TextfileToOjects(_textfileName);
+
+        HealthStatus breakfastCalories = new HealthStatus("intake", "calories");
+        HealthStatusTracker healthTrackerBkCal = new HealthStatusTracker();
+        healthTrackerBkCal.LoadItem(breakfastCalories);
+        breakfastCalories.SaveToTextfile(_textfileName);
+
         breakfastTracker.DisplayObjects();
         break;
       case "2": // if they chose "Lunch Input"
@@ -117,6 +124,12 @@ public class Menu
         lunchTracker.LoadItem(lunch);
         lunchTracker.ObjectsToTextfile(_textfileName);        
         lunchTracker.TextfileToOjects(_textfileName);
+
+        HealthStatus lunchCalories = new HealthStatus("intake", "calories");
+        HealthStatusTracker healthTrackerDCal = new HealthStatusTracker();
+        healthTrackerDCal.LoadItem(lunchCalories);
+        lunchCalories.SaveToTextfile(_textfileName);
+
         lunchTracker.DisplayObjects(); 
         break;
       case "3": // if they chose "Dinner Input"
@@ -125,6 +138,12 @@ public class Menu
         dinnerTracker.LoadItem(dinner);
         dinnerTracker.ObjectsToTextfile(_textfileName);        
         dinnerTracker.TextfileToOjects(_textfileName);
+
+        HealthStatus dinnerCalories = new HealthStatus("intake", "calories");
+        HealthStatusTracker healthTrackerLCal = new HealthStatusTracker();
+        healthTrackerLCal.LoadItem(dinnerCalories);
+        dinnerCalories.SaveToTextfile(_textfileName);
+
         dinnerTracker.DisplayObjects();       
         break;
       case "4": // if they chose "Snack Input"
@@ -133,6 +152,12 @@ public class Menu
         snackTracker.LoadItem(snack);
         snackTracker.ObjectsToTextfile(_textfileName);        
         snackTracker.TextfileToOjects(_textfileName);
+
+        HealthStatus snackCalories = new HealthStatus("intake", "calories");
+        HealthStatusTracker healthTrackerSnCal = new HealthStatusTracker();
+        healthTrackerSnCal.LoadItem(snackCalories);
+        snackCalories.SaveToTextfile(_textfileName);
+
         snackTracker.DisplayObjects();   
         break;
       case "5": // if they chose "Liquid Input"
@@ -141,6 +166,12 @@ public class Menu
         liquidTracker.LoadItem(liquid);
         liquidTracker.ObjectsToTextfile(_textfileName);        
         liquidTracker.TextfileToOjects(_textfileName);
+
+        HealthStatus liquidCalories = new HealthStatus("intake", "calories");
+        HealthStatusTracker healthTrackerLiqCal = new HealthStatusTracker();
+        healthTrackerLiqCal.LoadItem(liquidCalories);
+        liquidCalories.SaveToTextfile(_textfileName);
+
         liquidTracker.DisplayObjects();   
         break;  
       case "6": // if they chose "Add Food"
@@ -229,7 +260,13 @@ public class Menu
     {
       // RUN OPTION USER CHOSE
       case "1": // if they chose "Record Body Mass Index"
-        // method
+        HealthStatus health = new HealthStatus("weight", "lbs");
+        health.SaveToTextfile("healthTracker.txt"); // save current version for display
+        // HealthStatusTracker bmiHealthTracker = new HealthStatusTracker();
+        // bmiHealthTracker.LoadItem(health);
+        // bmiHealthTracker.ObjectsToTextfile("healthTrackerHistory.txt"); // save for record          
+        // bmiHealthTracker.TextfileToOjects("healthTrackerHistory.txt");     
+        // bmiHealthTracker.DisplayObjects();                
         break;
       case "2": // if they chose "Record Waist-to-Hip Ratio"
         // method
@@ -541,6 +578,10 @@ public class Menu
       Validator validator = new Validator("Use prompt", usernamePrompt);    
       // with "Use prompt" set the method to to use the prompt the first time the method is used
       string username = validator.ConfirmEntry("Use prompt");
+      
+      HealthStatus health = new HealthStatus("height", "inches");
+      health.LoadAttributes("healthTracker");
+      health.SaveToTextfile("healthTracker"); // save current version for display
       string textfileName = $"{username}_MealRecord.txt";       
       TextfileNameIfAction(choice,"1", true, textfileName, username, "does not exist");       
       TextfileNameIfAction(choice,"2", false, textfileName, username, "already exists");      

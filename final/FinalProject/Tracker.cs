@@ -45,8 +45,7 @@ public class Tracker
     using (StreamWriter outputFile = new StreamWriter(filename, true))
     {        
       foreach (Tracked item in _items)
-      {
-        // Food food = (Food)item; // cast item object as a Food to use its method
+      {        
         outputFile.WriteLine($"{item.CreateObjectString()}");
       }
     }
@@ -69,8 +68,11 @@ public class Tracker
         string[] segments = item.Split(":|:", 2);  
         // reference source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-7.0#system-activator-createinstance(system-type-system-object())
         // create a Goal object or instance from the string of the Goal base class or Goal derived classes
+        if (!string.IsNullOrEmpty(segments[0]) && !string.IsNullOrEmpty(segments[1]))
+        {
         Tracked unit = (Tracked)Activator.CreateInstance(Type.GetType(segments[0]), segments[1]);       
-        _items.Add(unit);            
+        _items.Add(unit);
+        }            
       } 
     }
   }
@@ -91,5 +93,10 @@ public class Tracker
   public virtual void RemoveObject()
   {
 
+  }
+
+  public List<Tracked>  GetItems()
+  {
+    return _items;
   }
 }
