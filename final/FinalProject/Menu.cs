@@ -38,38 +38,15 @@ public class Menu
   {    
     while (_choice != "8") // run this until the user chooses to "Close Program"
     { 
-      // HealthStatus healthy = new HealthStatus("intake", "calories");
+      // HealthStatus healthy = new HealthStatus("weight", "bmi");
       // healthy.SaveToTextfile("healthTracker.txt");
       // HealthStatusTracker bmiHealthTracker = new HealthStatusTracker();
       // bmiHealthTracker.LoadItem(healthy);
       // bmiHealthTracker.ObjectsToTextfile("healthTrackerHistory.txt"); // save for record          
       // bmiHealthTracker.TextfileToOjects("healthTrackerHistory.txt");     
       // // bmiHealthTracker.DisplayObjects();  
-      // DateTime mostRecent = DateTime.Parse("01/01/2000");
-      // List<HealthStatus> recentEntries = new List<HealthStatus>(); 
-      // List<HealthStatus> mehe = new List<HealthStatus>();    
-      // foreach (HealthStatus item1 in bmiHealthTracker.GetItems())
-      // {
-      //   if (item1._height != 0)
-      //   {
-      //     mehe.Add(item1);
-      //   }
-      // }
-      // foreach (HealthStatus item in mehe)
-      // {       
-      //   if (mostRecent < item.GetDate())
-      //   {
-      //     mostRecent = item.GetDate();
-      //   }      
-      // }  
-      //  foreach (HealthStatus item2 in bmiHealthTracker.GetItems())
-      // {
-      //   if (item2.GetDate() == mostRecent)
-      //   {
-      //     mehe.Remove(item2);
-      //   }
-      // }
-      // int height = mehe.Last()._height;
+   
+
       HealthStatus health = new HealthStatus("Set up empty"); 
       health.HealthDashboard();      
      
