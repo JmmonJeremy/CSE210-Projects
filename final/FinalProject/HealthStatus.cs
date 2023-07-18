@@ -19,10 +19,10 @@ public class HealthStatus : Tracked
   private string _userName;
   // reference source: https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
   private string _bmiStandard = "Between 18.5 - 24.9";   
-  private float _bmi; 
+  public float _bmi; 
   private string _weightStandard = "Between 149 - 163 lbs"; 
-  private float _weight; 
-  private int _height; 
+  public float _weight; 
+  public int _height; 
   // reference source: https://myxperiencefitness.com/7-ways-besides-weight-to-gauge-your-health/
   private string _waistToHipRatioStandard = "Below 0.95"; 
   private float _waistToHipRatio; 
@@ -52,6 +52,7 @@ public class HealthStatus : Tracked
   private float _liquidIntake;
   // reference source: https://www.cdc.gov/physicalactivity/basics/adults/index.htm
   private string _exerciseStandard = "150 Minutes of Cardio & 2 Days of Bodybuilding Weekly";
+  private List<HealthStatus> _finalValues = new List<HealthStatus>();
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Food object with the user's inputs used in Menu class
@@ -91,16 +92,15 @@ public class HealthStatus : Tracked
       space = " ";
     }   
     // source reference: https://www.educative.io/answers/how-to-capitalize-the-first-letter-of-a-string-in-c-sharp
-    string displayString = $"{count}{numberMarker}{space} ({char.ToUpper(_category[0]) + _category.Substring(1)}): Date = {_date} Height = {_height}, Weight = {_weight} lbs";          
+    string displayString = $"{count}{numberMarker}{space} ({char.ToUpper(_category[0]) + _category.Substring(1)}): Date = {_date} Height = {_height}, Weight = {_weight} lbs, BMI = {_bmi}, calories = {_calories}, unit = {_unit}, portion = {_portion}";          
     return displayString;
   }
 
 // START OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
   // method to create & return a food text string
   public override string CreateObjectString()
-  {      
-    string foodString = base.CreateObjectString();        
-    foodString += $"~|~{_height}~|~{_weight}~|~{_bmi}~|~{_date}";        
+  {           
+    string foodString = $"{GetType()}:|:{_category}=|={_portion}=|={_calories}=|={_unit}=|={_height}=|={_weight}=|={_bmi}=|={_date}";        
     return foodString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -109,16 +109,15 @@ public class HealthStatus : Tracked
   // method to divide the string attributes stirng into their object's variable attributes  
   protected override void DivideAttributes(string stringAttributes)
   {            
-    string[] attributes = stringAttributes.Split("~|~"); 
+    string[] attributes = stringAttributes.Split("=|="); 
     _category = attributes[0];
     _portion = float.Parse(attributes[1]);
-    _unit = attributes[2];     
+    _calories = int.Parse(ConditionallyChangeValue(attributes[7], _height.ToString(), attributes[2])); 
+    _unit = attributes[3];     
     _height = int.Parse(ConditionallyChangeValue(attributes[7], _height.ToString(), attributes[4]));     
     _weight = float.Parse(ConditionallyChangeValue(attributes[7], _weight.ToString(), attributes[5]));
     _bmi = float.Parse(ConditionallyChangeValue(attributes[7], _weight.ToString(), attributes[6]));    
-    _date = DateTime.Parse(attributes[7]);
-    _calories = int.Parse(ConditionallyChangeValue(attributes[7], _height.ToString(), attributes[3])); 
-     
+    _date = DateTime.Parse(attributes[7]);     
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 
@@ -200,29 +199,67 @@ public class HealthStatus : Tracked
   // method to load a HealthStatus object's attributes from a text file string
   public void LoadAttributes(string filename)
   {    
-    if (File.Exists(filename))
-    {        
-      string[] items = System.IO.File.ReadAllLines(filename);      
-      foreach (string item in items)
-      {               
-        // seperate the string into the object and its attributes using the colon
-        string[] segments = item.Split(":|:"); 
+    
+    // if (File.Exists(filename))
+    // {        
+    //   string[] items = System.IO.File.ReadAllLines(filename);      
+    //   foreach (string item in items)
+    //   {               
+    //     // seperate the string into the object and its attributes using the colon
+    //     string[] segments = item.Split(":|:"); 
 
-        _calories = int.Parse((LoadLatestPastValue("intake", _calories.ToString())));       
+    //     _calories = int.Parse((LoadLatestPastValue("intake", _calories.ToString())));       
               
-        // Console.WriteLine($"BEFORE assigning value from LoadLatestPastValue _height = ({_height}).");
-        _height = int.Parse((LoadLatestPastValue("_height", _height.ToString())));
-        // Console.WriteLine($"AFTER assigning value from LoadLatestPastValue _height = ({_height}).");
+    //     // Console.WriteLine($"BEFORE assigning value from LoadLatestPastValue _height = ({_height}).");
+    //     _height = int.Parse((LoadLatestPastValue("_height", _height.ToString())));
+    //     // Console.WriteLine($"AFTER assigning value from LoadLatestPastValue _height = ({_height}).");
                  
-        _weight = float.Parse(LoadLatestPastValue("_weight", _weight.ToString())); 
+    //     _weight = float.Parse(LoadLatestPastValue("_weight", _weight.ToString())); 
 
-        _bmi = float.Parse(LoadLatestPastValue("_bmi", _bmi.ToString())); 
+    //     _bmi = float.Parse(LoadLatestPastValue("_bmi", _bmi.ToString())); 
         
-        _date = DateTime.Parse(LoadLatestPastValue("_date", _date.ToString()));        
+    //     _date = DateTime.Parse(LoadLatestPastValue("_date", _date.ToString()));        
         
-        DivideAttributes(segments[1]);               
-      } 
-    }   
+                      
+      // } 
+    // }   
+      // #1 SET UP NEEDED VARIABLES **********************************************************
+      DateTime mostRecent = DateTime.Parse("01/01/2000"); // to find most recent date
+      List<HealthStatus> recentEntries = new List<HealthStatus>(); // to hold most recent entry
+      
+      HealthStatus healthy = new HealthStatus("Set up empty");      
+      HealthStatusTracker heightTracker = new HealthStatusTracker();             
+      heightTracker.TextfileToOjects("healthTrackerHistory.txt"); // put textfile into a list    
+      // #1 ASSIGN LATEST VALUE TO _height ****************************************************
+      foreach (HealthStatus item1 in heightTracker.GetItems())
+      {
+        if (item1._height != 0) // create list with no nonvalues
+        {
+          recentEntries.Add(item1);
+        }
+      }
+      foreach (HealthStatus item in recentEntries) // assign latest date
+      {       
+        if (mostRecent < item.GetDate())
+        {
+          mostRecent = item.GetDate();
+        }      
+      }  
+       foreach (HealthStatus item2 in heightTracker.GetItems()) // remove all but latest entry
+      {
+        if (item2.GetDate() != mostRecent)
+        {        
+          recentEntries.Remove(item2);
+        }
+      }
+      _height = recentEntries.Last()._height; // assign value to attribute      
+      healthy._height = recentEntries.Last()._height;
+      _finalValues.Add(healthy);
+      Console.WriteLine($"_height = {_height}, list length = {recentEntries.Count}");
+
+
+      // healthy.SaveToTextfile("healthTracker.txt");
+      // DivideAttributes(attributes); 
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO ATTRIBUTE VALUES
 
@@ -452,5 +489,10 @@ public class HealthStatus : Tracked
     Console.ForegroundColor = ConsoleColor.Cyan; 
     Console.WriteLine($"{Convert.ToChar(186)}{topLine}*\u0304*\u0304*{topLine}{Convert.ToChar(186)}");    
     Console.ResetColor(); Console.WriteLine();
+  }
+
+  public DateTime GetDate()
+  {
+    return _date;
   }
 }
