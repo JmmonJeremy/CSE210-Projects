@@ -113,11 +113,11 @@ public class HealthStatus : Tracked
     _category = attributes[0];
     _portion = float.Parse(attributes[1]);
     _unit = attributes[2];     
-    _height = int.Parse(ConditionallyChangeValue(attributes[4], _height.ToString(), attributes[5]));     
-    _weight = float.Parse(ConditionallyChangeValue(attributes[4], _weight.ToString(), attributes[6]));
-    _bmi = float.Parse(ConditionallyChangeValue(attributes[4], _weight.ToString(), attributes[7]));    
-    _date = DateTime.Parse(attributes[4]);
-    _calories = int.Parse(ConditionallyChangeValue(attributes[4], _height.ToString(), attributes[3])); 
+    _height = int.Parse(ConditionallyChangeValue(attributes[7], _height.ToString(), attributes[4]));     
+    _weight = float.Parse(ConditionallyChangeValue(attributes[7], _weight.ToString(), attributes[5]));
+    _bmi = float.Parse(ConditionallyChangeValue(attributes[7], _weight.ToString(), attributes[6]));    
+    _date = DateTime.Parse(attributes[7]);
+    _calories = int.Parse(ConditionallyChangeValue(attributes[7], _height.ToString(), attributes[3])); 
      
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
