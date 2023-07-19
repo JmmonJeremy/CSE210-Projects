@@ -7,7 +7,7 @@ using System.Reflection;
 public class Food : Tracked
 {
 // ### VARIABLE ATTRIBUTES ################################## //   
-  public string _name;  
+  protected string _name;  
   
 // ### CONSTRUCTORS ######################################### //
   // main constructor to set up a Food object with the user's inputs used in Menu class

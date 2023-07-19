@@ -1,7 +1,5 @@
-HealthStatus:|:weight=|=0=|=0=|=inches=|=71=|=189.0=|=0=|=7/17/2023 4:35:54 PM
-HealthStatus:|:weight=|=0=|=0=|=lbs=|=0=|=189.6=|=0=|=7/17/2023 5:15:24 PM
-HealthStatus:|:weight=|=0=|=5=|=lbs=|=0=|=189.7=|=0=|=7/18/2023 5:23:50 PM
-HealthStatus:|:intake=|=0=|=2270=|=calories=|=0=|=0=|=0=|=7/18/2023 12:00:00 AM
-HealthStatus:|:intake=|=0=|=2570=|=calories=|=0=|=0=|=0=|=7/17/2023 12:00:00 AM
-HealthStatus:|:weight=|=0=|=0=|=bmi=|=71=|=189.4=|=26.413052=|=1/1/0001 12:00:00 AM
-HealthStatus:|:weight=|=0=|=0=|=lbs=|=71=|=188.8=|=26.32938=|=1/1/0001 12:00:00 AM
+HealthStatus:|:weight=|=0=|=0=|=inches=|=71=|=189.0=|=0=|=30=|=7/17/2023 4:35:54 PM
+HealthStatus:|:weight=|=0=|=0=|=lbs=|=0=|=189.6=|=0=|=0=|=7/17/2023 5:15:24 PM
+HealthStatus:|:weight=|=0=|=5=|=lbs=|=0=|=189.7=|=0=|=0=|=7/18/2023 5:23:50 PM
+HealthStatus:|:intake=|=0=|=2270=|=calories=|=0=|=0=|=0=|=30=|=7/18/2023 12:00:00 AM
+HealthStatus:|:intake=|=0=|=2570=|=calories=|=0=|=0=|=0=|=60=|=7/17/2023 12:00:00 AM

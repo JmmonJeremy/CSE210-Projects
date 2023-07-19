@@ -6,9 +6,10 @@ using System.Reflection;
 // base class for tracking an exercise
 public class Exercise : Tracked
 {
-// ### VARIABLE ATTRIBUTES ################################## //   
+// ### VARIABLE ATTRIBUTES ################################## // 
+  private DateOnly _date = DateOnly.FromDateTime(DateTime.Now);
   private string _exerciseName; 
-  private List<Tracked> _exerciseList;
+  
 
 // ### CONSTRUCTORS ######################################### // 
   // main constructor to set up a Exercise object with the user's inputs
@@ -45,7 +46,7 @@ public class Exercise : Tracked
   {
     // #1 for ClassToString method do nothing to have an empty object set up
     // #2 for textfile to Exercise object uses DivideAttributes(stringAttributes) method, which
-    // divides single string of attributes from a textfile into assigned individual attributes    
+    // divides single string of attributes from a textfile into assigned individual attributes       
   }
 
 // ### METHODS ############################################## //  
@@ -58,7 +59,8 @@ public class Exercise : Tracked
       space = " ";
     }
     string selectionString = $"   {count}{numberMarker}{space}{_exerciseName} ({GetType()}) ";  
-    selectionString += base.CreateDisplayString(count, ".", "normal");      
+    selectionString += base.CreateDisplayString(count, ".", "normal");
+    selectionString += $" ~ Added on {_date.ToLongDateString()}";     
     return selectionString;
   }
 
@@ -67,7 +69,7 @@ public class Exercise : Tracked
   public override string CreateObjectString()
   {     
     string exerciseString = base.CreateObjectString();     
-    exerciseString += $"~|~{_exerciseName}";        
+    exerciseString += $"~|~{_exerciseName}~|~{_date.Year}~|~{_date.Month}~|~{_date.Day}";        
     return exerciseString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -79,7 +81,8 @@ public class Exercise : Tracked
     // reference source: https://stackoverflow.com/questions/36911460/adding-to-virtual-function-in-derived-class
     base.DivideAttributes(stringAttributes); 
     string[] attributes = stringAttributes.Split("~|~");
-    _exerciseName = attributes[4];     
+    _exerciseName = attributes[4];
+    _date = new DateOnly(int.Parse(attributes[5]), int.Parse(attributes[6]), int.Parse(attributes[7]));     
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 
@@ -88,7 +91,7 @@ public class Exercise : Tracked
   {  
     Tracked exercise;   
     string exerciseSelectionPrompt = "Which of the following exercises did you do?\nMake your selection by entering a number:\n";       
-    FoodComboTracker exercises = new FoodComboTracker();
+    SelectionTracker exercises = new SelectionTracker();
     exercises.TextfileToOjects("exercises.txt"); // load the list with the saved exercise in textfile
     int selection = exercises.SelectObject(exerciseSelectionPrompt, "exercise", "   ");
     if (selection == -1) // if the user chose the food needs to be added
@@ -102,5 +105,10 @@ public class Exercise : Tracked
       
     }
     return exercise;
+  }
+
+  public DateOnly GetDate()
+  {
+    return _date;
   }
 }

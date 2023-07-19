@@ -6,11 +6,7 @@ using System.Reflection;
 // base class for tracking things
 public class Tracker
 {
-// ### VARIABLE ATTRIBUTES ################################## //   
-  private string _itemCategory; // variable to hold the category heading of item being tracked
-  private int _amount;
-  private int _streak; 
-  
+// ### VARIABLE ATTRIBUTES ################################## //  
   protected List<Tracked> _items = new List<Tracked>();
 
 // ### CONSTRUCTORS ######################################### //  
@@ -20,18 +16,6 @@ public class Tracker
   }
 
 // ### METHODS ############################################## //
-  public int TotalCalories()
-  {
-    return 10;
-  }
-
-  // method to figure out the total for the tracked value
-  public virtual float TotalTrackedValue()
-  {
-    float number = 0;
-    return number;
-  }
-
   // method to put the item objects into a list
   public void LoadItem(Tracked item)
   {
@@ -89,12 +73,8 @@ public class Tracker
       Console.WriteLine(item.CreateDisplayString(count, ")", "normal"));
     }    
   }
-
-  public virtual void RemoveObject()
-  {
-
-  }
-
+ 
+  // getter method for the list
   public List<Tracked>  GetItems()
   {
     return _items;

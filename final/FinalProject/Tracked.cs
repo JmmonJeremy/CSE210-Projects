@@ -84,4 +84,9 @@ public class Tracked
   {
     return _calories;
   }
+
+  public float GetPortion()
+  {
+    return _portion;
+  }
 }

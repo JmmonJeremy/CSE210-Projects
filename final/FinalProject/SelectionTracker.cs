@@ -3,33 +3,22 @@ using System.IO;
 using System.Reflection;
 
 // ### CLASS ################################################ //
-// class for tracking meals and their calories and portions
-public class FoodComboTracker : Tracker
+// class for helping manage meal and exercise selections
+public class SelectionTracker : Tracker
 {
-// ### VARIABLE ATTRIBUTES ################################## //   
-  private string _foodComboSet; // variable to hold the set being tracked  
+// ### VARIABLE ATTRIBUTES ################################## //  
+
   private string _foodSelectionPrompt;  
   private List<Tracked> _group = new List<Tracked>();
  
 
 // ### CONSTRUCTORS ######################################### //  
-  public FoodComboTracker() : base()
+  public SelectionTracker() : base()
   {
     // nothing needed in here 
   }
 
 // ### METHODS ############################################## //
-  // method to figure out the total for the tracked value
-  public override float TotalTrackedValue()
-  {
-    return base.TotalTrackedValue();
-  }
-
-  public override void DisplayObjects()
-  {
-    base.DisplayObjects();
-  }
-
    // method to select the desired object in the list
     public int SelectObject(string foodSelectionPrompt, string subCategory, string indent)
   {
@@ -72,10 +61,5 @@ public class FoodComboTracker : Tracker
   {   
     Tracked selection = _group[indexNumber];   
     return selection;  
-  }
-
-  public override void RemoveObject()
-  {
-    base.RemoveObject();
   }
 }

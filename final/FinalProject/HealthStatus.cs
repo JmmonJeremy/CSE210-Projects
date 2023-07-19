@@ -58,8 +58,7 @@ public class HealthStatus : Tracked
     {
       space = " ";
     }   
-    // source reference: https://www.educative.io/answers/how-to-capitalize-the-first-letter-of-a-string-in-c-sharp
-    string displayString = $"{count}{numberMarker}{space} ({char.ToUpper(_category[0]) + _category.Substring(1)}): Date = {_date} Height = {_height}, Weight = {_weight} lbs, BMI = {_bmi}, calories = {_calories}, unit = {_unit}, portion = {_portion}";          
+    string displayString = $"{count}{numberMarker}{space}Date({_date}) Height({_height} inches) Weight({_weight} lbs), BMI({_bmi}), Calories({_calories}) Minutes Exercised({_minutes})";          
     return displayString;
   }
 
@@ -67,7 +66,7 @@ public class HealthStatus : Tracked
   // method to create & return a food text string
   public override string CreateObjectString()
   {           
-    string foodString = $"{GetType()}:|:{_category}=|={_portion}=|={_calories}=|={_unit}=|={_height}=|={_weight}=|={_bmi}=|={_date}";        
+    string foodString = $"{GetType()}:|:{_category}=|={_portion}=|={_calories}=|={_unit}=|={_height}=|={_weight}=|={_bmi}=|={_minutes}=|={_date}";        
     return foodString; 
   }
 // END OF GROUPING OF 2 METHODS THAT HELP CONVERT OBJECT TO A STRING USED IN TRACKER & DERIVED CLASSES
@@ -83,8 +82,9 @@ public class HealthStatus : Tracked
     _unit = attributes[3];     
     _height = int.Parse(attributes[4]);     
     _weight = float.Parse(attributes[5]);
-    _bmi = float.Parse(attributes[6]);    
-    _date = DateTime.Parse(attributes[7]);     
+    _bmi = float.Parse(attributes[6]);
+    _minutes = int.Parse(attributes[7]);    
+    _date = DateTime.Parse(attributes[8]);     
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
 
@@ -116,7 +116,7 @@ public class HealthStatus : Tracked
       DateTime mostRecent = DateTime.Parse("01/01/2000"); // to find most recent date
       List<HealthStatus> recentEntries = new List<HealthStatus>(); // to hold most recent entry      
       HealthStatus healthy = new HealthStatus("Set up empty");      
-      HealthStatusTracker heightTracker = new HealthStatusTracker();             
+      SelectionTracker heightTracker = new SelectionTracker();             
       heightTracker.TextfileToOjects("healthTrackerHistory.txt"); // put textfile into a list    
       // #2 ASSIGN LATEST VALUE TO _height ****************************************************
       foreach (HealthStatus item in heightTracker.GetItems())  //ITEM
@@ -214,13 +214,38 @@ public class HealthStatus : Tracked
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
       // Console.WriteLine($"_calories = {_calories}, list length = {recentEntries.Count}");
-       // #5 ASSIGN LATEST VALUE TO _bmi ****************************************************     
+      // #5 ASSIGN LATEST VALUE TO _bmi ****************************************************     
       _bmi = (float)Math.Round(_weight / Math.Pow(_height, 2.0) * 703, 2);
+      healthy._bmi = _bmi;
+      // Console.WriteLine($"_bmi = {_bmi}, list length = {recentEntries.Count}");
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
-      // Console.WriteLine($"_bmi = {_bmi}, list length = {recentEntries.Count}");
-      // healthy.SaveToTextfile("healthTracker.txt");
-      // DivideAttributes(attributes); 
+      // #6 ASSIGN LATEST VALUE TO _minutes **************************************************** 
+      float minutes = 0;
+      tracker.TextfileToOjects("ExerciseRecord.txt");
+      foreach (Exercise exercise in tracker.GetItems()) 
+      {        
+        if (DateOnly.FromDateTime(DateTime.Now).AddDays(-7) <= exercise.GetDate() && exercise.GetDate() >= DateOnly.FromDateTime(DateTime.Now))
+        {
+          minutes += (int)exercise.GetPortion();
+        }
+      }        
+      _minutes = (int)minutes;
+      healthy._minutes = _minutes; 
+      // Console.WriteLine($"The minutes are: {_minutes}");
+      // #7 ASSIGN LATEST VALUE TO _date ****************************************************
+      foreach (HealthStatus item9 in heightTracker.GetItems())  //ITEM9
+      {
+       if (mostRecent < item9.GetDate()) // assign latest date with a _weight value
+        {          
+          mostRecent = item9.GetDate();
+        }   
+      }
+      _date = mostRecent;
+      healthy._date = _date;
+      _finalValues.Add(healthy);
+      // Console.WriteLine($"_date = {_date}");
+      healthy.SaveToTextfile("healthTracker.txt");      
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO ATTRIBUTE VALUES
 
@@ -284,18 +309,28 @@ public class HealthStatus : Tracked
         }
         // Console.WriteLine($"_calories = {_calories}");     
         break;
-      case "_height": // if they chose "Record Height"        
+      case "_height":        
         _height = (int)stat;     
         break;
-      case "_weight": // if they chose "Record Height"        
+      case "_weight":       
         _weight = stat; 
         break;
-      case "_bmi": // if they chose "Record Height"  
+      case "_bmi": 
         _bmi = (float)Math.Round(_weight / Math.Pow(_height, 2.0) * 703, 2);       
         // Console.WriteLine($"_weight = {_weight} _height = {_height} bmi = {_bmi}");      
         break;
-      case "_exercise": // if they chose "Record Height"        
-        _ = stat; 
+      case "_minutes": 
+        tracker.TextfileToOjects("ExerciseRecord.txt");
+        foreach (Exercise exercise in tracker.GetItems()) 
+        {
+          
+          if (DateOnly.FromDateTime(DateTime.Now).AddDays(-7) <= exercise.GetDate() && exercise.GetDate() >= DateOnly.FromDateTime(DateTime.Now))
+          {
+            stat += (int)exercise.GetPortion();
+          }
+        }        
+        _minutes = (int)stat; 
+        // Console.WriteLine($"The minutes are: {_minutes}");
         break;       
     }   
   } 
@@ -312,32 +347,6 @@ public class HealthStatus : Tracked
     string endSpace = new string(' ', endSpaceNumber);
     string statString = $"{startSpace}{stat}{statAddOn}{endSpace}";
     return statString;
-  }
-  // method to figure out cup value of the food
-  public void PortionTotal()
-  {
-    
-  }
-
-  public void CalorieTotal()
-  {
-
-  }
-
-  public string CreateHealthString()
-  {
-    string healthString = "";
-    return healthString;
-  } 
-
-  public void StatsToTextfile(string filename)
-  {
-
-  }
-
-  public void TextfileToAttributes(string filename)
-  {
-
   }
  
   // method to display a Health Dashboard
@@ -357,7 +366,7 @@ public class HealthStatus : Tracked
     CreateBoardSides(); 
     // LINE #2 OF HEALTH DASHBOARD
     DisplayMeasuredStats("BMI:          ", "   Between 18.5 - 24.9    ", "   ", CreateStatString(_bmi, "", 11));    
-    DisplayDoingStats("Exercise:     ", "  150 Minutes Cardio/Week ", "   ", "  30 Min   ");
+    DisplayDoingStats("Exercise:     ", "  150 Minutes Cardio/Week ", "   ", CreateStatString(_minutes, " Min", 11));
     CreateBoardSides();  
     CreateBoardSides(); 
     CreateBoardBottom(); 
@@ -459,7 +468,7 @@ public class HealthStatus : Tracked
       DateTime mostRecent = DateTime.Parse("01/01/2000"); // to find most recent date
       List<HealthStatus> recentEntries = new List<HealthStatus>(); // to hold most recent entry      
       HealthStatus healthy = new HealthStatus("Set up empty");      
-      HealthStatusTracker heightTracker = new HealthStatusTracker();             
+      SelectionTracker heightTracker = new SelectionTracker();             
       heightTracker.TextfileToOjects("healthTrackerHistory.txt"); // put textfile into a list    
       // #2 ASSIGN LATEST VALUE TO _height ****************************************************
       foreach (HealthStatus item in heightTracker.GetItems())  //ITEM

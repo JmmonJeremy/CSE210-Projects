@@ -1,1 +1,2 @@
-Exercise:|:exercise~|~30~|~minutes~|~100~|~walking
+Exercise:|:exercise~|~30~|~minutes~|~100~|~walking~|~2023~|~7~|~18
+Exercise:|:exercise~|~60~|~minutes~|~500~|~basketball~|~2023~|~7~|~18
