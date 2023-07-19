@@ -34,3 +34,5 @@ Recipe:|:sandwich, wrap, or taco-|-1-|-serving-|-800-|-chicken burger-|-Food:|:g
 Food:|:grain food~|~1.5~|~cups~|~210~|~bran cereal
 Recipe:|:dish-|-2-|-cups-|-300-|-bran cereal in milk-|-Food:|:grain Food~|~1.5~|~cups~|~210~|~bran cereal*~*Food:|:liquid or Drink~|~1~|~cup~|~90~|~milk
 Recipe:|:soup or stew-|-3-|-cups-|-517-|-vegetable stew-|-Food:|:vegetable~|~3~|~cups~|~55~|~carrot*~*Food:|:vegetable~|~0.5~|~cups~|~22~|~celery*~*Food:|:protein Food~|~3~|~cups~|~350~|~pork*~*Food:|:liquid or Drink~|~1~|~cup~|~90~|~milk*~*Food:|:liquid or Drink~|~2.25~|~cups~|~0~|~water
+Food:|:grain food~|~1~|~cup~|~115~|~pasta
+Recipe:|:sandwich, wrap, or taco-|-1-|-serving-|-350-|-taco-|-Food:|:protein Food~|~3~|~cups~|~350~|~pork

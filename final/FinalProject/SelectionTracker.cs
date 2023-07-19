@@ -62,4 +62,16 @@ public class SelectionTracker : Tracker
     Tracked selection = _group[indexNumber];   
     return selection;  
   }
+
+  // method to display the desired item objects in the _items list
+  public void ShowCompletion()
+  {   
+    Console.WriteLine(); 
+    int count = 0;  
+    foreach (Exercise item in _items)
+    {  
+      count ++;     
+      Console.WriteLine(item.CreateCompletedString(count, ")"));
+    }    
+  }
 }

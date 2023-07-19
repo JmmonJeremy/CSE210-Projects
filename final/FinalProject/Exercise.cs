@@ -111,4 +111,18 @@ public class Exercise : Tracked
   {
     return _date;
   }
+
+    // method to create a user display string
+  public string CreateCompletedString(int count, string numberMarker)
+  {       
+    string space = "  ";
+    if (count > 9)
+    {
+      space = " ";
+    }
+    string selectionString = $"   {count}{numberMarker}{space}{_exerciseName} ({GetType()}) ";  
+    selectionString += base.CreateDisplayString(count, ".", "normal");
+    selectionString += $" ~ Recorded as Done.";     
+    return selectionString;
+  }
 }
