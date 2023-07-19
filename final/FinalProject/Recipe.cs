@@ -219,7 +219,7 @@ public class Recipe : Food
     NumberToCategory(PresentFoodCategoriesMenu());       
     FoodComboTracker foods = new FoodComboTracker();
     foods.TextfileToOjects("foods.txt"); // load the list with the saved food in textfile
-    int selection = foods.SelectObject(_foodSelectionPrompt, _menuChoice);
+    int selection = foods.SelectObject(_foodSelectionPrompt, _menuChoice, "");
     if (selection == -1) // if the user chose the food needs to be added
     {
       // do something to help the user be able to add the food item 

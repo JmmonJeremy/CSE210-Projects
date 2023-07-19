@@ -26,7 +26,7 @@ public class Menu
     string selection = "No selection made.";
     string space = new string(' ', 39);   
     // save the menu to be passed into the validator method for use    
-    string mainMenuPrompt = $"\n{space}Make your selection by entering a number:\n{space}  1 - Record Meal (Last done – Date & Meal)\n{space}  2 - Record Exercise (Last done – Date)\n{space}  3 - Record Health Statistic (Last done – Date)\n{space}  4 - Add Food (Current List of #)\n{space}  5 - Add Recipe (Current List of #)\n{space}  6 - Add Exercise (Current List of #)\n{space}  7 - Display Statistics (Last viewed Date)\n{space}  8 - Close Program\n{space}Selection: ";    
+    string mainMenuPrompt = $"\n{space}Make your selection by entering a number:\n{space}  1 - Record Meal \n{space}  2 - Record Exercise \n{space}  3 - Record Health Statistic \n{space}  4 - Add Food \n{space}  5 - Add Recipe \n{space}  6 - Add Exercise \n{space}  7 - Display Items \n{space}  8 - Close Program\n{space}Selection: ";    
     // pass the mainMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", mainMenuPrompt);      
@@ -50,13 +50,26 @@ public class Menu
       }        
       if (_choice == "2") // if they chose "Record Exercise"
       { 
-        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu         
-        RunRecordExerciseChoices(); // present the user the menu to "Record Exercise"               
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
+        Exercise exercise = new Exercise("Set up empty");       
+        Tracked myExercise = exercise.AddToExerciseList(); // present the user the menu to "Record Exercise" 
+        Tracker tracker = new Tracker();
+        tracker.LoadItem(myExercise);
+        tracker.ObjectsToTextfile("ExerciseRecord.txt"); // save for record
+        tracker.TextfileToOjects("ExerciseRecord.txt");     
+        tracker.DisplayObjects();               
       }      
       if (_choice == "3") // if they chose "Record Health Statistic"
       {
         _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
-        RunRecordHealthChoices(); // present the user the menu to "Record Health Statistic"    
+        HealthStatus health = new HealthStatus("weight", "lbs");
+        health.SaveToTextfile("healthTracker.txt"); // save current version for display
+        HealthStatusTracker bmiHealthTracker = new HealthStatusTracker();
+        bmiHealthTracker.LoadItem(health);
+        bmiHealthTracker.ObjectsToTextfile("healthTrackerHistory.txt"); // save for record          
+        bmiHealthTracker.TextfileToOjects("healthTrackerHistory.txt");     
+        bmiHealthTracker.DisplayObjects();                
+        break; 
       }     
       if (_choice == "4") // if they chose "Add Food"
       {   
@@ -71,12 +84,17 @@ public class Menu
       if (_choice == "6") // if they chose "Add Exercise"
       {
         _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
-        // AddExercise Method
+        // Exercise exercise= new Exercise();
+        ExerciseTracker exercises = new ExerciseTracker();
+        // exercises.LoadItem(exercise);
+        // exercises.ObjectsToTextfile("exercises.txt");        
+        exercises.TextfileToOjects("exercises.txt");
+        exercises.DisplayObjects();
       }      
-      if (_choice == "7") // if they chose "Display Statistics"
+      if (_choice == "7") // if they chose "Display Itemss"
       {
         _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
-        // DisplayStatistics Method
+        RunDisplayChoices();
       }                  
     }
   }
@@ -86,11 +104,11 @@ public class Menu
   {    
     string selection = "No selection made.";    
     // save the menu to be passed into the validator method for use
-    string recordMealMenuPrompt = "\nMake your selection by entering a number:\n  1 - Breakfast Input (Current Streak of #)\n  2 - Lunch Input (Current Streak of #)\n  3 - Dinner Input (Current Streak of #)\n  4 - Snack Input (Current Streak of #)\n  5 - Liquid Input (Current Streak of #)\n  6 - Add Food (Current List of #)\n  7 - Add Recipe (Current List of #)\n  8 - Remove Food (Current List of #)\n  9 - Remove Recipe (Current List of #)\n 10 - Return to Main Menu\nSelection: ";
+    string recordMealMenuPrompt = "\nMake your selection by entering a number:\n  1 - Breakfast Input \n  2 - Lunch Input \n  3 - Dinner Input \n  4 - Snack Input \n  5 - Add Food \n  6 - Add Recipe  \n  7 - Return to Main Menu\nSelection: ";
     // pass the recordMealMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", recordMealMenuPrompt);          
-    selection = validator.SelectionCheck(10, "Do Confirm"); // get a valid entry & confirm as the user's choice
+    selection = validator.SelectionCheck(7, "Do Confirm"); // get a valid entry & confirm as the user's choice
     return selection; // return the user's selection
   }
 
@@ -156,135 +174,83 @@ public class Menu
         snackCalories.SaveToTextfile(_textfileName);
 
         snackTracker.DisplayObjects();   
-        break;
-      case "5": // if they chose "Liquid Input"
-        Meal liquid = new Meal("liquid or drink", "%");
-        FoodComboTracker liquidTracker = new FoodComboTracker();
-        liquidTracker.LoadItem(liquid);
-        liquidTracker.ObjectsToTextfile(_textfileName);        
-        liquidTracker.TextfileToOjects(_textfileName);
-
-        HealthStatus liquidCalories = new HealthStatus("intake", "calories");
-        HealthStatusTracker healthTrackerLiqCal = new HealthStatusTracker();
-        healthTrackerLiqCal.LoadItem(liquidCalories);
-        liquidCalories.SaveToTextfile(_textfileName);
-
-        liquidTracker.DisplayObjects();   
-        break;  
-      case "6": // if they chose "Add Food"
+        break;       
+      case "5": // if they chose "Add Food"
         RunAddFoodChoices(); // present the user the menu to "Add Food"
         break;
-      case "7": // if they chose "Add Recipe"
+      case "6": // if they chose "Add Recipe"
         RunAddRecipeChoices();
-        break;
-      case "8": // if they chose "Remove Food"
-        RunRemoveFoodChoices();
-        break;
-      case "9": // if they chose "Remove Recipe"
-        // method
-        break;
+        break;    
       default: // if they chose "Return to Main Menu"        
         break; // do nothing to end this menu & return user to the main menu
     }  
   }
 
-  // menu for the user to record exercise
-  public string PresentRecordExerciseMenu()
+  // menu for the user to display the different lists
+  public string PresentDisplayMenu()
   {    
     string selection = "No selection made."; 
     // save the menu to be passed into the validator method for use    
-    string recordExerciseMenuPrompt = "\nMake your selection by entering a number:\n  1 - Walking (Done # minutes in total)\n  2 - Trampoline Cardio Workout (Done # minutes in total)\n  3 - Lifting Weights (Done # minutes in total)\n  4 - Ab Machine Workout Video (Done # minutes in total)\n  5 - Ab & Cardio Workout Video (Done # minutes in total)\n  6 - Exercise Bike (Done # minutes in total)\n  7 - Add Exercise (Current List of #)\n  8 - Remove Exercise (Current List of #)\n  9 - Return to Main Menu\nSelection: ";
-    // pass the recordExerciseMenuPrompt into the object & for the user's 
+    string displayMenuPrompt = "\nMake your selection by entering a number:\n  1 - Display Food & Recipe List \n  2 - Display Meals \n  3 - Display Exercise List \n  4 - Display Recorded Exercises \n  5 - Display Your Health Statistics \n  5 - Return to Main Menu\nSelection: ";
+    // pass the displayMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
-    Validator validator = new Validator("Use prompt", recordExerciseMenuPrompt);          
-    selection = validator.SelectionCheck(9, "Do Confirm"); // get a valid entry & confirm as the user's choice
+    Validator validator = new Validator("Use prompt", displayMenuPrompt);          
+    selection = validator.SelectionCheck(6, "Do Confirm"); // get a valid entry & confirm as the user's choice
     return selection; // return the user's selection
   }
 
-  // method to run the user's choice for the "Record Exercise Menu" 
-  public void RunRecordExerciseChoices()
+  // method to run the user's choice for the "Display Menu" 
+  public void RunDisplayChoices()
   {     
-    string choice = PresentRecordExerciseMenu(); // display menu options and return user's choice
+    string choice = PresentDisplayMenu(); // display menu options and return user's choice
     switch (choice)
     {
       // RUN OPTION USER CHOSE
-      case "1": // if they chose "Walking"
-        // method
+      case "1": // if they chose "Display Food & Recipe List"
+        Tracker foodTracker = new Tracker();
+        foodTracker.TextfileToOjects("foods.txt");
+        foodTracker.DisplayObjects();
+        Console.Write("\nPress Enter to Return to the Main Menu: ");
+        Console.ReadLine();
         break;
-      case "2": // if they chose "Trampoline Cardio Workout"
-        // method
+      case "2": // if they chose "Display Meals"
+        FoodComboTracker mealTracker = new FoodComboTracker();
+        mealTracker.TextfileToOjects("JeremysMealRecord.txt");
+        mealTracker.DisplayObjects();
+        Console.Write("\nPress Enter to Return to the Main Menu: ");
+        Console.ReadLine();
         break;
-      case "3": // if they chose "Lifting Weights"
-        // method
+      case "3": // if they chose "Display Exercise List"
+        ExerciseTracker exercises = new ExerciseTracker();               
+        exercises.TextfileToOjects("exercises.txt");
+        exercises.DisplayObjects();
+        Console.Write("\nPress Enter to Return to the Main Menu: ");
+        Console.ReadLine();
         break;
-      case "4": // if they chose "Ab Machine Workout Video"
-        // method
+      case "4": // if they chose "Display Recorded Exercises"
+        ExerciseTracker exercised = new ExerciseTracker();
+        exercised.TextfileToOjects("ExerciseRecord.txt");
+        exercised.DisplayObjects();
+        Console.Write("\nPress Enter to Return to the Main Menu: ");
+        Console.ReadLine();
         break;
-      case "5": // if they chose "Ab & Cardio Workout Video"
-        // method
-        break;  
-      case "6": // if they chose "Exercise Bike"
-        // method
+      case "5": // if they chose "Display Recorded Exercises"       
+        HealthStatusTracker healthy = new HealthStatusTracker();       
+        healthy.TextfileToOjects("HealthTrackerHistory");
+        Console.Write("\nPress Enter to Return to the Main Menu: ");
+        Console.ReadLine();
         break;
-      case "7": // if they chose "Add Exercise"
-        // method
-        break;
-      case "8": // if they chose "Remove Exercise"
-        // method
       default: // if they chose "Return to Main Menu"        
         break; // do nothing to end this menu & return user to the main menu
     }  
   } 
-
-  // menu for the user to record heath statistics
-  public string PresentRecordHealthMenu()
-  {    
-    string selection = "No selection made."; 
-    // save the menu to be passed into the validator method for use    
-    string recordHealthMenuPrompt = "\nMake your selection by entering a number:\n  1 - Record Body Mass Index (Needed weekly – Last done Date)\n  2 - Record Waist-to-Hip Ratio (Needed monthly – Last done Date)\n  3 - Record Blood Pressure (Needed yearly – Last done Date)\n  4 - Record Cholesterol Level (Needed every 4 years – Last done Date)\n  5 - Return to Main Menu\nSelection: ";
-    // pass the recordHealthMenuPrompt into the object & for the user's 
-    // entry value put "Use prompt" since user will change value after the prompt
-    Validator validator = new Validator("Use prompt", recordHealthMenuPrompt);          
-    selection = validator.SelectionCheck(5, "Do Confirm"); // get a valid entry & confirm as the user's choice
-    return selection; // return the user's selection
-  }
-
-  // method to run the user's choice for the "Record Health Menu" 
-  public void RunRecordHealthChoices()
-  {     
-    string choice = PresentRecordHealthMenu(); // display menu options and return user's choice
-    switch (choice)
-    {
-      // RUN OPTION USER CHOSE
-      case "1": // if they chose "Record Body Mass Index"
-        HealthStatus health = new HealthStatus("weight", "lbs");
-        health.SaveToTextfile("healthTracker.txt"); // save current version for display
-        HealthStatusTracker bmiHealthTracker = new HealthStatusTracker();
-        bmiHealthTracker.LoadItem(health);
-        bmiHealthTracker.ObjectsToTextfile("healthTrackerHistory.txt"); // save for record          
-        bmiHealthTracker.TextfileToOjects("healthTrackerHistory.txt");     
-        bmiHealthTracker.DisplayObjects();                
-        break;
-      case "2": // if they chose "Record Waist-to-Hip Ratio"
-        // method
-        break;
-      case "3": // if they chose "Record Blood Pressure"
-        // method
-        break;
-      case "4": // if they chose "Record Cholesterol Level"
-        // method
-        break;            
-      default: // if they chose "Return to Main Menu"        
-        break; // do nothing to end this menu & return user to the main menu
-    }  
-  }
 
   // menu for the user to add food
   public string PresentAddFoodMenu()
   {    
     string selection = "No selection made."; 
     // save the menu to be passed into the validator method for use    
-    string addFoodMenuPrompt = "\nMake your selection by entering a number:\n  1 - Add Fruit (Current List of #)\n  2 - Add Vegetable (Current List of #)\n  3 - Add Grain Food (Current List of #)\n  4 - Add Dairy Food (Current List of #)\n  5 - Add Protein Food (Current List of #)\n  6 - Add Liquid (Current List of #)\n  7 - Add Oil or Fat (Current List of #)\n  8 - Add Other Food (Current List of #)\n  9 - Return to Main Menu\nSelection: ";
+    string addFoodMenuPrompt = "\nMake your selection by entering a number:\n  1 - Add Fruit \n  2 - Add Vegetable \n  3 - Add Grain Food \n  4 - Add Dairy Food \n  5 - Add Protein Food \n  6 - Add Liquid \n  7 - Add Oil or Fat \n  8 - Add Other Food \n  9 - Return to Main Menu\nSelection: ";
     // pass the addFoodMenuPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt
     Validator validator = new Validator("Use prompt", addFoodMenuPrompt);          
@@ -363,52 +329,6 @@ public class Menu
         otherTracker.TextfileToOjects("foods.txt");
         otherTracker.DisplayObjects();
         break;        
-      default: // if they chose "Return to Main Menu"        
-        break; // do nothing to end this menu & return user to the main menu
-    }  
-  } 
-
-  // menu for the user to remove food
-  public string PresentRemoveFoodMenu()
-  {    
-    string selection = "No selection made."; 
-    // save the menu to be passed into the validator method for use    
-    string RemoveFoodMenuPrompt = "\nMake your selection by entering a number:\n  1 - Remove Fruit (Current List of #)\n  2 - Remove Vegetable (Current List of #)\n  3 - Remove Grain Food (Current List of #)\n  4 - Remove Dairy Food (Current List of #)\n  5 - Remove Protein Food (Current List of #)\n  6 - Remove Oil or Fat (Current List of #)\n  7 - Remove Liquid (Current List of #)\n  8 - Return to Main Menu\nSelection: ";
-    // pass the RemoveFoodMenuPrompt into the object & for the user's 
-    // entry value put "Use prompt" since user will change value after the prompt
-    Validator validator = new Validator("Use prompt", RemoveFoodMenuPrompt);          
-    selection = validator.SelectionCheck(8, "Do Confirm"); // get a valid entry & confirm as the user's choice
-    return selection; // return the user's selection
-  }
-
-  // method to run the user's choice for the "Remove Food Menu" 
-  public void RunRemoveFoodChoices()
-  {     
-    string choice = PresentRemoveFoodMenu(); // display menu options and return user's choice
-    switch (choice)
-    {
-      // RUN OPTION USER CHOSE
-      case "1": // if they chose "Remove Fruit"
-        // method
-        break;
-      case "2": // if they chose "Remove Vegetable"
-        // method
-        break;
-      case "3": // if they chose "Remove Grain Food"
-        // method
-        break;
-      case "4": // if they chose "Remove Dairy Food"
-        // method
-        break;
-      case "5": // if they chose "Remove Protein Food"
-        // method
-        break;  
-      case "6": // if they chose "Remove Oil or Fat"
-        // method
-        break;
-      case "7": // if they chose "Remove Liquid"
-        // method
-        break;      
       default: // if they chose "Return to Main Menu"        
         break; // do nothing to end this menu & return user to the main menu
     }  

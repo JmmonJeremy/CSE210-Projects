@@ -31,7 +31,7 @@ public class FoodComboTracker : Tracker
   }
 
    // method to select the desired object in the list
-    public int SelectObject(string foodSelectionPrompt, string subCategory)
+    public int SelectObject(string foodSelectionPrompt, string subCategory, string indent)
   {
     // #1 USER SELECTS OJECT FROM LIST **************************************************
     int indexNumber = 0; // for returning the index of the object desired
@@ -54,8 +54,8 @@ public class FoodComboTracker : Tracker
     if (selectionNumber > 9)
     {
       space = " ";
-    }
-    foodSelectionPrompt += $"{selectionNumber}){space}The {subCategory} option needs to be added.\nSelection: ";       
+    }   
+    foodSelectionPrompt += $"{indent}{selectionNumber}){space}The {subCategory} option needs to be added.\nSelection: ";       
     // pass the foodSelectionPrompt into the object & for the user's 
     // entry value put "Use prompt" since user will change value after the prompt  
     Validator validator = new Validator("Use prompt", foodSelectionPrompt);          

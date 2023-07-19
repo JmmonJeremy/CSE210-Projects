@@ -8,12 +8,36 @@ public class Exercise : Tracked
 {
 // ### VARIABLE ATTRIBUTES ################################## //   
   private string _exerciseName; 
+  private List<Tracked> _exerciseList;
 
 // ### CONSTRUCTORS ######################################### // 
   // main constructor to set up a Exercise object with the user's inputs
   public Exercise() : base("exercise", "minutes")
   {    
     // uses base class to set up 
+     // #1 USER SETS FOOD _name **************************************************
+    string namePrompt = $"What is the name of the {_category}? ";    
+    // pass the namePrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator = new Validator("Use prompt", namePrompt);    
+    // with "Use prompt" set the method to to use the prompt the first time the method is used
+    _exerciseName = validator.ConfirmEntry("Use prompt");
+    // #2 USER SETS FOOD _portion ***************************************************
+    string portionPrompt = $"How many {_unit} will you be exercising? ";    
+    // pass the portionPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator1 = new Validator("Use prompt", portionPrompt);    
+    // set the method to use the prompt the first time the method is used with "Use Prompt"
+    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
+    _portion = validator1.PosStringDecimalCheck("Use prompt", "Do ConfirmEntry");
+    // #3 USER SETS FOOD _calories ***************************************************
+    string caloriesPrompt = $"How many calories will you expend while exercising? ";    
+    // pass the caloriesPrompt into the object & for the user's 
+    // entry value put "Use prompt" since user will change value after the prompt
+    Validator validator2 = new Validator("Use prompt", caloriesPrompt);    
+    // set the method to use the prompt the first time the method is used with "Use Prompt"
+    // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
+    _calories = validator2.PosStringNumberCheck("Use prompt", "Do ConfirmEntry", 0); 
   }
 
   // constructor for #1 the ClassToString method & #2 converting textfile to Exercise object
@@ -33,7 +57,7 @@ public class Exercise : Tracked
     {
       space = " ";
     }
-    string selectionString = $"   {count}{numberMarker}{space}{_exerciseName} ";  
+    string selectionString = $"   {count}{numberMarker}{space}{_exerciseName} ({GetType()}) ";  
     selectionString += base.CreateDisplayString(count, ".", "normal");      
     return selectionString;
   }
@@ -58,4 +82,25 @@ public class Exercise : Tracked
     _exerciseName = attributes[4];     
   }
 // END OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO OBJECT ATTRIBUTES USED IN CONSTRUCTOR
+
+  // method to list the exercises and have the user add the Exercise object to the exercise storage List
+  public Tracked AddToExerciseList()
+  {  
+    Tracked exercise;   
+    string exerciseSelectionPrompt = "Which of the following exercises did you do?\nMake your selection by entering a number:\n";       
+    FoodComboTracker exercises = new FoodComboTracker();
+    exercises.TextfileToOjects("exercises.txt"); // load the list with the saved exercise in textfile
+    int selection = exercises.SelectObject(exerciseSelectionPrompt, "exercise", "   ");
+    if (selection == -1) // if the user chose the food needs to be added
+    {
+      // do something to help the user be able to add the food item 
+      exercise = new Tracked("exercise", "minutes");;     
+    }
+    else
+    {
+      exercise = exercises.ReturnObject(selection);
+      
+    }
+    return exercise;
+  }
 }

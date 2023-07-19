@@ -9,49 +9,10 @@ public class HealthStatus : Tracked
 // ### VARIABLE ATTRIBUTES ################################## // 
   private Tracker tracker = new Tracker(); 
   private DateTime _date; 
-  private string _foodType;   
-  private string _foodName;  
-  private float _portionValue; 
-  private string _portionScale; 
-  private int _caloriesValue; 
-  private string _attributes; 
-
-  private string _userName;
-  // reference source: https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
-  private string _bmiStandard = "Between 18.5 - 24.9";   
-  public float _bmi; 
-  private string _weightStandard = "Between 149 - 163 lbs"; 
-  public float _weight; 
-  public int _height; 
-  // reference source: https://myxperiencefitness.com/7-ways-besides-weight-to-gauge-your-health/
-  private string _waistToHipRatioStandard = "Below 0.95"; 
-  private float _waistToHipRatio; 
-  private float _waistCircumference;
-  private float _hipCircumference;
-
-  // reference source: https://www.cdc.gov/bloodpressure/about.htm#
-  private string _bloodPressureStandard = "Below 120/80";
-  private string _bloodPressure;
-  private int _systolicPressure;
-  private int _diastolicPressure;
-  // reference source: https://my.clevelandclinic.org/health/articles/11920-cholesterol-numbers-what-do-they-mean
-  private string _cholesterolLevelStandard = "Below 200";
-  private int _cholesterolLevel;
-  // reference source: https://www.myplate.gov/eat-healthy/fruits
-  private string _fruitIntakeStandard = "Between 2 - 2.5 Cups a Day";
-  private float _fruitIntake;
-  // reference source: https://www.myplate.gov/eat-healthy/vegetables
-  private string _veggieIntakeStandard = "Between 3 - 4 Cups a Day";
-  private float _veggieIntake;
-  // reference source: https://health.clevelandclinic.org/how-many-calories-a-day-should-i-eat/#
-  private string _calorieStandard = "Between 1600 - 3000";
-  private int _calorieGoal;
-  private int _calorieTotal;
-  // reference source: mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/water/art-20044256
-  private string _liquidIntakeStandard = "Between 11.5 - 15.5 Cups a Day";
-  private float _liquidIntake;
-  // reference source: https://www.cdc.gov/physicalactivity/basics/adults/index.htm
-  private string _exerciseStandard = "150 Minutes of Cardio & 2 Days of Bodybuilding Weekly";
+  private int _minutes;   
+  private float _bmi; 
+  private float _weight; 
+  private int _height;  
   private List<HealthStatus> _finalValues = new List<HealthStatus>();
   
 // ### CONSTRUCTORS ######################################### //
@@ -66,9 +27,12 @@ public class HealthStatus : Tracked
     {
       SetStat("Please enter your weight in pounds: ", "_weight", 11);
       LoadHeight();  
-      SetStat("No prompt", "_bmi", 11);
-      Console.WriteLine($"Just below SetStat for _bmi : _weight = {_weight} _height = {_height} bmi = {_bmi}");   
-    }      
+      SetStat("No prompt", "_bmi", 11);      
+    } 
+    if (category == "exercise")
+    {
+      SetStat("No prompt", "_minutes", 11); 
+    }     
   }  
 
   // constructor for converting textfile to Food object in Tracker Class & for the ClassToString method in derived classes
@@ -180,7 +144,7 @@ public class HealthStatus : Tracked
       healthy._height = recentEntries.Last()._height; 
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
-      Console.WriteLine($"_height = {_height}, list length = {recentEntries.Count}");
+      // Console.WriteLine($"_height = {_height}, list length = {recentEntries.Count}");
       // #3 ASSIGN LATEST VALUE TO _weight ****************************************************
       foreach (HealthStatus item3 in heightTracker.GetItems())  //ITEM3
       {
@@ -207,7 +171,7 @@ public class HealthStatus : Tracked
       healthy._weight = recentEntries.Last()._weight;
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
-      Console.WriteLine($"_weight = {_weight}, list length = {recentEntries.Count}");
+      // Console.WriteLine($"_weight = {_weight}, list length = {recentEntries.Count}");
       // #4 ASSIGN LATEST VALUE TO _calories ****************************************************
       foreach (HealthStatus item6 in heightTracker.GetItems())  //ITEM6
       {
@@ -237,7 +201,8 @@ public class HealthStatus : Tracked
         }
       }
       if (recentEntries.Count > 0)
-      {            
+      {    
+        _calories = 0;        
         int count = 0;
         foreach(HealthStatus calorie in recentEntries)
         {
@@ -248,12 +213,12 @@ public class HealthStatus : Tracked
       healthy._calories = _calories;
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
-      Console.WriteLine($"_calories = {_calories}, list length = {recentEntries.Count}");
+      // Console.WriteLine($"_calories = {_calories}, list length = {recentEntries.Count}");
        // #5 ASSIGN LATEST VALUE TO _bmi ****************************************************     
       _bmi = (float)Math.Round(_weight / Math.Pow(_height, 2.0) * 703, 2);
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
-      Console.WriteLine($"_bmi = {_bmi}, list length = {recentEntries.Count}");
+      // Console.WriteLine($"_bmi = {_bmi}, list length = {recentEntries.Count}");
       // healthy.SaveToTextfile("healthTracker.txt");
       // DivideAttributes(attributes); 
   }
@@ -270,8 +235,7 @@ public class HealthStatus : Tracked
     Validator validator2 = new Validator("Use prompt", statPrompt);    
     // set the method to use the prompt the first time the method is used with "Use Prompt"
     // also set to use the ConfirmEntry method after validating number with "Do ConfirmEntry"
-    stat = validator2.PosStringDecimalCheck("Use prompt", "Don't ConfirmEntry");
-    // Console.WriteLine(stat);
+    stat = validator2.PosStringDecimalCheck("Use prompt", "Don't ConfirmEntry");   
     }
     // #2 ASSIGN VALUE GIVEN TO CORRESPONDING ATTRIBUTE *************************************    
     switch (attribute)
@@ -300,12 +264,12 @@ public class HealthStatus : Tracked
             // _date = meal1.GetDateOnly().ToDateTime(TimeOnly.Parse("12:00:00 AM"));
             string date = meal1.GetDateOnly().ToString();
             _date = DateTime.Parse(date);
-            Console.WriteLine($"The date meal was created is {date}");
+            // Console.WriteLine($"The date meal was created is {date}");
             _calories += meal1.GetCalories();
           }
         }
         if (_calories == 0)
-        {
+        {          
           foreach (Meal meal2 in tracker.GetItems())
           {
             if (meal2.GetDateOnly() == mostRecent)
@@ -313,12 +277,12 @@ public class HealthStatus : Tracked
             // _date = meal2.GetDateOnly().ToDateTime(TimeOnly.Parse("12:00:00 AM"));
             string date = meal2.GetDateOnly().ToString();
             _date = DateTime.Parse(date);
-            Console.WriteLine($"The date is {date}");
+            // Console.WriteLine($"The date is {date}");
             _calories += meal2.GetCalories();
           }
           }  
         }
-        Console.WriteLine($"_calories = {_calories}");     
+        // Console.WriteLine($"_calories = {_calories}");     
         break;
       case "_height": // if they chose "Record Height"        
         _height = (int)stat;     
@@ -327,9 +291,11 @@ public class HealthStatus : Tracked
         _weight = stat; 
         break;
       case "_bmi": // if they chose "Record Height"  
-        Console.WriteLine($"THE CODE IS HERE ! _weight = {_weight} _height = {_height} bmi = {_bmi}");        
-        _bmi = (float)(_weight / Math.Pow(_height, 2.0) * 703);
-        Console.WriteLine($"_weight = {_weight} _height = {_height} bmi = {_bmi}");      
+        _bmi = (float)Math.Round(_weight / Math.Pow(_height, 2.0) * 703, 2);       
+        // Console.WriteLine($"_weight = {_weight} _height = {_height} bmi = {_bmi}");      
+        break;
+      case "_exercise": // if they chose "Record Height"        
+        _ = stat; 
         break;       
     }   
   } 
@@ -377,10 +343,11 @@ public class HealthStatus : Tracked
   // method to display a Health Dashboard
   public void HealthDashboard()
   {  
+    // (BMI) reference source: https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
+    // (Calories) reference source: https://health.clevelandclinic.org/how-many-calories-a-day-should-i-eat/#
+    // (Exercise) reference source: https://www.cdc.gov/physicalactivity/basics/adults/index.htm
+    // reference source: https://myxperiencefitness.com/7-ways-besides-weight-to-gauge-your-health/
     LoadAttributes("healthTrackerHistory.txt");
-    Console.WriteLine($"The _date is {_date}");
-    Console.WriteLine($"The _height is {_height}");
-    Console.WriteLine($"The _bmi is {_bmi}");
     CreateSectionTitles();    
     CreateBoardTop();
     CreateBoardSides(); 
@@ -390,25 +357,15 @@ public class HealthStatus : Tracked
     CreateBoardSides(); 
     // LINE #2 OF HEALTH DASHBOARD
     DisplayMeasuredStats("BMI:          ", "   Between 18.5 - 24.9    ", "   ", CreateStatString(_bmi, "", 11));    
-    DisplayDoingStats("Fruit:        ", "   Between 2 - 2.5 Cups   ", "   ", "  4 Cups   ");
-    CreateBoardSides(); 
-    // LINE #3 OF HEALTH DASHBOARD
-    DisplayMeasuredStats("Waist/Hip:    ", "        Below .95         ", "   ", "    .99    ");    
-    DisplayDoingStats("Vegetable:    ", "    Between 3 - 4 Cups    ", "   ", " 1.75 Cups "); 
-    CreateBoardSides(); 
-    // LINE #4 OF HEALTH DASHBOARD
-    DisplayMeasuredStats("BP:           ", "       Below 120/80       ", "   ", "  130/90   ");    
-    DisplayDoingStats("Fluid:        ", " Between 11.5 - 15.5 Cups ", "   ", " 8.5 Cups  ");
-    CreateBoardSides();  
-    // LINE #5 OF HEALTH DASHBOARD
-    DisplayMeasuredStats("Cholesterol:  ", "        Below 200         ", "   ", "   196.6   ");    
     DisplayDoingStats("Exercise:     ", "  150 Minutes Cardio/Week ", "   ", "  30 Min   ");
-    CreateBoardSides(); 
-    // LINE #5 OF HEALTH DASHBOARD
-    DisplayMeasuredStats("LDL & HDL:    ", " Below 100 & 60 or Higher ", "   ", " 100 & 85  ");    
-    DisplayDoingStats("Build Muscle: ", "        2 Days/Week       ", "   ", "  2 Days   ");
+    CreateBoardSides();  
     CreateBoardSides(); 
     CreateBoardBottom(); 
+    // reference source: https://my.clevelandclinic.org/health/articles/11920-cholesterol-numbers-what-do-they-mean
+    // reference source: mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/water/art-20044256
+    // reference source: https://www.myplate.gov/eat-healthy/fruits
+    // reference source: https://www.myplate.gov/eat-healthy/vegetables
+    // reference source: https://www.cdc.gov/bloodpressure/about.htm#
   }
   
   // method to display the text for the measurement stats
@@ -527,9 +484,6 @@ public class HealthStatus : Tracked
         }
       }
       _height = recentEntries.Last()._height;       
-      healthy._height = recentEntries.Last()._height; 
-      mostRecent = DateTime.Parse("01/01/2000"); // reset date
-      recentEntries.Clear(); // reset list
-      Console.WriteLine($"_height = {_height}, list length = {recentEntries.Count}");
+      healthy._height = recentEntries.Last()._height;     
   }
 }

@@ -1,0 +1,4 @@
+Exercise:|:exercise~|~30~|~minutes~|~100~|~walking
+Exercise:|:exercise~|~30~|~minutes~|~250~|~cardio
+Exercise:|:exercise~|~25~|~minutes~|~300~|~swimming
+Exercise:|:exercise~|~60~|~minutes~|~500~|~basketball
