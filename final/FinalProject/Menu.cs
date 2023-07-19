@@ -7,6 +7,7 @@ using System.IO;
 public class Menu
 {
 // ### VARIABLE ATTRIBUTES ################################## // 
+  private HealthStatus _health = new HealthStatus("Set up empty");
   private string _textfileName;  
   private string _choice = "run program"; // used for user's choice and to run the while loop   
  
@@ -37,54 +38,44 @@ public class Menu
   public void RunMainChoices()
   {    
     while (_choice != "8") // run this until the user chooses to "Close Program"
-    { 
-      // HealthStatus healthy = new HealthStatus("weight", "bmi");
-      // healthy.SaveToTextfile("healthTracker.txt");
-      // HealthStatusTracker bmiHealthTracker = new HealthStatusTracker();
-      // bmiHealthTracker.LoadItem(healthy);
-      // bmiHealthTracker.ObjectsToTextfile("healthTrackerHistory.txt"); // save for record          
-      // bmiHealthTracker.TextfileToOjects("healthTrackerHistory.txt");     
-      // // bmiHealthTracker.DisplayObjects();  
-   
-
-      HealthStatus health = new HealthStatus("Set up empty"); 
-      health.HealthDashboard();      
+    {             
+      _health.HealthDashboard();      
      
       _choice = PresentMainMenu(); // display menu options and return user's choice
       // RUN OPTION USER CHOSE      
       if (_choice == "1") // if they chose "Record Meal"
       {         
-        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu      
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu      
         RunRecordMealChoices(); // present the user the menu to "Record Meal"
       }        
       if (_choice == "2") // if they chose "Record Exercise"
       { 
-        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu         
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu         
         RunRecordExerciseChoices(); // present the user the menu to "Record Exercise"               
       }      
       if (_choice == "3") // if they chose "Record Health Statistic"
       {
-        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         RunRecordHealthChoices(); // present the user the menu to "Record Health Statistic"    
       }     
       if (_choice == "4") // if they chose "Add Food"
       {   
-        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         RunAddFoodChoices(); // present the user the menu to "Add Food"                
       }       
       if (_choice == "5") // if they chose "Add Recipe"
       {
-        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         RunAddRecipeChoices(); // present the user the menu to "Add Recipe" 
       }      
       if (_choice == "6") // if they chose "Add Exercise"
       {
-        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         // AddExercise Method
       }      
       if (_choice == "7") // if they chose "Display Statistics"
       {
-        health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
+        _health.CreateScrollLine("\n\n\n"); // put decorative seperation line after main menu  
         // DisplayStatistics Method
       }                  
     }
@@ -268,11 +259,11 @@ public class Menu
       case "1": // if they chose "Record Body Mass Index"
         HealthStatus health = new HealthStatus("weight", "lbs");
         health.SaveToTextfile("healthTracker.txt"); // save current version for display
-        // HealthStatusTracker bmiHealthTracker = new HealthStatusTracker();
-        // bmiHealthTracker.LoadItem(health);
-        // bmiHealthTracker.ObjectsToTextfile("healthTrackerHistory.txt"); // save for record          
-        // bmiHealthTracker.TextfileToOjects("healthTrackerHistory.txt");     
-        // bmiHealthTracker.DisplayObjects();                
+        HealthStatusTracker bmiHealthTracker = new HealthStatusTracker();
+        bmiHealthTracker.LoadItem(health);
+        bmiHealthTracker.ObjectsToTextfile("healthTrackerHistory.txt"); // save for record          
+        bmiHealthTracker.TextfileToOjects("healthTrackerHistory.txt");     
+        bmiHealthTracker.DisplayObjects();                
         break;
       case "2": // if they chose "Record Waist-to-Hip Ratio"
         // method

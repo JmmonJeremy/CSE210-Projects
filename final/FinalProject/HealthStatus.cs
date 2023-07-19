@@ -133,60 +133,6 @@ public class HealthStatus : Tracked
     }
     return original;
   }
-
-// START OF GROUPING OF 1 METHOD THAT CONVERTS ATTRIBUTES TO A TEXTFILE STRING
-  // method to load attributes with the latest past recorded value
-  // private string LoadLatestPastValue(string attribute, string currentValue)
-  // { 
-  //   // #1 ASSIGN LAST RECORDED VALUE TO CORRESPONDING ATTRIBUTE **********************************    
-  //   int count = 0; // by-pass date if comparison on 1st cycle 
-  //   float pastValue = 0; // use to see if value is 0
-  //   string pastDate = ""; // use for date attribute
-  //   string check = "number"; // send all variables to 2nd if statement except date     
-  //   tracker.TextfileToOjects("healthTrackerHistory.txt");  
-  //   foreach (HealthStatus past in tracker.GetItems())
-  //   {           
-  //     count++;     
-  //     switch (attribute)
-  //     {
-  //       // GET AND ASSIGN CORRECT ATTRIBUTE
-  //       case "intake":        
-  //         pastValue = past._calories;    
-  //         break;
-  //       case "_date":        
-  //         pastDate = past._date.ToString();
-  //         check = "date";    
-  //         break;
-  //       case "_height":        
-  //         pastValue = past._height;    
-  //         break;
-  //       case "_weight":      
-  //         pastValue = past._weight;
-  //         break; 
-  //       case "_bmi":      
-  //         pastValue = past._bmi;           
-  //         break;
-  //       default: // if they chose "Return to Main Menu"        
-  //       break; // do nothing to end this menu & return user to the main menu
-  //     } 
-  //     // Console.WriteLine($"#{count}#{count}#{count} _date ({_date}) past._date ({past._date}) to the pastValue of ({pastValue})");
-  //     if (check == "date")
-  //     {
-  //       if ((_date < past._date || string.IsNullOrEmpty(currentValue)|| count == 1) && pastDate != "1/1/0001 12:00:00 AM")
-  //       {          
-  //         currentValue = pastDate.ToString();
-  //       }
-  //     }        
-  //     if (check == "number")
-  //     {
-  //       if ((_date < past._date || string.IsNullOrEmpty(currentValue) || count == 1) && pastValue != 0 && !string.IsNullOrEmpty(pastValue.ToString()))
-  //       {       
-  //         currentValue = pastValue.ToString();
-  //       }        
-  //     }    
-  //   } 
-  //   return currentValue;   
-  // }
   
   // method to save newly created HealthStatus object to a text file
   public void SaveToTextfile(string filename) 
@@ -201,31 +147,7 @@ public class HealthStatus : Tracked
 // START OF GROUPING OF 1 METHOD THAT CONVERTS TEXT STRING TO ATTRIBUTE VALUES
   // method to load a HealthStatus object's attributes from a text file string
   public void LoadAttributes(string filename)
-  {    
-    
-    // if (File.Exists(filename))
-    // {        
-    //   string[] items = System.IO.File.ReadAllLines(filename);      
-    //   foreach (string item in items)
-    //   {               
-    //     // seperate the string into the object and its attributes using the colon
-    //     string[] segments = item.Split(":|:"); 
-
-    //     _calories = int.Parse((LoadLatestPastValue("intake", _calories.ToString())));       
-              
-    //     // Console.WriteLine($"BEFORE assigning value from LoadLatestPastValue _height = ({_height}).");
-    //     _height = int.Parse((LoadLatestPastValue("_height", _height.ToString())));
-    //     // Console.WriteLine($"AFTER assigning value from LoadLatestPastValue _height = ({_height}).");
-                 
-    //     _weight = float.Parse(LoadLatestPastValue("_weight", _weight.ToString())); 
-
-    //     _bmi = float.Parse(LoadLatestPastValue("_bmi", _bmi.ToString())); 
-        
-    //     _date = DateTime.Parse(LoadLatestPastValue("_date", _date.ToString()));        
-        
-                      
-      // } 
-    // }   
+  {   
       // #1 SET UP NEEDED VARIABLES **********************************************************
       DateTime mostRecent = DateTime.Parse("01/01/2000"); // to find most recent date
       List<HealthStatus> recentEntries = new List<HealthStatus>(); // to hold most recent entry      
@@ -327,37 +249,8 @@ public class HealthStatus : Tracked
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
       Console.WriteLine($"_calories = {_calories}, list length = {recentEntries.Count}");
-       // #5 ASSIGN LATEST VALUE TO _calories ****************************************************
-      foreach (HealthStatus item9 in heightTracker.GetItems())  //ITEM9
-      {
-        Console.WriteLine($"_BMI!!!!!!!!!!!! = {_bmi}");
-        if (item9._bmi != 0) // create list with no nonvalues
-        {
-          Console.WriteLine($"mostRecent = {mostRecent}");
-          recentEntries.Add(item9);
-        }
-      }
-      foreach (HealthStatus item10 in recentEntries) //ITEM10
-      {           
-        if (mostRecent < item10.GetDate()) // assign latest date with a _bmi value
-        {          
-          mostRecent = item10.GetDate();
-        }      
-      }    
-      foreach (HealthStatus item11 in heightTracker.GetItems())  //ITEM11
-      {
-        Console.WriteLine($"mostRecent = {mostRecent}"); // remove all but latest entry
-        if (item11.GetDate() != mostRecent)
-        {        
-          recentEntries.Remove(item11);
-        }
-      }
-      if (recentEntries.Count > 0)
-      {
-        Console.WriteLine("Loading _BMI value!!!");
-        _bmi = recentEntries.Last()._bmi;       
-        healthy._bmi = recentEntries.Last()._bmi;
-      }
+       // #5 ASSIGN LATEST VALUE TO _bmi ****************************************************     
+      _bmi = (float)Math.Round(_weight / Math.Pow(_height, 2.0) * 703, 2);
       mostRecent = DateTime.Parse("01/01/2000"); // reset date
       recentEntries.Clear(); // reset list
       Console.WriteLine($"_bmi = {_bmi}, list length = {recentEntries.Count}");
